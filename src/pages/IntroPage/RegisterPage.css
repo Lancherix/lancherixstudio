@@ -1,0 +1,157 @@
+.all-registerPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.main-registerPage {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    height: 70vh;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    padding: 2%;
+    align-items: center;
+}
+
+.main-registerPage form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.main-registerPage img {
+    height: 10%;
+    margin-bottom: 4%;
+}
+
+.input-registerPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5% 0 5%;
+    width: 90%;
+    height: 8%;
+    background-color: var(--theme);
+    border-radius: 5px;
+}
+
+.input-registerPage input {
+    width: 90%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+    color: var(--textTheme);
+}
+
+.input-registerPage input::placeholder {
+    color: var(--placeholderTheme);
+}
+
+.inputUsername-registerPage {
+    width: 90%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+}
+
+.fullDate-registerPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 8%;
+}
+
+.inputDate-registerPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4% 0 4%;
+    width: 21%;
+    height: 100%;
+    background-color: var(--theme);
+    border-radius: 5px;
+}
+
+.inputD-registerPage {
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+    color: var(--textTheme);
+    appearance: none;
+}
+
+.inputD-registerPage select {
+    background-color: var(--theme);
+}
+
+.inputD-registerPage option {
+    background-color: var(--theme);
+}
+
+.inputPassword-registerPage {
+    width: 80%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+}
+
+.toggle-registerPage {
+    width: 20%;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+    text-align: right;
+}
+
+.main-registerPage button {
+    width: 100%;
+    height: 8%;
+    border: none;
+    color: aliceblue;
+    background-color: #0074ff;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.main-registerPage button:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+}
+
+.main-registerPage a {
+    width: 100%;
+    color: #0074ff;
+    text-align: center;
+    text-decoration: none;
+}
+
+.main-registerPage a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.error-registerPage {
+    color: red;
+    text-align: center;
+}
