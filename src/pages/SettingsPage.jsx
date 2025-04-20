@@ -35,7 +35,7 @@ const SettingsPage = () => {
 
         const decodedToken = jwtDecode(token);
 
-        const response = await fetch('http://localhost:3000/api/users', {
+        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -99,7 +99,7 @@ const SettingsPage = () => {
         reader.readAsDataURL(input.target.files[0]);
       }
 
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -204,7 +204,7 @@ const SettingsPage = () => {
         }
       }
 
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`
@@ -336,7 +336,7 @@ const SettingsPage = () => {
       document.documentElement.style.setProperty('--hoverTextColor', hoverTextColor);
       document.documentElement.style.setProperty('--topMenu', topMenu);
 
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -392,7 +392,7 @@ const SettingsPage = () => {
       document.documentElement.style.setProperty('--placeholderTheme', placeholderThemeValue);
       document.documentElement.style.setProperty('--borderTheme', borderThemeValue);
 
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

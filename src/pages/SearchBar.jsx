@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
 
         const decodedToken = jwtDecode(token);
 
-        const response = await fetch('http://localhost:3000/api/users', {
+        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
           headers: {
             Authorization: `Bearer ${token}`
           }

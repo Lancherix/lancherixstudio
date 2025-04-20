@@ -19,7 +19,7 @@ const LoginPage = ({ setToken }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/login', {
+      const response = await fetch('https://lancherixstudioapi.onrender.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

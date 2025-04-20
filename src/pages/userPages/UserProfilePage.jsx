@@ -10,7 +10,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/users?username=${username}`);
+        const response = await fetch(`https://lancherixstudioapi.onrender.com/api/users?username=${username}`);
         if (!response.ok) {
           throw new Error('User not found');
         }

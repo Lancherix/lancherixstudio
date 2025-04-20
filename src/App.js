@@ -61,7 +61,7 @@ const App = () => {
 
         const decodedToken = jwtDecode(token);
 
-        const response = await fetch('http://localhost:3000/api/users', {
+        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -130,7 +130,7 @@ const App = () => {
     try {
       const [itunesData, usersData] = await Promise.all([
         fetchItunesData(query),
-        fetch('http://localhost:3000/api/users').then((response) => response.json()),
+        fetch('https://lancherixstudioapi.onrender.com/api/users').then((response) => response.json()),
       ]);
 
       const filteredUsers = usersData.filter((user) =>
