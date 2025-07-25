@@ -280,7 +280,7 @@ const App = () => {
                 <Route path="/itunes" element={<ITunesPage />} />
                 <Route path="/itunes/:kind/:trackName/:trackId" element={<ItemDetails />} />
                 <Route path="/member/:username" element={<UserProfilePage />} />
-                <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<HomePage />} />
               </>
             )}
           </Routes>
