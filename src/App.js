@@ -267,7 +267,7 @@ const App = () => {
           <Routes>
             {!token ? (
               <>
-                <Route path="/" element={<IntroPage />} />
+                <Route path="/" element={<LoginPage setToken={setToken} />} />
                 <Route path="/login" element={<LoginPage setToken={setToken} />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="*" element={<Navigate to="/" />} />
