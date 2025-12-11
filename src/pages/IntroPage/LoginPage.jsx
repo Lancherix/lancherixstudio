@@ -4,7 +4,7 @@ import Logo from './Artwork/loginLogo.png';
 import './LoginPage.css';
 
 const LoginPage = ({ setToken }) => {
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState(''); // username or email
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -13,50 +13,42 @@ const LoginPage = ({ setToken }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!username || !password) {
+    if (!identifier || !password) {
       setError('Please fill out all fields.');
       return;
     }
 
     try {
-      const response = await fetch('https://lancherixstudioapi.onrender.com/api/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          identifier, // backend accepts username OR email
+          password,
+        }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setToken(data.token);
-        localStorage.setItem('token', data.token);
-        setError(null);
-        navigate('/');
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || 'Invalid username or password.');
-        console.error('Login error:', errorData.message);
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Invalid username or password");
+        return;
       }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Login failed');
+
+      // success
+      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      navigate("/");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Login failed");
     }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const renderPasswordToggle = () => {
-    if (password) {
-      return (
-        <span className="toggle-loginPage" onClick={togglePasswordVisibility}>
-          {showPassword ? 'Hide' : 'Show'}
-        </span>
-      );
-    }
-    return null;
   };
 
   const handleRegisterClick = () => {
@@ -67,17 +59,19 @@ const LoginPage = ({ setToken }) => {
     <div className="all-loginPage">
       <div className='main-loginPage'>
         <img src={Logo} alt="Lancherix" />
+
         <form onSubmit={handleSubmit}>
           <div className='input-loginPage'>
             <input
               type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username or Email"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
               className='inputUsername-loginPage'
-              spellcheck="false"
+              spellCheck="false"
             />
           </div>
+
           <div className='input-loginPage'>
             <input
               type={showPassword ? 'text' : 'password'}
@@ -85,11 +79,17 @@ const LoginPage = ({ setToken }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className='inputPassword-loginPage'
-              spellcheck="false"
+              spellCheck="false"
             />
-            {renderPasswordToggle()}
+            {password && (
+              <span className="toggle-loginPage" onClick={togglePasswordVisibility}>
+                {showPassword ? 'Hide' : 'Show'}
+              </span>
+            )}
           </div>
+
           {error && <div className='error-registerPage'>{error}</div>}
+
           <button type="submit">Login</button>
           <a href="#">Forgot password?</a>
           <button type="button" onClick={handleRegisterClick}>Register</button>

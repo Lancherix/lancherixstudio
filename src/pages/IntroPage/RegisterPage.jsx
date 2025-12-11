@@ -49,36 +49,34 @@ const RegisterPage = () => {
       return;
     }
 
-    const registrationDate = new Date().toISOString();
-
     try {
-      const response = await fetch('https://lancherixstudioapi.onrender.com/api/register', {
+      const response = await fetch('http://localhost:4000/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           username,
-          password,
-          fullName,
           email,
-          birthMonth,
-          birthDate,
-          birthYear,
+          fullName,
+          month: birthMonth,
+          date: birthDate,
+          year: birthYear,
           gender,
-          registrationDate,
+          password,
+          confirmPassword
         }),
       });
 
       if (response.ok) {
-        navigate('/login');
+        const data = await response.json();
+
+        localStorage.setItem('token', data.token);
+
+        navigate('/');
       } else {
         const errorData = await response.json();
-        if (errorData.message === 'Username already taken') {
-          setError('Username is already taken');
-        } else {
-          setError(errorData.message || 'Registration failed');
-        }
+        setError(errorData.message || 'Registration failed');
       }
     } catch (error) {
       console.error('Registration error:', error);
