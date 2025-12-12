@@ -80,7 +80,7 @@ const CoolPage = () => {
 
     if (isNewNote) {
       try {
-        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+        const response = await fetch('http://localhost:4000/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const CoolPage = () => {
       }
     } else {
       try {
-        const response = await fetch(`https://lancherixstudioapi.onrender.com/api/users/${note.id}`, {
+        const response = await fetch(`http://localhost:4000/api/users/${note.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ const CoolPage = () => {
 
   const handleDeleteAccept = async (noteId) => {
     try {
-      const response = await fetch(`https://lancherixstudioapi.onrender.com/api/users/${noteId}`, {
+      const response = await fetch(`http://localhost:4000/api/users/${noteId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -233,7 +233,7 @@ const CoolPage = () => {
   };
 
   const fetchNotes = async () => {
-    const response = await fetch('https://lancherixstudioapi.onrender.com/api/notes', {
+    const response = await fetch('http://localhost:4000/api/notes', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

@@ -29,13 +29,9 @@ const SettingsPage = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('No token found');
-        }
+        if (!token) throw new Error('No token found');
 
-        const decodedToken = jwtDecode(token);
-
-        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+        const response = await fetch('http://localhost:4000/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -45,30 +41,31 @@ const SettingsPage = () => {
           throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
         }
 
-        const userData = await response.json();
-        const user = userData.find(user => user.username === decodedToken.username);
+        const user = await response.json();
 
-        if (user) {
-          setFullName(user.fullName);
-          setUsername(user.username);
-          setEmail(user.email);
-          setBirthMonth(user.birthMonth);
-          setBirthDate(user.birthDate);
-          setBirthYear(user.birthYear);
-          setGender(user.gender);
-          setProfilePicturePreview(user.profilePicture);
-          setWallpaper(`url(${user.wallpaper})` || 'url(/Images/backgroundImage.jpeg)');
-          setSideMenuColor(user.sideMenuColor || 'rgba(0, 147, 203, 1)');
-        } else {
-          throw new Error('User not found in fetched data');
-        }
+        setFullName(user.fullName);
+        setUsername(user.username);
+        setEmail(user.email);
+        setBirthMonth(user.month);   // backend uses "month"
+        setBirthDate(user.date);     // backend uses "date"
+        setBirthYear(user.year);     // backend uses "year"
+        setGender(user.gender);
+
+        setProfilePicturePreview(user.profilePicture);
+        setWallpaper(`url(${user.wallpaper})`);
+
+        setSideMenuColor(user.sideMenuColor || 'rgba(0, 147, 203, 1)');
+
+        // Update background visually
+        document.body.style.backgroundImage =
+          `url(${user.wallpaper})` || 'url(/Images/backgroundImage.jpeg)';
 
         setError(null);
+
       } catch (error) {
+        console.error('Error fetching user data:', error);
         localStorage.clear();
         window.location.reload();
-        console.error('Error fetching user data:', error);
-        setError(`Failed to fetch user data. ${error.message}`);
       }
     };
 
@@ -99,7 +96,7 @@ const SettingsPage = () => {
         reader.readAsDataURL(input.target.files[0]);
       }
 
-      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+      const response = await fetch('http://localhost:4000/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -166,59 +163,40 @@ const SettingsPage = () => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found');
-      }
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No token found");
 
       if (!email || !fullName || !birthMonth || !birthDate || !birthYear || !gender) {
-        throw new Error('All fields are required');
+        throw new Error("All fields are required");
       }
 
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('email', email);
-      formData.append('fullName', fullName);
-      formData.append('birthMonth', birthMonth);
-      formData.append('birthDate', birthDate);
-      formData.append('birthYear', birthYear);
-      formData.append('gender', gender);
+      const body = {
+        fullName,
+        email,
+        month: birthMonth,
+        date: birthDate,
+        year: birthYear,
+        gender,
+        profilePicture: profilePicturePreview // only send URL/base64
+      };
 
-      if (profilePicture) {
-        console.log(profilePicture);
-        if (typeof profilePicture === 'string') {
-          if (profilePicture === 'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7') {
-            formData.append('profilePicture', profilePicture);
-          } else {
-            throw new Error('Invalid URL. Please use the provided default URL or upload a valid image.');
-          }
-        } else if (profilePicture instanceof File) {
-          const validImageTypes = ['image/jpeg', 'image/png'];
-          if (!validImageTypes.includes(profilePicture.type)) {
-            throw new Error('Invalid file format. Please upload a JPEG, JPG, or PNG image.');
-          } else {
-            formData.append('profilePicture', profilePicture);
-          }
-        } else {
-          throw new Error('Invalid profile picture. Please upload a valid image or use the provided default URL.');
-        }
-      }
-
-      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
-        method: 'PUT',
+      const response = await fetch("http://localhost:4000/api/users", {
+        method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: formData
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to update user data: ${response.status} ${response.statusText}`);
+        throw new Error(`Failed to update user: ${response.status} ${response.statusText}`);
       }
 
       window.location.reload();
+
     } catch (error) {
-      console.error('Error updating user data:', error);
+      console.error("Error updating user data:", error);
       setError(`Failed to update user data. ${error.message}`);
     }
   };
@@ -336,7 +314,7 @@ const SettingsPage = () => {
       document.documentElement.style.setProperty('--hoverTextColor', hoverTextColor);
       document.documentElement.style.setProperty('--topMenu', topMenu);
 
-      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+      const response = await fetch('http://localhost:4000/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -392,7 +370,7 @@ const SettingsPage = () => {
       document.documentElement.style.setProperty('--placeholderTheme', placeholderThemeValue);
       document.documentElement.style.setProperty('--borderTheme', borderThemeValue);
 
-      const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+      const response = await fetch('http://localhost:4000/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

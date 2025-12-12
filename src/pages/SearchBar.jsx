@@ -19,38 +19,43 @@ const SearchBar = ({ onSearch }) => {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          throw new Error('No token found');
+          console.warn('No token found');
+          setThemeMode('light'); // fallback theme
+          return;
         }
 
         const decodedToken = jwtDecode(token);
 
-        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        // Make sure this matches your backend route:
+        const response = await fetch(
+          `http://localhost:4000/api/users?username=${decodedToken.username}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
         if (!response.ok) {
-          throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
+          console.warn(
+            `Failed to fetch user data: ${response.status} ${response.statusText}`
+          );
+          setThemeMode('light'); // fallback theme
+          return;
         }
 
-        const userData = await response.json();
+        const user = await response.json();
 
-        const user = userData.find(user => user.username === decodedToken.username);
         if (user) {
-          setThemeMode(user.themeMode);
+          setThemeMode(user.themeMode || 'light');
+          setUsername(decodedToken.username);
           const body = document.querySelector('body');
-          body.style.backgroundImage = (user.wallpaper) || 'url(/Images/backgroundImage.jpeg)';
+          body.style.backgroundImage =
+            user.wallpaper || 'url(/Images/backgroundImage.jpeg)';
         } else {
+          console.warn('User not found, clearing local storage');
           localStorage.clear();
-          window.location.reload();
+          setThemeMode('light');
         }
-
-        setUsername(decodedToken.username);
-        setError(null);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        setError(`Failed to fetch user data. ${error.message}`);
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+        setThemeMode('light'); // ensure input still renders
       }
     };
 
@@ -58,15 +63,32 @@ const SearchBar = ({ onSearch }) => {
   }, []);
 
   const debouncedSearch = useCallback(
-    _.debounce((searchQuery) => {
-      onSearch(searchQuery);
+    _.debounce(async (searchQuery) => {
+      console.log("Debounced search query:", searchQuery);
+      if (!searchQuery) {
+        onSearch({ itunes: [], users: [] });
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:4000/api/users/search?query=${searchQuery}`);
+        if (!response.ok) throw new Error(`Search failed: ${response.status}`);
+        const users = await response.json();
+        console.log("Users from backend:", users);
+        onSearch({ itunes: [], users }); // merge with iTunes in App.js if needed
+      } catch (err) {
+        console.error('Search error:', err);
+        onSearch({ itunes: [], users: [] });
+      }
     }, 500),
-    []
+    [onSearch]
   );
 
   const handleInputChange = (event) => {
-    setQuery(event.target.value);
-    debouncedSearch(event.target.value);
+    const value = event.target.value;
+    console.log("SearchBar input:", value);
+    setQuery(value);
+    debouncedSearch(value);
   };
 
   return (
@@ -82,9 +104,9 @@ const SearchBar = ({ onSearch }) => {
           value={query}
           onChange={handleInputChange}
           placeholder="Lancherix Search..."
-          spellcheck="false"
+          spellCheck={false}
         />
-        
+
         {themeMode === 'dark' || themeMode === 'glass' ? (
           <img src={SearchDarkIcon} alt='Search' className='icon-searchBar iconOn-searchBar iconRight-searchBar' />
         ) : (

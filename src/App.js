@@ -61,7 +61,7 @@ const App = () => {
 
         const decodedToken = jwtDecode(token);
 
-        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+        const response = await fetch('http://localhost:4000/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -71,17 +71,9 @@ const App = () => {
           throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
         }
 
-        const userData = await response.json();
-
-        const user = userData.find(user => user.username === decodedToken.username);
-        if (user) {
-          setThemeMode(user.themeMode);
-        } else {
-          localStorage.clear();
-          window.location.reload();
-        }
-
-        setUsername(decodedToken.username);
+        const user = await response.json();
+        setThemeMode(user.themeMode);
+        setUsername(user.username);
         setError(null);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -122,7 +114,7 @@ const App = () => {
     setError(null);
     setQuery(query);
 
-    if (query.length === 0) {
+    if (!query) {
       setResults({ itunes: [], users: [] });
       return;
     }
@@ -130,27 +122,24 @@ const App = () => {
     try {
       const [itunesData, usersData] = await Promise.all([
         fetchItunesData(query),
-        fetch('https://lancherixstudioapi.onrender.com/api/users').then((response) => response.json()),
+        fetch(`http://localhost:4000/api/users/search?query=${query}`).then((res) => res.json())
       ]);
 
-      const filteredUsers = usersData.filter((user) =>
-        user.username.toLowerCase().includes(query.toLowerCase())
-      );
-
-      if (itunesData.length === 0 && filteredUsers.length === 0) {
-        setError('No results found.');
-        setResultsClass('result-homePage noResult-homePage');
-        setResultsScrollClass('resultsScroll-homePage noResult-homePage');
+      if (itunesData.length === 0 && usersData.length === 0) {
+        setError("No results found.");
+        setResultsClass("result-homePage noResult-homePage");
+        setResultsScrollClass("resultsScroll-homePage noResult-homePage");
       } else {
-        setResults({ itunes: itunesData, users: filteredUsers });
-        setResultsClass('result-homePage');
-        setResultsScrollClass('resultsScroll-homePage');
+        setResults({ itunes: itunesData, users: usersData });
+        setResultsClass("result-homePage");
+        setResultsScrollClass("resultsScroll-homePage");
       }
     } catch (error) {
-      setError('An error occurred while fetching data.');
-      console.error('Fetch error:', error);
-      setResultsClass('result-homePage');
-      setResultsScrollClass('resultsScroll-homePage');
+      console.error("Fetch error:", error);
+      setError("An error occurred while fetching data.");
+      setResults({ itunes: [], users: [] });
+      setResultsClass("result-homePage");
+      setResultsScrollClass("resultsScroll-homePage");
     }
   };
 
@@ -189,7 +178,7 @@ const App = () => {
     if (type === 'user') {
       const profilePicture = result.profilePicture || 'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7';
       return (
-        <Link to={`/member/${result.username}`} key={result.id} className='aResultUser-homePage' onClick={() => setResultsScrollClass('resultsScroll-homePage noResult-homePage')}>
+        <Link to={`/member/${result.username}`} key={result._id} className='aResultUser-homePage' onClick={() => setResultsScrollClass('resultsScroll-homePage noResult-homePage')}>
           <div className='aResult-homePage aResultUser-homePage'>
             <div className='resultPicture-homePage'
               style={{

@@ -10,16 +10,11 @@ const UserProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`https://lancherixstudioapi.onrender.com/api/users?username=${username}`);
+        const response = await fetch(`http://localhost:4000/api/users?username=${username}`);
         if (!response.ok) {
           throw new Error('User not found');
         }
-        const userData = await response.json();
-        
-        const foundUser = userData.find(u => u.username === username);
-        if (!foundUser) {
-          throw new Error('User not found');
-        }
+        const foundUser = await response.json();
         setUser(foundUser);
 
         document.title = `${foundUser.fullName}`;
@@ -44,10 +39,10 @@ const UserProfilePage = () => {
       <div className='window-memberPage'>
         <div className='menu-memberPage'>
           <div className='profilePicture-memberPage'
-          style={{
-            backgroundImage: `url(${user.profilePicture ||
-              'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7'})`
-          }}></div>
+            style={{
+              backgroundImage: `url(${user.profilePicture ||
+                'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7'})`
+            }}></div>
           <h1>{user.fullName}</h1>
           <p>{user.username}</p>
           <div className='btns-memberPage'>

@@ -24,39 +24,33 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('No token found');
-        }
+        if (!token) throw new Error('No token found');
 
-        const decodedToken = jwtDecode(token);
-
-        const response = await fetch('https://lancherixstudioapi.onrender.com/api/users', {
+        const response = await fetch('http://localhost:4000/auth/me', {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         if (!response.ok) {
           throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
         }
 
-        const userData = await response.json();
+        const user = await response.json();
 
-        const user = userData.find(user => user.username === decodedToken.username);
-        if (user) {
-          setFullName(user.fullName);
-          setProfilePicture(user.profilePicture);
-          setSideMenuColor(user.sideMenuColor)
-          setWallpaper(user.wallpaper)
-          setThemeMode(user.themeMode);
+        // Set user data
+        setFullName(user.fullName);
+        setProfilePicture(user.profilePicture);
+        setSideMenuColor(user.sideMenuColor);
+        setWallpaper(user.wallpaper);
+        setThemeMode(user.themeMode);
+        setUsername(user.username); // Comes directly from backend now
 
-          const body = document.querySelector('body');
-          body.style.backgroundImage = `url(${user.wallpaper})` || 'url(/Images/backgroundImage.jpeg)';
-        } else {
-          throw new Error('User not found in fetched data');
-        }
+        // Background wallpaper
+        const body = document.querySelector('body');
+        body.style.backgroundImage =
+          `url(${user.wallpaper})` || 'url(/Images/backgroundImage.jpeg)';
 
-        setUsername(decodedToken.username);
         setError(null);
       } catch (error) {
         console.error('Error fetching user data:', error);
