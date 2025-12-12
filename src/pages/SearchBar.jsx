@@ -28,7 +28,7 @@ const SearchBar = ({ onSearch }) => {
 
         // Make sure this matches your backend route:
         const response = await fetch(
-          `http://localhost:4000/api/users?username=${decodedToken.username}`,
+          `https://lancherixstudio-backend.onrender.com/api/users?username=${decodedToken.username}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -71,7 +71,7 @@ const SearchBar = ({ onSearch }) => {
       }
 
       try {
-        const response = await fetch(`http://localhost:4000/api/users/search?query=${searchQuery}`);
+        const response = await fetch(`https://lancherixstudio-backend.onrender.com/api/users/search?query=${searchQuery}`);
         if (!response.ok) throw new Error(`Search failed: ${response.status}`);
         const users = await response.json();
         console.log("Users from backend:", users);

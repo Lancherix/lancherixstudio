@@ -31,7 +31,7 @@ const SettingsPage = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('No token found');
 
-        const response = await fetch('http://localhost:4000/auth/me', {
+        const response = await fetch('https://lancherixstudio-backend.onrender.com/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -96,7 +96,7 @@ const SettingsPage = () => {
         reader.readAsDataURL(input.target.files[0]);
       }
 
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -180,7 +180,7 @@ const SettingsPage = () => {
         profilePicture: profilePicturePreview // only send URL/base64
       };
 
-      const response = await fetch("http://localhost:4000/api/users", {
+      const response = await fetch("https://lancherixstudio-backend.onrender.com/api/users", {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -314,7 +314,7 @@ const SettingsPage = () => {
       document.documentElement.style.setProperty('--hoverTextColor', hoverTextColor);
       document.documentElement.style.setProperty('--topMenu', topMenu);
 
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -370,7 +370,7 @@ const SettingsPage = () => {
       document.documentElement.style.setProperty('--placeholderTheme', placeholderThemeValue);
       document.documentElement.style.setProperty('--borderTheme', borderThemeValue);
 
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

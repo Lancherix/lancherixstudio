@@ -61,7 +61,7 @@ const App = () => {
 
         const decodedToken = jwtDecode(token);
 
-        const response = await fetch('http://localhost:4000/auth/me', {
+        const response = await fetch('https://lancherixstudio-backend.onrender.com/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -122,7 +122,7 @@ const App = () => {
     try {
       const [itunesData, usersData] = await Promise.all([
         fetchItunesData(query),
-        fetch(`http://localhost:4000/api/users/search?query=${query}`).then((res) => res.json())
+        fetch(`https://lancherixstudio-backend.onrender.com/api/users/search?query=${query}`).then((res) => res.json())
       ]);
 
       if (itunesData.length === 0 && usersData.length === 0) {

@@ -26,7 +26,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('No token found');
 
-        const response = await fetch('http://localhost:4000/auth/me', {
+        const response = await fetch('https://lancherixstudio-backend.onrender.com/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
