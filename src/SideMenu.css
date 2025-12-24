@@ -1,0 +1,246 @@
+.side-menu {
+  width: 15vw;
+  transition: width 0.3s ease;
+  background-color: var(--menuColor);
+  color: #09191f;
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-menu.collapsed {
+  width: 5vw;
+}
+
+.profile-section {
+  position: relative;
+  display: flex;
+  background-color: var(--topMenu);
+  color: #D9D9D9;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 90%;
+  height: 15%;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-picture {
+  position: absolute;
+  left: 1vw;
+  background-image: url("https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-picture:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.profile-info {
+  margin-left: 4.3vw;
+}
+
+.profile-info:hover {
+  cursor: pointer;
+  color: #A4A5A6;
+}
+
+.fullName-sideMenu {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.menu-settings {
+  position: fixed;
+  bottom: 9vh;
+  left: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-settings ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-settings ul li {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.menu-settings ul li a {
+  color: var(--textMenu);
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5vh 1.6vw;
+  box-sizing: border-box;
+}
+
+.menu-toggle {
+  position: fixed;
+  bottom: 1.5vh;
+  left: 0;
+  cursor: pointer;
+  padding: 2vh 1.6vw;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1.5vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-menu ul li {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.side-menu ul li a {
+  color: var(--textMenu);
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5vh 1.6vw;
+  box-sizing: border-box;
+}
+
+.side-menu ul li a:hover {
+  transform: scale(1.05);
+  transition: 0.1s ease;
+  cursor: pointer;
+}
+
+.side-menu ul li img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.side-menu ul li img:hover {
+  transform: scale(1.2);
+}
+
+.menu-icon {
+  width: 1.7vw;
+  margin-right: 1.5vw;
+  fill: #09191f;
+  user-select: none;
+}
+
+.menu-text {
+  opacity: 0;
+  transform: translateX(+100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.side-menu:not(.collapsed) .menu-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.arrow-icon {
+  display: block;
+  margin: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.arrow-icon:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.side-menu ul li .menu-link {
+  color: var(--textMenu);
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5vh 1.6vw;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.side-menu ul li .menu-link:hover {
+  transform: scale(1.05);
+  transition: 0.1s ease;
+  cursor: pointer;
+}
+
+.menu-link {
+  font: inherit;
+}
+
+.menu-icon {
+  transition: transform 0.3s ease, font-size 0.3s ease;
+  height: 1.7vw;
+  font-size: 1.7vw;
+}
+
+.menu-icon:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.side-menu ul.projects-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 45vh;
+}
+
+.project-emoji {
+  width: 1.7vw;
+  height: 1.7vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7vw;
+  line-height: 1;
+}

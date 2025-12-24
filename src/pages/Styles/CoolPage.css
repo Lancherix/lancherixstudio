@@ -1,0 +1,164 @@
+.optionsLibrary-coolPage {
+    margin-top: 0;
+}
+
+.options-coolPage p {
+    color: var(--placeholderTheme);
+    font-weight: 700;
+}
+
+.options-coolPage button {
+    width: 100%;
+    padding: 3%;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--textTheme);
+}
+
+.options-coolPage button:hover {
+    cursor: pointer;
+    background-color: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+.resultIcon-coolPage {
+    width: 1vw;
+    margin: 0 0.8vw 0 0;
+    stroke: aliceblue;
+    user-select: none;
+}
+
+.noteBtn-coolPage {
+    width: 100%;
+    height: 80%;
+    overflow: auto;
+    padding-right: 6%;
+}
+
+.noteBtn-coolPage button {
+    width: 100%;
+    padding: 5%;
+    background-color: var(--theme);
+    margin-bottom: 5%;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--textTheme);
+}
+
+.noteDate-coolPage {
+    color: var(--placeholderTheme);
+    font-size: 0.8rem;
+    margin-top: 1%;
+}
+
+.noteButton:hover .noteDate-coolPage {
+    color: var(--hoverTextColor);
+}
+
+.noteBtn-coolPage button:hover {
+    cursor: pointer;
+    background-color: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+.noteButton:hover {
+    color: var(--hoverTextColor);
+}
+
+.content-coolPage {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--theme);
+    border-radius: 0 15px 15px 0;
+    box-shadow: -6px 1px 16px -5px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+.editor-coolPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: -6px 1px 16px -5px rgba(0, 0, 0, 0.3);
+    width: 94%;
+    height: 15%;
+    padding: 0 3%;
+}
+
+.page-coolPage {
+    padding: 2%;
+    margin: 1%;
+    width: 94%;
+    height: 86%;
+    outline: 0;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 0 0 10px 0;
+}
+
+.page-coolPage img {
+    max-width: 100%;
+    height: auto;
+}
+
+.optionsEditor-coolPage button {
+    border: 0;
+    background-color: transparent;
+    color: black;
+}
+
+.optionsEditor-coolPage button:hover {
+    cursor: pointer;
+    color: var(--buttonColor);
+}
+
+.characterEditor-coolPage {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.characterEditor-coolPage button, .characterEditor-coolPage select, .characterEditor-coolPage input {
+    height: 100%;
+    background-color: transparent;
+    color: black;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    appearance: none;
+    cursor: pointer;
+    padding: 0.5%;
+    font-size: 1.1rem;
+}
+
+.characterEditor-coolPage select, .characterEditor-coolPage input {
+    border: 1px solid black;
+    font-size: 0.8rem;
+    padding: 1%;
+}
+
+.bold-coolPage {
+    font-weight: 700;
+    min-width: 4%;
+}
+
+.italic-coolPage {
+    font-style: italic;
+    min-width: 4%;
+}
+
+.underline-coolPage {
+    text-decoration: underline;
+    min-width: 4%;
+}
+
+.characterEditor-coolPage button:hover, .characterEditor-coolPage select:hover, .characterEditor-coolPage input:hover {
+    border: 1px solid var(--buttonColor);
+}

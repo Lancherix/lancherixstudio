@@ -1,0 +1,489 @@
+:root {
+    --theme: rgba(255, 255, 255, 0.7);
+    --textTheme: black;
+    --placeholderTheme: #888;
+    --borderTheme: 1px solid transparent;
+    --menuColor: rgba(0, 147, 203, 0.65);
+    --buttonColor: #0074ff;
+    --hoverButtonColor: #0056b3;
+    --hoverTextColor: aliceblue;
+    --topMenu: #09191f;
+    --textMenu: #09191f;
+    --altRow: 'rgba(0, 0, 0, 0.05)';
+}
+
+.all-settingsPage {
+    display: flex;
+    justify-content: center;
+    height: 91vh;
+    overflow: hidden;
+}
+
+.window-settingsPage {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    background-color: var(--theme);
+    backdrop-filter: blur(10px);
+    box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
+    border: var(--borderTheme);
+}
+
+.menu-settingsPage {
+    display: flex;
+    flex-direction: column;
+    min-width: 17%;
+    max-width: 17%;
+    padding: 2%;
+}
+
+.border-settingsPage {
+    border: 1px solid var(--buttonColor) !important;
+}
+
+.profile-settingsPage {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 8%;
+}
+
+.profilePictureLarge-settingsPage {
+    width: 17vh !important;
+    height: 17vh !important;
+    margin: 0 !important;
+}
+
+.profilePictureLarge-settingsPage::before {
+    content: 'Edit profile picture' !important;
+}
+
+.profilePicture-settingsPage {
+    position: relative;
+    width: 7vh;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-image: url("https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 2px 2px 17px 1px rgba(0, 0, 0, 0.23);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    margin-right: 7%;
+}
+
+.profilePicture-settingsPage::before {
+    content: 'Edit';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    z-index: 10;
+}
+
+.profilePicture-settingsPage:hover::before {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: aliceblue;
+    opacity: 1;
+}
+
+.profileNameLarge-settingsPage {
+    margin: 0;
+    font-weight: 700;
+    color: var(--textTheme);
+}
+
+.profile-settingsPage p {
+    margin: 0;
+    color: var(--textTheme);
+}
+
+.options-settingsPage button {
+    width: 100%;
+    padding: 3%;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--textTheme);
+}
+
+.options-settingsPage button:hover {
+    cursor: pointer;
+    background-color: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+.content-settingsPage {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--theme);
+    border-radius: 0 15px 15px 0;
+    box-shadow: -6px 1px 16px -5px rgba(0, 0, 0, 0.3);
+    padding: 2%;
+    overflow-y: auto;
+}
+
+.allProfile-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.allProfile-settingsPage p {
+    margin: 0;
+}
+
+.allProfile-settingsPage form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+}
+
+.allProfile-settingsPage a {
+    color: red;
+    text-decoration: none;
+    margin: 0;
+}
+
+.allProfile-settingsPage a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.allProfile-settingsPage button {
+    width: 100%;
+    height: 8%;
+    border: none;
+    color: var(--hoverTextColor);
+    background-color: var(--buttonColor);
+    border-radius: 5px;
+    padding: 0;
+}
+
+.allProfile-settingsPage button:hover {
+    cursor: pointer;
+    background-color: var(--hoverButtonColor);
+}
+
+.allAspect-settingsPage {
+    width: 100%;
+}
+
+.allAspect-settingsPage h2 {
+    margin: 0;
+    color: #888;
+    color: var(--textTheme);
+}
+
+.top-aspect {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 4% 3% 2.5%;
+}
+
+.left-aspect {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20vh;
+}
+
+.themeOptions-settingsPage {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #888;
+    background-color: #888;
+    width: 12vw;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.themeOptions-settingsPage:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.themeOptionGlass-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6vw;
+    height: 6vh;
+    border-radius: 8px 0 0 8px;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.themeOptionLight-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6vw;
+    height: 6vh;
+    border-radius: 0 0 0 0;
+    color: black;
+    cursor: pointer;
+}
+
+.themeOptionDark-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6vw;
+    height: 6vh;
+    border-radius: 0 8px 8px 0;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.colorOptions-settingsPage {
+    display: flex;
+    flex-direction: row;
+}
+
+.colorOption-settingsPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4vh;
+    height: 4vh;
+    margin-right: 1vw;
+    border-radius: 50%;
+}
+
+.colorOption-settingsPage:hover {
+    outline: 2px solid black;
+    cursor: pointer;
+}
+
+.wallpaperPreview {
+    width: 30%;
+    height: 20vh;
+    background-image: url("/public/Images/backgroundImage.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 5px;
+    box-shadow: 4px 5px 10px -1px rgba(0, 0, 0, 0.4);
+    margin-right: 3vw;
+    transition: background-image 0.3s ease;
+}
+
+.selectWallpaper {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    width: 100%;
+    max-height: 50vh;
+    align-items: center;
+}
+
+.aWall {
+    width: 95%;
+    min-height: 12vh;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.aWall:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.upload-aWall {
+    background-color: var(--menuColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.upload-aWall p {
+    color: var(--hoverTextColor);
+    font-size: 1.5rem;
+}
+
+.aWall1 {
+    background-image: url("/public/Images/backgroundImage.jpeg");
+}
+
+.aWall2 {
+    background-image: url("/public/Images/grandCanyon.jpg");
+}
+
+.aWall3 {
+    background-image: url("/public/Images/ireland.jpg");
+}
+
+.aWall4 {
+    background-image: url("/public/Images/earth.jpg");
+}
+
+.aWall5 {
+    background-image: url("/public/Images/dark101.jpg");
+}
+
+.aWall6 {
+    background-image: url("/public/Images/grandCanyon2.jpg");
+}
+
+.aWall7 {
+    background-image: url("/public/Images/NASA.jpg");
+}
+
+.aWall8 {
+    background-image: url("/public/Images/newYork.jpg");
+}
+
+.termsContent {
+    height: 74.5vh;
+    padding-right: 2%;
+    overflow: auto;
+}
+
+.terms-container h1 {
+    color: var(--buttonColor);
+    text-align: center;
+    margin: 0;
+    font-size: 3rem;
+}
+
+.terms-container h3 {
+    color: var(--placeholderTheme);
+}
+
+.terms-container p {
+    color: var(--textTheme);
+}
+
+.terms-container a {
+    color: var(--buttonColor);
+    text-decoration: none;
+}
+
+.terms-container a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.back-logoutConfirmation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.all-logoutConfirmation {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 45%;
+    bottom: 55%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 23vh;
+    background-color: aliceblue;
+    z-index: 9999;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
+}
+
+.question-logoutConfirmation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+}
+
+.question-logoutConfirmation h3 {
+    color: #000 !important;
+}
+
+.all-logoutConfirmation h3 {
+    margin: 0;
+    text-align: center;
+    color: var(--textTheme);
+}
+
+.options-logoutConfirmation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 60%;
+}
+
+.accept-logoutConfirmation {
+    width: 35%;
+    height: 35%;
+    border: none;
+    color: red;
+    border: 2px solid red;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.accept-logoutConfirmation:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.cancel-logoutConfirmation {
+    width: 35%;
+    height: 35%;
+    border: none;
+    color: var(--buttonColor);
+    border: 2px solid var(--buttonColor);
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.cancel-logoutConfirmation:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.resultIcon-coolPage {
+    width: 1vw;
+    margin: 0 0.8vw 0 0;
+    stroke: aliceblue;
+    user-select: none;
+}

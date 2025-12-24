@@ -1,0 +1,102 @@
+.all-memberPage {
+    display: flex;
+    justify-content: center;
+    height: 91vh;
+    overflow: hidden;
+}
+
+.window-memberPage {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    background-color: var(--theme);
+    backdrop-filter: blur(10px);
+    border: var(--borderTheme);
+    box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
+}
+
+.menu-memberPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 25%;
+    max-width: 25%;
+    padding: 2%;
+    margin-top: -2%;
+}
+
+.menu-memberPage h1 {
+    margin-bottom: 0;
+    text-align: center;
+    color: var(--textTheme);
+}
+
+.menu-memberPage p {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 4%;
+    color: var(--textTheme);
+}
+
+.content-memberPage {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--theme);
+    border-radius: 0 15px 15px 0;
+    box-shadow: -6px 1px 16px -5px rgba(0, 0, 0, 0.3);
+    padding: 2%;
+    overflow-y: auto;
+}
+
+.profilePicture-memberPage {
+    position: relative;
+    width: 23vh;
+    height: 23vh;
+    border-radius: 50%;
+    background-image: url("https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 2px 2px 17px 1px rgba(0, 0, 0, 0.23);
+}
+
+.btns-memberPage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 17%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btn1-memberPage {
+    height: 50%;
+    width: 55%;
+    border: none;
+    color: var(--hoverTextColor);
+    background-color: var(--buttonColor);
+    border-radius: 10px;
+    padding: 0;
+}
+
+.btn1-memberPage:hover {
+    cursor: pointer;
+    background-color: var(--hoverButtonColor);
+}
+
+.btn2-memberPage {
+    height: 50%;
+    width: 55%;
+    border: none;
+    color: var(--placeholderTheme);
+    background-color: transparent;
+    font-size: 0.9rem;
+}
+
+.btn2-memberPage:hover {
+    cursor: pointer;
+    color: #525252;
+}
