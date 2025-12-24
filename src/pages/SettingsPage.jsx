@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import LogoutPage from './LogoutPage';
 import './Styles/SettingsPage.css';
 
 import UserIcon from '../icons/profile.svg';
@@ -279,10 +280,6 @@ const SettingsPage = () => {
       console.error("Error updating user data:", error);
       setError(error.message);
     }
-  };
-
-  const handleLogout = () => {
-    setShowLogoutConfirmation(true);
   };
 
   const handleLogoutAccept = () => {
@@ -695,43 +692,63 @@ const SettingsPage = () => {
   const renderTermsOfUse = () => {
     return (
       <div className="terms-container">
-        <div className='termsContent'>
+        <div className="termsContent">
           <h1>Terms of Use</h1>
-          <p>Welcome to Lancherix! These terms outline how you can use our services. By using our services, you agree to these terms. Please read them carefully.</p>
+          <p><strong>Effective Date:</strong> December 24th 2025</p>
+          <p>
+            These Terms of Use (“Terms”) govern your access to and use of Lancherix Studio (the “Service”) provided by Lancherix.
+            By using the Service, you agree to be bound by these Terms.
+          </p>
 
-          <h3>1. Personal Information</h3>
-          <p>We may collect and use your personal information, including your name and username. We only share this information with other users as necessary for our services.</p>
+          <h3>1. Eligibility</h3>
+          <p>
+            You must be at least 10 years old to use the Service. By using the Service, you represent that you meet this requirement.
+          </p>
 
-          <h3>2. Service Use</h3>
-          <p>You agree to use our services responsibly. This includes following our guidelines and not engaging in any unlawful activities.</p>
+          <h3>2. User Accounts</h3>
+          <p>
+            You may be required to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activity under your account.
+          </p>
 
-          <h3>3. Content</h3>
-          <p>Any content you submit to our services remains your responsibility. You grant us permission to use this content to provide our services.</p>
+          <h3>3. Personal Information</h3>
+          <p>
+            We may collect personal information, including your name and username. This information may be shared with other users only as necessary to provide the Service.
+          </p>
 
-          <h3>4. Modifications</h3>
-          <p>We may update these terms as our services evolve. We'll notify you of any significant changes.</p>
+          <h3>4. Use of the Service</h3>
+          <p>
+            You agree to use the Service responsibly and in compliance with applicable laws. You may not engage in unauthorized or harmful activities, including but not limited to hacking, distributing malware, or infringing on intellectual property.
+          </p>
 
-          <h3>5. Termination</h3>
-          <p>We reserve the right to terminate or suspend your access to our services if you violate these terms.</p>
+          <h3>5. Content and License</h3>
+          <p>
+            You retain ownership of any content you submit to the Service (“User Content”). By submitting User Content, you grant Lancherix a non-exclusive, worldwide, royalty-free license to use, reproduce, and display such content to operate and provide the Service.
+          </p>
 
-          <h3>6. Contact Us</h3>
-          <p>If you have any questions about these terms, please contact us at <a href="mailto:lancherix.service@gmail.com">lancherix.service@gmail.com</a>.</p>
-        </div>
-      </div>
-    );
-  };
+          <h3>6. Modifications</h3>
+          <p>
+            Lancherix may modify these Terms at any time. Significant changes will be communicated, and continued use of the Service constitutes acceptance of the updated Terms.
+          </p>
 
-  const renderLogout = () => {
-    return (
-      <div className='back-logoutConfirmation'>
-        <div className='all-logoutConfirmation'>
-          <div className='question-logoutConfirmation'>
-            <h3>Are you sure you want to logout?</h3>
-          </div>
-          <div className='options-logoutConfirmation'>
-            <button className='accept-logoutConfirmation' onClick={handleLogoutAccept}>Accept</button>
-            <button className='cancel-logoutConfirmation' onClick={handleLogoutCancel}>Cancel</button>
-          </div>
+          <h3>7. Termination</h3>
+          <p>
+            Lancherix may suspend or terminate your access to the Service at its discretion, including for violations of these Terms.
+          </p>
+
+          <h3>8. Disclaimers & Limitation of Liability</h3>
+          <p>
+            The Service is provided “as is” without warranties of any kind. Lancherix is not liable for indirect, incidental, or consequential damages arising from use of the Service.
+          </p>
+
+          <h3>9. Governing Law</h3>
+          <p>
+            These Terms are governed by the laws of the Republic of Colombia, without regard to its conflict of law provisions.
+          </p>
+
+          <h3>10. Contact</h3>
+          <p>
+            Questions about these Terms can be directed to: <a href="mailto:lancherix.service@gmail.com">lancherix.service@gmail.com</a>
+          </p>
         </div>
       </div>
     );
@@ -779,15 +796,18 @@ const SettingsPage = () => {
             </div>
           </div>
           <div className='options-settingsPage'>
-            <button onClick={() => setSelectedOption('My profile')}><img src={UserIcon} className='resultIcon-coolPage' alt="Edit my profile" />Edit my profile</button>
+            <button onClick={() => setSelectedOption('My profile')}><img src={UserIcon} className='resultIcon-coolPage' alt="Edit my profile" />Edit my Profile</button>
             <button onClick={() => setSelectedOption('Aspect')}><img src={AspectIcon} className='resultIcon-coolPage' alt="Aspect" />Aspect</button>
-            <button onClick={() => setSelectedOption('Terms of use')}><img src={TermsOfUseIcon} className='resultIcon-coolPage' alt="Terms of use" />Terms of use</button>
-            <button onClick={handleLogout}><img src={LogoutIcon} className='resultIcon-coolPage' alt="Logout" />Logout</button>
+            <button onClick={() => setSelectedOption('Terms of use')}><img src={TermsOfUseIcon} className='resultIcon-coolPage' alt="Terms of use" />Terms of Use</button>
+            <button onClick={() => setShowLogoutConfirmation(true)}><img src={LogoutIcon} className='resultIcon-coolPage' alt="Logout" />Logout</button>
           </div>
         </div>
         <div className='content-settingsPage'>{renderContent()}</div>
       </div>
-      {showLogoutConfirmation && renderLogout()}
+      <LogoutPage
+        isOpen={showLogoutConfirmation}
+        onClose={() => setShowLogoutConfirmation(false)}
+      />
     </div>
   );
 };
