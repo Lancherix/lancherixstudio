@@ -103,7 +103,7 @@ export default function BoardTab({ projectId }) {
     };
 
     if (loading) {
-        return <div className="board-loading">Loading board…</div>;
+        return <div className="board-loading"></div>;
     }
 
     return (
@@ -137,7 +137,9 @@ export default function BoardTab({ projectId }) {
 
                 {images.length === 0 && (
                     <div className="board-empty">
-                        Drag images here
+                        <span className="board-empty-icon">🖼️</span>
+                        <h3>Welcome to your Board</h3>
+                        <p>Drag images here to upload.</p>
                     </div>
                 )}
             </div>

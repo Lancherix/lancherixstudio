@@ -639,7 +639,7 @@ const ProjectPage = () => {
             <div className="sources-section">
               <h4>{completedTasks.length} Completed Tasks</h4>
               <div className="tasks-projectPage completed-tasks">
-                {completedTasks.map((task, i) => (
+                {completedTasks.slice().reverse().map((task, i) => (
                   <div
                     key={task._id}
                     className={`task-row ${i % 2 === 1 ? "row-alt" : ""}`}
