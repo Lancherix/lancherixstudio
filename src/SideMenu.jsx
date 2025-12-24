@@ -52,7 +52,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
 
         // Set user data
         setFullName(user.fullName);
-        setProfilePicture(user.profilePicture?.url || "https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7");
+        setProfilePicture(user.profilePicture?.url || "https://studio.lancherix.com/Images/defaultProfilePicture.png");
         setSideMenuColor(user.sideMenuColor);
         setWallpaper(user.wallpaper?.url || "/Images/backgroundImage.jpeg");
         setThemeMode(user.themeMode);
@@ -242,7 +242,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
     <div className={`side-menu ${collapsed ? 'collapsed' : ''}`}>
       <div className="profile-section">
         <Link to={`/member/${username}`} className="profile-link">
-          <div className="profile-picture" style={{ backgroundImage: `url(${profilePicture || 'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7'})` }}>
+          <div className="profile-picture" style={{ backgroundImage: `url(${profilePicture || 'https://studio.lancherix.com/Images/defaultProfilePicture.png'})` }}>
           </div>
           {!collapsed && (
             <div className="profile-info">

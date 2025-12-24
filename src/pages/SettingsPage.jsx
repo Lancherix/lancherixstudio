@@ -53,7 +53,7 @@ const SettingsPage = () => {
         setBirthYear(user.year);     // backend uses "year"
         setGender(user.gender);
 
-        setProfilePicturePreview(user.profilePicture?.url || "https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7");
+        setProfilePicturePreview(user.profilePicture?.url || "https://studio.lancherix.com/Images/defaultProfilePicture.png");
         setWallpaper(`url(${user.wallpaper?.url})`);
 
         setSideMenuColor(user.sideMenuColor || 'rgba(0, 147, 203, 1)');
@@ -195,7 +195,7 @@ const SettingsPage = () => {
       if (!response.ok) throw new Error('Failed to remove profile picture');
 
       setProfilePictureFile(null);
-      setProfilePicturePreview('https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7');
+      setProfilePicturePreview('https://studio.lancherix.com/Images/defaultProfilePicture.png');
       setProfilePictureChanged(false);
 
       window.location.reload();
@@ -496,7 +496,7 @@ const SettingsPage = () => {
             className='profilePicture-settingsPage profilePictureLarge-settingsPage'
             style={{
               backgroundImage: `url(${profilePicturePreview ||
-                'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7'})`,
+                'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
               cursor: 'pointer'
             }}
             onClick={() => document.getElementById('fileInput').click()}
@@ -776,7 +776,7 @@ const SettingsPage = () => {
               className='profilePicture-settingsPage'
               style={{
                 backgroundImage: `url(${profilePicturePreview ||
-                  'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7'})`,
+                  'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
                 cursor: 'pointer'
               }}
               onClick={() => document.getElementById('fileInput').click()}

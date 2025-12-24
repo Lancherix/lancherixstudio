@@ -71,7 +71,7 @@ const ProjectPage = () => {
   }, [slug]);
 
   const FALLBACK =
-    "https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7";
+    "https://studio.lancherix.com/Images/defaultProfilePicture.png";
 
   const getProfilePicture = (user) => {
     return user?.profilePicture?.url || FALLBACK;

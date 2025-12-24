@@ -300,7 +300,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
                     {inviteResults.map(user => {
                       const profilePicture =
                         user.profilePicture?.url ||
-                        'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7';
+                        'https://studio.lancherix.com/Images/defaultProfilePicture.png';
 
                       return (
                         <div

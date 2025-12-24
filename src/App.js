@@ -157,7 +157,7 @@ const App = () => {
     }*/
 
 
-    const profilePicture = result.profilePicture?.url || 'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7';
+    const profilePicture = result.profilePicture?.url || 'https://studio.lancherix.com/Images/defaultProfilePicture.png';
     return (
       <Link to={`/member/${result.username}`} key={result._id} className='aResultUser-homePage' onClick={() => setResultsScrollClass('resultsScroll-homePage noResult-homePage')}>
         <div className='aResult-homePage aResultUser-homePage'>

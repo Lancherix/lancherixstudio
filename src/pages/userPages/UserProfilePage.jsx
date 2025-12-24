@@ -41,7 +41,7 @@ const UserProfilePage = () => {
           <div className='profilePicture-memberPage'
             style={{
               backgroundImage: `url(${user.profilePicture?.url ||
-                'https://tse1.mm.bing.net/th?q=profile%20pic%20blank&w=250&h=250&c=7'})`
+                'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`
             }}></div>
           <h1>{user.fullName}</h1>
           <p>{user.username}</p>
