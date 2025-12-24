@@ -243,19 +243,22 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
 
           <div className="form-row form-row-a form-row-name">
             <label>Icon</label>
-            <select value={icon} onChange={(e) => setIcon(e.target.value)}>
-              <option>🚀</option>
-              <option>📊</option>
-              <option>🎵</option>
-              <option>🎨</option>
-              <option>🔬</option>
-              <option>💻</option>
-              <option>🛠️</option>
-              <option>⚙️</option>
-              <option>🌱</option>
-              <option>📝</option>
-              <option>❤️</option>
-            </select>
+            <input
+              type="text"
+              value={icon}
+              onChange={(e) => {
+                const value = e.target.value;
+                const emojiRegex = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*/gu;
+                const match = value.match(emojiRegex);
+                if (match) {
+                  setIcon(match[0]);
+                } else {
+                  setIcon('');
+                }
+              }}
+              placeholder="Choose an emoji (Windows: Win + (.) or Mac: Ctrl + Cmd + Space)"
+              maxLength={2}
+            />
           </div>
 
           <div className="form-row form-row-a form-row-privacy">

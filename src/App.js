@@ -235,7 +235,7 @@ const App = () => {
               <>
                 <Route path="/" element={<LoginPage setToken={setToken} />} />
                 <Route path="/login" element={<LoginPage setToken={setToken} />} />
-                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/register" element={<RegisterPage setToken={setToken} />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </>
             ) : (

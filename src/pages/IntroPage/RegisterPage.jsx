@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from './Artwork/registerLogo.png';
 import './RegisterPage.css';
 
-const RegisterPage = () => {
+const RegisterPage = ({ setToken }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
@@ -69,11 +69,20 @@ const RegisterPage = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const loginResponse = await fetch('https://lancherixstudio-backend.onrender.com/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier: username, password })
+        });
 
-        localStorage.setItem('token', data.token);
-
-        navigate('/');
+        if (loginResponse.ok) {
+          const loginData = await loginResponse.json();
+          localStorage.setItem('token', loginData.token);
+          setToken(loginData.token);
+          navigate('/');
+        } else {
+          setError('Registration succeeded but login failed');
+        }
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Registration failed');
