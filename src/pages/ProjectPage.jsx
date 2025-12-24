@@ -381,7 +381,7 @@ const ProjectPage = () => {
             );
           })()}
 
-          {/* === Project Metadata === */}
+          {/* === Project Metadata === 
           <div className="metaSection-projectPage">
             {project.visibility && (
               <div className="visibility-projectPage">
@@ -398,7 +398,7 @@ const ProjectPage = () => {
                 Created: {new Date(project.createdAt).toLocaleDateString()}
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* === Members (expanded) === */}
           {/* === Members Section === */}
