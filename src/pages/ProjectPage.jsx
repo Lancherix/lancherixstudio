@@ -15,7 +15,7 @@ const ProjectPage = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newTaskName, setNewTaskName] = useState("");
-  const [noteContent, setNoteContent] = useState("");
+  const noteContentRef = useRef("");
   const editorRef = useRef(null);
   const [links, setLinks] = useState([]);
   const [newLinkUrl, setNewLinkUrl] = useState("");
@@ -115,36 +115,24 @@ const ProjectPage = () => {
     const fetchNote = async () => {
       if (!project?._id) return;
 
-      try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
-          `https://lancherixstudio-backend.onrender.com/api/notes/project/${project._id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        if (!res.ok) throw new Error("Failed to fetch note");
+      const token = localStorage.getItem("token");
+      const res = await fetch(
+        `https://lancherixstudio-backend.onrender.com/api/notes/project/${project._id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-        const data = await res.json();
-        setNoteContent(data.content || "");
-      } catch (err) {
-        console.error(err);
+      const data = await res.json();
+      const content = data.content || "";
+
+      noteContentRef.current = content;
+
+      if (editorRef.current) {
+        editorRef.current.innerHTML = content;
       }
     };
 
     fetchNote();
   }, [project?._id]);
-
-  useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.innerHTML = noteContent;
-
-      const range = document.createRange();
-      range.selectNodeContents(editorRef.current);
-      range.collapse(false);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-  }, [noteContent]);
 
   const handleNewTaskKeyDown = async (e) => {
     if (e.key !== "Enter") return;
@@ -233,12 +221,20 @@ const ProjectPage = () => {
   };
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      saveNote(noteContent);
+    const interval = setInterval(() => {
+      if (!project?._id) return;
+
+      saveNote(noteContentRef.current);
     }, 1000);
 
-    return () => clearTimeout(handler);
-  }, [noteContent]);
+    return () => clearInterval(interval);
+  }, [project?._id]);
+
+  useEffect(() => {
+    if (activeFolder === "Notes" && editorRef.current) {
+      editorRef.current.innerHTML = noteContentRef.current || "";
+    }
+  }, [activeFolder]);
 
   const handleNewLinkKeyDown = async (e) => {
     if (e.key !== "Enter") return;
@@ -569,7 +565,7 @@ const ProjectPage = () => {
 
               {activeFolder === "Notes" && (
                 <div className="notes-projectPage">
-                  {/* ===== Toolbar / Panel de edición ===== */}
+                  {/* ===== Toolbar ===== */}
                   <div className="notes-toolbar">
                     <button onClick={() => applyFormat("undo")}>↺</button>
                     <button onClick={() => applyFormat("redo")}>↻</button>
@@ -584,19 +580,20 @@ const ProjectPage = () => {
                     <button onClick={() => applyFormat("insertOrderedList")}>1. List</button>
                   </div>
 
-                  {/* ===== Contenedor editable ===== */}
+                  {/* ===== Editor ===== */}
                   <div
                     className="notes-editor"
                     ref={editorRef}
                     contentEditable
-                    dangerouslySetInnerHTML={{ __html: noteContent }}
-                    onInput={(e) => setNoteContent(e.currentTarget.innerHTML)}
+                    suppressContentEditableWarning
+                    onInput={() => {
+                      noteContentRef.current = editorRef.current.innerHTML;
+                    }}
                     onPaste={(e) => {
                       e.preventDefault();
                       const text = e.clipboardData.getData("text/plain");
                       document.execCommand("insertText", false, text);
                     }}
-                    suppressContentEditableWarning={true}
                   />
                 </div>
               )}
