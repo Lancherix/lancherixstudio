@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Styles/ProjectPage.css";
 import EditProjectPage from './EditProjectPage';
+import EditTaskPage from './EditTaskPage';
 import BoardTab from './BoardTab';
 
 const ProjectPage = () => {
@@ -23,6 +24,8 @@ const ProjectPage = () => {
   const newTaskIndex = activeTasks.length;
   const [showOptions, setShowOptions] = useState(false);
   const [editProjectOpen, setEditProjectOpen] = useState(false);
+  const [editTaskOpen, setEditTaskOpen] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState(null);
 
   const applyFormat = (command, value = null) => {
     document.execCommand(command, false, value);
@@ -516,6 +519,17 @@ const ProjectPage = () => {
 
                         <div className="col-delete">
                           <button
+                            className="edit-task-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setTaskToEdit(task);
+                              setEditTaskOpen(true);
+                            }}
+                            aria-label="Edit Task"
+                          >
+                            ✎
+                          </button>
+                          <button
                             className="delete-task-btn"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -701,6 +715,19 @@ const ProjectPage = () => {
         project={project}
         onUpdated={(updatedProject) => {
           setProject(updatedProject);
+        }}
+      />
+      <EditTaskPage
+        isOpen={editTaskOpen}
+        onClose={() => {
+          setEditTaskOpen(false);
+          setTaskToEdit(null);
+        }}
+        task={taskToEdit}
+        onUpdated={(updatedTask) => {
+          setTasks((prev) =>
+            prev.map((t) => (t._id === updatedTask._id ? updatedTask : t))
+          );
         }}
       />
       {error && <p className="error-message">{error}</p>}

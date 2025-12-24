@@ -522,6 +522,18 @@
   opacity: 1;
 }
 
+.edit-task-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--placeholderTheme);
+  transition: color 0.2s;
+  padding: 0;
+  transition: transform 0.3s ease, font-size 0.3s ease;
+  margin-right: 0.7vw;
+}
+
 .delete-task-btn {
   background: transparent;
   border: none;
@@ -531,6 +543,10 @@
   transition: color 0.2s;
   padding: 0;
   transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+.edit-task-btn:hover {
+  transform: scale(1.2);
 }
 
 .delete-task-btn:hover {
