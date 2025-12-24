@@ -334,7 +334,7 @@
   border: none;
   font-size: 22px;
   line-height: 1;
-  padding: 4px 8px;
+  padding: 4px 0 4px 8px;
   border-radius: 6px;
   cursor: pointer;
   color: var(--placeholderTheme);
