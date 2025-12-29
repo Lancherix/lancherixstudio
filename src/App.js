@@ -28,7 +28,10 @@ import ProjectPage from './pages/ProjectPage';
 const isUrl = (query) => /^(ftp|http[s]?):\/\/[^ "]+(\.[^ "]+)+$/.test(query);
 
 const App = () => {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState({
+    users: [],
+    projects: []
+  });
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
   const [token, setToken] = useState(localStorage.getItem('token') || '');
@@ -100,7 +103,7 @@ const App = () => {
       if (
         searchRef.current &&
         searchRef.current.contains(event.target) &&
-        results.length > 0
+        (results.users.length > 0 || results.projects.length > 0)
       ) {
         setResultsScrollClass('resultsScroll-homePage');
       }
@@ -112,11 +115,11 @@ const App = () => {
     };
   }, [results]);
 
-  const handleSearch = (users) => {
+  const handleSearch = ({ users, projects }) => {
     setError(null);
-    setResults(users);
+    setResults({ users, projects });
 
-    if (users.length > 0) {
+    if (users.length > 0 || projects.length > 0) {
       setResultsScrollClass('resultsScroll-homePage');
       setResultsClass('result-homePage');
     } else {
@@ -176,6 +179,27 @@ const App = () => {
     );
   };
 
+  const renderProjectResult = (project) => {
+    return (
+      <Link
+        to={`/projects/${project.slug}`}
+        key={project._id}
+        className="aResult-homePage"
+        onClick={() =>
+          setResultsScrollClass('resultsScroll-homePage noResult-homePage')
+        }
+      >
+        <div className="resultIcon-homePage">
+          {project.icon || '📁'}
+        </div>
+
+        <p>
+          <strong>{project.name} ·</strong> {project.owner.fullName}
+        </p>
+      </Link>
+    );
+  };
+
   useEffect(() => {
     const updateUrlClass = () => {
       if (isUrl(query)) {
@@ -210,7 +234,8 @@ const App = () => {
                 </div>
               )}
               {error && <p>{error}</p>}
-              {results.map((user) => renderResult(user))}
+              {results.users.map(user => renderResult(user))}
+              {results.projects.map(project => renderProjectResult(project))}
             </div>
           </div>
           <div className='pod-musicPage no'>

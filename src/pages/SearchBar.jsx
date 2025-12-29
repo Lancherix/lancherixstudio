@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
 
 import LancherixIcon from '../icons/lancherix.svg';
 import LancherixDarkIcon from '../icons/lancherixDark.svg';
@@ -19,21 +18,20 @@ const SearchBar = ({ onSearch }) => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) throw new Error('No token found');
+        if (!token) return;
 
-        const response = await fetch('https://lancherixstudio-backend.onrender.com/auth/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          'https://lancherixstudio-backend.onrender.com/auth/me',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
-        }
+        if (!response.ok) return;
 
         const user = await response.json();
-
-        // Set user data
         setThemeMode(user.themeMode);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -44,32 +42,48 @@ const SearchBar = ({ onSearch }) => {
   }, []);
 
   // ─────────────────────────────────────────────
-  // Debounced username search
+  // Debounced search (users + projects)
   // ─────────────────────────────────────────────
   const debouncedSearch = useCallback(() => {
     let timeout;
 
-    return async (searchQuery) => {
+    return (value) => {
       clearTimeout(timeout);
 
       timeout = setTimeout(async () => {
-        if (!searchQuery) {
-          onSearch([]);
+        if (!value) {
+          onSearch({ users: [], projects: [] });
           return;
         }
 
         try {
-          const res = await fetch(
-            `https://lancherixstudio-backend.onrender.com/api/users/search?query=${searchQuery}`
-          );
+          const token = localStorage.getItem('token');
 
-          if (!res.ok) throw new Error('Search failed');
+          const [usersRes, projectsRes] = await Promise.all([
+            fetch(
+              `https://lancherixstudio-backend.onrender.com/api/users/search?query=${value}`
+            ),
+            fetch(
+              `https://lancherixstudio-backend.onrender.com/api/projects/search?query=${value}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            ),
+          ]);
 
-          const users = await res.json();
-          onSearch(users);
+          if (!usersRes.ok || !projectsRes.ok) {
+            throw new Error('Search failed');
+          }
+
+          const users = await usersRes.json();
+          const projects = await projectsRes.json();
+
+          onSearch({ users, projects });
         } catch (err) {
           console.error('Search error:', err);
-          onSearch([]);
+          onSearch({ users: [], projects: [] });
         }
       }, 400);
     };
@@ -88,7 +102,6 @@ const SearchBar = ({ onSearch }) => {
     <div className="all-searchBar">
       <div className="search-searchBar">
         <img
-          key={`logo-${themeMode}`}
           src={
             themeMode === 'dark' || themeMode === 'glass'
               ? LancherixDarkIcon
@@ -102,12 +115,11 @@ const SearchBar = ({ onSearch }) => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          placeholder="Lancherix Search..."
+          placeholder="Lancherix Search…"
           spellCheck={false}
         />
 
         <img
-          key={`search-${themeMode}`}
           src={
             themeMode === 'dark' || themeMode === 'glass'
               ? SearchDarkIcon
