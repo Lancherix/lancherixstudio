@@ -299,6 +299,26 @@ const ProjectPage = () => {
     }
   };
 
+  /* === leave project === */
+  const handleLeave = async () => {
+    if (!window.confirm("Leave this project?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await fetch(
+        `https://lancherixstudio-backend.onrender.com/api/projects/${project._id}/leave`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      window.location.href = "/";
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   /* ===== States ===== */
   if (loading) return <div className="loading-projectPage">Loading…</div>;
   if (error) return <div className="error-projectPage">{error}</div>;
@@ -370,6 +390,15 @@ const ProjectPage = () => {
                       }}
                     >
                       Edit Project
+                    </button>
+                    <button
+                      className="optionsItem-projectPage"
+                      onClick={() => {
+                        setShowOptions(false);
+                        handleLeave();
+                      }}
+                    >
+                      Leave Project
                     </button>
                   </div>
                 )}

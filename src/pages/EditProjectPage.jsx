@@ -125,31 +125,6 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
     }
   };
 
-  const removeCollaborator = async (memberId) => {
-    if (!window.confirm("Remove this collaborator?")) return;
-
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(
-        `https://lancherixstudio-backend.onrender.com/api/projects/${project._id}/remove-member`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ memberId }),
-        }
-      );
-
-      if (!res.ok) throw new Error("Failed to remove collaborator");
-      const updatedProject = await res.json();
-      setCollaborators(updatedProject.collaborators);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
   /* === save changes === */
   const handleSave = async () => {
     if (!name.trim()) {
@@ -193,26 +168,6 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
       setError(err.message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  /* === leave project === */
-  const handleLeave = async () => {
-    if (!window.confirm("Leave this project?")) return;
-
-    try {
-      const token = localStorage.getItem("token");
-      await fetch(
-        `https://lancherixstudio-backend.onrender.com/api/projects/${project._id}/leave`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      window.location.href = "/";
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -374,9 +329,6 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
                   {collaborators.map(user => (
                     <div key={user._id} className="chip">
                       {user.username}
-                      {project.owner.username === username && (
-                        <span onClick={() => removeCollaborator(user._id)}>×</span>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -390,12 +342,6 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
 
         {/* Footer */}
         <div className="new-project-footer">
-          <button
-            className="secondary-btn"
-            onClick={handleLeave}
-          >
-            Leave
-          </button>
           <button
             className="secondary-btn"
             onClick={() => {
