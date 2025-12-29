@@ -5,7 +5,7 @@ const HomePage = () => {
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
 
-  document.title = `Lancherix`;
+  document.title = `Lancherix Studio`;
 
   useEffect(() => {
     const updateTime = () => {

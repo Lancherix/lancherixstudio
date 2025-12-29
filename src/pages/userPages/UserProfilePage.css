@@ -100,3 +100,46 @@
     cursor: pointer;
     color: #525252;
 }
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.7vw;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    padding: 2.5vh 1.2vw;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.035);
+    text-decoration: none;
+    color: var(--textTheme);
+    transition: background 0.2s ease, transform 0.15s ease;
+    border: 1px solid var(--buttonColor);
+}
+
+.project-card:hover {
+    background: rgba(0, 0, 0, 0.07);
+    transform: translateY(-3px);
+}
+
+.project-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.project-meta h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--textTheme);
+}
+
+.empty-state {
+    font-size: 0.9rem;
+    color: var(--placeholderTheme);
+    margin-top: 2vh;
+    text-align: center;
+}
