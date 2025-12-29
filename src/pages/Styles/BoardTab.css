@@ -62,8 +62,34 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.download-image-btn {
+  position: absolute;
+  top: 6px;
+  right: 32px;
+
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 500px;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.7rem;
+  cursor: pointer;
+
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
 /* Reveal on hover */
-.board-image-wrapper:hover .delete-image-btn {
+.board-image-wrapper:hover .delete-image-btn,
+.board-image-wrapper:hover .download-image-btn {
   opacity: 1;
   transform: scale(1);
 }
@@ -71,6 +97,10 @@
 /* Hover effect */
 .delete-image-btn:hover {
   background: rgba(255, 69, 58, 0.9);
+}
+
+.download-image-btn:hover {
+  background-color: blue;
 }
 
 .board-empty {

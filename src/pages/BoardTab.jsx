@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Styles/BoardTab.css";
+const getOriginalDownloadUrl = (url) => {
+  return url.replace(
+    "/upload/",
+    "/upload/fl_attachment,q_100/"
+  );
+};
 
 export default function BoardTab({ projectId }) {
   const [images, setImages] = useState([]);
@@ -80,6 +86,29 @@ export default function BoardTab({ projectId }) {
     e.preventDefault();
   };
 
+  const handleDownload = async (url) => {
+    try {
+      const downloadUrl = getOriginalDownloadUrl(url);
+
+      const response = await fetch(downloadUrl);
+      const blob = await response.blob();
+
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = blobUrl;
+      link.download = downloadUrl.split("/").pop();
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error("Download failed:", err);
+    }
+  };
+
   /* ============================
      Delete image — MEMBERS ONLY
   ============================ */
@@ -122,6 +151,18 @@ export default function BoardTab({ projectId }) {
               className="board-image"
               draggable={false}
             />
+
+            {/* ⬇️ Download button (everyone) */}
+            <button
+              className="download-image-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDownload(img.url);
+              }}
+              aria-label="Download image"
+            >
+              ⬇
+            </button>
 
             {token && (
               <button
