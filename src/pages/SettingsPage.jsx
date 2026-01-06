@@ -682,7 +682,6 @@ const SettingsPage = () => {
             <div className='aWall aRealWall aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
             <div className='aWall aRealWall aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
             <div className='aWall aRealWall aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
-            <div className='aWall aRealWall aWall8' onClick={() => handleWallpaperChange('/Images/newyork.jpg')}></div>
           </div>
         </div>
       </div>
