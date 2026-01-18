@@ -4,9 +4,6 @@ import classnames from 'classnames';
 import { jwtDecode } from 'jwt-decode';
 
 import SearchBar from './pages/SearchBar';
-import MusicIcon from '../src/icons/music.svg';
-import HeadphonesIcon from '../src/icons/headphones.svg';
-import TvIcon from '../src/icons/tv.svg';
 import GlobeIcon from '../src/icons/globe.svg';
 import LancherixIcon from './icons/lancherix.svg';
 import PlayIcon from './icons/play.svg';
@@ -14,14 +11,11 @@ import ForwardIcon from './icons/forward.svg';
 import BackIcon from './icons/back.svg';
 import './App.css';
 
-import IntroPage from './pages/IntroPage/IntroPage';
 import LoginPage from './pages/IntroPage/LoginPage';
 import RegisterPage from './pages/IntroPage/RegisterPage';
 import SideMenu from './SideMenu';
 import HomePage from './pages/HomePage';
-import CoolPage from './pages/CoolPage';
 import SettingsPage from './pages/SettingsPage';
-import NotFound from './pages/NotFound';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
 

@@ -51,10 +51,6 @@ const LoginPage = ({ setToken }) => {
     setShowPassword(!showPassword);
   };
 
-  const handleRegisterClick = () => {
-    navigate('/register');
-  };
-
   return (
     <div className="all-loginPage">
       <div className="main-registerPage">

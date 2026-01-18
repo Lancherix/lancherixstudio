@@ -390,7 +390,16 @@ const RegisterPage = ({ setToken }) => {
                 </svg>
                 <h2>Become a Member</h2>
                 <p>Create an account for all Lancherix products.</p>
-                <p>Already have an Account? <a onClick={() => navigate("/login")}>Sign In</a></p>
+                <p>
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  Sign In
+                </button>
+              </p>
               </div>
             </>
           )}
@@ -400,7 +409,16 @@ const RegisterPage = ({ setToken }) => {
             <>
               <h2>Region & Language</h2>
               <p>Choose your region and preferred language.</p>
-              <p>Already have an Account? <a onClick={() => navigate("/login")}>Sign In</a></p>
+              <p>
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  Sign In
+                </button>
+              </p>
 
               <div className="content-registerPage">
                 <div className='input-registerPage'>
@@ -430,7 +448,13 @@ const RegisterPage = ({ setToken }) => {
               <p>{translations[language].appearance.description}</p>
               <p>
                 {translations[language].alreadyHaveAccount}{" "}
-                <a onClick={() => navigate("/login")}>{translations[language].signIn}</a>
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  {translations[language].signIn}
+                </button>
               </p>
 
               <div className="content-registerPage themes-registerPage">
@@ -456,7 +480,13 @@ const RegisterPage = ({ setToken }) => {
               <p>{translations[language].personal.description}</p>
               <p>
                 {translations[language].alreadyHaveAccount}{" "}
-                <a onClick={() => navigate("/login")}>{translations[language].signIn}</a>
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  {translations[language].signIn}
+                </button>
               </p>
 
               <div className="content-registerPage">
@@ -530,7 +560,13 @@ const RegisterPage = ({ setToken }) => {
               <p>{translations[language].account.description}</p>
               <p>
                 {translations[language].alreadyHaveAccount}{" "}
-                <a onClick={() => navigate("/login")}>{translations[language].signIn}</a>
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  {translations[language].signIn}
+                </button>
               </p>
 
               <div className="content-registerPage">
@@ -565,7 +601,13 @@ const RegisterPage = ({ setToken }) => {
               <p>{translations[language].security.description}</p>
               <p>
                 {translations[language].alreadyHaveAccount}{" "}
-                <a onClick={() => navigate("/login")}>{translations[language].signIn}</a>
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  {translations[language].signIn}
+                </button>
               </p>
 
               <div className="content-registerPage">
@@ -603,7 +645,13 @@ const RegisterPage = ({ setToken }) => {
               <p>{translations[language].agreements.description}</p>
               <p>
                 {translations[language].alreadyHaveAccount}{" "}
-                <a onClick={() => navigate("/login")}>{translations[language].signIn}</a>
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/login")}
+                >
+                  {translations[language].signIn}
+                </button>
               </p>
 
               <div className="content-registerPage agreements-registerPage">
