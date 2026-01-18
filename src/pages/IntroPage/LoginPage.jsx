@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from './Artwork/loginLogo.png';
+import Logo from "./Artwork/loginLogo.png";
 import './LoginPage.css';
 
 const LoginPage = ({ setToken }) => {
@@ -57,42 +57,48 @@ const LoginPage = ({ setToken }) => {
 
   return (
     <div className="all-loginPage">
-      <div className='main-loginPage'>
+      <div className="main-registerPage">
         <img src={Logo} alt="Lancherix" />
 
         <form onSubmit={handleSubmit}>
-          <div className='input-loginPage'>
-            <input
-              type="text"
-              placeholder="Username or Email"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-              className='inputUsername-loginPage'
-              spellCheck="false"
-            />
-          </div>
+          <h2>Log In to your Account</h2>
+          <p>Access to continue enjoying Lancherix products.</p>
+          <p>You don't have an account? <a onClick={() => navigate("/register")}>Register</a></p>
 
-          <div className='input-loginPage'>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className='inputPassword-loginPage'
-              spellCheck="false"
-            />
-            {password && (
-              <span className="toggle-loginPage" onClick={togglePasswordVisibility}>
-                {showPassword ? 'Hide' : 'Show'}
-              </span>
-            )}
+          <div className="content-registerPage">
+            <div className="input-registerPage">
+              <input
+                type="text"
+                placeholder="Username or Email"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                className='inputUsername-loginPage'
+                spellCheck="false"
+              />
+            </div>
+
+            <div className="input-registerPage">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='inputPassword-loginPage'
+                spellCheck="false"
+              />
+              {password && (
+                <span className="toggle-loginPage" onClick={togglePasswordVisibility}>
+                  {showPassword ? 'Hide' : 'Show'}
+                </span>
+              )}
+            </div>
           </div>
 
           {error && <div className='error-registerPage'>{error}</div>}
 
-          <button type="submit">Login</button>
-          <a href="#">Forgot password?</a>
-          <button type="button" onClick={handleRegisterClick}>Register</button>
+          <div className="register-navigation">
+            <button type="submit" className="register-navigationprimary-btn">Login</button>
+          </div>
         </form>
       </div>
     </div>

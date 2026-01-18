@@ -11,11 +11,11 @@
     display: flex;
     flex-direction: column;
     width: 25vw;
-    height: 70vh;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 15px;
     padding: 2%;
     align-items: center;
+    text-align: center;
 }
 
 .main-registerPage form {
@@ -28,8 +28,35 @@
 }
 
 .main-registerPage img {
-    height: 10%;
-    margin-bottom: 4%;
+    width: 10vw;
+    margin-bottom: 3%;
+}
+
+.main-registerPage h2 {
+    margin: 0 0 3% 0;
+}
+
+.main-registerPage p {
+    margin: 0 0 1% 0;
+}
+
+.intro-registerPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+
+.content-registerPage {
+    margin: 2vh 0 2vh 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2vh;
+}
+
+.content-registerPage p {
+    margin-bottom: 0;
 }
 
 .input-registerPage {
@@ -48,7 +75,7 @@
     width: 90%;
     height: 100%;
     border: none;
-    padding: 0;
+    padding: 1.5vh 0vw;
     outline: none;
     background-color: transparent;
     color: var(--textTheme);
@@ -74,6 +101,7 @@
     justify-content: space-between;
     width: 100%;
     height: 8%;
+    gap: 2vh;
 }
 
 .inputDate-registerPage {
@@ -82,7 +110,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 4% 0 4%;
-    width: 21%;
+    flex: 1;
     height: 100%;
     background-color: var(--theme);
     border-radius: 5px;
@@ -92,7 +120,7 @@
     width: 100%;
     height: 100%;
     border: none;
-    padding: 0;
+    padding: 1.5vh 0vw;
     outline: none;
     background-color: transparent;
     color: var(--textTheme);
@@ -124,21 +152,6 @@
     text-align: right;
 }
 
-.main-registerPage button {
-    width: 100%;
-    height: 8%;
-    border: none;
-    color: aliceblue;
-    background-color: #0074ff;
-    border-radius: 5px;
-    padding: 0;
-}
-
-.main-registerPage button:hover {
-    cursor: pointer;
-    background-color: #0056b3;
-}
-
 .main-registerPage a {
     width: 100%;
     color: #0074ff;
@@ -154,4 +167,141 @@
 .error-registerPage {
     color: red;
     text-align: center;
+    margin-bottom: 2vh;
+}
+
+.register-navigation {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 4vh;
+    gap: 0.5vw;
+    justify-content: end;
+}
+
+.register-navigationprimary-btn {
+    background: linear-gradient(#428cef, #1169d3);
+    color: white;
+    padding: 0.7vh 0.7vw;
+    border-radius: 6px;
+    border: 1px solid #1164c9;
+    width: 5vw;
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.05s ease;
+}
+
+.register-navigationprimary-btn:hover {
+    background: linear-gradient(#5a9bff, #1b74e4);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.25) inset,
+        0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.register-navigationprimary-btn:active {
+    transform: translateY(1px);
+    background: linear-gradient(#1169d3, #428cef);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25) inset;
+}
+
+.register-navigationsecondary-btn {
+    background: linear-gradient(#faf8fb, #e0dfe3);
+    padding: 0.7vh 0.7vw;
+    border-radius: 6px;
+    border: 1px solid #d5d4d8;
+    width: 5vw;
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.05s ease;
+}
+
+.register-navigationsecondary-btn:hover {
+    background: linear-gradient(#ffffff, #e6e5e9);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.register-navigationsecondary-btn:active {
+    transform: translateY(1px);
+    background: linear-gradient(#e0dfe3, #faf8fb);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.2) inset;
+}
+
+.agreements-registerPage label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    line-height: 1.3;
+    color: #4e4e4e;
+}
+
+.agreements-registerPage input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.themes-registerPage {
+    display: flex;
+    flex-direction: row;
+}
+
+.theme-card {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: transparent;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.theme-card.selected {
+    border-color: #0071e3;
+    box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+}
+
+.theme-preview {
+    height: 6vh;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+/* example previews */
+.light-preview {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.dark-preview {
+    background: rgba(64, 64, 64, 0.7);
+}
+
+.glass-preview {
+    background: rgba(64, 64, 64, 0.3);
+}
+
+.intro-registerPage svg {
+    margin: 1vh 0 2vh 0;
+    max-width: 17vw;
+}
+
+.cls-1 {
+    fill: none;
+    stroke: #0080ff;
+    stroke-miterlimit: 10;
+    stroke-width: 10px;
+}
+
+.cls-2 {
+    fill: #0080ff;
+}
+
+.birthdayText-registerPage {
+    text-align: start;
 }
