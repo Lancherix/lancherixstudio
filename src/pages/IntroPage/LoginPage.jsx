@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from "./Artwork/loginLogo.png";
+import Logo from "./Artwork/registerLogo.png";
 import './LoginPage.css';
 
 const LoginPage = ({ setToken }) => {
