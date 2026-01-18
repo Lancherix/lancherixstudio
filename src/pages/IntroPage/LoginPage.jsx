@@ -59,7 +59,16 @@ const LoginPage = ({ setToken }) => {
         <form onSubmit={handleSubmit}>
           <h2>Log In to your Account</h2>
           <p>Access to continue enjoying Lancherix products.</p>
-          <p>You don't have an account? <a onClick={() => navigate("/register")}>Register</a></p>
+          <p>
+                You don't have an account?{" "}
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/register")}
+                >
+                  Register
+                </button>
+              </p>
 
           <div className="content-registerPage">
             <div className="input-registerPage">
