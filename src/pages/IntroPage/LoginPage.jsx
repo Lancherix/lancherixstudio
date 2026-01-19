@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from "./Artwork/registerLogo.png";
+import Logo from "./Artwork/loginLogo.png";
 import './LoginPage.css';
 
 const LoginPage = ({ setToken }) => {
-  const [identifier, setIdentifier] = useState(''); // username or email
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -54,21 +54,9 @@ const LoginPage = ({ setToken }) => {
   return (
     <div className="all-loginPage">
       <div className="main-registerPage">
-        <img src={Logo} alt="Lancherix" />
+        <img className='logo-loginPage' src={Logo} alt="Lancherix" />
 
         <form onSubmit={handleSubmit}>
-          <h2>Log In to your Account</h2>
-          <p>Access to continue enjoying Lancherix products.</p>
-          <p>
-                You don't have an account?{" "}
-                <button
-                  type="button"
-                  className="link-registerPage"
-                  onClick={() => navigate("/register")}
-                >
-                  Register
-                </button>
-              </p>
 
           <div className="content-registerPage">
             <div className="input-registerPage">
@@ -101,9 +89,29 @@ const LoginPage = ({ setToken }) => {
 
           {error && <div className='error-registerPage'>{error}</div>}
 
-          <div className="register-navigation">
-            <button type="submit" className="register-navigationprimary-btn">Login</button>
+          <div className="login-navigation">
+            <button type="submit" className="login-navigationprimary-btn">Login</button>
+            <p>
+                You don't have an account?{" "}
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/register")}
+                >
+                  Register
+                </button>
+              </p>
           </div>
+          {/*<p>
+                You don't have an account?{" "}
+                <button
+                  type="button"
+                  className="link-registerPage"
+                  onClick={() => navigate("/register")}
+                >
+                  Register
+                </button>
+              </p>*/}
         </form>
       </div>
     </div>
