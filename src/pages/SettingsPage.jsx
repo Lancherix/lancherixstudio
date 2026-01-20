@@ -220,13 +220,16 @@ const SettingsPage = () => {
 
       const body = {
         firstName,
-        lastName,
         email,
         month: birthMonth,
         date: birthDate,
         year: birthYear,
         gender,
       };
+
+      if (lastName?.trim()) {
+        body.lastName = lastName;
+      }
 
       console.log("Submited");
 
