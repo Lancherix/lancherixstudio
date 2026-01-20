@@ -291,3 +291,7 @@ Edge and IE
   margin: 0 1vw 0 0;
   font-size: 1.5rem;
 }
+
+button:hover {
+  cursor: pointer;
+}
