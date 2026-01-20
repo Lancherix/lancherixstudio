@@ -227,7 +227,9 @@ const SettingsPage = () => {
         gender,
       };
 
-      if (lastName?.trim()) {
+      if (lastName.trim() === "") {
+        body.lastName = null;
+      } else {
         body.lastName = lastName;
       }
 
