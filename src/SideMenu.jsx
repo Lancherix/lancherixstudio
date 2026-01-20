@@ -23,7 +23,8 @@ import './SideMenu.css';
 const SideMenu = ({ isCollapsed, toggleMenu }) => {
   const [collapsed, setCollapsed] = useState(isCollapsed);
   const [error, setError] = useState(null);
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [sideMenuColor, setSideMenuColor] = useState('rgba(0, 147, 203, 1)');
@@ -51,7 +52,8 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
         const user = await response.json();
 
         // Set user data
-        setFullName(user.fullName);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
         setProfilePicture(user.profilePicture?.url || "https://studio.lancherix.com/Images/defaultProfilePicture.png");
         setSideMenuColor(user.sideMenuColor);
         setWallpaper(user.wallpaper?.url || "/Images/backgroundImage.jpeg");
@@ -246,7 +248,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
           </div>
           {!collapsed && (
             <div className="profile-info">
-              <p className='fullName-sideMenu'>{fullName}</p>
+              <p className='fullName-sideMenu'>{firstName}{" "}{lastName}</p>
             </div>
           )}
         </Link>

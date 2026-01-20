@@ -13,7 +13,8 @@ const SettingsPage = () => {
   const [wallpaper, setWallpaper] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [birthMonth, setBirthMonth] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [birthYear, setBirthYear] = useState('');
@@ -45,7 +46,8 @@ const SettingsPage = () => {
 
         const user = await response.json();
 
-        setFullName(user.fullName);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
         setUsername(user.username);
         setEmail(user.email);
         setBirthMonth(user.month);   // backend uses "month"
@@ -212,12 +214,13 @@ const SettingsPage = () => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      if (!email || !fullName || !birthMonth || !birthDate || !birthYear || !gender) {
+      if (!email || !firstName || !birthMonth || !birthDate || !birthYear || !gender) {
         throw new Error("All fields are required");
       }
 
       const body = {
-        fullName,
+        firstName,
+        lastName,
         email,
         month: birthMonth,
         date: birthDate,
@@ -526,9 +529,17 @@ const SettingsPage = () => {
           <div className='input-registerPage border-settingsPage'>
             <input
               type='text'
-              placeholder='Full Name'
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              placeholder='First Name'
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className='inputName-registerPage'
+              spellcheck="false"
+            />
+            <input
+              type='text'
+              placeholder='Last Name'
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               className='inputName-registerPage'
               spellcheck="false"
             />
@@ -790,7 +801,7 @@ const SettingsPage = () => {
               style={{ display: 'none' }}
             />
             <div className='profileName-settingsPage'>
-              <p className='profileNameLarge-settingsPage'>{fullName}</p>
+              <p className='profileNameLarge-settingsPage'>{firstName}{" "}{lastName}</p>
               <p>{username}</p>
             </div>
           </div>

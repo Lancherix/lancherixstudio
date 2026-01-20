@@ -452,7 +452,7 @@ const ProjectPage = () => {
                           style={{ backgroundImage: `url(${getProfilePicture(user)})` }}
                         />
                         <div className="collaborator-info">
-                          <span className="collaborator-name">{user.fullName}</span>
+                          <span className="collaborator-name">{user.firstName}{" "}{user.lastName}</span>
                           <span className="collaborator-username">{user.username}</span>
                         </div>
                       </li>

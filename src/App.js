@@ -166,7 +166,7 @@ const App = () => {
           </div>
           <div className='resultUserInfo-homePage'>
             <h3>{result.username}</h3>
-            <p>{result.fullName}</p>
+            <p>{result.firstName}{" "}{result.lastName}</p>
           </div>
         </div>
       </Link>
@@ -188,7 +188,7 @@ const App = () => {
         </div>
 
         <p>
-          <strong>{project.name} ·</strong> {project.owner.fullName}
+          <strong>{project.name} ·</strong> {project.owner.firstName}{" "}{project.owner.lastName}
         </p>
       </Link>
     );

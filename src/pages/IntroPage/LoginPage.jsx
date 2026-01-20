@@ -102,16 +102,6 @@ const LoginPage = ({ setToken }) => {
                 </button>
               </p>
           </div>
-          {/*<p>
-                You don't have an account?{" "}
-                <button
-                  type="button"
-                  className="link-registerPage"
-                  onClick={() => navigate("/register")}
-                >
-                  Register
-                </button>
-              </p>*/}
         </form>
       </div>
     </div>

@@ -26,7 +26,7 @@ const UserProfilePage = () => {
 
         const foundUser = await response.json();
         setUser(foundUser);
-        document.title = foundUser.fullName;
+        document.title = `${foundUser.firstName}${" "}${foundUser.lastName}`;
       } catch (error) {
         setError(error.message);
       }
@@ -86,7 +86,7 @@ const UserProfilePage = () => {
               backgroundImage: `url(${user.profilePicture?.url ||
                 'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`
             }}></div>
-          <h1>{user.fullName}</h1>
+          <h1>{user.firstName}{" "}{user.lastName}</h1>
           <p>{user.username}</p>
           {/*<div className='btns-memberPage'>
             <button className='btn1-memberPage'>Follow</button>

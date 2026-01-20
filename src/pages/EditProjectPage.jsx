@@ -316,7 +316,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
                           />
                           <div className="invite-info">
                             <strong>{user.username}</strong>
-                            <span>{user.fullName}</span>
+                            <span>{user.firstName}{" "}{user.lastName}</span>
                           </div>
                         </div>
                       );
