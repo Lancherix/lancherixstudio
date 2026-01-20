@@ -228,7 +228,7 @@ const SettingsPage = () => {
       };
 
       if (lastName.trim() === "") {
-        body.lastName = null;
+        body.lastName = "";
       } else {
         body.lastName = lastName;
       }
