@@ -1,4 +1,4 @@
-const API = process.env.REACT_APP_API_URL; // o import.meta.env.VITE_API_URL
+const API = process.env.REACT_APP_API_URL;
 
 export async function login(email, password) {
   const res = await fetch(`${API}/auth/login`, {

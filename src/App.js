@@ -11,13 +11,12 @@ import ForwardIcon from './icons/forward.svg';
 import BackIcon from './icons/back.svg';
 import './App.css';
 
-import LoginPage from './pages/IntroPage/LoginPage';
-import RegisterPage from './pages/IntroPage/RegisterPage';
 import SideMenu from './SideMenu';
 import HomePage from './pages/HomePage';
 import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
+import AuthRedirector from './api/AuthRedirector';
 
 const isUrl = (query) => /^(ftp|http[s]?):\/\/[^ "]+(\.[^ "]+)+$/.test(query);
 
@@ -251,12 +250,7 @@ const App = () => {
         <div className={classnames('content', { collapsed })} style={!token ? { marginLeft: '0', padding: '0', width: '100vw' } : {}}>
           <Routes>
             {!token ? (
-              <>
-                <Route path="/" element={<LoginPage setToken={setToken} />} />
-                <Route path="/login" element={<LoginPage setToken={setToken} />} />
-                <Route path="/register" element={<RegisterPage setToken={setToken} />} />
-                <Route path="*" element={<Navigate to="/" />} />
-              </>
+              <Route path="*" element={<AuthRedirector setToken={setToken} />} />
             ) : (
               <>
                 <Route path="/" element={<HomePage />} />
