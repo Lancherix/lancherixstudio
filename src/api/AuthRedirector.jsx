@@ -14,7 +14,7 @@ const AuthRedirector = ({ setToken }) => {
             const type = location.pathname === '/register' ? 'register' : 'login';
 
             const popup = window.open(
-                `http://localhost:3001/${type}`, // Kiara Auth App
+                `https://auth.lancherix.com/${type}`, // Kiara Auth App
                 'LancherixAuth',
                 'width=500,height=650'
             );
