@@ -2,36 +2,35 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const AuthRedirector = ({ setToken }) => {
-    const location = useLocation();
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tokenFromUrl = params.get('token');
 
-        if (!token) {
-            // Determinar tipo para Kiara popup
-            // Si estás en /register → 'register', en /login → 'login', en / → 'login'
-            const type = location.pathname === '/register' ? 'register' : 'login';
+    // 1️⃣ Si viene token desde Auth → guardarlo
+    if (tokenFromUrl) {
+      localStorage.setItem('token', tokenFromUrl);
+      if (setToken) setToken(tokenFromUrl);
 
-            window.location.href = `https://auth.lancherix.com/${type}`;
+      // limpiar la URL
+      navigate('/', { replace: true });
+      return;
+    }
 
+    // 2️⃣ Si no hay token ni en URL ni en localStorage → ir a Auth
+    const storedToken = localStorage.getItem('token');
 
-            const handleMessage = (event) => {
-                if (event.data.type === 'LANCHERIX_AUTH_SUCCESS') {
-                    const { token } = event.data;
-                    localStorage.setItem('token', token);
-                    if (setToken) setToken(token); // actualizar estado
-                    navigate('/'); // redirige al home
-                }
-            };
+    if (!storedToken) {
+      const type =
+        location.pathname === '/register' ? 'register' : 'login';
 
-            window.addEventListener('message', handleMessage);
+      window.location.href = `https://auth.lancherix.com/${type}`;
+    }
+  }, [location, navigate, setToken]);
 
-            return () => window.removeEventListener('message', handleMessage);
-        }
-    }, [location.pathname, navigate, setToken]);
-
-    return <div>Redirecting...</div>;
+  return <div>Redirecting...</div>;
 };
 
 export default AuthRedirector;
