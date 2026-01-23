@@ -1,0 +1,143 @@
+.all-loginPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.main-loginPage {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    height: 65vh;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    padding: 2%;
+    align-items: center;
+}
+
+.main-loginPage form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60%;
+}
+
+.main-loginPage img {
+    height: 30%;
+    margin-bottom: 10%;
+}
+
+.input-loginPage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5% 0 5%;
+    width: 90%;
+    height: 15%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+.inputUsername-loginPage {
+    width: 90%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+}
+
+.inputPassword-loginPage {
+    width: 80%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+}
+
+.toggle-loginPage {
+    width: 20%;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+    text-align: right;
+}
+
+.main-loginPage button {
+    width: 100%;
+    height: 15%;
+    border: none;
+    color: aliceblue;
+    background-color: #0074ff;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.main-loginPage button:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+}
+
+.main-loginPage a {
+    width: 100%;
+    color: red;
+    text-align: center;
+    text-decoration: none;
+}
+
+.main-loginPage a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.logo-loginPage {
+    width: 15vw !important;
+    margin-bottom: 2vh !important;
+}
+
+.login-navigation {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 4vh;
+    gap: 0.5vw;
+    justify-content: space-between;
+    margin-bottom: 5vh;
+}
+
+.login-navigationprimary-btn {
+    background: linear-gradient(#428cef, #1169d3);
+    margin-bottom: 1vh;
+    color: white;
+    padding: 1vh 0vw;
+    border-radius: 6px;
+    border: 1px solid #1164c9;
+    width: 100%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition:
+        background 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.05s ease;
+}
+
+.login-navigationprimary-btn:hover {
+    background: linear-gradient(#5a9bff, #1b74e4);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.25) inset,
+        0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.login-navigationprimary-btn:active {
+    transform: translateY(1px);
+    background: linear-gradient(#1169d3, #428cef);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25) inset;
+}

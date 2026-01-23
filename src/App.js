@@ -18,6 +18,9 @@ import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
 import AuthRedirector from './api/AuthRedirector';
 
+import './pages/Styles/LoginPage.css';
+import './pages/Styles/RegisterPage.css';
+
 const isUrl = (query) => /^(ftp|http[s]?):\/\/[^ "]+(\.[^ "]+)+$/.test(query);
 
 const App = () => {
