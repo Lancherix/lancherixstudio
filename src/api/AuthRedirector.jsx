@@ -13,11 +13,8 @@ const AuthRedirector = ({ setToken }) => {
             // Si estás en /register → 'register', en /login → 'login', en / → 'login'
             const type = location.pathname === '/register' ? 'register' : 'login';
 
-            const popup = window.open(
-                `https://auth.lancherix.com/${type}`, // Kiara Auth App
-                'LancherixAuth',
-                'width=500,height=650'
-            );
+            window.location.href = `https://auth.lancherix.com/${type}`;
+
 
             const handleMessage = (event) => {
                 if (event.data.type === 'LANCHERIX_AUTH_SUCCESS') {
