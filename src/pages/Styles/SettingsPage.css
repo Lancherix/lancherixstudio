@@ -489,3 +489,9 @@
     margin: 0 0.8vw 0 0;
     user-select: none;
 }
+
+.options-settingsPage button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
