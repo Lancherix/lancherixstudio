@@ -153,7 +153,6 @@
 
 .side-menu ul li svg {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 3vh;
 }
 
 .side-menu ul li img:hover {
