@@ -137,7 +137,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.5vh 1.6vw;
+  padding: 0.5vh 1.5vw;
   box-sizing: border-box;
 }
 
@@ -204,7 +204,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.5vh 1.6vw;
+  padding: 0.5vh 1.5vw;
   box-sizing: border-box;
   background: none;
   border: none;
