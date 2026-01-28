@@ -159,6 +159,7 @@
 .menu-toggle svg {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 1.7vw;
+  color: var(--textMenu);
 }
 
 .side-menu ul li img:hover {
