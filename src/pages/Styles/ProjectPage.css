@@ -535,7 +535,7 @@
 }
 
 .edit-task-btn svg {
-  height: 1vh;
+  height: 3vh;
   transition: transform 0.3s ease, font-size 0.3s ease;
 }
 
