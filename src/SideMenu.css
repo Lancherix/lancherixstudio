@@ -156,6 +156,11 @@
   width: 1.7vw;
 }
 
+.menu-toggle svg {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 1.7vw;
+}
+
 .side-menu ul li img:hover {
   transform: scale(1.2);
 }
