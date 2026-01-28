@@ -523,6 +523,7 @@
 }
 
 .edit-task-btn {
+  display: flex;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -532,6 +533,8 @@
   padding: 0;
   transition: transform 0.3s ease, font-size 0.3s ease;
   margin-right: 0.7vw;
+  align-items: center;
+  justify-content: center;
 }
 
 .edit-task-btn svg {
