@@ -88,7 +88,7 @@
 }
 
 .download-image-btn svg {
-  height: 2vh;
+  height: 3vh;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
