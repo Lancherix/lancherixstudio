@@ -153,12 +153,12 @@
 
 .side-menu ul li svg {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 1.7vw;
+  width: 1.8vw;
 }
 
 .menu-toggle svg {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 1.7vw;
+  width: 1.8vw;
   color: var(--textMenu);
 }
 
@@ -167,7 +167,7 @@
 }
 
 .menu-icon {
-  width: 1.7vw;
+  width: 1.8vw;
   fill: #09191f;
   user-select: none;
 }
