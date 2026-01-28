@@ -49,3 +49,9 @@
 .search-searchBar input::placeholder {
     color: var(--placeholderTheme);
 }
+
+.search-searchBar svg {
+    height: 4vh;
+    user-select: none;
+    fill: var(--textTheme);
+}
