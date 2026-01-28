@@ -51,7 +51,7 @@
 }
 
 .search-searchBar svg {
-    height: 5vh;
+    height: 6vh;
     user-select: none;
     fill: var(--textTheme);
 }
