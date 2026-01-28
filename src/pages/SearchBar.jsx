@@ -101,7 +101,7 @@ const SearchBar = ({ onSearch }) => {
   return (
     <div className="all-searchBar">
       <div className="search-searchBar">
-        <img
+        {/*<img
           src={
             themeMode === 'dark' || themeMode === 'glass'
               ? LancherixDarkIcon
@@ -109,7 +109,29 @@ const SearchBar = ({ onSearch }) => {
           }
           alt="Lancherix"
           className="icon-searchBar iconOn-searchBar"
-        />
+        />*/}
+        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+          width="10000.000000pt" height="10000.000000pt" viewBox="0 0 10000.000000 10000.000000"
+          preserveAspectRatio="xMidYMid meet">
+
+          <g transform="translate(0.000000,10000.000000) scale(0.100000,-0.100000)"
+            fill="black" stroke="none">
+            <path d="M0 99550 l0 -450 400 0 400 0 0 450 0 450 -400 0 -400 0 0 -450z" />
+            <path d="M99200 99550 l0 -450 400 0 400 0 0 450 0 450 -400 0 -400 0 0 -450z" />
+            <path d="M63720 79849 c-1744 -58 -3375 -232 -5015 -533 -6257 -1149 -11967
+-4083 -16550 -8502 -1254 -1209 -2452 -2567 -3490 -3954 -392 -525 -448 -597
+-1354 -1770 -2852 -3691 -4692 -6056 -5430 -6980 -306 -383 -423 -511 -936
+-1025 -2283 -2287 -4443 -3797 -6710 -4690 -2274 -897 -4666 -1145 -7205 -749
+-4082 636 -6834 2031 -10715 5430 -1633 1430 -3307 3051 -6192 5994 l-123 125
+0 -18922 0 -18923 50000 0 50001 0 -4 10633 c-3 7835 -7 10704 -15 10907 -6
+151 -19 421 -27 600 -319 6645 -2576 12944 -6547 18268 -793 1064 -1618 2044
+-2572 3057 -406 430 -1208 1220 -1686 1659 -2855 2625 -6158 4774 -9757 6347
+-3818 1669 -7951 2674 -12168 2959 -288 19 -675 40 -1125 61 -298 14 -2041 20
+-2380 8z"/>
+            <path d="M0 450 l0 -450 400 0 400 0 0 450 0 450 -400 0 -400 0 0 -450z" />
+            <path d="M99200 450 l0 -450 400 0 400 0 0 450 0 450 -400 0 -400 0 0 -450z" />
+          </g>
+        </svg>
 
         <input
           type="text"
@@ -118,8 +140,7 @@ const SearchBar = ({ onSearch }) => {
           placeholder="Lancherix Search…"
           spellCheck={false}
         />
-
-        {/*<img
+        <img
           src={
             themeMode === 'dark' || themeMode === 'glass'
               ? SearchDarkIcon
@@ -127,10 +148,7 @@ const SearchBar = ({ onSearch }) => {
           }
           alt="Search"
           className="icon-searchBar iconOn-searchBar iconRight-searchBar"
-        />*/}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-          <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
-        </svg>
+        />
       </div>
     </div>
   );
