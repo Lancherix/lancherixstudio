@@ -100,7 +100,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.5vh 1.6vw;
+  padding: 0.5vh 1.5vw;
   box-sizing: border-box;
 }
 
@@ -109,7 +109,7 @@
   bottom: 1.5vh;
   left: 0;
   cursor: pointer;
-  padding: 2vh 1.6vw;
+  padding: 2vh 1.5vw;
 }
 
 .side-menu ul {
