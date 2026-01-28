@@ -87,6 +87,11 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.download-image-btn svg {
+  height: 2vh;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
 /* Reveal on hover */
 .board-image-wrapper:hover .delete-image-btn,
 .board-image-wrapper:hover .download-image-btn {
