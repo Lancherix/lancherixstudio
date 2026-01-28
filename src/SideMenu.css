@@ -247,11 +247,11 @@
 }
 
 .project-emoji {
-  width: 1.7vw;
-  height: 1.7vw;
+  width: 1.8vw;
+  height: 1.8vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.7vw;
+  font-size: 1.8vw;
   line-height: 1;
 }
