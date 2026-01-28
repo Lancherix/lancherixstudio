@@ -299,7 +299,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
                     {project.icon || "📁"}
                   </span>
                   {!collapsed && <span className="menu-text">{project.name || "Untitled Project"}</span>}
-              </Link>
+                </Link>
               </li>
             ))}
           </ul>
