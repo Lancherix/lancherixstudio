@@ -153,6 +153,8 @@
 
 .side-menu ul li svg {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 1.7vw;
+  margin-right: 1.5vw;
 }
 
 .side-menu ul li img:hover {
