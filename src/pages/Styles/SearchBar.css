@@ -51,7 +51,9 @@
 }
 
 .search-searchBar svg {
-    height: 6vh;
+    height: 4vh;
     user-select: none;
     fill: var(--textTheme);
+    margin: 0;
+    padding: 0;
 }
