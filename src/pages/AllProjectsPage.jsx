@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import './Styles/AllProjectsPage.css';
 
-import NewProjectPage from './pages/NewProjectPage';
+import NewProjectPage from './NewProjectPage';
 
 const AllProjectsPage = () => {
     const [projects, setProjects] = useState([]);
