@@ -2,49 +2,49 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Styles/AllProjectsPage.css';
 
-const projects = [
-    {
-        id: 1,
-        icon: "🤍",
-        name: "Kiarita",
-        status: "pinned",
-        priority: "Low",
-        members: 2,
-        visibility: "Private",
-        deadline: null,
-        updated: "Today",
-        archived: false,
-        hidden: false
-    },
-    {
-        id: 2,
-        icon: "🌊",
-        name: "Physics",
-        status: "Active",
-        priority: "High",
-        members: 1,
-        visibility: "Public",
-        deadline: null,
-        updated: "Yesterday",
-        archived: false,
-        hidden: false
-    },
-    {
-        id: 3,
-        icon: "📦",
-        name: "Old Project",
-        status: "Archived",
-        priority: "Low",
-        members: 0,
-        visibility: "Hidden",
-        deadline: null,
-        updated: "2024",
-        archived: true,
-        hidden: true
-    }
-];
-
 const AllProjectsPage = () => {
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) throw new Error("Not authenticated");
+
+                const res = await fetch(
+                    "https://lancherixstudio-backend.onrender.com/auth/me",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch projects (${res.status})`);
+                }
+
+                const user = await res.json();
+
+                // IMPORTANT: no filtering
+                setProjects(user.projects || []);
+                setError(null);
+            } catch (err) {
+                console.error(err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
+    if (loading) return <div className="loading-projectsPage">Loading…</div>;
+    if (error) return <div className="error-projectsPage">{error}</div>;
+
     return (
         <div className="all-projectsPage">
             <div className="window-projectsPage">
@@ -80,50 +80,66 @@ const AllProjectsPage = () => {
 
                 {/* ===== Content ===== */}
                 <div className="content-projectsPage">
-                    {projects.map(project => (
-                        <div className="header-projectsPage" key={project.id}>
-                            {/* Left */}
-                            <div className="headerLeft-projectsPage">
-                                <button className="addProjectBtn-projectsPage">
-                                    {project.icon}
-                                </button>
+                    {projects.map(project => {
+                        const status = project.status ?? "active";
+
+                        return (
+                            <div className="header-projectsPage" key={project._id}>
+                                {/* Left */}
+                                <div className="headerLeft-projectsPage">
+                                    <button className="addProjectBtn-projectsPage">
+                                        {project.icon || "📁"}
+                                    </button>
+                                </div>
+
+                                {/* Columns */}
+                                <div className="headerCols-projectsPage projectsGrid">
+                                    <div className="col-name-projectsPage">
+                                        <Link to={`/projects/${project.slug}`}>
+                                            {project.name}
+                                        </Link>
+                                    </div>
+
+                                    <div className="col-status-projectsPage">
+                                        {status === "pinned" && "📌"}
+                                        {status === "archived" && "Archived"}
+                                        {status === "hidden" && "Hidden"}
+                                        {status === "completed" && "Completed"}
+                                        {status === "active" && "Active"}
+                                    </div>
+
+                                    <div className="col-priority-projectsPage">
+                                        {project.priority ?? "—"}
+                                    </div>
+
+                                    <div className="col-members-projectsPage">
+                                        {(project.collaborators?.length ?? 0) + 1}
+                                    </div>
+
+                                    <div className="col-visibility-projectsPage">
+                                        {project.visibility ?? "private"}
+                                    </div>
+
+                                    <div className="col-deadline-projectsPage">
+                                        {project.deadline
+                                            ? new Date(project.deadline).toLocaleDateString()
+                                            : "—"}
+                                    </div>
+
+                                    <div className="col-updated-projectsPage">
+                                        {project.updatedAt
+                                            ? new Date(project.updatedAt).toLocaleDateString()
+                                            : "—"}
+                                    </div>
+
+                                    <div className="col-actions-projectsPage" />
+                                </div>
+
+                                {/* Right */}
+                                <div className="headerRight-projectsPage" />
                             </div>
-
-                            {/* Columns */}
-                            <div className="headerCols-projectsPage projectsGrid">
-                                <div className="col-name-projectsPage">{project.name}</div>
-
-                                <div className="col-status-projectsPage">
-                                    {project.status === "pinned" ? "📌" : project.status}
-                                </div>
-
-                                <div className="col-priority-projectsPage">
-                                    {project.priority}
-                                </div>
-
-                                <div className="col-members-projectsPage">
-                                    {project.members ?? "—"}
-                                </div>
-
-                                <div className="col-visibility-projectsPage">
-                                    {project.visibility}
-                                </div>
-
-                                <div className="col-deadline-projectsPage">
-                                    {project.deadline ?? "—"}
-                                </div>
-
-                                <div className="col-updated-projectsPage">
-                                    {project.updated}
-                                </div>
-
-                                <div className="col-actions-projectsPage" />
-                            </div>
-
-                            {/* Right (kept for layout consistency) */}
-                            <div className="headerRight-projectsPage" />
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </div>
