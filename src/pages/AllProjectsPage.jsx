@@ -47,6 +47,22 @@ const AllProjectsPage = () => {
 
                         <div className="col-actions-projectsPage" />
                     </div>
+                    <div className="row-projectsPage">
+                        <div className="col-name-projectsPage">
+                            <span className="projectIcon-projectsPage">🤍</span>
+                            <span className="projectName-projectsPage">Kiarita</span>
+                        </div>
+
+                        <div className="col-status-projectsPage pinned">pinned</div>
+
+                        <div className="col-priority-projectsPage">
+                            <span className="priorityDot-projectsPage low" />
+                        </div>
+
+                        <div className="col-updated-projectsPage">Today</div>
+
+                        <div className="col-actions-projectsPage" />
+                    </div>
                 </div>
             </div>
         </div>
