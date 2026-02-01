@@ -9,6 +9,7 @@ const AllProjectsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [showNewProject, setShowNewProject] = useState(false);
 
     useEffect(() => {
         const fetchProjects = async () => {
