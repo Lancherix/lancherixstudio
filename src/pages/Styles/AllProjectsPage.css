@@ -115,12 +115,12 @@
   display: grid;
   grid-template-columns:
     0.5fr   /* Name */
-    17%     /* Status */
-    17%     /* Priority */
-    17%     /* Members */
-    17%     /* Visibility */
-    17%     /* Deadline */
-    17%     /* Updated */
+    16%     /* Status */
+    16%     /* Priority */
+    16%     /* Members */
+    16%     /* Visibility */
+    16%     /* Deadline */
+    16%     /* Updated */
     5%;     /* Actions */
   align-items: center;
 }
