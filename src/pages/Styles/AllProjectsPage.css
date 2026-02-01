@@ -114,7 +114,7 @@
 .row-projectsPage {
   display: grid;
   grid-template-columns:
-    1fr   /* Name */
+    0.5fr   /* Name */
     10%     /* Status */
     10%     /* Priority */
     10%     /* Members */
