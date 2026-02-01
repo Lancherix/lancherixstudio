@@ -35,6 +35,11 @@
   border-bottom: 1px solid var(--altRow);
 }
 
+.header-projectsPage a {
+    text-decoration: none;
+    color: var(--textTheme);
+}
+
 .headerLeft-projectsPage {
   width: 5%;
   display: flex;
@@ -137,7 +142,7 @@
   color: var(--textTheme);
 }
 
-.content-projectsPage .header-projectsPage .row-alt {
+.row-alt {
   background-color: var(--altRow);
 }
 
