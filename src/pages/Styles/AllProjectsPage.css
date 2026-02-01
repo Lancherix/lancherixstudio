@@ -114,7 +114,7 @@
 .row-projectsPage {
   display: grid;
   grid-template-columns:
-    1.5fr   /* Name */
+    1.3fr   /* Name */
     1fr     /* Status */
     1fr     /* Priority */
     1fr     /* Members */
