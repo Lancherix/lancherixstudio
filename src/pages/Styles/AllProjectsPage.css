@@ -68,7 +68,7 @@
   width: 100%;
   padding: 5px 8px;
   border-radius: 6px;
-  border: 2px solid var(--borderTheme);
+  border: 2px solid var(--placeholderTheme);
   background-color: transparent;
   color: var(--textTheme);
 }
