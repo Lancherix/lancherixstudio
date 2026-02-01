@@ -177,4 +177,7 @@
 
 .addProjectBtn-projectsPage svg {
     height: 1.2rem;
+    display: inline-block;
+    vertical-align: middle;
+    color: var(--buttonColor);
 }
