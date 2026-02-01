@@ -80,69 +80,79 @@ const AllProjectsPage = () => {
                 </div>
 
                 {/* ===== Content ===== */}
+                {/* ===== Content ===== */}
                 <div className="content-projectsPage">
-                    {projects.map((project, i) => {
-                        const status = project.status ?? "active";
+                    {projects
+                        .slice() // make a copy to avoid mutating state
+                        .sort((a, b) => {
+                            const order = { pinned: 0, active: 1, archived: 2, hidden: 3 };
+                            const aStatus = a.status ?? "active";
+                            const bStatus = b.status ?? "active";
+                            return (order[aStatus] ?? 4) - (order[bStatus] ?? 4);
+                        })
+                        .map((project, i) => {
+                            const status = project.status ?? "active";
 
-                        return (
-                            <div
-                                className={`header-projectsPage ${i % 2 === 1 ? "row-alt" : ""}`}
-                                key={project._id}
-                                onClick={() => navigate(`/projects/${project.slug}`)}
-                            >
-                                {/* Left */}
-                                <div className="headerLeft-projectsPage">
-                                    <button className="addProjectBtn-projectsPage">
-                                        {project.icon || "📁"}
-                                    </button>
+                            return (
+                                <div
+                                    className={`header-projectsPage ${i % 2 === 1 ? "row-alt" : ""}`}
+                                    key={project._id}
+                                    onClick={() => navigate(`/projects/${project.slug}`)}
+                                >
+                                    {/* Left */}
+                                    <div className="headerLeft-projectsPage">
+                                        <button className="addProjectBtn-projectsPage">
+                                            {project.icon || "📁"}
+                                        </button>
+                                    </div>
+
+                                    {/* Columns */}
+                                    <div className="headerCols-projectsPage projectsGrid">
+                                        <div className="col-name-projectsPage">
+                                            <Link to={`/projects/${project.slug}`}>{project.name}</Link>
+                                        </div>
+
+                                        <div className="col-status-projectsPage">
+                                            {status === "pinned" && "📌"}
+                                            {status === "archived" && "Archived"}
+                                            {status === "hidden" && "Hidden"}
+                                            {status === "completed" && "Completed"}
+                                            {status === "active" && "Active"}
+                                        </div>
+
+                                        <div className="col-priority-projectsPage">
+                                            <span className={`priority-dot priority-${project.priority}`} />
+                                        </div>
+
+                                        <div className="col-members-projectsPage">
+                                            {(project.collaborators?.length ?? 0) + 1}
+                                        </div>
+
+                                        <div className="col-visibility-projectsPage">
+                                            {(project.visibility ?? "private").charAt(0).toUpperCase() +
+                                                (project.visibility ?? "private").slice(1)}
+                                        </div>
+
+                                        <div className="col-deadline-projectsPage">
+                                            {project.deadline
+                                                ? new Date(project.deadline).toLocaleDateString()
+                                                : " "}
+                                        </div>
+
+                                        <div className="col-updated-projectsPage">
+                                            {project.updatedAt
+                                                ? new Date(project.updatedAt).toLocaleDateString()
+                                                : " "}
+                                        </div>
+
+                                        <div className="col-actions-projectsPage" />
+                                    </div>
+
+                                    {/* Right */}
+                                    <div className="headerRight-projectsPage" />
                                 </div>
-
-                                {/* Columns */}
-                                <div className="headerCols-projectsPage projectsGrid">
-                                    <div className="col-name-projectsPage">
-                                        <Link to={`/projects/${project.slug}`}>{project.name}</Link>
-                                    </div>
-
-                                    <div className="col-status-projectsPage">
-                                        {status === "pinned" && "📌"}
-                                        {status === "archived" && "Archived"}
-                                        {status === "hidden" && "Hidden"}
-                                        {status === "completed" && "Completed"}
-                                        {status === "active" && "Active"}
-                                    </div>
-
-                                    <div className="col-priority-projectsPage">
-                                        <span className={`priority-dot priority-${project.priority}`} />
-                                    </div>
-
-                                    <div className="col-members-projectsPage">
-                                        {(project.collaborators?.length ?? 0) + 1}
-                                    </div>
-
-                                    <div className="col-visibility-projectsPage">
-                                        {(project.visibility ?? "private").charAt(0).toUpperCase() + (project.visibility ?? "private").slice(1)}
-                                    </div>
-
-                                    <div className="col-deadline-projectsPage">
-                                        {project.deadline
-                                            ? new Date(project.deadline).toLocaleDateString()
-                                            : "—"}
-                                    </div>
-
-                                    <div className="col-updated-projectsPage">
-                                        {project.updatedAt
-                                            ? new Date(project.updatedAt).toLocaleDateString()
-                                            : "—"}
-                                    </div>
-
-                                    <div className="col-actions-projectsPage" />
-                                </div>
-
-                                {/* Right */}
-                                <div className="headerRight-projectsPage" />
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
                 </div>
             </div>
         </div>
