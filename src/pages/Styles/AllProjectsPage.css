@@ -122,6 +122,13 @@
     color: var(--placeholderTheme);
 }
 
+.col-status-projectsPage svg.size-7 {
+    height: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+    color: #FFD700;
+}
+
 .headerCols-projectsPage,
 .row-projectsPage {
   display: grid;
