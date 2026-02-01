@@ -353,6 +353,7 @@ const ProjectPage = () => {
 
       const updatedProject = await res.json();
       setProject(updatedProject);
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert("Could not update project status");
@@ -436,7 +437,7 @@ const ProjectPage = () => {
                         setEditProjectOpen(true);
                       }}
                     >
-                      Edit Project
+                      Edit Details
                     </button>
 
                     {/* ===== Pin / Unpin ===== */}
@@ -458,7 +459,7 @@ const ProjectPage = () => {
                         updateProjectStatus(isHidden ? "active" : "hidden");
                       }}
                     >
-                      {isHidden ? "Unhide Project" : "Hide Project"}
+                      {isHidden ? "Unhide" : "Hide"}
                     </button>
 
                     {/* ===== Complete ===== */}
@@ -482,7 +483,7 @@ const ProjectPage = () => {
                           handleShareProject();
                         }}
                       >
-                        Share Project
+                        Share
                       </button>
                     )}
 
