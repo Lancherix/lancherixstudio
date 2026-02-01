@@ -319,6 +319,40 @@ const ProjectPage = () => {
     }
   };
 
+  const updateProjectStatus = async (newStatus) => {
+    if (!project?._id) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(
+        `https://lancherixstudio-backend.onrender.com/api/projects/${project._id}/status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to update project status");
+
+      const updatedProject = await res.json();
+      setProject(updatedProject);
+    } catch (err) {
+      console.error(err);
+      alert("Could not update project status");
+    }
+  };
+
+  const status = project.status || "active";
+
+  const isPinned = status === "pinned";
+  const isHidden = status === "hidden";
+  const isArchived = status === "archived";
+  const isCompleted = status === "completed";
+
   /* ===== States ===== */
   if (loading) return <div className="loading-projectPage">Loading…</div>;
   if (error) return <div className="error-projectPage">{error}</div>;
@@ -391,8 +425,57 @@ const ProjectPage = () => {
                     >
                       Edit Project
                     </button>
+
+                    {/* ===== Pin / Unpin ===== */}
                     <button
                       className="optionsItem-projectPage"
+                      onClick={() => {
+                        setShowOptions(false);
+                        updateProjectStatus(isPinned ? "active" : "pinned");
+                      }}
+                    >
+                      {isPinned ? "Unpin Project" : "Pin Project"}
+                    </button>
+
+                    {/* ===== Hide / Unhide ===== */}
+                    <button
+                      className="optionsItem-projectPage"
+                      onClick={() => {
+                        setShowOptions(false);
+                        updateProjectStatus(isHidden ? "active" : "hidden");
+                      }}
+                    >
+                      {isHidden ? "Unhide Project" : "Hide Project"}
+                    </button>
+
+                    {/* ===== Complete ===== */}
+                    {!isCompleted && (
+                      <button
+                        className="optionsItem-projectPage"
+                        onClick={() => {
+                          setShowOptions(false);
+                          updateProjectStatus("completed");
+                        }}
+                      >
+                        Mark as Completed
+                      </button>
+                    )}
+
+                    {/* ===== Archive / Restore ===== */}
+                    <button
+                      className="optionsItem-projectPage"
+                      onClick={() => {
+                        setShowOptions(false);
+                        updateProjectStatus(isArchived ? "active" : "archived");
+                      }}
+                    >
+                      {isArchived ? "Restore Project" : "Archive Project"}
+                    </button>
+
+                    <div className="optionsDivider-projectPage" />
+
+                    <button
+                      className="optionsItem-projectPage danger"
                       onClick={() => {
                         setShowOptions(false);
                         handleLeave();
