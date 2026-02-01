@@ -44,6 +44,7 @@
     border-bottom: 1px solid var(--altRow);
     font-size: 0.85rem;
     user-select: none;
+    height: 10vh;
 }
 
 .header-left,
