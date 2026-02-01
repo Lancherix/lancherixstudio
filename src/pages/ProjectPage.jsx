@@ -319,6 +319,19 @@ const ProjectPage = () => {
     }
   };
 
+  const handleShareProject = async () => {
+    try {
+      const url = `https://studio.lancherix.com/projects/${project.slug}`;
+
+      await navigator.clipboard.writeText(url);
+
+      alert("Project link copied to clipboard!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to copy project link");
+    }
+  };
+
   const updateProjectStatus = async (newStatus) => {
     if (!project?._id) return;
 
@@ -346,7 +359,7 @@ const ProjectPage = () => {
     }
   };
 
-  const status = project.status || "active";
+  const status = project ? project.status ?? "active" : "active";
 
   const isPinned = status === "pinned";
   const isHidden = status === "hidden";
@@ -458,6 +471,18 @@ const ProjectPage = () => {
                         }}
                       >
                         Mark as Completed
+                      </button>
+                    )}
+
+                    {project.visibility === "public" && (
+                      <button
+                        className="optionsItem-projectPage"
+                        onClick={() => {
+                          setShowOptions(false);
+                          handleShareProject();
+                        }}
+                      >
+                        Share Project
                       </button>
                     )}
 
