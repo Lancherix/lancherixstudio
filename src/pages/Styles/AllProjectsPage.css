@@ -23,7 +23,7 @@
     flex-grow: 1;
     background-color: var(--theme);
     border-radius: 0 0 15px 15px;
-    padding: 2%;
+    padding: 1% 0;
     overflow-y: auto;
 }
 
