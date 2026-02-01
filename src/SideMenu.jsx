@@ -240,6 +240,18 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
     toggleMenu(newCollapsed);
   };
 
+  const visibleProjects = projects
+    // 1. Hide unwanted statuses
+    .filter(project =>
+      !["hidden", "archived", "completed"].includes(project?.status)
+    )
+    // 2. Pinned projects first
+    .sort((a, b) => {
+      if (a?.status === "pinned" && b?.status !== "pinned") return -1;
+      if (a?.status !== "pinned" && b?.status === "pinned") return 1;
+      return 0;
+    });
+
   return (
     <div className={`side-menu ${collapsed ? 'collapsed' : ''}`}>
       <div className="profile-section">
@@ -290,20 +302,25 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
         </li>
 
         {/* User Projects */}
-        {projects.length > 0 &&
+        {visibleProjects.length > 0 && (
           <ul className="projects-list">
-            {projects.map((project) => (
+            {visibleProjects.map((project) => (
               <li key={project._id}>
                 <Link to={`/projects/${project.slug}`} className="menu-link">
                   <span className="menu-icon project-emoji">
                     {project.icon || "📁"}
                   </span>
-                  {!collapsed && <span className="menu-text">{project.name || "Untitled Project"}</span>}
+                  {!collapsed && (
+                    <span className="menu-text">
+                      {project.name || "Untitled Project"}
+                      {project.status === "pinned" && " 📌"}
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}
           </ul>
-        }
+        )}
 
         {/* New Project */}
         <li>
