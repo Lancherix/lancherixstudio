@@ -114,13 +114,13 @@
 .row-projectsPage {
   display: grid;
   grid-template-columns:
-    1.4fr   /* Name */
-    12%     /* Status */
+    1fr   /* Name */
+    10%     /* Status */
     10%     /* Priority */
     10%     /* Members */
     10%     /* Visibility */
-    12%     /* Deadline */
-    14%     /* Updated */
+    10%     /* Deadline */
+    10%     /* Updated */
     4%;     /* Actions */
   align-items: center;
 }
