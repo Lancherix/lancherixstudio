@@ -115,6 +115,13 @@
   opacity: 0.4;
 }
 
+.col-status-projectsPage svg.size-6 {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .headerCols-projectsPage,
 .row-projectsPage {
   display: grid;
