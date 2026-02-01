@@ -23,7 +23,7 @@
     flex-grow: 1;
     background-color: var(--theme);
     border-radius: 0 0 15px 15px;
-    padding: 1% 0;
+    padding: 0;
     overflow-y: auto;
 }
 
@@ -123,4 +123,27 @@
     1fr     /* Updated */
     0.2fr;  /* Actions */
   align-items: center;
+}
+
+.content-projectsPage .header-projectsPage {
+  height: 5.5vh;
+  border-bottom: none;
+  border-radius: 0.6rem;
+  margin-bottom: 0.4vh;
+  transition: background-color 0.15s ease;
+}
+
+.content-projectsPage .header-projectsPage:hover {
+  background-color: var(--altRow);
+  cursor: pointer;
+}
+
+.content-projectsPage .headerCols-projectsPage {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.content-projectsPage .headerRight-projectsPage {
+  opacity: 0;
+  pointer-events: none;
 }
