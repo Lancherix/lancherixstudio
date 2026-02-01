@@ -80,11 +80,14 @@ const AllProjectsPage = () => {
 
                 {/* ===== Content ===== */}
                 <div className="content-projectsPage">
-                    {projects.map(project => {
+                    {projects.map((project, i) => {
                         const status = project.status ?? "active";
 
                         return (
-                            <div className="header-projectsPage" key={project._id}>
+                            <div
+                                className={`header-projectsPage ${i % 2 === 1 ? "row-alt" : ""}`}
+                                key={project._id}
+                            >
                                 {/* Left */}
                                 <div className="headerLeft-projectsPage">
                                     <button className="addProjectBtn-projectsPage">
@@ -95,9 +98,7 @@ const AllProjectsPage = () => {
                                 {/* Columns */}
                                 <div className="headerCols-projectsPage projectsGrid">
                                     <div className="col-name-projectsPage">
-                                        <Link to={`/projects/${project.slug}`}>
-                                            {project.name}
-                                        </Link>
+                                        <Link to={`/projects/${project.slug}`}>{project.name}</Link>
                                     </div>
 
                                     <div className="col-status-projectsPage">
