@@ -131,6 +131,13 @@
     color: #FFCA28;
 }
 
+.col-visibility-projectsPage svg.size-6 {
+    height: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+    color: var(--placeholderTheme);
+}
+
 .headerCols-projectsPage,
 .row-projectsPage {
   display: grid;
