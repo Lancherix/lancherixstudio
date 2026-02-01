@@ -1,3 +1,13 @@
+.status.pinned { color: #f4b400; }
+.status.active { color: #4da3ff; }
+.status.completed { color: #4caf50; }
+.status.archived { color: #888; }
+.status.hidden { color: #d9534f; }
+
+.priority.low { opacity: 0.7; }
+.priority.medium { font-weight: 500; }
+.priority.high { font-weight: 600; }
+
 .all-projectsPage {
     display: flex;
     justify-content: center;
@@ -17,12 +27,6 @@
     box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
 }
 
-.header-projectsPage {
-    display: flex;
-    flex-direction: row;
-    height: 5vh;
-}
-
 .content-projectsPage {
     display: flex;
     flex-direction: column;
@@ -31,4 +35,85 @@
     border-radius: 0 0 15px 15px;
     padding: 2%;
     overflow-y: auto;
+}
+
+.header-projectsPage {
+    display: flex;
+    align-items: center;
+    padding: 0 2%;
+    border-bottom: 1px solid var(--altRow);
+    font-size: 0.85rem;
+    user-select: none;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-left {
+    width: 15%;
+}
+
+.header-columns {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    width: 70%;
+    color: var(--textTheme);
+    opacity: 0.7;
+}
+
+.header-right {
+    width: 15%;
+    justify-content: flex-end;
+}
+
+.new-project-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--textTheme);
+}
+
+.new-project-btn:hover {
+    opacity: 0.8;
+}
+
+.search-projects {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: var(--borderTheme);
+    background: transparent;
+    color: var(--textTheme);
+}
+
+.sort-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--textTheme);
+}
+
+.project-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    padding: 10px 2%;
+    align-items: center;
+    border-bottom: 1px solid var(--altRow);
+    cursor: pointer;
+}
+
+.project-row:hover {
+    background-color: var(--altRow);
+}
+
+.project-icon {
+    margin-right: 8px;
+}
+
+.project-name {
+    font-weight: 500;
 }
