@@ -174,3 +174,7 @@
   opacity: 0;
   pointer-events: none;
 }
+
+.addProjectBtn-projectsPage svg {
+    height: 1.2rem;
+}
