@@ -30,7 +30,7 @@
 .header-projectsPage {
   display: flex;
   align-items: center;
-  height: 6vh;
+  height: 5vh;
   padding: 0 2%;
   border-bottom: 1px solid var(--altRow);
 }
@@ -44,9 +44,18 @@
 .addProjectBtn-projectsPage {
   background: none;
   border: none;
-  font-size: 1.4rem;
+  font-size: 20px;
   cursor: pointer;
   color: var(--textTheme);
+}
+
+.headerCols-projectsPage {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr 16% 12% 18% 5%;
+  align-items: center;
+  font-size: 13px;
+  opacity: 0.7;
 }
 
 .headerRight-projectsPage {
@@ -56,10 +65,9 @@
 }
 
 .search-projectsPage {
-  padding: 0.4rem 0.6rem;
-  border-radius: 0.4rem;
-  font-size: 0.8rem;
-  height: 3.2vh;
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 6px;
   border: 1px solid var(--placeholderTheme);
   background-color: transparent;
   color: var(--textTheme);
@@ -68,6 +76,20 @@
 
 .search-projectsPage::placeholder {
     color: var(--placeholderTheme);
+}
+
+.row-projectsPage {
+  display: grid;
+  grid-template-columns: 1fr 16% 12% 18% 5%;
+  align-items: center;
+  height: 34px;
+  padding: 0 2%;
+  border-radius: 6px;
+}
+
+.row-projectsPage:hover {
+  background-color: var(--altRow);
+  cursor: pointer;
 }
 
 .col-name-projectsPage {
@@ -101,21 +123,4 @@
     1fr     /* Updated */
     0.2fr;  /* Actions */
   align-items: center;
-}
-
-.row-projectsPage {
-  height: 5.2vh;
-  padding: 0 1%;
-  border-radius: 0.5rem;
-  font-size: 0.85rem;
-}
-
-.row-projectsPage:hover {
-  background-color: var(--altRow);
-  cursor: pointer;
-}
-
-.projectName-projectsPage {
-  font-size: 0.95rem;
-  font-weight: 500;
 }
