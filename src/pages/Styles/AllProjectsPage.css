@@ -30,6 +30,7 @@
 .header-projectsPage {
   display: flex;
   align-items: center;
+  vertical-align: middle;
   height: 5vh;
   padding: 0 2%;
   border-bottom: 1px solid var(--altRow);
