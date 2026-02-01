@@ -71,6 +71,7 @@
   border: 1px solid var(--placeholderTheme);
   background-color: transparent;
   color: var(--textTheme);
+  outline: none;
 }
 
 .search-projectsPage::placeholder {
@@ -107,4 +108,19 @@
 
 .col-status-projectsPage.archived {
   opacity: 0.4;
+}
+
+.headerCols-projectsPage,
+.row-projectsPage {
+  display: grid;
+  grid-template-columns:
+    1.4fr   /* Name */
+    12%     /* Status */
+    10%     /* Priority */
+    10%     /* Members */
+    10%     /* Visibility */
+    12%     /* Deadline */
+    14%     /* Updated */
+    4%;     /* Actions */
+  align-items: center;
 }

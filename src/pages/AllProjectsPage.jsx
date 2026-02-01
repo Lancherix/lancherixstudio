@@ -17,6 +17,9 @@ const AllProjectsPage = () => {
                         <div className="col-name-projectsPage">Name</div>
                         <div className="col-status-projectsPage">Status</div>
                         <div className="col-priority-projectsPage">Priority</div>
+                        <div className="col-members-projectsPage">Members</div>
+                        <div className="col-visibility-projectsPage">Visibility</div>
+                        <div className="col-deadline-projectsPage">Deadline</div>
                         <div className="col-updated-projectsPage">Updated</div>
                         <div className="col-actions-projectsPage" />
                     </div>
@@ -58,7 +61,9 @@ const AllProjectsPage = () => {
                         <div className="col-priority-projectsPage">
                             <span className="priorityDot-projectsPage low" />
                         </div>
-
+                        <div className="col-members-projectsPage">—</div>
+                        <div className="col-visibility-projectsPage">Private</div>
+                        <div className="col-deadline-projectsPage">—</div>
                         <div className="col-updated-projectsPage">Today</div>
 
                         <div className="col-actions-projectsPage" />
