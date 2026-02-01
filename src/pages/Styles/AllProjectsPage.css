@@ -7,6 +7,7 @@
 
 .window-projectsPage {
     display: flex;
+    flex-direction: column;
     width: 90%;
     height: 90%;
     border-radius: 15px;
@@ -16,12 +17,18 @@
     box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
 }
 
+.header-projectsPage {
+    display: flex;
+    flex-direction: row;
+    height: 5vh;
+}
+
 .content-projectsPage {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     background-color: var(--theme);
-    border-radius: 15px;
+    border-radius: 0 0 15px 15px;
     padding: 2%;
     overflow-y: auto;
 }
