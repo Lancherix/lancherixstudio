@@ -119,6 +119,7 @@
     height: 1rem;
     display: inline-block;
     vertical-align: middle;
+    color: var(--placeholderTheme);
 }
 
 .headerCols-projectsPage,
