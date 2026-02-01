@@ -1,0 +1,39 @@
+.all-projectsPage {
+    display: flex;
+    justify-content: center;
+    height: 91vh;
+    overflow: hidden;
+}
+
+.window-projectsPage {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    background-color: var(--theme);
+    backdrop-filter: blur(10px);
+    border: var(--borderTheme);
+    box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.9);
+}
+
+.menu-projectsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 25%;
+    max-width: 25%;
+    padding: 2%;
+    margin-top: -2%;
+}
+
+.content-projectsPage {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--theme);
+    border-radius: 0 15px 15px 0;
+    box-shadow: -6px 1px 16px -5px rgba(0, 0, 0, 0.3);
+    padding: 2%;
+    overflow-y: auto;
+}

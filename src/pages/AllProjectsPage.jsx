@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import './Styles/AllProjectsPage.css';
 
 const AllProjectsPage = () => {
   return (
-    <div className='all-memberPage'>
-      <div className='window-memberPage'>
-        <div className='menu-memberPage'>
+    <div className='all-projectsPage'>
+      <div className='window-projectsPage'>
+        <div className='menu-projectsPage'>
 
         </div>
-        <div className="content-memberPage">
-
+        <div className="content-projectsPage">
           
         </div>
       </div>
