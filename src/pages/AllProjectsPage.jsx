@@ -87,6 +87,7 @@ const AllProjectsPage = () => {
                             <div
                                 className={`header-projectsPage ${i % 2 === 1 ? "row-alt" : ""}`}
                                 key={project._id}
+                                onClick={() => navigate(`/projects/${project.slug}`)}
                             >
                                 {/* Left */}
                                 <div className="headerLeft-projectsPage">
@@ -110,7 +111,7 @@ const AllProjectsPage = () => {
                                     </div>
 
                                     <div className="col-priority-projectsPage">
-                                        {project.priority ?? "—"}
+                                        <span className={`priority-dot priority-${project.priority}`} />
                                     </div>
 
                                     <div className="col-members-projectsPage">
@@ -118,7 +119,7 @@ const AllProjectsPage = () => {
                                     </div>
 
                                     <div className="col-visibility-projectsPage">
-                                        {project.visibility ?? "private"}
+                                        {(project.visibility ?? "private").charAt(0).toUpperCase() + (project.visibility ?? "private").slice(1)}
                                     </div>
 
                                     <div className="col-deadline-projectsPage">
