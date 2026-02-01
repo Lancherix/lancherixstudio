@@ -1,42 +1,50 @@
-/* ===== Layout ===== */
-
 .all-projectsPage {
-  display: flex;
-  justify-content: center;
-  height: 91vh;
-  overflow: hidden;
+    display: flex;
+    justify-content: center;
+    height: 91vh;
+    overflow: hidden;
 }
 
 .window-projectsPage {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  height: 90%;
-  border-radius: 1rem;
-  background-color: var(--theme);
-  backdrop-filter: blur(10px);
-  border: var(--borderTheme);
-  box-shadow: 0.5rem 0.7rem 1.5rem rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    background-color: var(--theme);
+    backdrop-filter: blur(10px);
+    border: var(--borderTheme);
+    box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
 }
 
-/* ===== Header ===== */
+.content-projectsPage {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--theme);
+    border-radius: 0 0 15px 15px;
+    padding: 2%;
+    overflow-y: auto;
+}
 
 .header-projectsPage {
   display: flex;
   align-items: center;
-  height: 5vh;
+  height: 6vh;
   padding: 0 2%;
   border-bottom: 1px solid var(--altRow);
 }
 
 .headerLeft-projectsPage {
   width: 5%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .addProjectBtn-projectsPage {
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   cursor: pointer;
   color: var(--textTheme);
 }
@@ -48,92 +56,25 @@
 }
 
 .search-projectsPage {
-  width: 100%;
-  padding: 0.3rem 0.5rem;
-  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 0.4rem;
+  font-size: 0.8rem;
+  height: 3.2vh;
   border: 1px solid var(--placeholderTheme);
-  background: transparent;
+  background-color: transparent;
   color: var(--textTheme);
+  outline: none;
 }
 
-/* ===== Shared Grid ===== */
-
-.projectsGrid {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns:
-    1.3fr
-    1fr
-    1fr
-    1fr
-    1fr
-    1fr
-    1fr
-    0.2fr;
-  align-items: center;
+.search-projectsPage::placeholder {
+    color: var(--placeholderTheme);
 }
-
-/* ===== Header Columns ===== */
-
-.headerCols-projectsPage {
-  font-size: 0.7rem;
-  opacity: 0.7;
-}
-
-/* ===== Content ===== */
-
-.content-projectsPage {
-  flex: 1;
-  padding: 2%;
-  overflow-y: auto;
-}
-
-/* ===== Rows ===== */
-
-.row-projectsPage {
-  height: 2.2rem;
-  padding: 0 2%;
-  border-radius: 0.4rem;
-  user-select: none;
-}
-
-.row-projectsPage:hover {
-  background-color: var(--altRow);
-  cursor: pointer;
-}
-
-/* ===== Columns ===== */
 
 .col-name-projectsPage {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  gap: 8px;
 }
-
-.projectIcon-projectsPage {
-  font-size: 1rem;
-}
-
-.projectName-projectsPage {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.col-status-projectsPage,
-.col-priority-projectsPage,
-.col-members-projectsPage,
-.col-visibility-projectsPage,
-.col-deadline-projectsPage,
-.col-updated-projectsPage {
-  font-size: 0.7rem;
-  text-align: center;
-}
-
-/* ===== Status ===== */
 
 .col-status-projectsPage.pinned {
   color: gold;
@@ -147,35 +88,40 @@
   opacity: 0.4;
 }
 
-/* ===== Priority ===== */
-
-.priorityDot-projectsPage {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  display: inline-block;
+.headerCols-projectsPage,
+.row-projectsPage {
+  display: grid;
+  grid-template-columns:
+    1.3fr   /* Name */
+    1fr     /* Status */
+    1fr     /* Priority */
+    1fr     /* Members */
+    1fr     /* Visibility */
+    1fr     /* Deadline */
+    1fr     /* Updated */
+    0.2fr;  /* Actions */
+  align-items: center;
 }
 
-.priorityDot-projectsPage.low {
-  background-color: #32d74b;
+.row-projectsPage {
+  height: 5.2vh;
+  padding: 0 1%;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
 }
 
-.priorityDot-projectsPage.medium {
-  background-color: #ffd60a;
+.row-projectsPage:hover {
+  background-color: var(--altRow);
+  cursor: pointer;
 }
 
-.priorityDot-projectsPage.high {
-  background-color: #ff453a;
+.headerCols-projectsPage > div {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.75;
 }
 
-/* ===== Actions ===== */
-
-.col-actions-projectsPage {
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.row-projectsPage:hover .col-actions-projectsPage {
-  opacity: 1;
+.projectName-projectsPage {
+  font-size: 0.95rem;
+  font-weight: 500;
 }
