@@ -6,12 +6,6 @@ const AllProjectsPage = () => {
   return (
     <div className='all-projectsPage'>
       <div className='window-projectsPage'>
-        <div className='menu-projectsPage'>
-
-        </div>
-        <div className="content-projectsPage">
-          
-        </div>
       </div>
     </div>
   );
