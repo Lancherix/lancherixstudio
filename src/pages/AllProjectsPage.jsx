@@ -6,6 +6,9 @@ const AllProjectsPage = () => {
   return (
     <div className='all-projectsPage'>
       <div className='window-projectsPage'>
+        <div className="content-projectsPage">
+          
+        </div>
       </div>
     </div>
   );
