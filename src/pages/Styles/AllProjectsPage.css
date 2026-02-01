@@ -33,6 +33,7 @@
   height: 5vh;
   padding: 0 2%;
   border-bottom: 1px solid var(--altRow);
+  color: var(--textTheme);
 }
 
 .header-projectsPage a {
