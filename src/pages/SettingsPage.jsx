@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import LogoutPage from './LogoutPage';
 import './Styles/SettingsPage.css';
+import { language } from '../language';
 
 import UserIcon from '../icons/profile.svg';
 import AspectIcon from '../icons/aspect.svg';
@@ -25,6 +26,11 @@ const SettingsPage = () => {
   const [profilePicturePreview, setProfilePicturePreview] = useState('');
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const [sideMenuColor, setSideMenuColor] = useState('rgba(0, 147, 203, 1)');
+  const [currentLang, setCurrentLang] = useState('en-US');
+
+  const t = (key) => {
+    return language[currentLang][key] || key;
+  };
 
   document.title = `Lancherix Settings`;
 

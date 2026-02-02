@@ -2,21 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-import HomeIcon from '../src/icons/home.svg';
-import HomeDarkIcon from '../src/icons/homeDark.svg';
-import NotesIcon from '../src/icons/notes.svg';
-import SettingsIcon from '../src/icons/settings.svg';
-import SettingsDarkIcon from '../src/icons/settingsDark.svg';
-import ArrowLeftIcon from '../src/icons/arrow-left.svg';
-import ArrowLeftDarkIcon from '../src/icons/arrow-leftDark.svg';
-import ArrowRightIcon from '../src/icons/arrow-right.svg';
-import ArrowRightDarkIcon from '../src/icons/arrow-rightDark.svg';
-import AddIcon from '../src/icons/add.svg';
-import AddDarkIcon from '../src/icons/addDark.svg';
 import NewProjectPage from './pages/NewProjectPage';
-
-import LancherixIcon from './icons/lancherix.svg';
-import LancherixDarkIcon from './icons/lancherixDark.svg';
+import { lancguage } from './language';
 
 import './SideMenu.css';
 
@@ -32,6 +19,11 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
   const [wallpaper, setWallpaper] = useState('url(/Images/backgroundImage.jpeg)');
   const [showNewProject, setShowNewProject] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [currentLang, setCurrentLang] = useState('en-US');
+
+  const t = (key) => {
+    return translations[currentLang]?.[key] || translations['en-US'][key];
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -60,6 +52,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
         setThemeMode(user.themeMode);
         setUsername(user.username);
         setProjects(user.projects || []);
+        setCurrentLang(user.language || 'en-US');
 
         // Background wallpaper
         const body = document.querySelector('body');
@@ -297,7 +290,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
               <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
               <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
             </svg>
-            {!collapsed && <span className="menu-text">Home</span>}
+            {!collapsed && <span className="menu-text">{t('home')}</span>}
           </Link>
         </li>
 
