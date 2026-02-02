@@ -10,6 +10,13 @@ const AllProjectsPage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [showNewProject, setShowNewProject] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const filteredProjects = projects.filter(project =>
+        project.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const projectsToDisplay = searchTerm ? filteredProjects : projects;
+
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -81,7 +88,9 @@ const AllProjectsPage = () => {
                         <input
                             type="text"
                             className="search-projectsPage"
-                            placeholder="Search"
+                            placeholder="Search in your projects"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                 </div>
@@ -89,7 +98,7 @@ const AllProjectsPage = () => {
                 {/* ===== Content ===== */}
                 {/* ===== Content ===== */}
                 <div className="content-projectsPage">
-                    {projects
+                    {projectsToDisplay
                         .slice() // make a copy to avoid mutating state
                         .sort((a, b) => {
                             const order = { pinned: 0, active: 1, completed: 2, archived: 3, hidden: 4 };
