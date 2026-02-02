@@ -22,7 +22,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
   const [currentLang, setCurrentLang] = useState('en-US');
 
   const t = (key) => {
-    return translations[currentLang]?.[key] || translations['en-US'][key];
+    return language[currentLang]?.[key] || translations['en-US'][key];
   };
 
   useEffect(() => {
