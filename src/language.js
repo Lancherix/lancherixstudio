@@ -1,4 +1,4 @@
-export const lancguage = {
+export const language = {
     "en-US": {
         home: "Home",
         allProjects: "All Projects",

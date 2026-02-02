@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 import NewProjectPage from './pages/NewProjectPage';
-import { lancguage } from './language';
+import { language } from './language';
 
 import './SideMenu.css';
 
