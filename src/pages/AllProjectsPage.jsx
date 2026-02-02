@@ -53,7 +53,7 @@ const AllProjectsPage = () => {
         fetchProjects();
     }, []);
 
-    if (loading) return <div className="loading-projectsPage">Loading…</div>;
+    if (loading) return <div className="loading-projectsPage"> </div>;
     if (error) return <div className="error-projectsPage">{error}</div>;
 
     return (

@@ -368,7 +368,7 @@ const ProjectPage = () => {
   const isCompleted = status === "completed";
 
   /* ===== States ===== */
-  if (loading) return <div className="loading-projectPage">Loading…</div>;
+  if (loading) return <div className="loading-projectPage"> </div>;
   if (error) return <div className="error-projectPage">{error}</div>;
   if (!project) return null;
 
