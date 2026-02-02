@@ -49,7 +49,7 @@ export const language = {
     },
     "es-CO": {
         home: "Inicio",
-        allProjects: "Todos los proyectos",
+        allProjects: "Proyectos",
         newProject: "Nuevo proyecto",
         myProfile: "Mi perfil",
         settings: "Configuración",
