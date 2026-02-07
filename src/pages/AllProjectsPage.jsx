@@ -101,7 +101,7 @@ const AllProjectsPage = () => {
                     {projectsToDisplay
                         .slice() // make a copy to avoid mutating state
                         .sort((a, b) => {
-                            const order = { pinned: 0, active: 1, completed: 2, archived: 3, hidden: 4 };
+                            const order = { pinned: 0, active: 1, archived: 2, hidden: 3, completed: 4 };
                             const aStatus = a.status ?? "active";
                             const bStatus = b.status ?? "active";
                             return (order[aStatus] ?? 4) - (order[bStatus] ?? 4);
