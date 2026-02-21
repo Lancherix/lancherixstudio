@@ -29,7 +29,7 @@ const SettingsPage = () => {
   const [currentLang, setCurrentLang] = useState('en-US');
 
   const t = (key) => {
-    return language[currentLang][key] || key;
+    return language[currentLang]?.[key] || language['en-US']?.[key] || key;
   };
 
   document.title = `Lancherix Settings`;
@@ -60,6 +60,7 @@ const SettingsPage = () => {
         setBirthDate(user.date);     // backend uses "date"
         setBirthYear(user.year);     // backend uses "year"
         setGender(user.gender);
+        setCurrentLang(user.language || 'en-US');
 
         setProfilePicturePreview(user.profilePicture?.url || "https://studio.lancherix.com/Images/defaultProfilePicture.png");
         setWallpaper(`url(${user.wallpaper?.url})`);
@@ -819,7 +820,7 @@ const SettingsPage = () => {
           <div className='options-settingsPage'>
             <button onClick={() => setSelectedOption('My profile')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
-            </svg>Edit my Profile</button>
+            </svg>{t('editProfile')}</button>
             <button onClick={() => setSelectedOption('Aspect')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
               <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
