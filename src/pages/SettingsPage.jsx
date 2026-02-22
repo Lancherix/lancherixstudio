@@ -518,7 +518,7 @@ const SettingsPage = () => {
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           ></div>
-          <a onClick={handleRemovePicture}>Remove profile picture</a>
+          <a onClick={handleRemovePicture}>{t('removeProfilePicture')}</a>
           <input
             id='fileInput'
             type='file'
@@ -529,7 +529,7 @@ const SettingsPage = () => {
           <div className='input-registerPage border-settingsPage'>
             <input
               type='email'
-              placeholder='Email'
+              placeholder={t('email')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className='inputEmail-registerPage'
@@ -541,7 +541,7 @@ const SettingsPage = () => {
           <div className='input-registerPage border-settingsPage'>
             <input
               type='text'
-              placeholder='First Name'
+              placeholder={t('firstName')}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               className='inputName-registerPage'
@@ -549,7 +549,7 @@ const SettingsPage = () => {
             />
             <input
               type='text'
-              placeholder='Last Name'
+              placeholder={t('lastName')}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               className='inputName-registerPage'
@@ -563,7 +563,7 @@ const SettingsPage = () => {
                 onChange={(e) => setBirthMonth(e.target.value)}
                 className='inputD-registerPage'
               >
-                <option value=''>Month</option>
+                <option value=''>{t('month')}</option>
                 {Array.from({ length: 12 }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {new Date(0, i + 1, 0).toLocaleString('en-US', { month: 'long' }).replace(/^\w/, (c) => c.toUpperCase())}
@@ -577,7 +577,7 @@ const SettingsPage = () => {
                 onChange={(e) => setBirthDate(e.target.value)}
                 className='inputD-registerPage'
               >
-                <option value=''>Date</option>
+                <option value=''>{t('date')}</option>
                 {Array.from({ length: 31 }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1}
@@ -591,7 +591,7 @@ const SettingsPage = () => {
                 onChange={(e) => setBirthYear(e.target.value)}
                 className='inputD-registerPage'
               >
-                <option value=''>Year</option>
+                <option value=''>{t('year')}</option>
                 {Array.from({ length: 100 }, (_, i) => (
                   <option key={i + 1924} value={i + 1924}>
                     {i + 1924}
@@ -603,15 +603,15 @@ const SettingsPage = () => {
           <div className='input-registerPage border-settingsPage'>
             <div className='inputD-registerPage'>
               <select value={gender} onChange={(e) => setGender(e.target.value)} className='inputD-registerPage'>
-                <option value=''>Gender</option>
-                <option value='male'>Male</option>
-                <option value='female'>Female</option>
-                <option value="preferNotToSay">Prefer not to say</option>
+                <option value=''>{t('gender')}</option>
+                <option value='male'>{t('male')}</option>
+                <option value='female'>{t('female')}</option>
+                <option value="preferNotToSay">{t('preferNotToSay')}</option>
               </select>
             </div>
           </div>
           {error && <p className="error-registerPage">{error}</p>}
-          <button className='border-settingsPage' type='submit'>Save Changes</button>
+          <button className='border-settingsPage' type='submit'>{t('saveChanges')}</button>
         </form>
       </div>
     );
@@ -824,7 +824,7 @@ const SettingsPage = () => {
             <button onClick={() => setSelectedOption('Aspect')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
               <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-            </svg>{t('aspect')}t</button>
+            </svg>{t('aspect')}</button>
             <button onClick={() => setSelectedOption('Terms of use')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
             </svg>{t('termsOfUse')}</button>
