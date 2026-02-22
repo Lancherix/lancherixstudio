@@ -657,21 +657,21 @@ const SettingsPage = () => {
           style={{ backgroundColor: 'rgba(64, 64, 64, 0.3)' }}
           onClick={() => handleThemeChange('glass')}
         >
-          Glass
+          {t('glass')}
         </div>
         <div
           className='themeOptionLight-settingsPage'
           style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
           onClick={() => handleThemeChange('light')}
         >
-          Light
+          {t('light')}
         </div>
         <div
           className='themeOptionDark-settingsPage'
           style={{ backgroundColor: 'rgba(0, 0, 0, 1)' }}
           onClick={() => handleThemeChange('dark')}
         >
-          Dark
+          {t('dark')}
         </div>
       </div>
     );

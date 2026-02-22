@@ -21,7 +21,10 @@ export const language = {
         female: "Female",
         preferNotToSay: "Prefer not to say",
         saveChanges: "Save Changes",
-        removeProfilePicture: "Remove profile picture"
+        removeProfilePicture: "Remove profile picture",
+        glass: "Glass",
+        light: "Light",
+        dark: "Dark",
     },
     "fr-FR": {
         home: "Accueil",
@@ -45,7 +48,10 @@ export const language = {
         female: "Femme",
         preferNotToSay: "Préfère ne pas dire",
         saveChanges: "Enregistrer les modifications",
-        removeProfilePicture: "Supprimer la photo de profil"
+        removeProfilePicture: "Supprimer la photo de profil",
+        glass: "Verre",
+        light: "Clair",
+        dark: "Sombre",
     },
     "es-CO": {
         home: "Inicio",
@@ -69,6 +75,9 @@ export const language = {
         female: "Femenino",
         preferNotToSay: "Prefiero no decirlo",
         saveChanges: "Guardar cambios",
-        removeProfilePicture: "Eliminar foto de perfil"
+        removeProfilePicture: "Eliminar foto de perfil",
+        glass: "Vidrio",
+        light: "Claro",
+        dark: "Oscuro",
     }
 };
