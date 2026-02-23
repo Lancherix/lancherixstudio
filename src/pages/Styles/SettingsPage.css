@@ -505,8 +505,9 @@
 
 .allGeneral-settingsPage h1 {
     margin: 2rem o 2rem 0;
+    font-size: 1.5rem;
 }
 
 .allGeneral-settingsPage p {
-    font-size: 1.5rem;
+    margin: 0;
 }
