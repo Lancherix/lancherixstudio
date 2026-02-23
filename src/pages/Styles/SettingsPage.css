@@ -508,19 +508,19 @@
 }
 
 .allGeneral-settingsPageUsername {
-    margin: 0;
+    margin: 0 0 1rem 0;
     font-size: 1.3rem;
 }
 
 .allGeneral-settingsPageOptions {
-    width: 80%;
+    width: 70%;
 }
 
 .allGeneral-settingsPageOptionsSections {
-    background-color: gray;
+    background-color: lightgray;
     margin: 0 0 1vh 0;
 }
 
 .allGeneral-settingsPageOptionsSections div {
-    padding: 1vh;
+    padding: 2vh;
 }
