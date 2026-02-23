@@ -630,7 +630,16 @@ const SettingsPage = () => {
         ></div>
         <h1>{firstName}{" "}{lastName}</h1>
         <p className='allGeneral-settingsPageUsername'>{username}</p>
-
+        <div className='allGeneral-settingsPageOptions'>
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div>About</div>
+            <div>Personal Information</div>
+            <div>My Activity</div>
+          </div>
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div>Aspect</div>
+          </div>
+        </div>
       </div>
     );
   };
