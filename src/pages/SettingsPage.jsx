@@ -619,7 +619,7 @@ const SettingsPage = () => {
 
   const renderGeneral = () => {
     return (
-      <div className='allProfile-settingsPage'>
+      <div className='allGeneral-settingsPage'>
           <div
             className='profilePicture-settingsPage profilePictureLarge-settingsPage'
             style={{
