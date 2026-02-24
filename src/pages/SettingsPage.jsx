@@ -637,12 +637,12 @@ const SettingsPage = () => {
             <div>Language & Region</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('Aspect')}>{t('aspect')}</div>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('Aspect')}>Appearance</div>
             <div>Notifications</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Extensions</div>
-            <div>Command Pallette</div>
+            <div>Command Palette</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>User Guide</div>
