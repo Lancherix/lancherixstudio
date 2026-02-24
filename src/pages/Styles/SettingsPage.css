@@ -531,7 +531,7 @@
     color: var(--textTheme);
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    align-items: center;
 }
 
 .allGeneral-settingsPageOptionsSections div:hover {
