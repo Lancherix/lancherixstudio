@@ -632,12 +632,11 @@ const SettingsPage = () => {
         <p className='allGeneral-settingsPageUsername'>{username}</p>
         <div className='allGeneral-settingsPageOptions'>
           <div className='allGeneral-settingsPageOptionsSections'>
-            <div>About</div>
-            <div>Personal Information</div>
-            <div>My Activity</div>
+            <div>{t('editProfile')}</div>
+            <div>{t('aspect')}</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
-            <div>Aspect</div>
+            <div>{t('termsOfUse')}</div>
           </div>
         </div>
       </div>
