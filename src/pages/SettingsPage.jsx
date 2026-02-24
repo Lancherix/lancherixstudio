@@ -635,7 +635,8 @@ const SettingsPage = () => {
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>My Activity</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Personal Information</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>{t('aspect')}</div>
-            <div>Extensions</div>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Extensions</div>
+            <div>Command Pallette</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>User Guide</div>
