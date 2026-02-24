@@ -34,7 +34,7 @@ export const language = {
         commandPalette: "Command Palette",
         userGuide: "User Guide",
         privacyPolicy: "Privacy Policy",
-        cantactSupport: "Contact / Support",
+        contactSupport: "Contact / Support",
     },
     "fr-FR": {
         home: "Accueil",
@@ -71,7 +71,7 @@ export const language = {
         commandPalette: "Palette de commandes",
         userGuide: "Guide d'utilisateur",
         privacyPolicy: "Politique de confidentialité",
-        cantactSupport: "Contact / Assistance",
+        contactSupport: "Contact / Assistance",
     },
     "es-CO": {
         home: "Inicio",
@@ -108,6 +108,6 @@ export const language = {
         commandPalette: "Paleta de comandos",
         userGuide: "Guía del usuario",
         privacyPolicy: "Política de privacidad",
-        cantactSupport: "Contacto / Soporte",
+        contactSupport: "Contacto / Soporte",
     }
 };
