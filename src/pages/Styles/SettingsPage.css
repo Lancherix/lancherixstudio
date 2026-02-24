@@ -519,8 +519,8 @@
 }
 
 .allGeneral-settingsPageOptionsSections {
-    background-color: var(--theme);
-    margin: 0 0 1.5vh 0;
+    background-color: var(--altRow);
+    margin: 0 0 2vh 0;
     border-radius: 10px;
     border: 1px solid var(--borderTheme);
 }
