@@ -531,6 +531,10 @@
     color: var(--textTheme);
 }
 
+.allGeneral-settingsPageOptionsSections div:hover {
+    cursor: pointer;
+}
+
 .allGeneral-settingsPageOptionsSectionsDivisor {
     border-bottom: 1px solid var(--placeholderTheme);
 }
