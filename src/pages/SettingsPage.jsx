@@ -635,8 +635,9 @@ const SettingsPage = () => {
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>My Activity</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('My profile')}>Personal Information</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Language & Region</div>
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Username & Password</div>
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('Aspect')}>{t('aspect')}</div>
+            <div onClick={() => setSelectedOption('Aspect')}>{t('aspect')}</div>
+          </div>
+          <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Extensions</div>
             <div>Command Pallette</div>
           </div>
