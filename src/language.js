@@ -35,6 +35,7 @@ export const language = {
         userGuide: "User Guide",
         privacyPolicy: "Privacy Policy",
         contactSupport: "Contact / Support",
+        searchInSettings: "Search in Settings",
     },
     "fr-FR": {
         home: "Accueil",
@@ -72,6 +73,7 @@ export const language = {
         userGuide: "Guide d'utilisateur",
         privacyPolicy: "Politique de confidentialité",
         contactSupport: "Contact / Assistance",
+        searchInSettings: "Rechercher dans les paramètres",
     },
     "es-CO": {
         home: "Inicio",
@@ -109,5 +111,6 @@ export const language = {
         userGuide: "Guía del usuario",
         privacyPolicy: "Política de privacidad",
         contactSupport: "Contacto / Soporte",
+        searchInSettings: "Buscar en ajustes",
     }
 };
