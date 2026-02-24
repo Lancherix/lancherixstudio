@@ -632,10 +632,14 @@ const SettingsPage = () => {
         <p className='allGeneral-settingsPageUsername'>{username}</p>
         <div className='allGeneral-settingsPageOptions'>
           <div className='allGeneral-settingsPageOptionsSections'>
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>My Activity</div>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Activity</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('My profile')}>Personal Information</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Language & Region</div>
             <div onClick={() => setSelectedOption('Aspect')}>{t('aspect')}</div>
+          </div>
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('Aspect')}>{t('aspect')}</div>
+            <div>Notifications</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Extensions</div>
@@ -643,7 +647,9 @@ const SettingsPage = () => {
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>User Guide</div>
-            <div onClick={() => setSelectedOption('Terms of use')}>{t('termsOfUse')}</div>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('Terms of use')}>{t('termsOfUse')}</div>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Privacy Policy</div>
+            <div>Contact / Support</div>
           </div>
         </div>
       </div>
