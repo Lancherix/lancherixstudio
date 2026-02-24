@@ -632,6 +632,9 @@ const SettingsPage = () => {
         <p className='allGeneral-settingsPageUsername'>{username}</p>
         <div className='allGeneral-settingsPageOptions'>
           <div className='allGeneral-settingsPageOptionsSections'>
+            <div><input type="text" placeholder='Search in Settings'/></div>
+          </div>
+          <div className='allGeneral-settingsPageOptionsSections'>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor'>Activity</div>
             <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('My profile')}>Personal Information</div>
             <div>Language & Region</div>

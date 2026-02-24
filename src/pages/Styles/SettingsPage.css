@@ -538,3 +538,11 @@
 .allGeneral-settingsPageOptionsSectionsDivisor {
     border-bottom: 1px solid var(--placeholderTheme);
 }
+
+.allGeneral-settingsPageOptionsSections div input {
+    padding: 0;
+    margin: 0;
+    color: var(--textTheme);
+    background-color: transparent;
+    border: none;
+}
