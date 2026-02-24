@@ -545,4 +545,6 @@
     color: var(--textTheme);
     background-color: transparent;
     border: none;
+    outline: none;
+    font-size: inherit;
 }
