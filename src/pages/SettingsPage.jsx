@@ -632,7 +632,7 @@ const SettingsPage = () => {
         <p className='allGeneral-settingsPageUsername'>{username}</p>
         <div className='allGeneral-settingsPageOptions'>
           <div className='allGeneral-settingsPageOptionsSections'>
-            <div>{t('editProfile')}</div>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>{t('editProfile')}</div>
             <div>{t('aspect')}</div>
           </div>
           <div className='allGeneral-settingsPageOptionsSections'>

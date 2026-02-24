@@ -526,6 +526,11 @@
 }
 
 .allGeneral-settingsPageOptionsSections div {
-    padding: 2vh;
+    padding: 2vh 0 2vh 0;
+    margin: 0 2vh 0 2vh;
     color: var(--textTheme);
+}
+
+.allGeneral-settingsPageOptionsSectionsDivisor {
+    border-bottom: 1px solid var(--placeholderTheme);
 }
