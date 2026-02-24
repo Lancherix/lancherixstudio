@@ -531,6 +531,7 @@
     color: var(--textTheme);
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .allGeneral-settingsPageOptionsSections div:hover {
@@ -550,4 +551,10 @@
     outline: none;
     font-size: inherit;
     width: 100%;
+}
+
+.allGeneral-settingsPageOptionsSections svg {
+    width: 2vw;
+    margin: 0 1.5vw 0 0;
+    user-select: none;
 }
