@@ -554,7 +554,7 @@
 }
 
 .allGeneral-settingsPageOptionsSections svg {
-    width: 2vw;
-    margin: 0 1.5vw 0 0;
+    width: 1.5vw;
+    margin: 0 1vw 0 0;
     user-select: none;
 }
