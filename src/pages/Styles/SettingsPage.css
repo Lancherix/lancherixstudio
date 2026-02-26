@@ -574,7 +574,6 @@
 .leftRow-settingsPage {
     display: flex;
     align-items: center;
-    gap: 0.6vw;
     color: var(--textTheme);
 }
 
