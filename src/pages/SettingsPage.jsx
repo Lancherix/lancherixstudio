@@ -642,7 +642,7 @@ const SettingsPage = () => {
               <path d="m10.076 8.64-2.201-2.2V4.874a.75.75 0 0 0-.364-.643l-3.75-2.25a.75.75 0 0 0-.916.113l-.75.75a.75.75 0 0 0-.113.916l2.25 3.75a.75.75 0 0 0 .643.364h1.564l2.062 2.062 1.575-1.297Z" />
               <path fill-rule="evenodd" d="m12.556 17.329 4.183 4.182a3.375 3.375 0 0 0 4.773-4.773l-3.306-3.305a6.803 6.803 0 0 1-1.53.043c-.394-.034-.682-.006-.867.042a.589.589 0 0 0-.167.063l-3.086 3.748Zm3.414-1.36a.75.75 0 0 1 1.06 0l1.875 1.876a.75.75 0 1 1-1.06 1.06L15.97 17.03a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>{t('activity')}</div>
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('My profile')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor' onClick={() => setSelectedOption('Personal information')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
             </svg>{t('personalInformation')}</div>
             <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -703,6 +703,47 @@ const SettingsPage = () => {
             <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd" d="M9 2.25a.75.75 0 0 1 .75.75v1.506a49.384 49.384 0 0 1 5.343.371.75.75 0 1 1-.186 1.489c-.66-.083-1.323-.151-1.99-.206a18.67 18.67 0 0 1-2.97 6.323c.318.384.65.753 1 1.107a.75.75 0 0 1-1.07 1.052A18.902 18.902 0 0 1 9 13.687a18.823 18.823 0 0 1-5.656 4.482.75.75 0 0 1-.688-1.333 17.323 17.323 0 0 0 5.396-4.353A18.72 18.72 0 0 1 5.89 8.598a.75.75 0 0 1 1.388-.568A17.21 17.21 0 0 0 9 11.224a17.168 17.168 0 0 0 2.391-5.165 48.04 48.04 0 0 0-8.298.307.75.75 0 0 1-.186-1.489 49.159 49.159 0 0 1 5.343-.371V3A.75.75 0 0 1 9 2.25ZM15.75 9a.75.75 0 0 1 .68.433l5.25 11.25a.75.75 0 1 1-1.36.634l-1.198-2.567h-6.744l-1.198 2.567a.75.75 0 0 1-1.36-.634l5.25-11.25A.75.75 0 0 1 15.75 9Zm-2.672 8.25h5.344l-2.672-5.726-2.672 5.726Z" clip-rule="evenodd" />
             </svg>Celebration</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderPersonalInfo = () => {
+    return (
+      <div className='allGeneral-settingsPage'>
+        <div className='allGeneral-settingsPageOptions'>
+          <div className='allGeneral-settingsPageOptionsSections'>
+
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <path fillRule="evenodd" d="M12 2.25a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
+              </svg>
+              {user?.name || "Your Name"}
+            </div>
+
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <path d="M1.5 8.67v6.66c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875V8.67l-8.25 5.197a1.875 1.875 0 0 1-2 0L1.5 8.67Z" />
+                <path d="M22.5 6.908V6.75c0-1.035-.84-1.875-1.875-1.875H3.375C2.34 4.875 1.5 5.715 1.5 6.75v.158l9.75 6.144 9.75-6.144Z" />
+              </svg>
+              {user?.email || "your@email.com"}
+            </div>
+
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <path fillRule="evenodd" d="M6.75 2.25A2.25 2.25 0 0 0 4.5 4.5v15A2.25 2.25 0 0 0 6.75 21.75h10.5A2.25 2.25 0 0 0 19.5 19.5v-15A2.25 2.25 0 0 0 17.25 2.25H6.75ZM12 18a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" clipRule="evenodd" />
+              </svg>
+              {user?.phone || "No phone added"}
+            </div>
+
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <path fillRule="evenodd" d="M4.5 4.5A2.25 2.25 0 0 1 6.75 2.25h10.5A2.25 2.25 0 0 1 19.5 4.5v15a.75.75 0 0 1-1.125.65L12 16.5l-6.375 3.65A.75.75 0 0 1 4.5 19.5v-15Z" clipRule="evenodd" />
+              </svg>
+              {user?.username || "@username"}
+            </div>
+
           </div>
         </div>
       </div>
@@ -880,6 +921,8 @@ const SettingsPage = () => {
         return renderTermsOfUse();
       case 'Extensions':
         return renderExtensions();
+      case 'Personal information':
+        return renderPersonalInfo();
       default:
         return renderMyProfile();
     }
