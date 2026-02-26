@@ -715,33 +715,69 @@ const SettingsPage = () => {
         <div className='allGeneral-settingsPageOptions'>
           <div className='allGeneral-settingsPageOptionsSections'>
 
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                <path fillRule="evenodd" d="M12 2.25a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
-              </svg>
-              {"Kiara Camacho"}
+            {/* First Name */}
+            <div className='settingsRow'>
+              <div className='settingsRowLeft'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
+                  <path d="M12 2.25a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5Z" />
+                </svg>
+                <span>First Name</span>
+              </div>
+              <div className='settingsRowRight'>
+                Kiara
+              </div>
             </div>
 
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                <path d="M1.5 8.67v6.66c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875V8.67l-8.25 5.197a1.875 1.875 0 0 1-2 0L1.5 8.67Z" />
-                <path d="M22.5 6.908V6.75c0-1.035-.84-1.875-1.875-1.875H3.375C2.34 4.875 1.5 5.715 1.5 6.75v.158l9.75 6.144 9.75-6.144Z" />
-              </svg>
-              {"kiaritaa@lancherix.com"}
+            {/* Last Name */}
+            <div className='settingsRow'>
+              <div className='settingsRowLeft'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
+                  <path d="M12 2.25a5.25 5.25 0 1 0 0 10.5" />
+                </svg>
+                <span>Last Name</span>
+              </div>
+              <div className='settingsRowRight'>
+                Camacho
+              </div>
             </div>
 
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                <path fillRule="evenodd" d="M6.75 2.25A2.25 2.25 0 0 0 4.5 4.5v15A2.25 2.25 0 0 0 6.75 21.75h10.5A2.25 2.25 0 0 0 19.5 19.5v-15A2.25 2.25 0 0 0 17.25 2.25H6.75ZM12 18a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" clipRule="evenodd" />
-              </svg>
-              {"No phone added"}
+            {/* Email */}
+            <div className='settingsRow'>
+              <div className='settingsRowLeft'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
+                  <path d="M1.5 8.67v6.66..." />
+                </svg>
+                <span>Email</span>
+              </div>
+              <div className='settingsRowRight'>
+                kiaritaa@lancherix.com
+              </div>
             </div>
 
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor'>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                <path fillRule="evenodd" d="M4.5 4.5A2.25 2.25 0 0 1 6.75 2.25h10.5A2.25 2.25 0 0 1 19.5 4.5v15a.75.75 0 0 1-1.125.65L12 16.5l-6.375 3.65A.75.75 0 0 1 4.5 19.5v-15Z" clipRule="evenodd" />
-              </svg>
-              {"kiaraa_c.v"}
+            {/* Birthday */}
+            <div className='settingsRow'>
+              <div className='settingsRowLeft'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
+                  <path d="M6.75 2.25h10.5..." />
+                </svg>
+                <span>Birthday</span>
+              </div>
+              <div className='settingsRowRight'>
+                March 14, 2006
+              </div>
+            </div>
+
+            {/* Gender */}
+            <div className='settingsRow'>
+              <div className='settingsRowLeft'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
+                  <path d="M12 2.25..." />
+                </svg>
+                <span>Gender</span>
+              </div>
+              <div className='settingsRowRight'>
+                Female
+              </div>
             </div>
 
           </div>
