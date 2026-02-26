@@ -526,8 +526,6 @@
 }
 
 .allGeneral-settingsPageOptionsSections div {
-    padding: 2vh 0 2vh 0;
-    margin: 0 2vh 0 2vh;
     color: var(--textTheme);
     display: flex;
     flex-direction: row;
@@ -540,6 +538,8 @@
 
 .allGeneral-settingsPageOptionsSectionsDivisor {
     border-bottom: 1px solid var(--placeholderTheme);
+    padding: 2vh 0 2vh 0;
+    margin: 0 2vh 0 2vh;
 }
 
 .allGeneral-settingsPageOptionsSections div input {
@@ -581,11 +581,4 @@
     color: var(--placeholderTheme);
     font-weight: 500;
     text-align: right;
-    margin: 0;
-    padding: 0;
-}
-
-.row-settingsPage span {
-    margin: 0;
-    padding: 0;
 }
