@@ -581,4 +581,11 @@
     color: var(--placeholderTheme);
     font-weight: 500;
     text-align: right;
+    margin: 0;
+    padding: 0;
+}
+
+.row-settingsPage span {
+    margin: 0;
+    padding: 0;
 }
