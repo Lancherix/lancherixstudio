@@ -732,7 +732,7 @@ const SettingsPage = () => {
                 </svg>
                 <span>Username</span>
               </div>
-              <div className='rightRow-settingsPage'>kiaraa_c.v</div>
+              <div className='rightRow-settingsPage'>{username}</div>
             </div>
 
             {/* FIRST NAME */}
@@ -743,7 +743,7 @@ const SettingsPage = () => {
                 </svg>
                 <span>First Name</span>
               </div>
-              <div className='rightRow-settingsPage'>Kiara</div>
+              <div className='rightRow-settingsPage'>{firstName}</div>
             </div>
 
             {/* LAST NAME */}
@@ -754,7 +754,7 @@ const SettingsPage = () => {
                 </svg>
                 <span>Last Name</span>
               </div>
-              <div className='rightRow-settingsPage'>Camacho</div>
+              <div className='rightRow-settingsPage'>{lastName}</div>
             </div>
 
             {/* DOB */}
@@ -765,7 +765,7 @@ const SettingsPage = () => {
                 </svg>
                 <span>Date of Birth</span>
               </div>
-              <div className='rightRow-settingsPage'>11 September 2008</div>
+              <div className='rightRow-settingsPage'>{birthDate}/{birthMonth}/{birthYear}</div>
             </div>
 
             {/* GENDER */}
@@ -776,7 +776,7 @@ const SettingsPage = () => {
                 </svg>
                 <span>Gender</span>
               </div>
-              <div className='rightRow-settingsPage'>Female</div>
+              <div className='rightRow-settingsPage'>{gender}</div>
             </div>
 
             {/* EMAIL */}
@@ -787,7 +787,7 @@ const SettingsPage = () => {
                 </svg>
                 <span>Email</span>
               </div>
-              <div className='rightRow-settingsPage'>kiaritaa@lancherix.com</div>
+              <div className='rightRow-settingsPage'>{email}</div>
             </div>
 
           </div>
