@@ -565,25 +565,24 @@
     color: var(--placeholderTheme);
 }
 
-
-/* Make row split into left/right */
 .row-settingsPage {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Left side */
 .leftRow-settingsPage {
     display: flex;
     align-items: center;
     gap: 0.6vw;
-    color: var(--placeholderTheme);
+    color: var(--textTheme);
 }
 
-/* Right side */
 .rightRow-settingsPage {
-    color: var(--placeholderTheme);
     font-weight: 500;
     text-align: right;
+}
+
+.allGeneral-settingsPageOptionsSections div .rightRow-settingsPage {
+    color: var(--placeholderTheme);
 }
