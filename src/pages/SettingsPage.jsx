@@ -711,77 +711,44 @@ const SettingsPage = () => {
 
   const renderPersonalInfo = () => {
     return (
-      <div className='allGeneral-settingsPage'>
-        <div className='allGeneral-settingsPageOptions'>
-          <div className='allGeneral-settingsPageOptionsSections'>
+      <div className='allGeneral-settingsPageOptionsSections'>
 
-            {/* First Name */}
-            <div className='settingsRow'>
-              <div className='settingsRowLeft'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
-                  <path d="M12 2.25a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5Z" />
-                </svg>
-                <span>First Name</span>
-              </div>
-              <div className='settingsRowRight'>
-                Kiara
-              </div>
-            </div>
-
-            {/* Last Name */}
-            <div className='settingsRow'>
-              <div className='settingsRowLeft'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
-                  <path d="M12 2.25a5.25 5.25 0 1 0 0 10.5" />
-                </svg>
-                <span>Last Name</span>
-              </div>
-              <div className='settingsRowRight'>
-                Camacho
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className='settingsRow'>
-              <div className='settingsRowLeft'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
-                  <path d="M1.5 8.67v6.66..." />
-                </svg>
-                <span>Email</span>
-              </div>
-              <div className='settingsRowRight'>
-                kiaritaa@lancherix.com
-              </div>
-            </div>
-
-            {/* Birthday */}
-            <div className='settingsRow'>
-              <div className='settingsRowLeft'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
-                  <path d="M6.75 2.25h10.5..." />
-                </svg>
-                <span>Birthday</span>
-              </div>
-              <div className='settingsRowRight'>
-                March 14, 2006
-              </div>
-            </div>
-
-            {/* Gender */}
-            <div className='settingsRow'>
-              <div className='settingsRowLeft'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="size-6">
-                  <path d="M12 2.25..." />
-                </svg>
-                <span>Gender</span>
-              </div>
-              <div className='settingsRowRight'>
-                Female
-              </div>
-            </div>
-
+        <div className='row-settingsPage allGeneral-settingsPageOptionsSectionsDivisor'>
+          <div className='leftRow-settingsPage'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+              <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+            </svg>
+            <span>First Name</span>
+          </div>
+          <div className='rightRow-settingsPage'>
+            Kiara
           </div>
         </div>
+
+        <div className='row-settingsPage allGeneral-settingsPageOptionsSectionsDivisor'>
+          <div className='leftRow-settingsPage'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+              <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+            </svg>
+            <span>Last Name</span>
+          </div>
+          <div className='rightRow-settingsPage'>
+            Camacho
+          </div>
+        </div>
+
+        <div className='row-settingsPage allGeneral-settingsPageOptionsSectionsDivisor'>
+          <div className='leftRow-settingsPage'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+              <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+            </svg>
+            <span>Email</span>
+          </div>
+          <div className='rightRow-settingsPage'>
+            kiaritaa@lancherix.com
+          </div>
+        </div>
+
       </div>
     );
   };

@@ -559,32 +559,3 @@
     user-select: none;
     color: var(--placeholderTheme);
 }
-
-
-
-.settingsRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  cursor: pointer;
-}
-
-.settingsRow:hover {
-  background-color: rgba(255,255,255,0.05);
-}
-
-.settingsRowLeft {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #ccc;
-  font-size: 14px;
-}
-
-.settingsRowRight {
-  color: white;
-  font-size: 14px;
-  opacity: 0.8;
-}
