@@ -559,3 +559,41 @@
     user-select: none;
     color: var(--placeholderTheme);
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ROW LAYOUT FIX */
+.row-settingsPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* LEFT SIDE (icon + label) */
+.leftRow-settingsPage {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    color: var(--placeholderTheme);
+    font-weight: 500;
+}
+
+/* RIGHT SIDE (actual value) */
+.rightRow-settingsPage {
+    color: var(--textTheme);
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Optional: better spacing */
+.row-settingsPage span {
+    font-size: 0.95rem;
+}
