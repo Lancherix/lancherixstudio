@@ -536,6 +536,11 @@
     cursor: pointer;
 }
 
+.allGeneral-settingsPageOptionsSectionsNoDivisor {
+    padding: 2vh 0 2vh 0;
+    margin: 0 2vh 0 2vh;
+}
+
 .allGeneral-settingsPageOptionsSectionsDivisor {
     border-bottom: 1px solid var(--placeholderTheme);
     padding: 2vh 0 2vh 0;
