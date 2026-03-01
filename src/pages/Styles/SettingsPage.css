@@ -468,7 +468,7 @@
     width: 10vw;
     height: 6vh;
     border-radius: 8px 0 0 8px;
-    color: aliceblue;
+    color: black;
     cursor: pointer;
 }
 
@@ -502,7 +502,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 6vh;
+    height: 3vh;
     border-radius: 0 8px 8px 0;
     color: aliceblue;
     cursor: pointer;
@@ -518,7 +518,7 @@
     justify-content: center;
     align-items: center;
     width: 4vh;
-    height: 4vh;
+    height: 3vh;
     margin-right: 1vw;
     border-radius: 50%;
 }

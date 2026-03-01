@@ -138,10 +138,15 @@
 
 .upload-aWall-aspectPage {
     background-color: var(--menuColor);
+    border-radius: 8px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    position: relative;
+    align-items: center;
+    width: 20vw;
+    height: 3vh;
+    color: var(--textTheme);
+    cursor: pointer;
 }
 
 .upload-aWall-aspectPage p {
