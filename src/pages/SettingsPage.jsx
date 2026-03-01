@@ -875,85 +875,38 @@ const SettingsPage = () => {
 
   const renderAspectBeta = () => {
     return (
-      <div className="aspect-macos">
-
-        {/* TOP: Preview + Info */}
-        <div className="aspect-header">
-          <div
-            className="wallpaperPreview-macos"
-            style={{ backgroundImage: wallpaper }}
-          />
-
-          <div className="wallpaperInfo-macos">
-            <h2>Wallpaper</h2>
-            <p className="wallpaper-desc">
-              A high-resolution wallpaper optimized for your desktop experience.
-            </p>
-
-            <div className="uploadWallpaper-macos">
-              <label>
-                {t('uploadWallpaper')}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleWallpaperChange}
-                  hidden
-                />
-              </label>
+      <div className='allAspect'>
+        <div className='wallpaperAspect'>
+          <div className='top-aspectPage'>
+            <div className='wallpaperPreview-aspectPage' style={{ backgroundImage: wallpaper }}></div>
+            <div className='left-aspectPage'>
+              Kiara
+              <div>{renderThemeOptions()}</div>
+              <div>{renderColorOptions()}</div>
             </div>
-
-            {renderThemeOptions()}
-            {renderColorOptions()}
           </div>
-        </div>
-
-        {/* WALLPAPER SECTIONS */}
-        <div className="wallpaperSections-macos">
-
-          <WallpaperSection
-            title="Smart Wallpapers"
-            wallpapers={[
-              { class: "aWall1", src: "/Images/backgroundImage.jpeg" },
-              { class: "aWall5", src: "/Images/dark101.jpg" },
-              { class: "aWall7", src: "/Images/NASA.jpg" }
-            ]}
-          />
-
-          <WallpaperSection
-            title="Landscapes"
-            wallpapers={[
-              { class: "aWall2", src: "/Images/grandCanyon.jpg" },
-              { class: "aWall6", src: "/Images/grandCanyon2.jpg" },
-              { class: "aWall3", src: "/Images/ireland.jpg" }
-            ]}
-          />
-
-          <WallpaperSection
-            title="Abstract"
-            wallpapers={[
-              { class: "aWall4", src: "/Images/earth.jpg" }
-            ]}
-          />
-
+          <div className='selectWallpaper-aspectPage'>
+            <div className='aWall-aspectPage upload-aWall-aspectPage'>
+              <p>{t('uploadWallpaper')}</p>
+              <input
+                type="file"
+                accept="image/*"
+                style={{ width: '100%', height: '100%', opacity: 0, cursor: 'pointer', position: 'absolute' }}
+                onChange={handleWallpaperChange}
+              />
+            </div>
+            <div className='aWall-aspectPage aWall1' onClick={() => handleWallpaperChange('/Images/backgroundImage.jpeg')}></div>
+            <div className='aWall-aspectPage aWall2' onClick={() => handleWallpaperChange('/Images/grandCanyon.jpg')}></div>
+            <div className='aWall-aspectPage aWall3' onClick={() => handleWallpaperChange('/Images/ireland.jpg')}></div>
+            <div className='aWall-aspectPage aWall4' onClick={() => handleWallpaperChange('/Images/earth.jpg')}></div>
+            <div className='aWall-aspectPage aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
+            <div className='aWall-aspectPage aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
+            <div className='aWall-aspectPage aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
+          </div>
         </div>
       </div>
     );
   };
-
-  const WallpaperSection = ({ title, wallpapers }) => (
-    <div className="wallpaperSection-macos">
-      <h3>{title}</h3>
-      <div className="wallpaperRow-macos">
-        {wallpapers.map((wall, i) => (
-          <div
-            key={i}
-            className={`wallpaperThumb-macos ${wall.class}`}
-            onClick={() => handleWallpaperChange(wall.src)}
-          />
-        ))}
-      </div>
-    </div>
-  );
 
   const renderTermsOfUse = () => {
     return (
