@@ -39,6 +39,7 @@
     height: 3vh;
     border-radius: 10px;
     transition: transform 0.3s ease;
+    font-size: 0.8rem;
 }
 
 .themeOptions-settingsPage:hover {
@@ -147,14 +148,11 @@
     align-items: center;
     width: 20vw;
     height: 3vh;
-    color: var(--textTheme);
     cursor: pointer;
-    font-size: 0.8rem;
 }
 
 .upload-aWall-aspectPage p {
     color: var(--hoverTextColor);
-    font-size: 1.5rem;
 }
 
 .aWall1 {
