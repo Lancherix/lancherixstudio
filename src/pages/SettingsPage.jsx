@@ -979,7 +979,7 @@ const SettingsPage = () => {
         return renderMyProfile();
       case 'Aspect':
         return renderAspect();
-      case 'Aspec Beta':
+      case 'Aspect Beta':
         return renderAspectBeta();
       case 'Terms of use':
         return renderTermsOfUse();
