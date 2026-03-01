@@ -187,178 +187,6 @@
     background-color: var(--hoverButtonColor);
 }
 
-.allAspect-settingsPage {
-    width: 100%;
-}
-
-.allAspect-settingsPage h2 {
-    margin: 0;
-    color: #888;
-    color: var(--textTheme);
-}
-
-.top-aspect {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0 4% 3% 2.5%;
-}
-
-.left-aspect {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 20vh;
-}
-
-.themeOptions-settingsPage {
-    display: flex;
-    flex-direction: row;
-    border: 2px solid #888;
-    background-color: #888;
-    width: 15vw;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.themeOptions-settingsPage:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
-.themeOptionGlass-settingsPage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 10vw;
-    height: 6vh;
-    border-radius: 8px 0 0 8px;
-    color: aliceblue;
-    cursor: pointer;
-}
-
-.themeOptionLight-settingsPage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 10vw;
-    height: 6vh;
-    border-radius: 0 0 0 0;
-    color: black;
-    cursor: pointer;
-}
-
-.themeOptionDark-settingsPage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 10vw;
-    height: 6vh;
-    border-radius: 0 8px 8px 0;
-    color: aliceblue;
-    cursor: pointer;
-}
-
-.colorOptions-settingsPage {
-    display: flex;
-    flex-direction: row;
-}
-
-.colorOption-settingsPage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4vh;
-    height: 4vh;
-    margin-right: 1vw;
-    border-radius: 50%;
-}
-
-.colorOption-settingsPage:hover {
-    outline: 2px solid black;
-    cursor: pointer;
-}
-
-.wallpaperPreview {
-    width: 30%;
-    height: 20vh;
-    background-image: url("/public/Images/backgroundImage.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 5px;
-    box-shadow: 4px 5px 10px -1px rgba(0, 0, 0, 0.4);
-    margin-right: 3vw;
-    transition: background-image 0.3s ease;
-}
-
-.selectWallpaper {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-    width: 100%;
-    max-height: 50vh;
-    align-items: center;
-}
-
-.aWall {
-    width: 95%;
-    min-height: 12vh;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.aWall:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
-.upload-aWall {
-    background-color: var(--menuColor);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.upload-aWall p {
-    color: var(--hoverTextColor);
-    font-size: 1.5rem;
-}
-
-.aWall1 {
-    background-image: url("/public/Images/backgroundImage.jpeg");
-}
-
-.aWall2 {
-    background-image: url("/public/Images/grandCanyon.jpg");
-}
-
-.aWall3 {
-    background-image: url("/public/Images/ireland.jpg");
-}
-
-.aWall4 {
-    background-image: url("/public/Images/earth.jpg");
-}
-
-.aWall5 {
-    background-image: url("/public/Images/dark101.jpg");
-}
-
-.aWall6 {
-    background-image: url("/public/Images/grandCanyon2.jpg");
-}
-
-.aWall7 {
-    background-image: url("/public/Images/NASA.jpg");
-}
-
 .termsContent {
     height: 74.5vh;
     padding: 0 12% 0 10%;
@@ -584,4 +412,183 @@
 
 .allGeneral-settingsPageOptionsSections div .rightRow-settingsPage {
     color: var(--placeholderTheme);
+}
+
+
+
+
+
+
+
+
+.allAspect-settingsPage {
+    width: 100%;
+}
+
+.allAspect-settingsPage h2 {
+    margin: 0;
+    color: #888;
+    color: var(--textTheme);
+}
+
+.top-aspect {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 4% 3% 2.5%;
+}
+
+.left-aspect {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20vh;
+}
+
+.themeOptions-settingsPage {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #888;
+    background-color: #888;
+    width: 15vw;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.themeOptions-settingsPage:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.themeOptionGlass-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 6vh;
+    border-radius: 8px 0 0 8px;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.themeOptionLight-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 6vh;
+    border-radius: 0 0 0 0;
+    color: black;
+    cursor: pointer;
+}
+
+.themeOptionDark-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 6vh;
+    border-radius: 0 8px 8px 0;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.colorOptions-settingsPage {
+    display: flex;
+    flex-direction: row;
+}
+
+.colorOption-settingsPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4vh;
+    height: 4vh;
+    margin-right: 1vw;
+    border-radius: 50%;
+}
+
+.colorOption-settingsPage:hover {
+    outline: 2px solid black;
+    cursor: pointer;
+}
+
+.wallpaperPreview {
+    width: 30%;
+    height: 20vh;
+    background-image: url("/public/Images/backgroundImage.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 5px;
+    box-shadow: 4px 5px 10px -1px rgba(0, 0, 0, 0.4);
+    margin-right: 3vw;
+    transition: background-image 0.3s ease;
+}
+
+.selectWallpaper {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    width: 100%;
+    max-height: 50vh;
+    align-items: center;
+}
+
+.aWall {
+    width: 95%;
+    min-height: 12vh;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.aWall:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.upload-aWall {
+    background-color: var(--menuColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.upload-aWall p {
+    color: var(--hoverTextColor);
+    font-size: 1.5rem;
+}
+
+.aWall1 {
+    background-image: url("/public/Images/backgroundImage.jpeg");
+}
+
+.aWall2 {
+    background-image: url("/public/Images/grandCanyon.jpg");
+}
+
+.aWall3 {
+    background-image: url("/public/Images/ireland.jpg");
+}
+
+.aWall4 {
+    background-image: url("/public/Images/earth.jpg");
+}
+
+.aWall5 {
+    background-image: url("/public/Images/dark101.jpg");
+}
+
+.aWall6 {
+    background-image: url("/public/Images/grandCanyon2.jpg");
+}
+
+.aWall7 {
+    background-image: url("/public/Images/NASA.jpg");
 }

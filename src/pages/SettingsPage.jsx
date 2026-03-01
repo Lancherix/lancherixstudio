@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import LogoutPage from './LogoutPage';
 import './Styles/SettingsPage.css';
+import './Styles/AspectPage.css';
 import { language } from '../language';
 
 import UserIcon from '../icons/profile.svg';
@@ -859,13 +860,13 @@ const SettingsPage = () => {
                 onChange={handleWallpaperChange}
               />
             </div>
-            <div className='aWall aRealWall aWall1' onClick={() => handleWallpaperChange('/Images/backgroundImage.jpeg')}></div>
-            <div className='aWall aRealWall aWall2' onClick={() => handleWallpaperChange('/Images/grandCanyon.jpg')}></div>
-            <div className='aWall aRealWall aWall3' onClick={() => handleWallpaperChange('/Images/ireland.jpg')}></div>
-            <div className='aWall aRealWall aWall4' onClick={() => handleWallpaperChange('/Images/earth.jpg')}></div>
-            <div className='aWall aRealWall aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
-            <div className='aWall aRealWall aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
-            <div className='aWall aRealWall aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
+            <div className='aWall aWall1' onClick={() => handleWallpaperChange('/Images/backgroundImage.jpeg')}></div>
+            <div className='aWall aWall2' onClick={() => handleWallpaperChange('/Images/grandCanyon.jpg')}></div>
+            <div className='aWall aWall3' onClick={() => handleWallpaperChange('/Images/ireland.jpg')}></div>
+            <div className='aWall aWall4' onClick={() => handleWallpaperChange('/Images/earth.jpg')}></div>
+            <div className='aWall aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
+            <div className='aWall aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
+            <div className='aWall aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
           </div>
         </div>
       </div>
@@ -874,17 +875,18 @@ const SettingsPage = () => {
 
   const renderAspectBeta = () => {
     return (
-      <div className='allAspect-settingsPage'>
+      <div className='allAspect'>
         <div className='wallpaperAspect'>
-          <div className='top-aspect'>
-            <div className='wallpaperPreview' style={{ backgroundImage: wallpaper }}></div>
-            <div className='left-aspect'>
-              <div>{renderThemeOptions()}</div>
-              <div>{renderColorOptions()}</div>
+          <div className='top-aspectPage'>
+            <div className='wallpaperPreview-aspectPage' style={{ backgroundImage: wallpaper }}></div>
+            <div className='left-aspectPage'>
+              
             </div>
           </div>
-          <div className='selectWallpaper'>
-            <div className='aWall upload-aWall'>
+          <div>{renderThemeOptions()}</div>
+          <div>{renderColorOptions()}</div>
+          <div className='selectWallpaper-aspectPage'>
+            <div className='aWall-aspectPage upload-aWall-aspectPage'>
               <p>{t('uploadWallpaper')}</p>
               <input
                 type="file"
@@ -893,13 +895,13 @@ const SettingsPage = () => {
                 onChange={handleWallpaperChange}
               />
             </div>
-            <div className='aWall aRealWall aWall1' onClick={() => handleWallpaperChange('/Images/backgroundImage.jpeg')}></div>
-            <div className='aWall aRealWall aWall2' onClick={() => handleWallpaperChange('/Images/grandCanyon.jpg')}></div>
-            <div className='aWall aRealWall aWall3' onClick={() => handleWallpaperChange('/Images/ireland.jpg')}></div>
-            <div className='aWall aRealWall aWall4' onClick={() => handleWallpaperChange('/Images/earth.jpg')}></div>
-            <div className='aWall aRealWall aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
-            <div className='aWall aRealWall aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
-            <div className='aWall aRealWall aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
+            <div className='aWall-aspectPage aWall1' onClick={() => handleWallpaperChange('/Images/backgroundImage.jpeg')}></div>
+            <div className='aWall-aspectPage aWall2' onClick={() => handleWallpaperChange('/Images/grandCanyon.jpg')}></div>
+            <div className='aWall-aspectPage aWall3' onClick={() => handleWallpaperChange('/Images/ireland.jpg')}></div>
+            <div className='aWall-aspectPage aWall4' onClick={() => handleWallpaperChange('/Images/earth.jpg')}></div>
+            <div className='aWall-aspectPage aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
+            <div className='aWall-aspectPage aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
+            <div className='aWall-aspectPage aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
           </div>
         </div>
       </div>
