@@ -14,6 +14,7 @@
     align-items: center;
     margin: 0 4% 3% 2.5%;
     flex-grow: 1;
+    gap: 3vw;
 }
 
 .left-aspectPage {
@@ -21,6 +22,7 @@
     flex-direction: column;
     justify-content: space-around;
     height: 16vh;
+    width: auto;
     border-radius: 5px;
     padding: 2vh;
     background-color: var(--altRow);
@@ -108,7 +110,6 @@
     background-position: center;
     border-radius: 5px;
     box-shadow: 4px 5px 10px -1px rgba(0, 0, 0, 0.4);
-    margin-right: 3vw;
     transition: background-image 0.3s ease;
 }
 
