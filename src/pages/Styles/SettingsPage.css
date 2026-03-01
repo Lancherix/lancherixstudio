@@ -460,7 +460,7 @@
     transform: scale(1.05);
 }
 
-.themeOptionGlass-settingsPage {
+.themeOptionAuto-settingsPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -468,6 +468,18 @@
     width: 10vw;
     height: 6vh;
     border-radius: 8px 0 0 8px;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.themeOptionGlass-settingsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 6vh;
+    border-radius: 0 0 0 0;
     color: aliceblue;
     cursor: pointer;
 }

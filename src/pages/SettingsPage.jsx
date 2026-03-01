@@ -815,6 +815,13 @@ const SettingsPage = () => {
     return (
       <div className='themeOptions-settingsPage'>
         <div
+          className='themeOptionAuto-settingsPage'
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+          onClick={() => handleThemeChange('glass')}
+        >
+          Auto{/*AHHHHHHHHHHHHHH TRADUCCIOOOOOOON KIARAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*/}
+        </div>
+        <div
           className='themeOptionGlass-settingsPage'
           style={{ backgroundColor: 'rgba(64, 64, 64, 0.3)' }}
           onClick={() => handleThemeChange('glass')}
@@ -880,7 +887,6 @@ const SettingsPage = () => {
           <div className='top-aspectPage'>
             <div className='wallpaperPreview-aspectPage' style={{ backgroundImage: wallpaper }}></div>
             <div className='left-aspectPage'>
-              Kiara
               <div>{renderThemeOptions()}</div>
               <div>{renderColorOptions()}</div>
             </div>
