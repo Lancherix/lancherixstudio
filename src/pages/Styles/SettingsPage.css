@@ -451,6 +451,7 @@
     border: 2px solid #888;
     background-color: #888;
     width: 15vw;
+    height: 3vh;
     border-radius: 10px;
     transition: transform 0.3s ease;
 }
@@ -466,7 +467,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 6vh;
+    height: 3vh;
     border-radius: 8px 0 0 8px;
     color: black;
     cursor: pointer;
@@ -478,7 +479,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 6vh;
+    height: 3vh;
     border-radius: 0 0 0 0;
     color: aliceblue;
     cursor: pointer;
@@ -490,7 +491,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 6vh;
+    height: 3vh;
     border-radius: 0 0 0 0;
     color: black;
     cursor: pointer;
@@ -511,6 +512,7 @@
 .colorOptions-settingsPage {
     display: flex;
     flex-direction: row;
+    height: 3vh;
 }
 
 .colorOption-settingsPage {

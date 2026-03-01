@@ -147,6 +147,7 @@
     height: 3vh;
     color: var(--textTheme);
     cursor: pointer;
+    font-size: 0.8rem;
 }
 
 .upload-aWall-aspectPage p {
