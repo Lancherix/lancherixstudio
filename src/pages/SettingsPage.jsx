@@ -892,7 +892,7 @@ const SettingsPage = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  style={{ width: '100%', height: '100%', opacity: 0, cursor: 'pointer', position: 'absolute' }}
+                  style={{ width: '20vh', height: '4vh', opacity: 0, cursor: 'pointer', position: 'absolute' }}
                   onChange={handleWallpaperChange}
                 />
               </div>
