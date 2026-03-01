@@ -36,7 +36,7 @@
     border: 2px solid #888;
     background-color: #888;
     width: 20vw;
-    height: 3vh;
+    height: 4vh;
     border-radius: 10px;
     transition: transform 0.3s ease;
     font-size: 0.8rem;
@@ -53,7 +53,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 3vh;
+    height: 4vh;
     border-radius: 8px 0 0 8px;
     color: aliceblue;
     cursor: pointer;
@@ -65,7 +65,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 3vh;
+    height: 4vh;
     border-radius: 0 0 0 0;
     color: black;
     cursor: pointer;
@@ -77,7 +77,7 @@
     justify-content: center;
     align-items: center;
     width: 10vw;
-    height: 3vh;
+    height: 4vh;
     border-radius: 0 8px 8px 0;
     color: aliceblue;
     cursor: pointer;
@@ -86,15 +86,15 @@
 .colorOptions-settingsPage {
     display: flex;
     flex-direction: row;
-    height: 3vh;
+    height: 4vh;
 }
 
 .colorOption-settingsPage {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 3vh;
-    height: 3vh;
+    width: 4vh;
+    height: 4vh;
     margin-right: 1vw;
     border-radius: 50%;
 }
@@ -147,12 +147,13 @@
     justify-content: center;
     align-items: center;
     width: 20vw;
-    height: 3vh;
+    height: 4vh;
     cursor: pointer;
 }
 
 .upload-aWall-aspectPage p {
     color: var(--hoverTextColor);
+    font-size: 0.8rem;
 }
 
 .aWall1 {
