@@ -13,17 +13,19 @@
     flex-direction: row;
     align-items: center;
     margin: 0 4% 3% 2.5%;
+    flex-grow: 1;
 }
 
 .left-aspectPage {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 20vh;
-    background-color: darkgray;
+    height: 16vh;
     border-radius: 5px;
-    border: 1px solid gray;
-    color: white;
+    padding: 2vh;
+    background-color: var(--altRow);
+    border: 1px solid var(--placeholderTheme);
+    color: var(--textTheme);
 }
 
 .themeOptions-settingsPage {
