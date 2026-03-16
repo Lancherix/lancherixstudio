@@ -796,7 +796,7 @@ const SettingsPage = () => {
               <div className='leftRow-settingsPage'>
                 <span>Region</span>
               </div>
-              <div className='rightRow-settingsPage'>{country}</div>
+              <div className='rightRow-settingsPage'>{language}</div>
             </div>
 
           </div>
