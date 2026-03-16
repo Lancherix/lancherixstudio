@@ -789,14 +789,14 @@ const SettingsPage = () => {
               <div className='leftRow-settingsPage'>
                 <span>Language</span>
               </div>
-              <div className='rightRow-settingsPage'>{language}</div>
+              <div className='rightRow-settingsPage'>{username}</div>
             </div>
 
             <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage'>
               <div className='leftRow-settingsPage'>
                 <span>Region</span>
               </div>
-              <div className='rightRow-settingsPage'>{language}</div>
+              <div className='rightRow-settingsPage'>{username}</div>
             </div>
 
           </div>
