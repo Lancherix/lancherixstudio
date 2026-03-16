@@ -28,6 +28,7 @@
     background-color: var(--altRow);
     border: 1px solid var(--placeholderTheme);
     color: var(--textTheme);
+    flex-grow: 1;
 }
 
 .themeOptions-settingsPage {

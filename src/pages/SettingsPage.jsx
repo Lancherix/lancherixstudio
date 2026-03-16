@@ -848,40 +848,6 @@ const SettingsPage = () => {
 
   const renderAspect = () => {
     return (
-      <div className='allAspect-settingsPage'>
-        <div className='wallpaperAspect'>
-          <div className='top-aspect'>
-            <div className='wallpaperPreview' style={{ backgroundImage: wallpaper }}></div>
-            <div className='left-aspect'>
-              <div>{renderThemeOptions()}</div>
-              <div>{renderColorOptions()}</div>
-            </div>
-          </div>
-          <div className='selectWallpaper'>
-            <div className='aWall upload-aWall'>
-              <p>{t('uploadWallpaper')}</p>
-              <input
-                type="file"
-                accept="image/*"
-                style={{ width: '100%', height: '100%', opacity: 0, cursor: 'pointer', position: 'absolute' }}
-                onChange={handleWallpaperChange}
-              />
-            </div>
-            <div className='aWall aWall1' onClick={() => handleWallpaperChange('/Images/backgroundImage.jpeg')}></div>
-            <div className='aWall aWall2' onClick={() => handleWallpaperChange('/Images/grandCanyon.jpg')}></div>
-            <div className='aWall aWall3' onClick={() => handleWallpaperChange('/Images/ireland.jpg')}></div>
-            <div className='aWall aWall4' onClick={() => handleWallpaperChange('/Images/earth.jpg')}></div>
-            <div className='aWall aWall5' onClick={() => handleWallpaperChange('/Images/dark101.jpg')}></div>
-            <div className='aWall aWall6' onClick={() => handleWallpaperChange('/Images/grandCanyon2.jpg')}></div>
-            <div className='aWall aWall7' onClick={() => handleWallpaperChange('/Images/NASA.jpg')}></div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderAspectBeta = () => {
-    return (
       <div className='allAspect'>
         <div className='wallpaperAspect'>
           <div className='top-aspectPage'>
@@ -987,8 +953,6 @@ const SettingsPage = () => {
         return renderMyProfile();
       case 'Aspect':
         return renderAspect();
-      case 'Aspect Beta':
-        return renderAspectBeta();
       case 'Terms of use':
         return renderTermsOfUse();
       case 'Extensions':
@@ -1040,9 +1004,6 @@ const SettingsPage = () => {
               <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
               <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
             </svg>{t('appearance')}</button>
-            <button onClick={() => setSelectedOption('Aspect Beta')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-              <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
-            </svg>{t('appearance')} Beta</button>
             <button onClick={() => setSelectedOption('Terms of use')}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
             </svg>{t('termsOfUse')}</button>
