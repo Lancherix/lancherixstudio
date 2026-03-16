@@ -712,9 +712,9 @@ const SettingsPage = () => {
 
   const renderPersonalInfo = () => {
     return (
-      <div className='allGeneral-settingsPage'>
+      <div className='allGeneral-settingsPage personalInfo-settingsPage'>
         <div
-          className='profilePicture-settingsPage profilePictureLarge-settingsPage profilePicture-personalInfo'
+          className='profilePicture-settingsPage profilePictureLarge-settingsPage'
           style={{
             backgroundImage: `url(${profilePicturePreview ||
               'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
