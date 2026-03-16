@@ -605,3 +605,7 @@
 .aWall7 {
     background-image: url("/public/Images/NASA.jpg");
 }
+
+.profilePicture-personalInfo{
+    margin-bottom: 2vh;
+}
