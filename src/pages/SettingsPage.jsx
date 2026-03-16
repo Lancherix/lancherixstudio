@@ -28,6 +28,7 @@ const SettingsPage = () => {
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const [sideMenuColor, setSideMenuColor] = useState('rgba(0, 147, 203, 1)');
   const [currentLang, setCurrentLang] = useState('en-US');
+  const [region, setRegion] = useState('');
 
   const t = (key) => {
     return language[currentLang]?.[key] || language['en-US']?.[key] || key;
@@ -62,6 +63,7 @@ const SettingsPage = () => {
         setBirthYear(user.year);     // backend uses "year"
         setGender(user.gender);
         setCurrentLang(user.language || 'en-US');
+        setRegion(user.country);
 
         setProfilePicturePreview(user.profilePicture?.url || "https://studio.lancherix.com/Images/defaultProfilePicture.png");
         setWallpaper(`url(${user.wallpaper?.url})`);
@@ -789,14 +791,14 @@ const SettingsPage = () => {
               <div className='leftRow-settingsPage'>
                 <span>Language</span>
               </div>
-              <div className='rightRow-settingsPage'>{username}</div>
+              <div className='rightRow-settingsPage'>{currentLang}</div>
             </div>
 
             <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage'>
               <div className='leftRow-settingsPage'>
                 <span>Region</span>
               </div>
-              <div className='rightRow-settingsPage'>{username}</div>
+              <div className='rightRow-settingsPage'>{region}</div>
             </div>
 
           </div>
