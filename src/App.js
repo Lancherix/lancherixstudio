@@ -14,6 +14,7 @@ import BackIcon from './icons/back.svg';
 import './App.css';
 
 import SideMenu from './SideMenu';
+import MenuMobile from './MenuMobile';
 import HomePage from './pages/HomePage';
 import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
@@ -87,7 +88,7 @@ const App = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 900);
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
@@ -226,20 +227,24 @@ const App = () => {
     window.open(query, '_blank');
   };
 
-  if (isMobile) {
+  /*if (isMobile) {
     return (
       <div className="mobile-block">
         <div><img src={logo} alt='Lancherix' />
           This service is currently not available on mobile devices.
-Access it from a desktop or laptop computer.</div>
+          Access it from a desktop or laptop computer.</div>
       </div>
     );
-  }
+  }*/
 
   return (
     <Router>
       <div className="app-container">
-        {token && <SideMenu isCollapsed={collapsed} toggleMenu={setCollapsed} />}
+        {token && (
+          isMobile
+            ? <MenuMobile />
+            : <SideMenu isCollapsed={collapsed} toggleMenu={setCollapsed} />
+        )}
         <div className={classnames('all-homePage', { collapsed })}>
           <div className={classnames('header-homePage', { collapsed })} ref={searchRef}>
             {token && <SearchBar onSearch={handleSearch} />}
