@@ -311,19 +311,11 @@ button:hover {
   text-align: center;
 }
 
-.mobile-logo {
-  width: 120px;
-  margin-bottom: 20px;
-}
-
-.mobile-block h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.mobile-block p {
-  font-size: 1rem;
-  opacity: 0.8;
+.mobile-block div {
+  background-color: var(--theme);
+  border-radius: 10px;
+  height: 50vh;
+  width: 80vw;
 }
 
 .kiara {

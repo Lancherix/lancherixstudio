@@ -227,14 +227,7 @@ const App = () => {
   if (isMobile) {
     return (
       <div className="mobile-block">
-        <img src={LancherixIcon} alt="Lancherix" className="mobile-logo" />
-        <h1>Lancherix Studio</h1>
-        <p>
-          Lancherix Studio is not available on mobile devices yet.
-        </p>
-        <p>
-          Please access it from a desktop computer.
-        </p>
+        <div></div>
       </div>
     );
   }
