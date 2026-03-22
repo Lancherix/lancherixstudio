@@ -92,21 +92,6 @@ const App = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (isMobile) {
-    return (
-      <div className="mobile-block">
-        <img src={LancherixIcon} alt="Lancherix" className="mobile-logo" />
-        <h1>Lancherix Studio</h1>
-        <p>
-          Lancherix Studio is not available on mobile devices yet.
-        </p>
-        <p>
-          Please access it from a desktop computer.
-        </p>
-      </div>
-    );
-  }
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!searchRef.current.contains(event.target) && !resultsScrollRef.current.contains(event.target)) {
@@ -238,6 +223,21 @@ const App = () => {
   const handleButtonClick = () => {
     window.open(query, '_blank');
   };
+
+  if (isMobile) {
+    return (
+      <div className="mobile-block">
+        <img src={LancherixIcon} alt="Lancherix" className="mobile-logo" />
+        <h1>Lancherix Studio</h1>
+        <p>
+          Lancherix Studio is not available on mobile devices yet.
+        </p>
+        <p>
+          Please access it from a desktop computer.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <Router>
