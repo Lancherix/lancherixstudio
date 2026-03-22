@@ -3,7 +3,7 @@ import "./HeaderBar.css";
 
 function HeaderBar() {
   return (
-    <div className="headerBar">
+    <div className="headerBar kiara">
 
     </div>
   );
