@@ -5,7 +5,8 @@
 }
 
 .content-projectsMobile {
-  width: 100%;
+  width: 92vw;
   height: calc(93dvh - 70px);
+  padding: 0 4vw;
   background-color: red;
 }
