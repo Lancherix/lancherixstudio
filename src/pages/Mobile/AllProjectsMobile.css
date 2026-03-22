@@ -3,3 +3,9 @@
   height: calc(100dvh - 70px);
   background-color: blue;
 }
+
+.content-projectsMobile {
+  width: 100%;
+  height: calc(94dvh - 70px);
+  background-color: red;
+}

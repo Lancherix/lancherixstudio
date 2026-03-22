@@ -46,7 +46,9 @@ const AllProjectsMobile = () => {
                     }}
                 />
             </div>
-            Hello K
+            <div className="content-projectsMobile">
+                Hello K
+            </div>
         </div>
     );
 };
