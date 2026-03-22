@@ -97,6 +97,8 @@ const AllProjectsMobile = () => {
                         backgroundImage: `url(${profilePicture})`,
                     }}
                 />
+
+                <input type="text" />
             </div>
             <div className="content-projectsMobile">
 
