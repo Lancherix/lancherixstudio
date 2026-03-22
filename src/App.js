@@ -224,7 +224,7 @@ const App = () => {
     window.open(query, '_blank');
   };
 
-  if (isMobile) {
+  if (isMobile && !token) {
     return (
       <div className="mobile-block">
         <img src={LancherixIcon} alt="Lancherix" className="mobile-logo" />
