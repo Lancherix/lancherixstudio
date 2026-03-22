@@ -98,10 +98,7 @@ const AllProjectsMobile = () => {
                     }}
                 />
 
-                <input
-                    type="text"
-                    placeholder="Search in your projects"
-                />
+                <input type="text" placeholder="Search in your projects" />
             </div>
             <div className="content-projectsMobile">
 

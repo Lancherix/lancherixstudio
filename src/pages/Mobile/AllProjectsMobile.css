@@ -10,7 +10,7 @@
   justify-content: flex-start;
 
   width: 92vw;
-  height: 5dvh;
+  height: calc(5dvh - 2px);
 
   padding: 1dvh 4vw;
   gap: 4vw;
