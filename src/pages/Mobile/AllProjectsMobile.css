@@ -28,7 +28,7 @@
     flex-grow: 1;
     padding: 0 4vw;
     outline: none;
-    font-size: min(16px);
+    font-size: min(18px);
 }
 
 .headerBar-projectsMobile input::placeholder {
