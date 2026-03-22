@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-ro
 import classnames from 'classnames';
 import { jwtDecode } from 'jwt-decode';
 
+import logo from '../public/Images/loginLogo.png';
+
 import SearchBar from './pages/SearchBar';
 import GlobeIcon from '../src/icons/globe.svg';
 import LancherixIcon from './icons/lancherix.svg';
@@ -227,7 +229,7 @@ const App = () => {
   if (isMobile) {
     return (
       <div className="mobile-block">
-        <div><img src={'https://studio.lancherix.com/public/Images/loginLogo.png'} alt='Lancherix' />
+        <div><img src={logo} alt='Lancherix' />
           Lancherix Studio is only available on Desktop devices.</div>
       </div>
     );
