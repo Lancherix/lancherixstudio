@@ -1,5 +1,5 @@
 .all-projectsMobile {
     width: 100vw;
-    height: calc(100vh - 70px);
+    height: calc(90vh - 70px);
     background-color: blue;
 }
