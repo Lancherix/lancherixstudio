@@ -4,7 +4,7 @@ import './AllProjectsMobile.css';
 const AllProjectsMobile = () => {
     return (
         <div className="all-projectsMobile">
-            Hello
+            Hello K
         </div>
     );
 };
