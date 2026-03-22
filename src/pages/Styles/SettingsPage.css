@@ -609,3 +609,7 @@
 .personalInfo-settingsPage {
     gap: 3vh;
 }
+
+.kiara {
+    display: none;
+}
