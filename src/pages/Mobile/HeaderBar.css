@@ -4,14 +4,14 @@
   justify-content: flex-start;
 
   width: 90vw;
-  height: 6dvh;
+  height: 5dvh;
 
   padding: 1dvh 5vw;
 }
 
 .headerAvatar {
-  width: 6dvh;
-  height: 6dvh;
+  width: 5dvh;
+  height: 5dvh;
 
   border-radius: 50%;
 
