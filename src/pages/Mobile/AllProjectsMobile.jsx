@@ -32,6 +32,8 @@ const AllProjectsMobile = () => {
                 if (user.profilePicture?.url) {
                     setProfilePicture(user.profilePicture.url);
                 }
+
+                setProjects(user.projects || []);
             } catch (error) {
                 console.error("HeaderBar user fetch error:", error);
             }
