@@ -230,7 +230,8 @@ const App = () => {
     return (
       <div className="mobile-block">
         <div><img src={logo} alt='Lancherix' />
-          Lancherix Studio is only available on Desktop devices.</div>
+          This service is currently not available on mobile devices.
+Access it from a desktop or laptop computer.</div>
       </div>
     );
   }
