@@ -41,19 +41,10 @@ const App = () => {
   const [urlClass, setUrlClass] = useState('aResult-homePage noResult-homePage');
   const [username, setUsername] = useState('');
   const [themeMode, setThemeMode] = useState('');
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 900 && !token);
 
   const searchRef = useRef(null);
   const resultsScrollRef = useRef(null);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 900);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('menuCollapsed', JSON.stringify(collapsed));
@@ -90,6 +81,15 @@ const App = () => {
     };
 
     fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -224,7 +224,7 @@ const App = () => {
     window.open(query, '_blank');
   };
 
-  if (isMobile && !token) {
+  if (isMobile) {
     return (
       <div className="mobile-block">
         <img src={LancherixIcon} alt="Lancherix" className="mobile-logo" />
