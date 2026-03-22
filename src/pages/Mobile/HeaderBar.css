@@ -3,10 +3,10 @@
   align-items: center;
   justify-content: flex-start;
 
-  width: 96vw;
+  width: 92vw;
   height: 5dvh;
 
-  padding: 1dvh 2vw;
+  padding: 1dvh 4vw;
 }
 
 .headerAvatar {
