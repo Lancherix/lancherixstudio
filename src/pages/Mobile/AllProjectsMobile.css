@@ -26,6 +26,8 @@
   margin-bottom: 12px;
 
   background: var(--theme);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--borderTheme);
   color: var(--textTheme);
 

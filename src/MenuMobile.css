@@ -7,6 +7,8 @@
   height: 70px;
 
   background: var(--menuColor);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 
   display: flex;
   justify-content: space-around;
