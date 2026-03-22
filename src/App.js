@@ -227,7 +227,8 @@ const App = () => {
   if (isMobile) {
     return (
       <div className="mobile-block">
-        <div>Lancherix Studio is only available on Desktop devices.</div>
+        <div><img src={url('/public/Images/loginLogo.png')} alt='Lancherix' />
+          Lancherix Studio is only available on Desktop devices.</div>
       </div>
     );
   }
