@@ -90,7 +90,7 @@ const AllProjectsMobile = () => {
 
     return (
         <div className="all-projectsMobile">
-            <div className="headerBar">
+            <div className="headerBar-projectsMobile">
                 <div
                     className="headerAvatar"
                     style={{
@@ -98,7 +98,10 @@ const AllProjectsMobile = () => {
                     }}
                 />
 
-                <input type="text" />
+                <input
+                    type="text"
+                    placeholder="Search in your projects"
+                />
             </div>
             <div className="content-projectsMobile">
 
