@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: flex-start;
     border-radius: 1000px;
-    background-color: var(--altRow);
+    background-color: var(--theme);
     border: 1px solid var(--placeholderTheme);
     color: var(--textTheme);
     height: 5dvh;
