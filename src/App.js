@@ -21,6 +21,7 @@ import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
 import AllProjectsPage from './pages/AllProjectsPage';
+import AllProjectsMobile from './pages/Mobile/AllProjectsMobile';
 import AuthRedirector from './api/AuthRedirector';
 
 import './pages/Styles/LoginPage.css';
@@ -291,7 +292,7 @@ const App = () => {
               <>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/settings" element={<SettingsPage />} />
-                <Route path="/projects" element={<AllProjectsPage />} />
+                <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
                 <Route path="/member/:username" element={<UserProfilePage />} />
                 <Route path="/projects/:slug" element={<ProjectPage />} />
                 <Route path="*" element={<HomePage />} />
