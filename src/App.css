@@ -323,12 +323,12 @@ button:hover {
   text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .mobile-block div img {
-  width: 20vw;
-  margin-bottom: 2vh;
+  width: 40vw;
+  margin-bottom: 5vh;
 }
 
 .kiara {
