@@ -104,7 +104,7 @@ const AllProjectsMobile = () => {
                     }}
                 />
 
-                <input type="text" placeholder="Search in your projects." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                <input type="text" placeholder="Search in your projects..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
             <div className="content-projectsMobile">
 
