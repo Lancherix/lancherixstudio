@@ -317,9 +317,9 @@ button:hover {
   background-color: var(--theme);
   color: var(--textTheme);
   border-radius: 10px;
-  height: 40vh;
-  width: 60vw;
-  padding: 10vw;
+  height: 20vh;
+  width: 70vw;
+  padding: 5vw;
   text-align: center;
   align-items: center;
   justify-content: center;
