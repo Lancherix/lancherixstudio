@@ -7,5 +7,48 @@
   width: 92vw;
   height: calc(92dvh - 70px);
   padding: 1dvh 4vw 0 4vw;
-  background-color: red;
+}
+
+.project-card-mobile {
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 16px;
+
+  border-radius: 12px;
+  margin-bottom: 12px;
+
+  background: var(--cardColor);
+  border: 1px solid rgba(0,0,0,0.08);
+
+  cursor: pointer;
+}
+
+.project-left-mobile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-emoji-mobile {
+  font-size: 1.6rem;
+}
+
+.project-name-mobile {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.project-status-mobile {
+  font-size: 1.2rem;
+}
+
+.statusIcon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.8;
 }
