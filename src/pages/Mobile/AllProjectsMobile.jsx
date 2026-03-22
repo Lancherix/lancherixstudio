@@ -123,7 +123,7 @@ const AllProjectsMobile = () => {
 
                             <div className="project-left-mobile">
                                 <span className="project-emoji-mobile">
-                                    {project.icon || "📁"}
+                                    {project.icon || "📎"}
                                 </span>
 
                                 <span className="project-name-mobile">
