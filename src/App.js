@@ -41,7 +41,7 @@ const App = () => {
   const [urlClass, setUrlClass] = useState('aResult-homePage noResult-homePage');
   const [username, setUsername] = useState('');
   const [themeMode, setThemeMode] = useState('');
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 900 && !token);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
   const searchRef = useRef(null);
   const resultsScrollRef = useRef(null);

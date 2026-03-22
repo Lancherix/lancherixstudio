@@ -315,6 +315,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   background-color: var(--theme);
+  color: var(--textTheme);
   border-radius: 10px;
   height: 40vh;
   width: 60vw;
