@@ -334,3 +334,20 @@ button:hover {
 .kiara {
     display: none;
 }
+
+@media (max-width: 768px) {
+
+  .header-homePage {
+    position: fixed;
+    top: 2vh;
+    left: 0;
+    right: 0;
+
+    margin-left: 0;
+
+    justify-content: flex-start;
+
+    z-index: 1000;
+  }
+
+}

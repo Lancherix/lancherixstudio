@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import logo from './icons/loginLogo.png';
 
 import SearchBar from './pages/SearchBar';
+import HeaderBar from './pages/Mobile/HeaderBar';
 import GlobeIcon from '../src/icons/globe.svg';
 import LancherixIcon from './icons/lancherix.svg';
 import PlayIcon from './icons/play.svg';
@@ -247,7 +248,11 @@ const App = () => {
         )}
         <div className={classnames('all-homePage', { collapsed })}>
           <div className={classnames('header-homePage', { collapsed })} ref={searchRef}>
-            {token && <SearchBar onSearch={handleSearch} />}
+            {token && (
+              isMobile
+                ? <HeaderBar />
+                : <SearchBar onSearch={handleSearch} />
+            )}
           </div>
           <div ref={resultsScrollRef} className={classnames(resultsScrollClass, { collapsed })}>
             <div className={resultsClass}>
