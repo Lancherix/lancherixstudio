@@ -9,6 +9,12 @@ const AllProjectsMobile = () => {
 
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const filteredProjects = projects.filter(project =>
+        project.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const projectsToDisplay = searchTerm ? filteredProjects : projects;
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -98,11 +104,11 @@ const AllProjectsMobile = () => {
                     }}
                 />
 
-                <input type="text" placeholder="Search in your projects" />
+                <input type="text" placeholder="Search in your projects" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
             <div className="content-projectsMobile">
 
-                {projects
+                {projectsToDisplay
                     .slice()
                     .sort((a, b) => {
                         const order = { pinned: 0, active: 1, archived: 2, hidden: 3, completed: 4 };
