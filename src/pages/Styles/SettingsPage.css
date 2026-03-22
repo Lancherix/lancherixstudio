@@ -610,6 +610,34 @@
     gap: 4vh;
 }
 
+.mobile-block {
+  height: 100vh;
+  width: 100vw;
+  background: #0a0a0a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.mobile-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.mobile-block h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.mobile-block p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
 .kiara {
     display: none;
 }

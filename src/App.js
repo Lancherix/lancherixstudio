@@ -41,6 +41,7 @@ const App = () => {
   const [urlClass, setUrlClass] = useState('aResult-homePage noResult-homePage');
   const [username, setUsername] = useState('');
   const [themeMode, setThemeMode] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
   const searchRef = useRef(null);
   const resultsScrollRef = useRef(null);
@@ -81,6 +82,30 @@ const App = () => {
 
     fetchUserData();
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div className="mobile-block">
+        <img src={LancherixIcon} alt="Lancherix" className="mobile-logo" />
+        <h1>Lancherix Studio</h1>
+        <p>
+          Lancherix Studio is not available on mobile devices yet.
+        </p>
+        <p>
+          Please access it from a desktop computer.
+        </p>
+      </div>
+    );
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
