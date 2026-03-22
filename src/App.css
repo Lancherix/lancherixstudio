@@ -312,10 +312,16 @@ button:hover {
 }
 
 .mobile-block div {
+  display: flex;
+  flex-direction: column;
   background-color: var(--theme);
   border-radius: 10px;
-  height: 50vh;
-  width: 80vw;
+  height: 40vh;
+  width: 60vw;
+  padding: 10vw;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .kiara {
