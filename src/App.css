@@ -317,7 +317,7 @@ button:hover {
   background-color: var(--theme);
   color: var(--textTheme);
   border-radius: 10px;
-  height: 20vh;
+  height: 30vh;
   width: 70vw;
   padding: 5vw;
   text-align: center;
