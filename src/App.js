@@ -47,6 +47,15 @@ const App = () => {
   const resultsScrollRef = useRef(null);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('menuCollapsed', JSON.stringify(collapsed));
   }, [collapsed]);
 
@@ -81,15 +90,6 @@ const App = () => {
     };
 
     fetchUserData();
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 900);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
