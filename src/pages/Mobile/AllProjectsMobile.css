@@ -10,7 +10,7 @@
   justify-content: flex-start;
 
   width: 92vw;
-  height: calc(5dvh - 2px);
+  height: 5dvh;
 
   padding: 1dvh 4vw;
   gap: 4vw;
@@ -23,11 +23,15 @@
     border-radius: 1000px;
     background-color: var(--theme);
     border: 1px solid var(--placeholderTheme);
-    color: var(--textTheme);
-    height: 5dvh;
+    color: 1px solid var(--textTheme);
+    height: calc(5dvh - 2px);
     flex-grow: 1;
     padding: 0 4vw;
     outline: none;
+}
+
+.headerBar-projectsMobile input::placeholder {
+    color: var(--placeholderTheme);
 }
 
 .content-projectsMobile {
