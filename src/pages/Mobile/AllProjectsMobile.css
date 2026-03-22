@@ -56,5 +56,5 @@
 .statusIcon-projectsMobile {
   width: 3vh;
   height: 3vh;
-  color: var(--textTheme);
+  color: var(--placeholderTheme);
 }
