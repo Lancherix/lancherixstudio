@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import './Styles/BoardImage.css';
 
@@ -16,7 +16,11 @@ const BoardImage = ({
     onNext,
     onPrev
 }) => {
+    const containerRef = useRef(null);
+
     const [zoomed, setZoomed] = useState(false);
+
+    const [transformOrigin, setTransformOrigin] = useState('center center');
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -44,6 +48,7 @@ const BoardImage = ({
             const blobUrl = window.URL.createObjectURL(blob);
 
             const link = document.createElement('a');
+
             link.href = blobUrl;
             link.download = downloadUrl.split('/').pop();
 
@@ -55,6 +60,34 @@ const BoardImage = ({
             window.URL.revokeObjectURL(blobUrl);
         } catch (err) {
             console.error('Download failed:', err);
+        }
+    };
+
+    const handleImageClick = (e) => {
+        const rect = e.target.getBoundingClientRect();
+
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        setTransformOrigin(`${x}% ${y}%`);
+        setZoomed(!zoomed);
+
+        if (!zoomed) {
+            setTimeout(() => {
+                containerRef.current?.scrollTo({
+                    left:
+                        (containerRef.current.scrollWidth -
+                            containerRef.current.clientWidth) *
+                        (x / 100),
+
+                    top:
+                        (containerRef.current.scrollHeight -
+                            containerRef.current.clientHeight) *
+                        (y / 100),
+
+                    behavior: 'smooth'
+                });
+            }, 10);
         }
     };
 
@@ -70,13 +103,12 @@ const BoardImage = ({
                 onClick={(e) => e.stopPropagation()}
             >
 
-                {/* Top Right Actions */}
+                {/* Top Right */}
                 <div className="boardImage-actions">
 
                     <button
                         className="boardImage-actionBtn"
                         onClick={handleDownload}
-                        aria-label="Download image"
                     >
                         ↓
                     </button>
@@ -106,13 +138,22 @@ const BoardImage = ({
                     ›
                 </button>
 
-                <img
-                    src={imageUrl}
-                    alt="Board"
-                    className={`boardImage-image ${zoomed ? 'zoomed' : ''}`}
-                    draggable={false}
-                    onClick={() => setZoomed(!zoomed)}
-                />
+                {/* Scroll Container */}
+                <div
+                    ref={containerRef}
+                    className={`boardImage-scrollContainer ${zoomed ? 'zoomed' : ''}`}
+                >
+                    <img
+                        src={imageUrl}
+                        alt="Board"
+                        draggable={false}
+                        onClick={handleImageClick}
+                        className={`boardImage-image ${zoomed ? 'zoomed' : ''}`}
+                        style={{
+                            transformOrigin
+                        }}
+                    />
+                </div>
             </div>
         </div>,
         document.getElementById('modal-root')
