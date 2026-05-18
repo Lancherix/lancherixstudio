@@ -612,6 +612,8 @@
 
 .editRow-settingsPage {
   justify-content: space-between;
+  align-items: center;
+  min-height: 5vh;
 }
 
 .editInput-settingsPage {
@@ -666,4 +668,10 @@
 
 .saveButton-settingsPage:hover {
   background-color: var(--hoverButtonColor);
+}
+
+.editInput-settingsPage,
+.editSelect-settingsPage {
+  display: flex;
+  align-items: center;
 }
