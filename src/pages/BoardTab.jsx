@@ -7,6 +7,8 @@ const getOriginalDownloadUrl = (url) => {
   );
 };
 
+import BoardImage from './BoardImage';
+
 export default function BoardTab({ projectId }) {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,6 +19,9 @@ export default function BoardTab({ projectId }) {
   const headers = token
     ? { Authorization: `Bearer ${token}` }
     : {};
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   /* ============================
      Fetch board on mount
@@ -150,6 +155,10 @@ export default function BoardTab({ projectId }) {
               alt="board"
               className="board-image"
               draggable={false}
+              onClick={() => {
+                setSelectedImage(img.url);
+                setShowImageModal(true);
+              }}
             />
 
             {/* ⬇️ Download button (everyone) */}
@@ -189,6 +198,11 @@ export default function BoardTab({ projectId }) {
           </div>
         )}
       </div>
+      <BoardImageModal
+        isOpen={showImageModal}
+        imageUrl={selectedImage}
+        onClose={() => setShowImageModal(false)}
+      />
     </div>
   );
 }
