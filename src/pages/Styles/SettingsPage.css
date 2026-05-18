@@ -611,9 +611,17 @@
 }
 
 .editRow-settingsPage {
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  min-height: 5vh;
+}
+
+.editInput-settingsPage,
+.editSelect-settingsPage {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  justify-content: flex-start;
 }
 
 .editInput-settingsPage {
@@ -668,10 +676,4 @@
 
 .saveButton-settingsPage:hover {
   background-color: var(--hoverButtonColor);
-}
-
-.editInput-settingsPage,
-.editSelect-settingsPage {
-  display: flex;
-  align-items: center;
 }
