@@ -2,36 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import './Styles/BoardImage.css';
 
+const getOriginalDownloadUrl = (url) => {
+    return url.replace(
+        '/upload/',
+        '/upload/fl_attachment,q_100/'
+    );
+};
+
 const BoardImage = ({
     isOpen,
     imageUrl,
     onClose,
     onNext,
-    onPrev,
-    onDownload,
+    onPrev
 }) => {
-
-    const [scale, setScale] = useState(1);
-
-    useEffect(() => {
-        setScale(1);
-    }, [imageUrl]);
+    const [zoomed, setZoomed] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (!isOpen) return;
 
-            if (e.key === 'ArrowRight') {
-                onNext?.();
-            }
-
-            if (e.key === 'ArrowLeft') {
-                onPrev?.();
-            }
-
-            if (e.key === 'Escape') {
-                onClose?.();
-            }
+            if (e.key === 'Escape') onClose();
+            if (e.key === 'ArrowRight') onNext?.();
+            if (e.key === 'ArrowLeft') onPrev?.();
         };
 
         window.addEventListener('keydown', handleKeyDown);
@@ -39,99 +32,88 @@ const BoardImage = ({
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [isOpen, onNext, onPrev, onClose]);
+    }, [isOpen, onClose, onNext, onPrev]);
+
+    const handleDownload = async () => {
+        try {
+            const downloadUrl = getOriginalDownloadUrl(imageUrl);
+
+            const response = await fetch(downloadUrl);
+            const blob = await response.blob();
+
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = downloadUrl.split('/').pop();
+
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+
+            window.URL.revokeObjectURL(blobUrl);
+        } catch (err) {
+            console.error('Download failed:', err);
+        }
+    };
 
     if (!isOpen) return null;
-
-    const zoomIn = () => {
-        setScale((prev) => Math.min(prev + 0.25, 5));
-    };
-
-    const zoomOut = () => {
-        setScale((prev) => Math.max(prev - 0.25, 1));
-    };
-
-    const handleWheel = (e) => {
-        e.preventDefault();
-
-        if (e.deltaY < 0) {
-            zoomIn();
-        } else {
-            zoomOut();
-        }
-    };
-
-    const handleImageClick = () => {
-        if (scale === 1) {
-            setScale(2);
-        } else {
-            setScale(1);
-        }
-    };
 
     return createPortal(
         <div
             className="boardImage-overlay"
             onClick={onClose}
         >
-
             <div
                 className="boardImage-window"
                 onClick={(e) => e.stopPropagation()}
             >
 
-                <button
-                    className="boardImage-close"
-                    onClick={onClose}
-                >
-                    ✕
-                </button>
+                {/* Top Right Actions */}
+                <div className="boardImage-actions">
 
-                {/* LEFT */}
+                    <button
+                        className="boardImage-actionBtn"
+                        onClick={handleDownload}
+                        aria-label="Download image"
+                    >
+                        ↓
+                    </button>
+
+                    <button
+                        className="boardImage-close"
+                        onClick={onClose}
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+                {/* Previous */}
                 <button
                     className="boardImage-nav boardImage-prev"
                     onClick={onPrev}
                 >
-                    ←
+                    ‹
                 </button>
 
-                {/* RIGHT */}
+                {/* Next */}
                 <button
                     className="boardImage-nav boardImage-next"
                     onClick={onNext}
                 >
-                    →
+                    ›
                 </button>
 
-                {/* DOWNLOAD */}
-                <button
-                    className="boardImage-download"
-                    onClick={() => onDownload?.(imageUrl)}
-                >
-                    Download
-                </button>
-
-                <div
-                    className="boardImage-imageContainer"
-                    onWheel={handleWheel}
-                    style={{
-                        cursor: scale > 1 ? 'zoom-out' : 'zoom-in',
-                    }}
-                >
-                    <img
-                        src={imageUrl}
-                        alt="Board"
-                        className="boardImage-image"
-                        draggable={false}
-                        onClick={handleImageClick}
-                        style={{
-                            transform: `scale(${scale})`,
-                        }}
-                    />
-                </div>
-
+                <img
+                    src={imageUrl}
+                    alt="Board"
+                    className={`boardImage-image ${zoomed ? 'zoomed' : ''}`}
+                    draggable={false}
+                    onClick={() => setZoomed(!zoomed)}
+                />
             </div>
-
         </div>,
         document.getElementById('modal-root')
     );
