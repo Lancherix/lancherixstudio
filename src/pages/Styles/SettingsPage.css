@@ -609,3 +609,61 @@
 .personalInfo-settingsPage {
     gap: 4vh;
 }
+
+.editRow-settingsPage {
+  justify-content: space-between;
+}
+
+.editInput-settingsPage {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--placeholderTheme);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: right;
+  width: 55%;
+  font-family: inherit;
+}
+
+.editInput-settingsPage::placeholder {
+  color: var(--placeholderTheme);
+  opacity: 0.5;
+}
+
+.editSelect-settingsPage {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--placeholderTheme);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: right;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.editSelect-settingsPage option {
+  background-color: var(--topMenu);
+  color: var(--hoverTextColor);
+}
+
+.saveButton-settingsPage {
+  width: 100%;
+  margin-top: 2vh;
+  padding: 1.2vh 0;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--buttonColor);
+  color: var(--hoverTextColor);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.saveButton-settingsPage:hover {
+  background-color: var(--hoverButtonColor);
+}

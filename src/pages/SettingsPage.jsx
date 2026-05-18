@@ -507,118 +507,172 @@ const SettingsPage = () => {
   };
 
   const renderMyProfile = () => {
-    return (
-      <div className='allProfile-settingsPage'>
-        <form onSubmit={handleSubmit}>
-          <div
-            className='profilePicture-settingsPage profilePictureLarge-settingsPage'
-            style={{
-              backgroundImage: `url(${profilePicturePreview ||
-                'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
-              cursor: 'pointer'
-            }}
-            onClick={() => document.getElementById('fileInput').click()}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-          ></div>
-          <a onClick={handleRemovePicture}>{t('removeProfilePicture')}</a>
-          <input
-            id='fileInput'
-            type='file'
-            accept='image/*'
-            onChange={handleProfilePictureChange}
-            style={{ display: 'none' }}
-          />
-          <div className='input-registerPage border-settingsPage'>
-            <input
-              type='email'
-              placeholder={t('email')}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className='inputEmail-registerPage'
-              pattern='^[^\s@]+@[^\s@]+\.[^\s@]+$'
-              title='Please enter a valid email address'
-              spellcheck="false"
-            />
+  return (
+    <div className='allGeneral-settingsPage personalInfo-settingsPage'>
+      <div
+        className='profilePicture-settingsPage profilePictureLarge-settingsPage'
+        style={{
+          backgroundImage: `url(${profilePicturePreview ||
+            'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
+          cursor: 'pointer'
+        }}
+        onClick={() => document.getElementById('fileInput').click()}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      ></div>
+      <a onClick={handleRemovePicture} style={{ color: 'red', textDecoration: 'none', fontSize: '0.85rem' }}>
+        {t('removeProfilePicture')}
+      </a>
+      <input
+        id='fileInput'
+        type='file'
+        accept='image/*'
+        onChange={handleProfilePictureChange}
+        style={{ display: 'none' }}
+      />
+
+      <form onSubmit={handleSubmit} style={{ width: '70%' }}>
+        <div className='allGeneral-settingsPageOptions' style={{ width: '100%' }}>
+
+          {/* Contact */}
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                  <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                </svg>
+                <span>{t('email')}</span>
+              </div>
+              <input
+                type='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='editInput-settingsPage'
+                placeholder={t('email')}
+                pattern='^[^\s@]+@[^\s@]+\.[^\s@]+$'
+                spellCheck="false"
+              />
+            </div>
           </div>
-          <div className='input-registerPage border-settingsPage'>
-            <input
-              type='text'
-              placeholder={t('firstName')}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className='inputName-registerPage'
-              spellcheck="false"
-            />
-            <input
-              type='text'
-              placeholder={t('lastName')}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className='inputName-registerPage'
-              spellcheck="false"
-            />
+
+          {/* Name */}
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
+                </svg>
+                <span>{t('firstName')}</span>
+              </div>
+              <input
+                type='text'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className='editInput-settingsPage'
+                placeholder={t('firstName')}
+                spellCheck="false"
+              />
+            </div>
+            <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
+                </svg>
+                <span>{t('lastName')}</span>
+              </div>
+              <input
+                type='text'
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className='editInput-settingsPage'
+                placeholder={t('lastName')}
+                spellCheck="false"
+              />
+            </div>
           </div>
-          <div className='fullDate-registerPage'>
-            <div className='inputDate-registerPage border-settingsPage'>
-              <select
-                value={birthMonth}
-                onChange={(e) => setBirthMonth(e.target.value)}
-                className='inputD-registerPage'
-              >
+
+          {/* Date of Birth */}
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                  <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clipRule="evenodd" />
+                </svg>
+                <span>{t('month')}</span>
+              </div>
+              <select value={birthMonth} onChange={(e) => setBirthMonth(e.target.value)} className='editSelect-settingsPage'>
                 <option value=''>{t('month')}</option>
                 {Array.from({ length: 12 }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
-                    {new Date(0, i + 1, 0).toLocaleString('en-US', { month: 'long' }).replace(/^\w/, (c) => c.toUpperCase())}
+                    {new Date(0, i + 1, 0).toLocaleString('en-US', { month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
                   </option>
                 ))}
               </select>
             </div>
-            <div className='inputDate-registerPage border-settingsPage'>
-              <select
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                className='inputD-registerPage'
-              >
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clipRule="evenodd" />
+                </svg>
+                <span>{t('date')}</span>
+              </div>
+              <select value={birthDate} onChange={(e) => setBirthDate(e.target.value)} className='editSelect-settingsPage'>
                 <option value=''>{t('date')}</option>
                 {Array.from({ length: 31 }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
+                  <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
             </div>
-            <div className='inputDate-registerPage border-settingsPage'>
-              <select
-                value={birthYear}
-                onChange={(e) => setBirthYear(e.target.value)}
-                className='inputD-registerPage'
-              >
+            <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clipRule="evenodd" />
+                </svg>
+                <span>{t('year')}</span>
+              </div>
+              <select value={birthYear} onChange={(e) => setBirthYear(e.target.value)} className='editSelect-settingsPage'>
                 <option value=''>{t('year')}</option>
                 {Array.from({ length: 100 }, (_, i) => (
-                  <option key={i + 1924} value={i + 1924}>
-                    {i + 1924}
-                  </option>
+                  <option key={i + 1924} value={i + 1924}>{i + 1924}</option>
                 )).reverse()}
               </select>
             </div>
           </div>
-          <div className='input-registerPage border-settingsPage'>
-            <div className='inputD-registerPage'>
-              <select value={gender} onChange={(e) => setGender(e.target.value)} className='inputD-registerPage'>
+
+          {/* Gender */}
+          <div className='allGeneral-settingsPageOptionsSections'>
+            <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage editRow-settingsPage'>
+              <div className='leftRow-settingsPage'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm0 8.625a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM15.375 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zM7.5 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z" clipRule="evenodd" />
+                </svg>
+                <span>{t('gender')}</span>
+              </div>
+              <select value={gender} onChange={(e) => setGender(e.target.value)} className='editSelect-settingsPage'>
                 <option value=''>{t('gender')}</option>
                 <option value='male'>{t('male')}</option>
                 <option value='female'>{t('female')}</option>
-                <option value="preferNotToSay">{t('preferNotToSay')}</option>
+                <option value='preferNotToSay'>{t('preferNotToSay')}</option>
               </select>
             </div>
           </div>
-          {error && <p className="error-registerPage">{error}</p>}
-          <button className='border-settingsPage' type='submit'>{t('saveChanges')}</button>
-        </form>
-      </div>
-    );
-  };
+
+        </div>
+
+        {error && <p style={{ color: 'red', margin: '0.5rem 0', fontSize: '0.85rem' }}>{error}</p>}
+
+        <button
+          type='submit'
+          className='saveButton-settingsPage'
+        >
+          {t('saveChanges')}
+        </button>
+      </form>
+    </div>
+  );
+};
 
   const renderGeneral = () => {
     return (
