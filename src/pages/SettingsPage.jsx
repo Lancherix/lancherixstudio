@@ -508,8 +508,8 @@ const SettingsPage = () => {
 
   const renderMyProfile = () => {
   return (
-    <div className='allGeneral-settingsPage personalInfo-settingsPage'>
-      <form onSubmit={handleSubmit} className='allGeneral-settingsPageOptions'>
+    <div className='personalInfo-settingsPage'>
+      <form onSubmit={handleSubmit} className='allGeneral-settingsPage'>
 
         {/* PROFILE PICTURE */}
         <div
