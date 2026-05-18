@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Styles/BoardTab.css";
+import BoardImage from './BoardImage';
 const getOriginalDownloadUrl = (url) => {
   return url.replace(
     "/upload/",
     "/upload/fl_attachment,q_100/"
   );
 };
-
-import BoardImage from './BoardImage';
 
 export default function BoardTab({ projectId }) {
   const [images, setImages] = useState([]);
@@ -198,7 +197,7 @@ export default function BoardTab({ projectId }) {
           </div>
         )}
       </div>
-      <BoardImageModal
+      <BoardImage
         isOpen={showImageModal}
         imageUrl={selectedImage}
         onClose={() => setShowImageModal(false)}
