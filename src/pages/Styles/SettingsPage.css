@@ -609,6 +609,7 @@
 .personalInfo-settingsPage {
     gap: 4vh;
     padding-top: 2vh;
+    width: 70%;
 }
 
 .personalInfo-settingsPage form {
