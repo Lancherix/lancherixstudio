@@ -139,7 +139,9 @@ const BoardImage = ({
                 </button>
 
                 {/* Scroll Container */}
-                <div className="boardImage-scrollContainer">
+                <div
+                    className={`boardImage-scrollContainer ${zoomed ? 'zoomed' : ''}`}
+                >
                     <img
                         src={imageUrl}
                         alt="Board"
