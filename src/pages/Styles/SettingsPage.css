@@ -608,33 +608,133 @@
 
 .personalInfo-settingsPage {
     gap: 4vh;
+    padding-top: 2vh;
 }
 
-.settingsInput-settingsPage {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--textColor);
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.dateRow-settingsPage {
-  display: flex;
-  gap: 10px;
-}
-
-.dateRow-settingsPage select {
-  flex: 1;
-}
-
-.saveButton-settingsPage {
-  margin-top: 20px;
+.personalInfo-settingsPage form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .removePicture-settingsPage {
-  margin-top: 10px;
-  display: inline-block;
-  cursor: pointer;
+    margin-top: 1.2vh;
+    margin-bottom: 2vh;
+    display: inline-block;
+    cursor: pointer;
+    color: red;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.removePicture-settingsPage:hover {
+    text-decoration: underline;
+}
+
+.settingsInput-settingsPage {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--placeholderTheme);
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 500;
+    text-align: right;
+    appearance: none;
+}
+
+.settingsInput-settingsPage::placeholder {
+    color: var(--placeholderTheme);
+}
+
+.settingsInput-settingsPage:focus {
+    color: var(--textTheme);
+}
+
+.dateRow-settingsPage {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.7vw;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.dateRow-settingsPage select {
+    flex: 1;
+    min-width: 5vw;
+    cursor: pointer;
+}
+
+.saveButton-settingsPage {
+    width: 70%;
+    height: 5vh;
+    margin-top: 2vh;
+    border: none;
+    color: var(--hoverTextColor);
+    background-color: var(--buttonColor);
+    border-radius: 8px;
+    transition: background-color 0.25s ease,
+                transform 0.25s ease;
+}
+
+.saveButton-settingsPage:hover {
+    cursor: pointer;
+    background-color: var(--hoverButtonColor);
+    transform: scale(1.01);
+}
+
+/* FIXES INPUT ALIGNMENT INSIDE ROWS */
+.row-settingsPage .rightRow-settingsPage {
+    width: 50%;
+    justify-content: flex-end;
+}
+
+/* SELECT STYLE RESET */
+.settingsInput-settingsPage select,
+select.settingsInput-settingsPage {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--placeholderTheme);
+}
+
+/* REMOVE WEIRD BLUE BACKGROUND ON AUTOFILL */
+.settingsInput-settingsPage:-webkit-autofill,
+.settingsInput-settingsPage:-webkit-autofill:hover,
+.settingsInput-settingsPage:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--textTheme);
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+
+    .allGeneral-settingsPageOptions {
+        width: 95%;
+    }
+
+    .row-settingsPage {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1vh;
+    }
+
+    .row-settingsPage .rightRow-settingsPage {
+        width: 100%;
+    }
+
+    .settingsInput-settingsPage {
+        text-align: left;
+    }
+
+    .dateRow-settingsPage {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .saveButton-settingsPage {
+        width: 95%;
+    }
 }

@@ -600,7 +600,7 @@ const SettingsPage = () => {
           {/* DATE OF BIRTH */}
           <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage'>
             <div className='leftRow-settingsPage'>
-              <span>{t('dateOfBirth')}</span>
+              <span>{t('Date of Birth')}</span>
             </div>
 
             <div className='rightRow-settingsPage dateRow-settingsPage'>
