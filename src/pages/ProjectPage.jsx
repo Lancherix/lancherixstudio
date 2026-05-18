@@ -378,14 +378,6 @@ const ProjectPage = () => {
 
         {/* ===== Sidebar ===== */}
         <aside className="menu-projectPage">
-          {project.board?.images?.[0]?.url && (
-            <div
-              className="menu-background-projectPage"
-              style={{
-                backgroundImage: `url(${project.board.images[0].url})`,
-              }}
-            />
-          )}
 
           {/* === Project Identity === */}
           <div className="projectHeader-projectPage">

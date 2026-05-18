@@ -24,8 +24,6 @@
   backdrop-filter: blur(10px);
   box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
   border: var(--borderTheme);
-  position: relative;
-  overflow: hidden;
 }
 
 .projectIcon-projectPage {
@@ -738,35 +736,4 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-
-
-/* ===== Sidebar Background Image ===== */
-.menu-background-projectPage {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: blur(18px);
-  transform: scale(1.08);
-  opacity: 0.28;
-  pointer-events: none;
-}
-
-/* keep content above background */
-.menu-projectPage > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* restore sidebar glass */
-.menu-projectPage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: var(--theme);
-  opacity: 0.72;
-  backdrop-filter: blur(10px);
-  z-index: 0;
 }

@@ -507,118 +507,190 @@ const SettingsPage = () => {
   };
 
   const renderMyProfile = () => {
-    return (
-      <div className='allProfile-settingsPage'>
-        <form onSubmit={handleSubmit}>
-          <div
-            className='profilePicture-settingsPage profilePictureLarge-settingsPage'
-            style={{
-              backgroundImage: `url(${profilePicturePreview ||
-                'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
-              cursor: 'pointer'
-            }}
-            onClick={() => document.getElementById('fileInput').click()}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-          ></div>
-          <a onClick={handleRemovePicture}>{t('removeProfilePicture')}</a>
-          <input
-            id='fileInput'
-            type='file'
-            accept='image/*'
-            onChange={handleProfilePictureChange}
-            style={{ display: 'none' }}
-          />
-          <div className='input-registerPage border-settingsPage'>
-            <input
-              type='email'
-              placeholder={t('email')}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className='inputEmail-registerPage'
-              pattern='^[^\s@]+@[^\s@]+\.[^\s@]+$'
-              title='Please enter a valid email address'
-              spellcheck="false"
-            />
+  return (
+    <div className='allGeneral-settingsPage personalInfo-settingsPage'>
+      <form onSubmit={handleSubmit} className='allGeneral-settingsPageOptions'>
+
+        {/* PROFILE PICTURE */}
+        <div
+          className='profilePicture-settingsPage profilePictureLarge-settingsPage'
+          style={{
+            backgroundImage: `url(${profilePicturePreview ||
+              'https://studio.lancherix.com/Images/defaultProfilePicture.png'})`,
+            cursor: 'pointer'
+          }}
+          onClick={() => document.getElementById('fileInput').click()}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        ></div>
+
+        <a
+          className='removePicture-settingsPage'
+          onClick={handleRemovePicture}
+        >
+          {t('removeProfilePicture')}
+        </a>
+
+        <input
+          id='fileInput'
+          type='file'
+          accept='image/*'
+          onChange={handleProfilePictureChange}
+          style={{ display: 'none' }}
+        />
+
+        <div className='allGeneral-settingsPageOptionsSections'>
+
+          {/* EMAIL */}
+          <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage'>
+            <div className='leftRow-settingsPage'>
+              <span>{t('email')}</span>
+            </div>
+
+            <div className='rightRow-settingsPage'>
+              <input
+                type='email'
+                placeholder={t('email')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='settingsInput-settingsPage'
+                pattern='^[^\s@]+@[^\s@]+\.[^\s@]+$'
+                title='Please enter a valid email address'
+                spellCheck='false'
+              />
+            </div>
           </div>
-          <div className='input-registerPage border-settingsPage'>
-            <input
-              type='text'
-              placeholder={t('firstName')}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className='inputName-registerPage'
-              spellcheck="false"
-            />
-            <input
-              type='text'
-              placeholder={t('lastName')}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className='inputName-registerPage'
-              spellcheck="false"
-            />
+
+          {/* FIRST NAME */}
+          <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage'>
+            <div className='leftRow-settingsPage'>
+              <span>{t('firstName')}</span>
+            </div>
+
+            <div className='rightRow-settingsPage'>
+              <input
+                type='text'
+                placeholder={t('firstName')}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className='settingsInput-settingsPage'
+                spellCheck='false'
+              />
+            </div>
           </div>
-          <div className='fullDate-registerPage'>
-            <div className='inputDate-registerPage border-settingsPage'>
+
+          {/* LAST NAME */}
+          <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage'>
+            <div className='leftRow-settingsPage'>
+              <span>{t('lastName')}</span>
+            </div>
+
+            <div className='rightRow-settingsPage'>
+              <input
+                type='text'
+                placeholder={t('lastName')}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className='settingsInput-settingsPage'
+                spellCheck='false'
+              />
+            </div>
+          </div>
+
+          {/* DATE OF BIRTH */}
+          <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage'>
+            <div className='leftRow-settingsPage'>
+              <span>{t('dateOfBirth')}</span>
+            </div>
+
+            <div className='rightRow-settingsPage dateRow-settingsPage'>
+
               <select
                 value={birthMonth}
                 onChange={(e) => setBirthMonth(e.target.value)}
-                className='inputD-registerPage'
+                className='settingsInput-settingsPage'
               >
                 <option value=''>{t('month')}</option>
+
                 {Array.from({ length: 12 }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
-                    {new Date(0, i + 1, 0).toLocaleString('en-US', { month: 'long' }).replace(/^\w/, (c) => c.toUpperCase())}
+                    {new Date(0, i + 1, 0)
+                      .toLocaleString('en-US', { month: 'long' })
+                      .replace(/^\w/, (c) => c.toUpperCase())}
                   </option>
                 ))}
               </select>
-            </div>
-            <div className='inputDate-registerPage border-settingsPage'>
+
               <select
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className='inputD-registerPage'
+                className='settingsInput-settingsPage'
               >
                 <option value=''>{t('date')}</option>
+
                 {Array.from({ length: 31 }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1}
                   </option>
                 ))}
               </select>
-            </div>
-            <div className='inputDate-registerPage border-settingsPage'>
+
               <select
                 value={birthYear}
                 onChange={(e) => setBirthYear(e.target.value)}
-                className='inputD-registerPage'
+                className='settingsInput-settingsPage'
               >
                 <option value=''>{t('year')}</option>
+
                 {Array.from({ length: 100 }, (_, i) => (
                   <option key={i + 1924} value={i + 1924}>
                     {i + 1924}
                   </option>
                 )).reverse()}
               </select>
+
             </div>
           </div>
-          <div className='input-registerPage border-settingsPage'>
-            <div className='inputD-registerPage'>
-              <select value={gender} onChange={(e) => setGender(e.target.value)} className='inputD-registerPage'>
+
+          {/* GENDER */}
+          <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage'>
+            <div className='leftRow-settingsPage'>
+              <span>{t('gender')}</span>
+            </div>
+
+            <div className='rightRow-settingsPage'>
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className='settingsInput-settingsPage'
+              >
                 <option value=''>{t('gender')}</option>
                 <option value='male'>{t('male')}</option>
                 <option value='female'>{t('female')}</option>
-                <option value="preferNotToSay">{t('preferNotToSay')}</option>
+                <option value='preferNotToSay'>
+                  {t('preferNotToSay')}
+                </option>
               </select>
             </div>
           </div>
-          {error && <p className="error-registerPage">{error}</p>}
-          <button className='border-settingsPage' type='submit'>{t('saveChanges')}</button>
-        </form>
-      </div>
-    );
-  };
+
+        </div>
+
+        {error && (
+          <p className='error-registerPage'>{error}</p>
+        )}
+
+        <button
+          className='saveButton-settingsPage border-settingsPage'
+          type='submit'
+        >
+          {t('saveChanges')}
+        </button>
+
+      </form>
+    </div>
+  );
+};
 
   const renderGeneral = () => {
     return (

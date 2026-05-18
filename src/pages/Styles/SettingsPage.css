@@ -609,3 +609,32 @@
 .personalInfo-settingsPage {
     gap: 4vh;
 }
+
+.settingsInput-settingsPage {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--textColor);
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.dateRow-settingsPage {
+  display: flex;
+  gap: 10px;
+}
+
+.dateRow-settingsPage select {
+  flex: 1;
+}
+
+.saveButton-settingsPage {
+  margin-top: 20px;
+}
+
+.removePicture-settingsPage {
+  margin-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
