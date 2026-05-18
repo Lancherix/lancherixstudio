@@ -19,7 +19,7 @@ export default function BoardTab({ projectId }) {
     ? { Authorization: `Bearer ${token}` }
     : {};
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [showImageModal, setShowImageModal] = useState(false);
 
   /* ============================
@@ -155,7 +155,7 @@ export default function BoardTab({ projectId }) {
               className="board-image"
               draggable={false}
               onClick={() => {
-                setSelectedImage(img.url);
+                setSelectedIndex(images.findIndex(i => i._id === img._id));
                 setShowImageModal(true);
               }}
             />
@@ -199,8 +199,19 @@ export default function BoardTab({ projectId }) {
       </div>
       <BoardImage
         isOpen={showImageModal}
-        imageUrl={selectedImage}
+        imageUrl={images[selectedIndex]?.url}
         onClose={() => setShowImageModal(false)}
+        onDownload={handleDownload}
+        onNext={() => {
+          setSelectedIndex((prev) =>
+            prev === images.length - 1 ? 0 : prev + 1
+          );
+        }}
+        onPrev={() => {
+          setSelectedIndex((prev) =>
+            prev === 0 ? images.length - 1 : prev - 1
+          );
+        }}
       />
     </div>
   );
