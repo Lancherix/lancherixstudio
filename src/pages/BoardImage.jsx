@@ -139,19 +139,13 @@ const BoardImage = ({
                 </button>
 
                 {/* Scroll Container */}
-                <div
-                    ref={containerRef}
-                    className={`boardImage-scrollContainer ${zoomed ? 'zoomed' : ''}`}
-                >
+                <div className="boardImage-scrollContainer">
                     <img
                         src={imageUrl}
                         alt="Board"
                         draggable={false}
-                        onClick={handleImageClick}
+                        onClick={() => setZoomed(!zoomed)}
                         className={`boardImage-image ${zoomed ? 'zoomed' : ''}`}
-                        style={{
-                            transformOrigin
-                        }}
                     />
                 </div>
             </div>

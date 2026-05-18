@@ -183,20 +183,11 @@
 
     border-radius: 18px;
 
-    cursor: zoom-in;
-
     scrollbar-width: none;
 }
 
 .boardImage-scrollContainer::-webkit-scrollbar {
     display: none;
-}
-
-.boardImage-scrollContainer.zoomed {
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    cursor: grab;
 }
 
 .boardImage-image {
@@ -210,16 +201,16 @@
     user-select: none;
     -webkit-user-drag: none;
 
-    transition:
-        transform 0.28s ease,
-        transform-origin 0.28s ease;
-
     box-shadow:
         0 25px 90px rgba(0, 0, 0, 0.45);
+
+    transition: transform 0.25s ease;
+
+    cursor: zoom-in;
 }
 
 .boardImage-image.zoomed {
-    transform: scale(2.2);
+    transform: scale(2);
 
     cursor: zoom-out;
 }
