@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "./ProjectPageMobile.css";
 import EditProjectPage from '../EditProjectPage';
 import EditTaskPage from '../EditTaskPage';
-import BoardTab from '../BoardTab';
+import BoardTabMobile from './ProjectTabs/BoardTabMobile';
 
 const ProjectPageMobile = () => {
   const { slug } = useParams();
@@ -516,7 +516,7 @@ const ProjectPageMobile = () => {
         {/* ===== Board Tab ===== */}
         {activeTab === "Board" && (
           <div className="mobile-board">
-            <BoardTab projectId={project._id} />
+            <BoardTabMobile projectId={project._id} />
           </div>
         )}
 

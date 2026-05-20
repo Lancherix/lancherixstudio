@@ -1,0 +1,160 @@
+.mobile-board-total {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== Grid ===== */
+
+.mobile-board-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 0.5rem;
+
+  padding: 0.1rem;
+}
+
+/* ===== Image Card ===== */
+
+.mobile-board-image-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  background: var(--altRow);
+}
+
+.mobile-board-image {
+  width: 100%;
+  height: auto;
+
+  display: block;
+
+  object-fit: cover;
+
+  user-select: none;
+
+  -webkit-user-drag: none;
+
+  transition: transform 0.18s ease;
+}
+
+.mobile-board-image:active {
+  transform: scale(0.98);
+}
+
+/* ===== Floating Buttons ===== */
+
+.mobile-board-download-btn,
+.mobile-board-delete-btn {
+  position: absolute;
+
+  top: 0.45rem;
+
+  width: 28px;
+  height: 28px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  color: white;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  z-index: 5;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-board-download-btn {
+  right: 2.4rem;
+}
+
+.mobile-board-delete-btn {
+  right: 0.45rem;
+}
+
+.mobile-board-download-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.mobile-board-download-btn:active,
+.mobile-board-delete-btn:active {
+  transform: scale(0.92);
+}
+
+/* ===== Empty State ===== */
+
+.mobile-board-empty {
+  width: 100%;
+
+  min-height: 50vh;
+
+  grid-column: 1 / -1;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 2rem 1rem;
+
+  color: var(--placeholderTheme);
+}
+
+.mobile-board-empty-icon {
+  font-size: 3.2rem;
+
+  margin-bottom: 1rem;
+}
+
+.mobile-board-empty h3 {
+  margin: 0 0 0.4rem 0;
+
+  color: var(--textTheme);
+
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+.mobile-board-empty p {
+  margin: 0;
+
+  font-size: 0.82rem;
+
+  max-width: 240px;
+
+  line-height: 1.5;
+}
+
+/* ===== Loading ===== */
+
+.mobile-board-loading {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
