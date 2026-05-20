@@ -20,7 +20,8 @@ import HomePage from './pages/HomePage';
 import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
-import AllProjectsPage from './pages/AllProjectsPage';
+import ProjectPageMobile from './pages/ProjectPage';
+import AllProjectsPage from './pages/Mobile/ProjectPageMobile';
 import AllProjectsMobile from './pages/Mobile/AllProjectsMobile';
 import AuthRedirector from './api/AuthRedirector';
 
@@ -294,7 +295,7 @@ const App = () => {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
                 <Route path="/member/:username" element={<UserProfilePage />} />
-                <Route path="/projects/:slug" element={<ProjectPage />} />
+                <Route path="/projects/:slug" element={ isMobile ? <ProjectPageMobile /> : <ProjectPage /> } />
                 <Route path="*" element={<HomePage />} />
               </>
             )}
