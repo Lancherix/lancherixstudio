@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./BoardTabsMobile.css";
-import BoardImage from "../BoardImage";
+import "./BoardTabMobile.css";
+import BoardImage from "../../BoardImage";
 
 const getOriginalDownloadUrl = (url) => {
   return url.replace(
