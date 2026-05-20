@@ -15,10 +15,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--theme);
+  border-bottom: var(--borderTheme);
   flex-shrink: 0;
   gap: 0.5rem;
   min-height: 60px;
@@ -54,7 +52,7 @@
 .mobile-header-name {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--textMenu);
+  color: var(--textTheme);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,8 +61,7 @@
 
 .mobile-header-sub {
   font-size: 0.7rem;
-  color: var(--textMenu);
-  opacity: 0.55;
+  color: var(--textThemee, var(--placeholderTheme));
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -82,14 +79,13 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--textMenu);
-  opacity: 0.7;
+  color: var(--placeholderTheme);
   padding: 6px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.18s, opacity 0.18s;
+  transition: background 0.18s, color 0.18s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -99,8 +95,8 @@
 }
 
 .mobile-icon-btn:active {
-  background: rgba(0, 0, 0, 0.08);
-  opacity: 1;
+  background: var(--buttonColor);
+  color: var(--hoverTextColor);
 }
 
 /* ===== Options Menu ===== */
@@ -113,14 +109,14 @@
   top: 36px;
   right: 0;
   min-width: 180px;
-  background: var(--menuColor);
+  background: var(--theme);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 10px;
   padding: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 100;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: var(--borderTheme);
 }
 
 .mobile-options-item {
@@ -132,13 +128,14 @@
   font-size: 0.88rem;
   text-align: left;
   cursor: pointer;
-  color: var(--textMenu);
+  color: var(--textTheme);
   -webkit-tap-highlight-color: transparent;
   display: block;
 }
 
 .mobile-options-item:active {
-  background: rgba(0, 0, 0, 0.07);
+  background: var(--buttonColor);
+  color: var(--hoverTextColor);
 }
 
 .mobile-options-item.danger {
@@ -147,7 +144,7 @@
 
 .mobile-options-divider {
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--borderTheme);
   margin: 4px 0;
 }
 
@@ -155,7 +152,7 @@
 .mobile-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 200;
   display: flex;
   justify-content: flex-end;
@@ -164,10 +161,8 @@
 .mobile-drawer {
   width: min(80vw, 320px);
   height: 100%;
-  background: var(--menuColor);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--theme);
+  border-left: var(--borderTheme);
   display: flex;
   flex-direction: column;
   padding: 1.2rem 1rem;
@@ -188,7 +183,7 @@
 }
 
 .mobile-drawer-header h3 {
-  color: var(--textMenu);
+  color: var(--textTheme);
   font-size: 1rem;
   margin: 0;
 }
@@ -198,8 +193,7 @@
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
-  color: var(--textMenu);
-  opacity: 0.6;
+  color: var(--placeholderTheme);
   padding: 4px 8px;
   border-radius: 6px;
 }
@@ -244,7 +238,7 @@
 
 .mobile-member-name {
   font-size: 0.85rem;
-  color: var(--textMenu);
+  color: var(--textTheme);
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -253,8 +247,7 @@
 
 .mobile-member-username {
   font-size: 0.7rem;
-  color: var(--textMenu);
-  opacity: 0.5;
+  color: var(--placeholderTheme);
 }
 
 .mobile-owner-badge {
@@ -273,10 +266,8 @@
   display: flex;
   align-items: center;
   gap: 0;
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--theme);
+  border-bottom: var(--borderTheme);
   flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
@@ -295,11 +286,10 @@
   padding: 0.65rem 0.9rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--textMenu);
-  opacity: 0.5;
+  color: var(--placeholderTheme);
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.15s, border-color 0.15s, opacity 0.15s;
+  transition: color 0.15s, border-color 0.15s;
   position: relative;
   -webkit-tap-highlight-color: transparent;
   display: flex;
@@ -308,13 +298,12 @@
 }
 
 .mobile-tab:active {
-  opacity: 0.8;
+  color: var(--textTheme);
 }
 
 .mobile-tab-active {
-  opacity: 1;
-  color: var(--textMenu);
-  border-bottom-color: var(--accentTheme, var(--textMenu));
+  color: var(--textTheme);
+  border-bottom-color: var(--accentTheme, var(--textTheme));
 }
 
 .mobile-tab-badge {
@@ -341,6 +330,8 @@
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
+  /* Prevent bottom menu (70px) from covering scrolled content */
+  padding-bottom: 70px;
 }
 
 /* ===== Tasks ===== */
@@ -360,8 +351,7 @@
 }
 
 .mobile-empty-state {
-  color: var(--textMenu);
-  opacity: 0.4;
+  color: var(--placeholderTheme);
   font-size: 0.85rem;
   text-align: center;
   padding: 2rem 1rem;
@@ -374,23 +364,25 @@
   justify-content: space-between;
   padding: 0.65rem 0.75rem;
   border-radius: 10px;
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: var(--altRow);
   gap: 0.5rem;
-  transition: background 0.15s, opacity 0.15s;
+  transition: background 0.15s;
   -webkit-tap-highlight-color: transparent;
   min-height: 50px;
 }
 
 .mobile-task-card:active,
 .mobile-task-selected {
-  background: rgba(0, 0, 0, 0.07);
+  background: var(--buttonColor);
+}
+
+.mobile-task-card:active .mobile-task-name,
+.mobile-task-selected .mobile-task-name {
+  color: var(--hoverTextColor);
 }
 
 .mobile-task-done {
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .mobile-task-left {
@@ -425,7 +417,7 @@
 
 .mobile-task-name {
   font-size: 0.88rem;
-  color: var(--textMenu);
+  color: var(--textTheme);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -433,21 +425,19 @@
 
 .mobile-task-name-done {
   text-decoration: line-through;
-  opacity: 0.45;
+  color: var(--placeholderTheme);
 }
 
 .mobile-task-due {
   font-size: 0.68rem;
-  color: var(--textMenu);
-  opacity: 0.45;
+  color: var(--placeholderTheme);
 }
 
 .mobile-edit-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--textMenu);
-  opacity: 0.5;
+  color: var(--placeholderTheme);
   padding: 4px;
   display: flex;
   align-items: center;
@@ -486,17 +476,14 @@
   gap: 0.6rem;
   margin: 0.5rem 0.75rem 0;
   padding: 0.65rem 0.75rem;
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--altRow);
   border-radius: 10px;
-  border: 1px dashed rgba(0, 0, 0, 0.18);
+  border: 1px dashed var(--placeholderTheme);
 }
 
 .mobile-new-task-icon {
   font-size: 1.1rem;
-  color: var(--textMenu);
-  opacity: 0.45;
+  color: var(--placeholderTheme);
   flex-shrink: 0;
   line-height: 1;
 }
@@ -507,12 +494,11 @@
   border: none;
   outline: none;
   font-size: 0.88rem;
-  color: var(--textMenu);
+  color: var(--textTheme);
 }
 
 .mobile-new-task-input::placeholder {
-  color: var(--textMenu);
-  opacity: 0.4;
+  color: var(--placeholderTheme);
 }
 
 /* ===== Notes ===== */
@@ -530,17 +516,15 @@
   padding: 0.5rem 0;
   flex-wrap: wrap;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: var(--borderTheme);
   margin-bottom: 0.5rem;
 }
 
 .mobile-notes-toolbar button {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--borderTheme);
   border-radius: 6px;
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--textMenu);
+  background: var(--theme);
+  color: var(--textTheme);
   cursor: pointer;
   padding: 0.3rem 0.55rem;
   font-size: 0.8rem;
@@ -549,19 +533,18 @@
 }
 
 .mobile-notes-toolbar button:active {
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--buttonColor);
+  color: var(--hoverTextColor);
 }
 
 .mobile-notes-editor {
   flex: 1;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--borderTheme);
   border-radius: 10px;
   padding: 0.75rem;
   font-size: 0.9rem;
-  color: var(--textMenu);
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  color: var(--textTheme);
+  background: var(--theme);
   overflow-y: auto;
   outline: none;
   white-space: pre-wrap;
@@ -607,10 +590,7 @@
   gap: 0.55rem;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
-  background: var(--menuColor);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: var(--altRow);
   min-height: 46px;
 }
 
@@ -632,7 +612,7 @@
 .mobile-link-url {
   flex: 1;
   font-size: 0.78rem;
-  color: var(--textMenu);
+  color: var(--textTheme);
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
@@ -664,7 +644,7 @@
   align-items: center;
   justify-content: center;
   height: 100dvh;
-  color: var(--textMenu);
+  color: var(--textTheme);
   font-size: 0.9rem;
   padding: 2rem;
   text-align: center;
