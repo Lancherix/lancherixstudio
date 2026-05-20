@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-
-import "./ProjectPageMobile.css";
-
-import EditProjectPage from "./EditProjectPage";
-import EditTaskPage from "./EditTaskPage";
-import BoardTab from "./BoardTab";
+import "./Styles/ProjectPageMobile.css";
 
 const ProjectPageMobile = () => {
   const { slug } = useParams();
@@ -15,46 +10,28 @@ const ProjectPageMobile = () => {
   const [error, setError] = useState(null);
 
   const [activeFolder, setActiveFolder] = useState("Tasks");
-  const [folderMenuOpen, setFolderMenuOpen] = useState(false);
+  const [showFolderMenu, setShowFolderMenu] = useState(false);
 
   const [tasks, setTasks] = useState([]);
-  const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [newTaskName, setNewTaskName] = useState("");
 
   const [links, setLinks] = useState([]);
   const [newLinkUrl, setNewLinkUrl] = useState("");
 
-  const [showOptions, setShowOptions] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
 
-  const [editProjectOpen, setEditProjectOpen] = useState(false);
-  const [editTaskOpen, setEditTaskOpen] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState(null);
-
-  const noteContentRef = useRef("");
   const editorRef = useRef(null);
+  const noteContentRef = useRef("");
+
+  const folders = ["Tasks", "Notes", "Links", "Completed"];
 
   const activeTasks = tasks.filter((t) => !t.completed);
   const completedTasks = tasks.filter((t) => t.completed);
-
-  const FALLBACK =
-    "https://studio.lancherix.com/Images/defaultProfilePicture.png";
-
-  const getProfilePicture = (user) => {
-    return user?.profilePicture?.url || FALLBACK;
-  };
-
-  /* =========================================================
-      FETCH PROJECT
-  ========================================================= */
 
   useEffect(() => {
     const fetchProject = async () => {
       try {
         const token = localStorage.getItem("token");
-
-        if (!token) {
-          throw new Error("Not authenticated");
-        }
 
         const res = await fetch(
           `https://lancherixstudio-backend.onrender.com/api/projects/${slug}`,
@@ -68,20 +45,14 @@ const ProjectPageMobile = () => {
         const data = await res.json();
 
         if (!res.ok) {
-          throw new Error(
-            res.status === 404
-              ? "This project does not exist"
-              : data.error || "Failed to load project"
-          );
+          throw new Error(data.error || "Failed to load project");
         }
 
         setProject(data);
         setLinks(data.links || []);
-
         document.title = data.name;
       } catch (err) {
         setError(err.message);
-        setProject(null);
       } finally {
         setLoading(false);
       }
@@ -89,10 +60,6 @@ const ProjectPageMobile = () => {
 
     fetchProject();
   }, [slug]);
-
-  /* =========================================================
-      FETCH TASKS
-  ========================================================= */
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -110,10 +77,6 @@ const ProjectPageMobile = () => {
           }
         );
 
-        if (!res.ok) {
-          throw new Error("Failed to fetch tasks");
-        }
-
         const data = await res.json();
 
         setTasks(data);
@@ -124,10 +87,6 @@ const ProjectPageMobile = () => {
 
     fetchTasks();
   }, [project?._id]);
-
-  /* =========================================================
-      FETCH NOTES
-  ========================================================= */
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -147,12 +106,10 @@ const ProjectPageMobile = () => {
 
         const data = await res.json();
 
-        const content = data.content || "";
-
-        noteContentRef.current = content;
+        noteContentRef.current = data.content || "";
 
         if (editorRef.current) {
-          editorRef.current.innerHTML = content;
+          editorRef.current.innerHTML = noteContentRef.current;
         }
       } catch (err) {
         console.error(err);
@@ -162,9 +119,13 @@ const ProjectPageMobile = () => {
     fetchNote();
   }, [project?._id]);
 
-  /* =========================================================
-      SAVE NOTES
-  ========================================================= */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      saveNote(noteContentRef.current);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [project?._id]);
 
   const saveNote = async (content) => {
     if (!project?._id) return;
@@ -172,43 +133,25 @@ const ProjectPageMobile = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await fetch(
-        "https://lancherixstudio-backend.onrender.com/api/notes",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            projectId: project._id,
-            content,
-          }),
-        }
-      );
+      await fetch("https://lancherixstudio-backend.onrender.com/api/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          projectId: project._id,
+          content,
+        }),
+      });
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!project?._id) return;
-
-      saveNote(noteContentRef.current);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [project?._id]);
-
-  /* =========================================================
-      TASKS
-  ========================================================= */
-
   const handleNewTaskKeyDown = async (e) => {
     if (e.key !== "Enter") return;
-
-    if (!newTaskName.trim() || !project?._id) return;
+    if (!newTaskName.trim()) return;
 
     try {
       const token = localStorage.getItem("token");
@@ -229,26 +172,21 @@ const ProjectPageMobile = () => {
         }
       );
 
-      if (!res.ok) {
-        throw new Error("Failed to create task");
-      }
-
       const data = await res.json();
 
       setTasks((prev) => [...prev, data]);
-
       setNewTaskName("");
     } catch (err) {
       console.error(err);
     }
   };
 
-  const toggleTask = async (task) => {
+  const toggleTask = async (taskId) => {
     try {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `https://lancherixstudio-backend.onrender.com/api/tasks/${task._id}/complete`,
+        `https://lancherixstudio-backend.onrender.com/api/tasks/${taskId}/complete`,
         {
           method: "PATCH",
           headers: {
@@ -256,10 +194,6 @@ const ProjectPageMobile = () => {
           },
         }
       );
-
-      if (!res.ok) {
-        throw new Error("Failed to toggle task");
-      }
 
       const updatedTask = await res.json();
 
@@ -272,12 +206,10 @@ const ProjectPageMobile = () => {
   };
 
   const handleDeleteTask = async (taskId) => {
-    if (!window.confirm("Delete task?")) return;
-
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(
+      await fetch(
         `https://lancherixstudio-backend.onrender.com/api/tasks/${taskId}`,
         {
           method: "DELETE",
@@ -287,19 +219,11 @@ const ProjectPageMobile = () => {
         }
       );
 
-      if (!res.ok) {
-        throw new Error("Failed to delete task");
-      }
-
       setTasks((prev) => prev.filter((t) => t._id !== taskId));
     } catch (err) {
       console.error(err);
     }
   };
-
-  /* =========================================================
-      LINKS
-  ========================================================= */
 
   const handleNewLinkKeyDown = async (e) => {
     if (e.key !== "Enter") return;
@@ -315,7 +239,6 @@ const ProjectPageMobile = () => {
     const updatedLinks = [...links, url];
 
     setLinks(updatedLinks);
-
     setNewLinkUrl("");
 
     try {
@@ -365,274 +288,122 @@ const ProjectPageMobile = () => {
     }
   };
 
-  /* =========================================================
-      TEXT FORMAT
-  ========================================================= */
-
-  const applyFormat = (command, value = null) => {
-    document.execCommand(command, false, value);
-  };
-
-  /* =========================================================
-      STATES
-  ========================================================= */
-
   if (loading) {
     return <div className="loading-projectPageMobile"></div>;
   }
 
   if (error) {
-    return (
-      <div className="error-projectPageMobile">
-        {error}
-      </div>
-    );
+    return <div className="error-projectPageMobile">{error}</div>;
   }
 
   if (!project) return null;
 
-  /* =========================================================
-      RENDER
-  ========================================================= */
-
   return (
     <div className="all-projectPageMobile">
-
-      {/* =====================================================
-          MOBILE HEADER
-      ===================================================== */}
-
-      <header className="header-projectPageMobile">
-
-        <div className="headerLeft-projectPageMobile">
-
-          <div className="projectIcon-projectPageMobile">
+      {/* ===== Top Bar ===== */}
+      <div className="mobileHeader-projectPageMobile">
+        <div className="mobileProjectInfo-projectPageMobile">
+          <div className="mobileProjectIcon-projectPageMobile">
             {project.icon || "📁"}
           </div>
 
-          <div className="projectInfo-projectPageMobile">
-
-            <div className="projectName-projectPageMobile">
+          <div className="mobileProjectText-projectPageMobile">
+            <div className="mobileProjectName-projectPageMobile">
               {project.name}
             </div>
 
             <button
-              className="folderSelector-projectPageMobile"
-              onClick={() =>
-                setFolderMenuOpen((prev) => !prev)
-              }
+              className="mobileFolderSwitcher-projectPageMobile"
+              onClick={() => setShowFolderMenu((prev) => !prev)}
             >
-              {activeFolder}
-              <span className="folderArrow-projectPageMobile">
-                ▼
-              </span>
+              {activeFolder} ▼
             </button>
 
+            {showFolderMenu && (
+              <div className="mobileFolderMenu-projectPageMobile">
+                {folders.map((folder) => (
+                  <button
+                    key={folder}
+                    className="mobileFolderItem-projectPageMobile"
+                    onClick={() => {
+                      setActiveFolder(folder);
+                      setShowFolderMenu(false);
+                    }}
+                  >
+                    {folder}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
-
         </div>
+      </div>
 
-        <button
-          className="optionsButton-projectPageMobile"
-          onClick={() =>
-            setShowOptions((prev) => !prev)
-          }
-        >
-          ⋯
-        </button>
-
-      </header>
-
-      {/* =====================================================
-          FOLDER MENU
-      ===================================================== */}
-
-      {folderMenuOpen && (
-        <div className="folderMenu-projectPageMobile">
-
-          {["Tasks", "Notes", "Board", "Links"].map((folder) => (
-            <button
-              key={folder}
-              className={`folderMenuItem-projectPageMobile ${
-                activeFolder === folder
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() => {
-                setActiveFolder(folder);
-                setFolderMenuOpen(false);
-              }}
-            >
-              {folder}
-            </button>
-          ))}
-
-        </div>
-      )}
-
-      {/* =====================================================
-          CONTENT BOX
-      ===================================================== */}
-
-      <div className="contentBox-projectPageMobile">
-
-        {/* =================================================
-            TASKS
-        ================================================= */}
-
+      {/* ===== Content ===== */}
+      <div className="mobileContent-projectPageMobile">
         {activeFolder === "Tasks" && (
-          <div className="tasks-projectPageMobile">
-
+          <div className="mobileTasks-projectPageMobile">
             {activeTasks.map((task) => (
               <div
                 key={task._id}
-                className={`taskCard-projectPageMobile ${
-                  selectedTaskId === task._id
-                    ? "selected"
-                    : ""
+                className={`mobileTaskRow-projectPageMobile ${
+                  selectedTaskId === task._id ? "selected" : ""
                 }`}
-                onClick={() =>
-                  setSelectedTaskId(task._id)
-                }
+                onClick={() => setSelectedTaskId(task._id)}
               >
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleTask(task._id)}
+                />
 
-                <div className="taskTop-projectPageMobile">
-
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleTask(task)}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-
-                  <div className="taskName-projectPageMobile">
-                    {task.name}
-                  </div>
-
+                <div className="mobileTaskName-projectPageMobile">
+                  {task.name}
                 </div>
 
-                <div className="taskBottom-projectPageMobile">
-
-                  <div className="taskPriority-projectPageMobile">
-                    {task.priority}
-                  </div>
-
-                  {task.due && (
-                    <div className="taskDue-projectPageMobile">
-                      {new Date(task.due).toLocaleDateString()}
-                    </div>
-                  )}
-
-                </div>
-
-                <div className="taskActions-projectPageMobile">
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-
-                      setTaskToEdit(task);
-                      setEditTaskOpen(true);
-                    }}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteTask(task._id);
-                    }}
-                  >
-                    Delete
-                  </button>
-
-                </div>
-
+                <button
+                  className="mobileDelete-projectPageMobile"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteTask(task._id);
+                  }}
+                >
+                  ✕
+                </button>
               </div>
             ))}
 
             <input
-              className="newTaskInput-projectPageMobile"
+              className="mobileTaskInput-projectPageMobile"
               placeholder="New Task"
               value={newTaskName}
-              onChange={(e) =>
-                setNewTaskName(e.target.value)
-              }
+              onChange={(e) => setNewTaskName(e.target.value)}
               onKeyDown={handleNewTaskKeyDown}
             />
-
           </div>
         )}
 
-        {/* =================================================
-            NOTES
-        ================================================= */}
-
         {activeFolder === "Notes" && (
-          <div className="notes-projectPageMobile">
-
-            <div className="notesToolbar-projectPageMobile">
-
-              <button onClick={() => applyFormat("bold")}>
-                B
-              </button>
-
-              <button onClick={() => applyFormat("italic")}>
-                I
-              </button>
-
-              <button onClick={() => applyFormat("underline")}>
-                U
-              </button>
-
-              <button
-                onClick={() =>
-                  applyFormat("insertUnorderedList")
-                }
-              >
-                • List
-              </button>
-
-            </div>
-
+          <div className="mobileNotes-projectPageMobile">
             <div
-              className="notesEditor-projectPageMobile"
+              className="mobileEditor-projectPageMobile"
               ref={editorRef}
               contentEditable
               suppressContentEditableWarning
               onInput={() => {
-                noteContentRef.current =
-                  editorRef.current.innerHTML;
+                noteContentRef.current = editorRef.current.innerHTML;
               }}
             />
-
           </div>
         )}
-
-        {/* =================================================
-            BOARD
-        ================================================= */}
-
-        {activeFolder === "Board" && (
-          <div className="board-projectPageMobile">
-            <BoardTab projectId={project._id} />
-          </div>
-        )}
-
-        {/* =================================================
-            LINKS
-        ================================================= */}
 
         {activeFolder === "Links" && (
-          <div className="links-projectPageMobile">
-
+          <div className="mobileLinks-projectPageMobile">
             {links.map((link, i) => (
               <div
                 key={i}
-                className="linkCard-projectPageMobile"
+                className="mobileLinkRow-projectPageMobile"
               >
-
                 <a
                   href={link}
                   target="_blank"
@@ -642,62 +413,55 @@ const ProjectPageMobile = () => {
                 </a>
 
                 <button
-                  onClick={() =>
-                    handleDeleteLink(i)
-                  }
+                  className="mobileDelete-projectPageMobile"
+                  onClick={() => handleDeleteLink(i)}
                 >
                   ✕
                 </button>
-
               </div>
             ))}
 
             <input
-              className="newLinkInput-projectPageMobile"
+              className="mobileLinkInput-projectPageMobile"
               placeholder="New Link"
               value={newLinkUrl}
-              onChange={(e) =>
-                setNewLinkUrl(e.target.value)
-              }
+              onChange={(e) => setNewLinkUrl(e.target.value)}
               onKeyDown={handleNewLinkKeyDown}
             />
-
           </div>
         )}
 
+        {activeFolder === "Completed" && (
+          <div className="mobileTasks-projectPageMobile">
+            {completedTasks
+              .slice()
+              .reverse()
+              .map((task) => (
+                <div
+                  key={task._id}
+                  className="mobileTaskRow-projectPageMobile completed"
+                >
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => toggleTask(task._id)}
+                  />
+
+                  <div className="mobileTaskName-projectPageMobile">
+                    {task.name}
+                  </div>
+
+                  <button
+                    className="mobileDelete-projectPageMobile"
+                    onClick={() => handleDeleteTask(task._id)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+          </div>
+        )}
       </div>
-
-      {/* =====================================================
-          MODALS
-      ===================================================== */}
-
-      <EditProjectPage
-        isOpen={editProjectOpen}
-        onClose={() => setEditProjectOpen(false)}
-        project={project}
-        onUpdated={(updatedProject) => {
-          setProject(updatedProject);
-        }}
-      />
-
-      <EditTaskPage
-        isOpen={editTaskOpen}
-        onClose={() => {
-          setEditTaskOpen(false);
-          setTaskToEdit(null);
-        }}
-        task={taskToEdit}
-        onUpdated={(updatedTask) => {
-          setTasks((prev) =>
-            prev.map((t) =>
-              t._id === updatedTask._id
-                ? updatedTask
-                : t
-            )
-          );
-        }}
-      />
-
     </div>
   );
 };
