@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./Styles/ProjectPageMobile.css";
+import "./ProjectPageMobile.css";
 
 const ProjectPageMobile = () => {
   const { slug } = useParams();
