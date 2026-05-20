@@ -1,210 +1,142 @@
-.mobileBoardImage-overlay {
-  position: fixed;
-  inset: 0;
+/* =============================================
+   BoardImageGrid — Pinterest / VSCO 2-col stack
+   ============================================= */
 
-  z-index: 999999;
-
-  background: rgba(0, 0, 0, 0.72);
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  animation: mobileBoardFade 0.18s ease;
-}
-
-.mobileBoardImage-window {
-  position: relative;
-
-  width: 100vw;
-  height: 100dvh;
-
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ===== Top Bar ===== */
-
-.mobileBoardImage-topbar {
-  position: absolute;
-
-  top: max(14px, env(safe-area-inset-top));
-  right: 14px;
-
-  z-index: 20;
-
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.mobileBoardImage-topBtn {
-  width: 42px;
-  height: 42px;
-
-  border: none;
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.14);
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 1rem;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  transition:
-    background 0.15s,
-    transform 0.15s;
-
-  -webkit-tap-highlight-color: transparent;
-}
-
-.mobileBoardImage-topBtn:active {
-  transform: scale(0.92);
-  background: rgba(255, 255, 255, 0.24);
-}
-
-.mobileBoardImage-topBtn.close {
-  background: rgba(255, 69, 58, 0.18);
-}
-
-/* ===== Navigation ===== */
-
-.mobileBoardImage-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  z-index: 15;
-
-  width: 42px;
-  height: 42px;
-
-  border: none;
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 1.8rem;
-  line-height: 1;
-
-  cursor: pointer;
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  transition:
-    background 0.15s,
-    transform 0.15s;
-
-  -webkit-tap-highlight-color: transparent;
-}
-
-.mobileBoardImage-nav:active {
-  transform: translateY(-50%) scale(0.92);
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.mobileBoardImage-prev {
-  left: 10px;
-}
-
-.mobileBoardImage-next {
-  right: 10px;
-}
-
-/* ===== Scroll Container ===== */
-
-.mobileBoardImage-scroll {
+.boardGrid-root {
   width: 100%;
-  height: 100%;
-
-  overflow: auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding:
-    calc(env(safe-area-inset-top) + 70px)
-    1rem
-    calc(env(safe-area-inset-bottom) + 2rem);
-
+  padding: 12px 10px;
   box-sizing: border-box;
-
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
 
-.mobileBoardImage-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.mobileBoardImage-scroll.zoomed {
+/* Two-column flex layout */
+.boardGrid-columns {
+  display: flex;
+  gap: 8px;
   align-items: flex-start;
-  justify-content: flex-start;
+  width: 100%;
 }
 
-/* ===== Image ===== */
+.boardGrid-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
 
-.mobileBoardImage-image {
-  max-width: 100%;
-  max-height: 100%;
+/* Offset the right column downward for the classic Pinterest stagger */
+.boardGrid-col--offset {
+  margin-top: 28px;
+}
 
-  object-fit: contain;
+/* =============================================
+   Card
+   ============================================= */
 
-  border-radius: 18px;
-
-  user-select: none;
-  -webkit-user-drag: none;
-
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.45);
-
+.boardGrid-card {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
   transition:
-    transform 0.22s ease,
-    border-radius 0.22s ease;
-
-  cursor: zoom-in;
+    opacity 0.36s ease calc(var(--i, 0) * 40ms),
+    transform 0.36s ease calc(var(--i, 0) * 40ms),
+    box-shadow 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform, opacity;
 }
 
-.mobileBoardImage-image.zoomed {
-  width: 180vw;
-  max-width: none;
-  max-height: none;
-
-  border-radius: 20px;
-
-  cursor: zoom-out;
+.boardGrid-card--loaded {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-/* ===== Animations ===== */
+/* Subtle lift on tap/hover */
+.boardGrid-card:active .boardGrid-card-inner {
+  transform: scale(0.97);
+}
 
-@keyframes mobileBoardFade {
-  from {
-    opacity: 0;
+@media (hover: hover) {
+  .boardGrid-card:hover .boardGrid-card-inner {
+    transform: scale(1.015);
   }
 
-  to {
+  .boardGrid-card:hover .boardGrid-overlay {
     opacity: 1;
+  }
+}
+
+/* Inner wrapper handles the scale transform independently */
+.boardGrid-card-inner {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.22s ease;
+}
+
+/* =============================================
+   Image — variable height (natural aspect ratio)
+   ============================================= */
+
+.boardGrid-img {
+  display: block;
+  width: 100%;
+  height: auto;          /* natural aspect ratio preserved */
+  object-fit: cover;
+  border-radius: 14px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* =============================================
+   Hover overlay (subtle vignette/sheen)
+   ============================================= */
+
+.boardGrid-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(0, 0, 0, 0.18) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+  border-radius: 14px;
+}
+
+/* =============================================
+   Responsive tweaks
+   ============================================= */
+
+@media (min-width: 540px) {
+  .boardGrid-root {
+    padding: 16px 14px;
+  }
+
+  .boardGrid-columns {
+    gap: 12px;
+  }
+
+  .boardGrid-col {
+    gap: 12px;
+  }
+
+  .boardGrid-col--offset {
+    margin-top: 36px;
+  }
+
+  .boardGrid-card {
+    border-radius: 18px;
+  }
+
+  .boardGrid-card-inner,
+  .boardGrid-img,
+  .boardGrid-overlay {
+    border-radius: 18px;
   }
 }
