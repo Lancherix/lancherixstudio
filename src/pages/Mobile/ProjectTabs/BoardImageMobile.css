@@ -1,0 +1,210 @@
+.mobileBoardImage-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 999999;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: mobileBoardFade 0.18s ease;
+}
+
+.mobileBoardImage-window {
+  position: relative;
+
+  width: 100vw;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Top Bar ===== */
+
+.mobileBoardImage-topbar {
+  position: absolute;
+
+  top: max(14px, env(safe-area-inset-top));
+  right: 14px;
+
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobileBoardImage-topBtn {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transition:
+    background 0.15s,
+    transform 0.15s;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobileBoardImage-topBtn:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.mobileBoardImage-topBtn.close {
+  background: rgba(255, 69, 58, 0.18);
+}
+
+/* ===== Navigation ===== */
+
+.mobileBoardImage-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  z-index: 15;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.8rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition:
+    background 0.15s,
+    transform 0.15s;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobileBoardImage-nav:active {
+  transform: translateY(-50%) scale(0.92);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.mobileBoardImage-prev {
+  left: 10px;
+}
+
+.mobileBoardImage-next {
+  right: 10px;
+}
+
+/* ===== Scroll Container ===== */
+
+.mobileBoardImage-scroll {
+  width: 100%;
+  height: 100%;
+
+  overflow: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    calc(env(safe-area-inset-top) + 70px)
+    1rem
+    calc(env(safe-area-inset-bottom) + 2rem);
+
+  box-sizing: border-box;
+
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobileBoardImage-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.mobileBoardImage-scroll.zoomed {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* ===== Image ===== */
+
+.mobileBoardImage-image {
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+
+  border-radius: 18px;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.45);
+
+  transition:
+    transform 0.22s ease,
+    border-radius 0.22s ease;
+
+  cursor: zoom-in;
+}
+
+.mobileBoardImage-image.zoomed {
+  width: 180vw;
+  max-width: none;
+  max-height: none;
+
+  border-radius: 20px;
+
+  cursor: zoom-out;
+}
+
+/* ===== Animations ===== */
+
+@keyframes mobileBoardFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

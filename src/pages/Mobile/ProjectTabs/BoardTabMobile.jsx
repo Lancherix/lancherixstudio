@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./BoardTabMobile.css";
-import BoardImage from "../../BoardImage";
+import BoardImageMobile from "./BoardImageMobile";
 
 const getOriginalDownloadUrl = (url) => {
   return url.replace(
@@ -234,7 +234,7 @@ export default function BoardTabsMobile({ projectId }) {
         )}
       </div>
 
-      <BoardImage
+      <BoardImageMobile
         isOpen={showImageModal}
         imageUrl={images[selectedIndex]?.url}
         onClose={() => setShowImageModal(false)}
