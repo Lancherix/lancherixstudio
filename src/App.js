@@ -293,7 +293,7 @@ const App = () => {
               <>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/settings" element={<SettingsPage />} />
-                <Route path="/myprojects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
+                <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
                 <Route path="/member/:username" element={<UserProfilePage />} />
                 <Route path="/projects/:slug" element={ isMobile ? <ProjectPageMobile /> : <ProjectPage /> } />
                 <Route path="*" element={<HomePage />} />
