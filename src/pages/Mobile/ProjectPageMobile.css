@@ -15,8 +15,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  background-color: var(--theme);
-  border-bottom: var(--borderTheme);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
   gap: 0.5rem;
   min-height: 60px;
@@ -52,7 +54,7 @@
 .mobile-header-name {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--textTheme);
+  color: var(--textMenu);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -61,7 +63,8 @@
 
 .mobile-header-sub {
   font-size: 0.7rem;
-  color: var(--textThemee, var(--placeholderTheme));
+  color: var(--textMenu);
+  opacity: 0.55;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -79,13 +82,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.7;
   padding: 6px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.18s, color 0.18s;
+  transition: background 0.18s, opacity 0.18s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -95,8 +99,8 @@
 }
 
 .mobile-icon-btn:active {
-  background: var(--buttonColor);
-  color: var(--hoverTextColor);
+  background: rgba(0, 0, 0, 0.08);
+  opacity: 1;
 }
 
 /* ===== Options Menu ===== */
@@ -109,14 +113,14 @@
   top: 36px;
   right: 0;
   min-width: 180px;
-  background: var(--theme);
+  background: var(--menuColor);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 10px;
   padding: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   z-index: 100;
-  border: var(--borderTheme);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .mobile-options-item {
@@ -128,14 +132,13 @@
   font-size: 0.88rem;
   text-align: left;
   cursor: pointer;
-  color: var(--textTheme);
+  color: var(--textMenu);
   -webkit-tap-highlight-color: transparent;
   display: block;
 }
 
 .mobile-options-item:active {
-  background: var(--buttonColor);
-  color: var(--hoverTextColor);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 .mobile-options-item.danger {
@@ -144,7 +147,7 @@
 
 .mobile-options-divider {
   height: 1px;
-  background-color: var(--borderTheme);
+  background-color: rgba(0, 0, 0, 0.1);
   margin: 4px 0;
 }
 
@@ -152,7 +155,7 @@
 .mobile-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 200;
   display: flex;
   justify-content: flex-end;
@@ -161,8 +164,10 @@
 .mobile-drawer {
   width: min(80vw, 320px);
   height: 100%;
-  background: var(--theme);
-  border-left: var(--borderTheme);
+  background: var(--menuColor);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   padding: 1.2rem 1rem;
@@ -183,7 +188,7 @@
 }
 
 .mobile-drawer-header h3 {
-  color: var(--textTheme);
+  color: var(--textMenu);
   font-size: 1rem;
   margin: 0;
 }
@@ -193,7 +198,8 @@
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.6;
   padding: 4px 8px;
   border-radius: 6px;
 }
@@ -238,7 +244,7 @@
 
 .mobile-member-name {
   font-size: 0.85rem;
-  color: var(--textTheme);
+  color: var(--textMenu);
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -247,7 +253,8 @@
 
 .mobile-member-username {
   font-size: 0.7rem;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.5;
 }
 
 .mobile-owner-badge {
@@ -266,8 +273,10 @@
   display: flex;
   align-items: center;
   gap: 0;
-  background: var(--theme);
-  border-bottom: var(--borderTheme);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
@@ -286,10 +295,11 @@
   padding: 0.65rem 0.9rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.5;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, border-color 0.15s, opacity 0.15s;
   position: relative;
   -webkit-tap-highlight-color: transparent;
   display: flex;
@@ -298,12 +308,13 @@
 }
 
 .mobile-tab:active {
-  color: var(--textTheme);
+  opacity: 0.8;
 }
 
 .mobile-tab-active {
-  color: var(--textTheme);
-  border-bottom-color: var(--accentTheme, var(--textTheme));
+  opacity: 1;
+  color: var(--textMenu);
+  border-bottom-color: var(--accentTheme, var(--textMenu));
 }
 
 .mobile-tab-badge {
@@ -349,7 +360,8 @@
 }
 
 .mobile-empty-state {
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.4;
   font-size: 0.85rem;
   text-align: center;
   padding: 2rem 1rem;
@@ -362,25 +374,23 @@
   justify-content: space-between;
   padding: 0.65rem 0.75rem;
   border-radius: 10px;
-  background: var(--altRow);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.07);
   gap: 0.5rem;
-  transition: background 0.15s;
+  transition: background 0.15s, opacity 0.15s;
   -webkit-tap-highlight-color: transparent;
   min-height: 50px;
 }
 
 .mobile-task-card:active,
 .mobile-task-selected {
-  background: var(--buttonColor);
-}
-
-.mobile-task-card:active .mobile-task-name,
-.mobile-task-selected .mobile-task-name {
-  color: var(--hoverTextColor);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 .mobile-task-done {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .mobile-task-left {
@@ -415,7 +425,7 @@
 
 .mobile-task-name {
   font-size: 0.88rem;
-  color: var(--textTheme);
+  color: var(--textMenu);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -423,19 +433,21 @@
 
 .mobile-task-name-done {
   text-decoration: line-through;
-  color: var(--placeholderTheme);
+  opacity: 0.45;
 }
 
 .mobile-task-due {
   font-size: 0.68rem;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.45;
 }
 
 .mobile-edit-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.5;
   padding: 4px;
   display: flex;
   align-items: center;
@@ -474,14 +486,17 @@
   gap: 0.6rem;
   margin: 0.5rem 0.75rem 0;
   padding: 0.65rem 0.75rem;
-  background: var(--altRow);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
-  border: 1px dashed var(--placeholderTheme);
+  border: 1px dashed rgba(0, 0, 0, 0.18);
 }
 
 .mobile-new-task-icon {
   font-size: 1.1rem;
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.45;
   flex-shrink: 0;
   line-height: 1;
 }
@@ -492,11 +507,12 @@
   border: none;
   outline: none;
   font-size: 0.88rem;
-  color: var(--textTheme);
+  color: var(--textMenu);
 }
 
 .mobile-new-task-input::placeholder {
-  color: var(--placeholderTheme);
+  color: var(--textMenu);
+  opacity: 0.4;
 }
 
 /* ===== Notes ===== */
@@ -514,15 +530,17 @@
   padding: 0.5rem 0;
   flex-wrap: wrap;
   flex-shrink: 0;
-  border-bottom: var(--borderTheme);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 0.5rem;
 }
 
 .mobile-notes-toolbar button {
-  border: 1px solid var(--borderTheme);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 6px;
-  background: var(--theme);
-  color: var(--textTheme);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--textMenu);
   cursor: pointer;
   padding: 0.3rem 0.55rem;
   font-size: 0.8rem;
@@ -531,18 +549,19 @@
 }
 
 .mobile-notes-toolbar button:active {
-  background: var(--buttonColor);
-  color: var(--hoverTextColor);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .mobile-notes-editor {
   flex: 1;
-  border: 1px solid var(--borderTheme);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 0.75rem;
   font-size: 0.9rem;
-  color: var(--textTheme);
-  background: var(--theme);
+  color: var(--textMenu);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   overflow-y: auto;
   outline: none;
   white-space: pre-wrap;
@@ -588,7 +607,10 @@
   gap: 0.55rem;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
-  background: var(--altRow);
+  background: var(--menuColor);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.07);
   min-height: 46px;
 }
 
@@ -610,7 +632,7 @@
 .mobile-link-url {
   flex: 1;
   font-size: 0.78rem;
-  color: var(--textTheme);
+  color: var(--textMenu);
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
@@ -642,7 +664,7 @@
   align-items: center;
   justify-content: center;
   height: 100dvh;
-  color: var(--textTheme);
+  color: var(--textMenu);
   font-size: 0.9rem;
   padding: 2rem;
   text-align: center;
