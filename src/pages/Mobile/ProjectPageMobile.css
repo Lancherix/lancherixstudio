@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100dvh;
   width: 100%;
-  background-color: var(--bg, #0f0f0f);
+  background-color: var(--theme);
   overflow: hidden;
   position: relative;
 }
