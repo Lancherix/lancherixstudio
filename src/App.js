@@ -20,7 +20,7 @@ import HomePage from './pages/HomePage';
 import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
-import ProjectPageMobile from './pages/ProjectPage';
+import ProjectPageMobile from './pages/Mobile/ProjectPageMobile';
 import AllProjectsPage from './pages/Mobile/ProjectPageMobile';
 import AllProjectsMobile from './pages/Mobile/AllProjectsMobile';
 import AuthRedirector from './api/AuthRedirector';
