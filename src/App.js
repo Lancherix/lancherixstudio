@@ -21,8 +21,8 @@ import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
 import ProjectPageMobile from './pages/Mobile/ProjectPageMobile';
-import ProjectBoard from './pages/BoardTab';
-import ProjectBoardMobile from './pages/Mobile/ProjectTabs/BoardTabMobile';
+/*import ProjectBoard from './pages/BoardTab';
+import ProjectBoardMobile from './pages/Mobile/ProjectTabs/BoardTabMobile';*/
 import AllProjectsPage from './pages/AllProjectsPage';
 import AllProjectsMobile from './pages/Mobile/AllProjectsMobile';
 import AuthRedirector from './api/AuthRedirector';
@@ -298,8 +298,8 @@ const App = () => {
                 <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
                 <Route path="/member/:username" element={<UserProfilePage />} />
                 <Route path="/projects/:slug" element={ isMobile ? <ProjectPageMobile /> : <ProjectPage /> } />
-                <Route path="/projects/:slug/board" element={isMobile ? <ProjectBoardMobile /> : <ProjectBoard />} />
-                <Route path="/projects/:slug/board/:filename" element={isMobile ? <ProjectBoardMobile /> : <ProjectBoard />} />
+                <Route path="/projects/:slug/board" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
+                <Route path="/projects/:slug/board/:filename" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="*" element={<HomePage />} />
               </>
             )}
