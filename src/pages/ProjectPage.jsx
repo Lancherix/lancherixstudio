@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "./Styles/ProjectPage.css";
 import EditProjectPage from './EditProjectPage';
 import EditTaskPage from './EditTaskPage';
 import BoardTab from './BoardTab';
 
 const ProjectPage = () => {
-  const { slug } = useParams();
+  const { slug, filename } = useParams();
+  const location = useLocation();
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -69,6 +70,12 @@ const ProjectPage = () => {
 
     fetchProject();
   }, [slug]);
+
+  useEffect(() => {
+    if (location.pathname.includes("/board")) {
+      setActiveFolder("Board");
+    }
+  }, [location.pathname]);
 
   const FALLBACK =
     "https://studio.lancherix.com/Images/defaultProfilePicture.png";

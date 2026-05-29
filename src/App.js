@@ -298,6 +298,7 @@ const App = () => {
                 <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
                 <Route path="/member/:username" element={<UserProfilePage />} />
                 <Route path="/projects/:slug" element={ isMobile ? <ProjectPageMobile /> : <ProjectPage /> } />
+                <Route path="/projects/:slug/board" element={isMobile ? <ProjectBoardMobile /> : <ProjectBoard />} />
                 <Route path="/projects/:slug/board/:filename" element={isMobile ? <ProjectBoardMobile /> : <ProjectBoard />} />
                 <Route path="*" element={<HomePage />} />
               </>
