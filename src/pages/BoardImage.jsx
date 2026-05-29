@@ -4,9 +4,9 @@ import './Styles/BoardImage.css';
 
 // Speed presets
 const SPEED_PRESETS = {
-    slow:   5000,
+    slow: 5000,
     medium: 3000,
-    fast:   1500,
+    fast: 1500,
 };
 
 // Circumference of the SVG ring circle (r=21 → 2πr ≈ 131.9)
@@ -28,18 +28,18 @@ const BoardImage = ({
     images = [],        // NEW: array of image URLs for the thumbnail strip
     onGoTo,             // NEW: (index) => void — jump to a specific image
 }) => {
-    const containerRef  = useRef(null);
-    const slideshowRef  = useRef(null);
-    const progressRef   = useRef(null);
-    const startTimeRef  = useRef(null);
+    const containerRef = useRef(null);
+    const slideshowRef = useRef(null);
+    const progressRef = useRef(null);
+    const startTimeRef = useRef(null);
     const thumbStripRef = useRef(null);
-    const hintTimerRef  = useRef(null);
+    const hintTimerRef = useRef(null);
 
-    const [zoomed,      setZoomed]      = useState(false);
-    const [isPlaying,   setIsPlaying]   = useState(false);
-    const [progress,    setProgress]    = useState(0); // 0–1
-    const [speed,       setSpeed]       = useState('medium'); // 'slow' | 'medium' | 'fast'
-    const [showHint,    setShowHint]    = useState(true);  // keyboard hint
+    const [zoomed, setZoomed] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [progress, setProgress] = useState(0); // 0–1
+    const [speed, setSpeed] = useState('medium'); // 'slow' | 'medium' | 'fast'
+    const [showHint, setShowHint] = useState(true);  // keyboard hint
 
     const interval = SPEED_PRESETS[speed];
 
@@ -60,7 +60,7 @@ const BoardImage = ({
         if (pct < 1) {
             progressRef.current = requestAnimationFrame(animateProgress);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [interval]);
 
     const advanceSlide = useCallback(() => {
@@ -75,14 +75,23 @@ const BoardImage = ({
         setProgress(0);
         startTimeRef.current = performance.now();
         progressRef.current = requestAnimationFrame(animateProgress);
-        slideshowRef.current = setInterval(advanceSlide, interval);
+        const runSlide = () => {
+            slideshowRef.current = setTimeout(() => {
+                onNext?.();
+                setProgress(0);
+                startTimeRef.current = performance.now();
+                runSlide(); // continue slideshow
+            }, interval);
+        };
+
+        runSlide();
     }, [animateProgress, advanceSlide, interval]);
 
     const stopSlideshow = useCallback(() => {
         setIsPlaying(false);
         setProgress(0);
-        if (slideshowRef.current) { clearInterval(slideshowRef.current); slideshowRef.current = null; }
-        if (progressRef.current)  { cancelAnimationFrame(progressRef.current); progressRef.current = null; }
+        if (slideshowRef.current) { clearTimeout(slideshowRef.current); slideshowRef.current = null; }
+        if (progressRef.current) { cancelAnimationFrame(progressRef.current); progressRef.current = null; }
         startTimeRef.current = null;
     }, []);
 
@@ -99,7 +108,7 @@ const BoardImage = ({
             startTimeRef.current = performance.now();
             progressRef.current = requestAnimationFrame(animateProgress);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageUrl]);
 
     // Restart slideshow when speed changes (so new interval takes effect)
@@ -109,15 +118,15 @@ const BoardImage = ({
             // tiny delay to let state flush, then restart
             setTimeout(() => startSlideshow(), 0);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [speed]);
 
     useEffect(() => { if (!isOpen) stopSlideshow(); }, [isOpen, stopSlideshow]);
 
     useEffect(() => {
         return () => {
-            if (slideshowRef.current) clearInterval(slideshowRef.current);
-            if (progressRef.current)  cancelAnimationFrame(progressRef.current);
+            if (slideshowRef.current) clearTimeout(slideshowRef.current);
+            if (progressRef.current) cancelAnimationFrame(progressRef.current);
         };
     }, []);
 
@@ -125,14 +134,14 @@ const BoardImage = ({
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (!isOpen) return;
-            if (e.key === 'Escape')      onClose();
+            if (e.key === 'Escape') onClose();
             if (e.key === 'ArrowRight') { stopSlideshow(); onNext?.(); }
-            if (e.key === 'ArrowLeft')  { stopSlideshow(); onPrev?.(); }
-            if (e.key === ' ')          { e.preventDefault(); toggleSlideshow(); }
+            if (e.key === 'ArrowLeft') { stopSlideshow(); onPrev?.(); }
+            if (e.key === ' ') { e.preventDefault(); toggleSlideshow(); }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen, onClose, onNext, onPrev, isPlaying]);
 
     // Scroll active thumbnail into view
@@ -172,7 +181,7 @@ const BoardImage = ({
             setTimeout(() => {
                 containerRef.current?.scrollTo({
                     left: (containerRef.current.scrollWidth - containerRef.current.clientWidth) * (x / 100),
-                    top:  (containerRef.current.scrollHeight - containerRef.current.clientHeight) * (y / 100),
+                    top: (containerRef.current.scrollHeight - containerRef.current.clientHeight) * (y / 100),
                     behavior: 'smooth'
                 });
             }, 10);
@@ -184,8 +193,8 @@ const BoardImage = ({
 
     if (!isOpen) return null;
 
-    const hasImages    = images.length > 0;
-    const hasCounter   = totalCount > 0;
+    const hasImages = images.length > 0;
+    const hasCounter = totalCount > 0;
 
     return createPortal(
         <div className="boardImage-overlay" onClick={onClose}>
@@ -216,12 +225,12 @@ const BoardImage = ({
                         <div className="boardImage-playBtn-inner">
                             {isPlaying ? (
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
-                                    <rect x="2" y="1" width="4" height="12" rx="1"/>
-                                    <rect x="8" y="1" width="4" height="12" rx="1"/>
+                                    <rect x="2" y="1" width="4" height="12" rx="1" />
+                                    <rect x="8" y="1" width="4" height="12" rx="1" />
                                 </svg>
                             ) : (
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
-                                    <polygon points="2,1 13,7 2,13"/>
+                                    <polygon points="2,1 13,7 2,13" />
                                 </svg>
                             )}
                         </div>
@@ -232,7 +241,7 @@ const BoardImage = ({
                                 viewBox="0 0 50 50"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <circle className="boardImage-progressRing-track" cx="25" cy="25" r={RADIUS}/>
+                                <circle className="boardImage-progressRing-track" cx="25" cy="25" r={RADIUS} />
                                 <circle
                                     className="boardImage-progressRing-fill"
                                     cx="25" cy="25" r={RADIUS}
@@ -303,8 +312,8 @@ const BoardImage = ({
                                 onClick={() => { stopSlideshow(); onGoTo?.(i); }}
                                 title={`Image ${i + 1}`}
                             >
-                                <img src={url} alt={`Thumbnail ${i + 1}`} draggable={false}/>
-                                {i === currentIndex && <div className="boardImage-thumb-activeBar"/>}
+                                <img src={url} alt={`Thumbnail ${i + 1}`} draggable={false} />
+                                {i === currentIndex && <div className="boardImage-thumb-activeBar" />}
                             </button>
                         ))}
                     </div>
