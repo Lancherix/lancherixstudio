@@ -29,7 +29,6 @@ const BoardImage = ({
     onGoTo,             // NEW: (index) => void — jump to a specific image
 }) => {
     const containerRef = useRef(null);
-    const slideshowRef = useRef(null);
     const progressRef = useRef(null);
     const startTimeRef = useRef(null);
     const thumbStripRef = useRef(null);
@@ -63,34 +62,24 @@ const BoardImage = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [interval]);
 
-    const advanceSlide = useCallback(() => {
-        onNext?.();
-        setProgress(0);
-        startTimeRef.current = performance.now();
-    }, [onNext]);
-
     const startSlideshow = useCallback(() => {
         setIsPlaying(true);
         setZoomed(false);
         setProgress(0);
-        startTimeRef.current = performance.now();
-        progressRef.current = requestAnimationFrame(animateProgress);
-        const runSlide = () => {
-            slideshowRef.current = setTimeout(() => {
-                onNext?.();
-                setProgress(0);
-                startTimeRef.current = performance.now();
-                runSlide(); // continue slideshow
-            }, interval);
-        };
 
-        runSlide();
-    }, [animateProgress, advanceSlide, interval]);
+        startTimeRef.current = performance.now();
+
+        if (progressRef.current) {
+            cancelAnimationFrame(progressRef.current);
+        }
+
+        progressRef.current = requestAnimationFrame(animateProgress);
+
+    }, [animateProgress]);
 
     const stopSlideshow = useCallback(() => {
         setIsPlaying(false);
         setProgress(0);
-        if (slideshowRef.current) { clearTimeout(slideshowRef.current); slideshowRef.current = null; }
         if (progressRef.current) { cancelAnimationFrame(progressRef.current); progressRef.current = null; }
         startTimeRef.current = null;
     }, []);
@@ -121,11 +110,21 @@ const BoardImage = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [speed]);
 
+    useEffect(() => {
+        if (!isPlaying) return;
+
+        const timeout = setTimeout(() => {
+            onNext?.();
+        }, interval);
+
+        return () => clearTimeout(timeout);
+
+    }, [isPlaying, currentIndex, interval, onNext]);
+
     useEffect(() => { if (!isOpen) stopSlideshow(); }, [isOpen, stopSlideshow]);
 
     useEffect(() => {
         return () => {
-            if (slideshowRef.current) clearTimeout(slideshowRef.current);
             if (progressRef.current) cancelAnimationFrame(progressRef.current);
         };
     }, []);
