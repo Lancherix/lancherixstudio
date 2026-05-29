@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "./ProjectPageMobile.css";
 import EditProjectPage from '../EditProjectPage';
 import EditTaskPage from '../EditTaskPage';
@@ -7,6 +7,8 @@ import BoardTabMobile from './ProjectTabs/BoardTabMobile';
 
 const ProjectPageMobile = () => {
   const { slug } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -65,6 +67,16 @@ const ProjectPageMobile = () => {
 
     fetchProject();
   }, [slug]);
+
+  useEffect(() => {
+    if (location.pathname.includes("/board")) {
+      setActiveTab("Board");
+    } else if (location.pathname.includes("/notes")) {
+      setActiveTab("Notes");
+    } else {
+      setActiveTab("Tasks");
+    }
+  }, [location.pathname]);
 
   const FALLBACK = "https://studio.lancherix.com/Images/defaultProfilePicture.png";
 
@@ -335,7 +347,7 @@ const ProjectPageMobile = () => {
             aria-label="Members"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
             </svg>
           </button>
 
@@ -348,7 +360,7 @@ const ProjectPageMobile = () => {
                 aria-label="Options"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                 </svg>
               </button>
 
@@ -402,7 +414,17 @@ const ProjectPageMobile = () => {
           <button
             key={tab}
             className={`mobile-tab ${activeTab === tab ? "mobile-tab-active" : ""}`}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => {
+              setActiveTab(tab);
+
+              if (tab === "Board") {
+                navigate(`/projects/${slug}/board`);
+              } else if (tab === "Notes") {
+                navigate(`/projects/${slug}/notes`);
+              } else {
+                navigate(`/projects/${slug}`);
+              }
+            }}
           >
             {tab}
             {tab === "Tasks" && activeTasks.length > 0 && (

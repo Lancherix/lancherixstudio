@@ -21,8 +21,6 @@ import SettingsPage from './pages/SettingsPage';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
 import ProjectPageMobile from './pages/Mobile/ProjectPageMobile';
-/*import ProjectBoard from './pages/BoardTab';
-import ProjectBoardMobile from './pages/Mobile/ProjectTabs/BoardTabMobile';*/
 import AllProjectsPage from './pages/AllProjectsPage';
 import AllProjectsMobile from './pages/Mobile/AllProjectsMobile';
 import AuthRedirector from './api/AuthRedirector';
