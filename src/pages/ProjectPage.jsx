@@ -75,6 +75,8 @@ const ProjectPage = () => {
   useEffect(() => {
     if (location.pathname.includes("/board")) {
       setActiveFolder("Board");
+    } else if (location.pathname.includes("/notes")) {
+      setActiveFolder("Notes");
     } else {
       setActiveFolder("Tasks");
     }
@@ -602,6 +604,8 @@ const ProjectPage = () => {
 
                       if (folder === "Board") {
                         navigate(`/projects/${slug}/board`);
+                      } else if (folder === "Notes") {
+                        navigate(`/projects/${slug}/notes`);
                       } else {
                         navigate(`/projects/${slug}`);
                       }
