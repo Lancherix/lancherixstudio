@@ -4,11 +4,12 @@ import './Styles/BoardImage.css';
 
 const SLIDESHOW_INTERVAL = 3000; // ms between slides
 
+// Circumference of the SVG ring circle (r=21 → 2πr ≈ 131.9)
+const RADIUS = 21;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
 const getOriginalDownloadUrl = (url) => {
-    return url.replace(
-        '/upload/',
-        '/upload/fl_attachment,q_100/'
-    );
+    return url.replace('/upload/', '/upload/fl_attachment,q_100/');
 };
 
 const BoardImage = ({
@@ -20,73 +21,53 @@ const BoardImage = ({
 }) => {
     const containerRef = useRef(null);
     const slideshowRef = useRef(null);
-
-    const [zoomed, setZoomed] = useState(false);
-    const [transformOrigin, setTransformOrigin] = useState('center center');
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [progress, setProgress] = useState(0);
     const progressRef = useRef(null);
     const startTimeRef = useRef(null);
 
-    // Advance slide and reset progress bar
+    const [zoomed, setZoomed] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [progress, setProgress] = useState(0); // 0–1
+
+    // Animate the ring progress
+    const animateProgress = useCallback(() => {
+        if (!startTimeRef.current) startTimeRef.current = performance.now();
+        const elapsed = performance.now() - startTimeRef.current;
+        const pct = Math.min(elapsed / SLIDESHOW_INTERVAL, 1);
+        setProgress(pct);
+        if (pct < 1) {
+            progressRef.current = requestAnimationFrame(animateProgress);
+        }
+    }, []);
+
     const advanceSlide = useCallback(() => {
         onNext?.();
         setProgress(0);
         startTimeRef.current = performance.now();
     }, [onNext]);
 
-    // Animate the progress bar
-    const animateProgress = useCallback(() => {
-        if (!startTimeRef.current) startTimeRef.current = performance.now();
-
-        const elapsed = performance.now() - startTimeRef.current;
-        const pct = Math.min((elapsed / SLIDESHOW_INTERVAL) * 100, 100);
-        setProgress(pct);
-
-        if (pct < 100) {
-            progressRef.current = requestAnimationFrame(animateProgress);
-        }
-    }, []);
-
-    // Start slideshow
     const startSlideshow = useCallback(() => {
         setIsPlaying(true);
         setZoomed(false);
         setProgress(0);
         startTimeRef.current = performance.now();
-
         progressRef.current = requestAnimationFrame(animateProgress);
-
-        slideshowRef.current = setInterval(() => {
-            advanceSlide();
-        }, SLIDESHOW_INTERVAL);
+        slideshowRef.current = setInterval(advanceSlide, SLIDESHOW_INTERVAL);
     }, [animateProgress, advanceSlide]);
 
-    // Stop slideshow
     const stopSlideshow = useCallback(() => {
         setIsPlaying(false);
         setProgress(0);
-
-        if (slideshowRef.current) {
-            clearInterval(slideshowRef.current);
-            slideshowRef.current = null;
-        }
-        if (progressRef.current) {
-            cancelAnimationFrame(progressRef.current);
-            progressRef.current = null;
-        }
+        if (slideshowRef.current) { clearInterval(slideshowRef.current); slideshowRef.current = null; }
+        if (progressRef.current) { cancelAnimationFrame(progressRef.current); progressRef.current = null; }
         startTimeRef.current = null;
     }, []);
 
     const toggleSlideshow = () => {
-        if (isPlaying) {
-            stopSlideshow();
-        } else {
-            startSlideshow();
-        }
+        if (isPlaying) stopSlideshow();
+        else startSlideshow();
     };
 
-    // Restart progress animation each time the image changes while playing
+    // Restart progress animation when image changes while playing
     useEffect(() => {
         if (isPlaying) {
             if (progressRef.current) cancelAnimationFrame(progressRef.current);
@@ -97,12 +78,8 @@ const BoardImage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageUrl]);
 
-    // Stop slideshow when modal closes
-    useEffect(() => {
-        if (!isOpen) stopSlideshow();
-    }, [isOpen, stopSlideshow]);
+    useEffect(() => { if (!isOpen) stopSlideshow(); }, [isOpen, stopSlideshow]);
 
-    // Cleanup on unmount
     useEffect(() => {
         return () => {
             if (slideshowRef.current) clearInterval(slideshowRef.current);
@@ -118,7 +95,6 @@ const BoardImage = ({
             if (e.key === 'ArrowLeft') { stopSlideshow(); onPrev?.(); }
             if (e.key === ' ') { e.preventDefault(); toggleSlideshow(); }
         };
-
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -143,86 +119,79 @@ const BoardImage = ({
     };
 
     const handleImageClick = (e) => {
-        if (isPlaying) return; // Disable zoom during slideshow
+        if (isPlaying) return;
         const rect = e.target.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
-        setTransformOrigin(`${x}% ${y}%`);
         setZoomed(!zoomed);
-
         if (!zoomed) {
             setTimeout(() => {
                 containerRef.current?.scrollTo({
-                    left:
-                        (containerRef.current.scrollWidth -
-                            containerRef.current.clientWidth) *
-                        (x / 100),
-                    top:
-                        (containerRef.current.scrollHeight -
-                            containerRef.current.clientHeight) *
-                        (y / 100),
+                    left: (containerRef.current.scrollWidth - containerRef.current.clientWidth) * (x / 100),
+                    top:  (containerRef.current.scrollHeight - containerRef.current.clientHeight) * (y / 100),
                     behavior: 'smooth'
                 });
             }, 10);
         }
     };
 
+    // Ring stroke offset: full = CIRCUMFERENCE (empty), 0 = full circle
+    const strokeDashoffset = CIRCUMFERENCE * (1 - progress);
+
     if (!isOpen) return null;
 
     return createPortal(
-        <div
-            className="boardImage-overlay"
-            onClick={onClose}
-        >
-            <div
-                className="boardImage-window"
-                onClick={(e) => e.stopPropagation()}
-            >
-                {/* Slideshow progress bar */}
-                {isPlaying && (
-                    <div className="boardImage-progressBar">
-                        <div
-                            className="boardImage-progressFill"
-                            style={{ width: `${progress}%` }}
-                        />
-                    </div>
-                )}
+        <div className="boardImage-overlay" onClick={onClose}>
+            <div className="boardImage-window" onClick={(e) => e.stopPropagation()}>
 
                 {/* Top Right */}
                 <div className="boardImage-actions">
-                    {/* Play / Stop */}
+
+                    {/* Play / Stop with circular progress ring */}
                     <button
-                        className={`boardImage-actionBtn boardImage-playBtn ${isPlaying ? 'playing' : ''}`}
+                        className="boardImage-playBtn"
                         onClick={toggleSlideshow}
                         title={isPlaying ? 'Stop slideshow (Space)' : 'Play slideshow (Space)'}
                     >
-                        {isPlaying ? (
-                            // Stop icon — two vertical bars
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                                <rect x="2" y="1" width="4" height="12" rx="1"/>
-                                <rect x="8" y="1" width="4" height="12" rx="1"/>
-                            </svg>
-                        ) : (
-                            // Play icon — triangle
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                                <polygon points="2,1 13,7 2,13"/>
+                        <div className="boardImage-playBtn-inner">
+                            {isPlaying ? (
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
+                                    <rect x="2" y="1" width="4" height="12" rx="1"/>
+                                    <rect x="8" y="1" width="4" height="12" rx="1"/>
+                                </svg>
+                            ) : (
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
+                                    <polygon points="2,1 13,7 2,13"/>
+                                </svg>
+                            )}
+                        </div>
+
+                        {/* Progress ring — only rendered while playing */}
+                        {isPlaying && (
+                            <svg
+                                className="boardImage-progressRing"
+                                viewBox="0 0 50 50"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    className="boardImage-progressRing-track"
+                                    cx="25" cy="25" r={RADIUS}
+                                />
+                                <circle
+                                    className="boardImage-progressRing-fill"
+                                    cx="25" cy="25" r={RADIUS}
+                                    strokeDasharray={CIRCUMFERENCE}
+                                    strokeDashoffset={strokeDashoffset}
+                                />
                             </svg>
                         )}
                     </button>
 
-                    <button
-                        className="boardImage-actionBtn"
-                        onClick={handleDownload}
-                        title="Download"
-                    >
+                    <button className="boardImage-actionBtn" onClick={handleDownload} title="Download">
                         ↓
                     </button>
 
-                    <button
-                        className="boardImage-close"
-                        onClick={onClose}
-                        title="Close"
-                    >
+                    <button className="boardImage-close" onClick={onClose} title="Close">
                         ✕
                     </button>
                 </div>

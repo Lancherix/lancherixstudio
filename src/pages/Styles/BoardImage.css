@@ -224,58 +224,74 @@
     cursor: zoom-out;
 }
 
-/* ── Slideshow progress bar ───────────────────────────── */
-.boardImage-progressBar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.15);
-    z-index: 10;
-    border-radius: 0;
-    overflow: hidden;
-}
-
-.boardImage-progressFill {
-    height: 100%;
-    background: #fff;
-    transition: width 0.05s linear;
-    border-radius: 0 2px 2px 0;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-}
-
-/* ── Play / Stop button ───────────────────────────────── */
+/* ── Slideshow progress ring around play button ───────── */
 .boardImage-playBtn {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    transition: background 0.15s ease, transform 0.1s ease;
+    width: 42px;
+    height: 42px;
+    border: none !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .boardImage-playBtn:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    background: transparent !important;
 }
 
-/* Pulse ring when playing */
-.boardImage-playBtn.playing {
+/* Inner circle — styled like the other action buttons */
+.boardImage-playBtn-inner {
     position: relative;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    transition: background 0.15s;
 }
 
-.boardImage-playBtn.playing::after {
-    content: '';
+.boardImage-playBtn:hover .boardImage-playBtn-inner {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+/* SVG ring sits absolutely around the button */
+.boardImage-progressRing {
     position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    animation: playPulse 1.5s ease-in-out infinite;
+    inset: -4px;
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    pointer-events: none;
+    z-index: 3;
+    transform: rotate(-90deg);
 }
 
-@keyframes playPulse {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50%       { opacity: 1;   transform: scale(1.15); }
+.boardImage-progressRing-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 2.5;
+}
+
+.boardImage-progressRing-fill {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.05s linear;
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.55));
 }
 
 /* ── Image fade transition during slideshow ───────────── */
