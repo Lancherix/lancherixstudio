@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "./Styles/ProjectPage.css";
 import EditProjectPage from './EditProjectPage';
 import EditTaskPage from './EditTaskPage';
@@ -8,6 +8,7 @@ import BoardTab from './BoardTab';
 const ProjectPage = () => {
   const { slug, filename } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -74,6 +75,8 @@ const ProjectPage = () => {
   useEffect(() => {
     if (location.pathname.includes("/board")) {
       setActiveFolder("Board");
+    } else {
+      setActiveFolder("Tasks");
     }
   }, [location.pathname]);
 
@@ -594,7 +597,15 @@ const ProjectPage = () => {
                   <button
                     key={folder}
                     className={`folderTab-projectPage ${activeFolder === folder ? "active-folder" : ""}`}
-                    onClick={() => setActiveFolder(folder)}
+                    onClick={() => {
+                      setActiveFolder(folder);
+
+                      if (folder === "Board") {
+                        navigate(`/projects/${slug}/board`);
+                      } else {
+                        navigate(`/projects/${slug}`);
+                      }
+                    }}
                   >
                     {folder}
                   </button>
