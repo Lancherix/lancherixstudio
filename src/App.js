@@ -18,6 +18,7 @@ import SideMenu from './SideMenu';
 import MenuMobile from './MenuMobile';
 import HomePage from './pages/HomePage';
 import SettingsPage from './pages/SettingsPage';
+import SettingsPageMobile from './pages/Mobile/SettingsPageMobile';
 import UserProfilePage from './pages/userPages/UserProfilePage';
 import ProjectPage from './pages/ProjectPage';
 import ProjectPageMobile from './pages/Mobile/ProjectPageMobile';
@@ -292,7 +293,7 @@ const App = () => {
             ) : (
               <>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/settings" element={ isMobile ? <SettingsPageMobile /> : <SettingsPage /> } />
                 <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
                 <Route path="/member/:username" element={<UserProfilePage />} />
                 <Route path="/projects/:slug" element={ isMobile ? <ProjectPageMobile /> : <ProjectPage /> } />
