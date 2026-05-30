@@ -5,29 +5,17 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 /* ===== Pinterest-style 2-col masonry grid ===== */
 .mobile-board-grid {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  padding: 10px;
-}
-
-/*
-  Two pseudo-columns via CSS:
-  Even-indexed wrappers go left, odd go right.
-  We achieve this by making the grid a flex row
-  and using nth-child to float items into columns.
-  Since the JSX renders a flat list, we use a
-  column-count trick instead — cleanest approach.
-*/
-.mobile-board-grid {
-  display: block; /* override flex — use column-count */
+  display: block;
   column-count: 2;
   column-gap: 8px;
   padding: 10px;
+  /* leave room at the bottom so FAB never overlaps last card */
+  padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
 }
 
 /* ===== Image Card ===== */
@@ -37,9 +25,9 @@
   border-radius: 14px;
   overflow: hidden;
   background: var(--altRow);
-  break-inside: avoid;           /* prevent card splitting across columns */
-  margin-bottom: 8px;            /* vertical gap between cards */
-  display: inline-block;         /* required for column-count to work correctly */
+  break-inside: avoid;
+  margin-bottom: 8px;
+  display: inline-block;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -50,7 +38,7 @@
 
 .mobile-board-image {
   width: 100%;
-  height: auto;                  /* natural aspect ratio — no cropping */
+  height: auto;
   display: block;
   object-fit: cover;
   user-select: none;
@@ -101,7 +89,7 @@
 .mobile-board-empty {
   width: 100%;
   min-height: 50vh;
-  column-span: all;              /* span both columns */
+  column-span: all;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,4 +125,67 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ===== Hidden file input ===== */
+.mobile-board-file-input {
+  display: none;
+}
+
+/* ===== Upload FAB ===== */
+.mobile-board-upload-fab {
+  position: fixed;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  right: 20px;
+  z-index: 100;
+
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 999px;
+
+  background: var(--textTheme, #111);
+  color: var(--bgTheme, #fff);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.mobile-board-upload-fab svg {
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-board-upload-fab:active:not(:disabled) {
+  transform: scale(0.92);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.mobile-board-upload-fab:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.mobile-board-upload-fab.loading {
+  background: var(--textTheme, #111);
+}
+
+/* ===== Upload spinner ===== */
+.mobile-board-upload-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: mobileUploadSpin 0.7s linear infinite;
+}
+
+@keyframes mobileUploadSpin {
+  to { transform: rotate(360deg); }
 }
