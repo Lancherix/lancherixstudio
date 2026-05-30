@@ -17,6 +17,7 @@ import './App.css';
 import SideMenu from './SideMenu';
 import MenuMobile from './MenuMobile';
 import HomePage from './pages/HomePage';
+import HomePageMobile from './pages/Mobile/HomePageMobile';
 import SettingsPage from './pages/SettingsPage';
 import SettingsPageMobile from './pages/Mobile/SettingsPageMobile';
 import UserProfilePage from './pages/userPages/UserProfilePage';
@@ -350,7 +351,7 @@ const App = () => {
               <Route path="*" element={<AuthRedirector setToken={setToken} />} />
             ) : (
               <>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={isMobile ? <HomePageMobile /> : <HomePage />} />
                 <Route path="/settings" element={isMobile ? <SettingsPageMobile /> : <SettingsPage />} />
                 <Route path="/projects" element={isMobile ? <AllProjectsMobile /> : <AllProjectsPage />} />
                 <Route path="/member/:username" element={<UserProfilePage />} />
@@ -358,7 +359,7 @@ const App = () => {
                 <Route path="/projects/:slug/notes" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/board" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/board/:filename" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
-                <Route path="*" element={<HomePage />} />
+                <Route path="*" element={isMobile ? <HomePageMobile /> : <HomePage />} />
               </>
             )}
           </Routes>
