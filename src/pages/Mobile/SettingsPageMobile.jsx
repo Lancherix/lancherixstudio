@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LogoutPage from '../LogoutPage';
-import './Styles/SettingsPageMobile.css';
+import './SettingsPageMobile.css';
 import { language } from '../../language';
 
 const SettingsPageMobile = () => {
