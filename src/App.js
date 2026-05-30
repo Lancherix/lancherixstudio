@@ -61,16 +61,12 @@ const App = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('No token found');
-        }
+        if (!token) throw new Error('No token found');
 
         const decodedToken = jwtDecode(token);
 
         const response = await fetch('https://lancherixstudio-backend.onrender.com/auth/me', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (!response.ok) {
@@ -81,6 +77,68 @@ const App = () => {
         setThemeMode(user.themeMode);
         setUsername(user.username);
         setError(null);
+
+        // ── Apply wallpaper ──────────────────────────────────────────────────────
+        if (user.wallpaper?.url) {
+          document.body.style.backgroundImage = `url(${user.wallpaper.url})`;
+        }
+
+        // ── Apply saved theme mode ───────────────────────────────────────────────
+        const themeMap = {
+          glass: {
+            theme: 'rgba(64,64,64,0.3)',
+            text: 'aliceblue',
+            placeholder: 'rgba(200,200,200,0.8)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            alt: 'rgba(255,255,255,0.06)',
+          },
+          light: {
+            theme: 'rgba(255,255,255,0.7)',
+            text: 'black',
+            placeholder: '#888',
+            border: '1px solid transparent',
+            alt: 'rgba(0,0,0,0.05)',
+          },
+          dark: {
+            theme: 'rgba(64,64,64,0.7)',
+            text: 'aliceblue',
+            placeholder: 'rgba(200,200,200,0.8)',
+            border: '1px solid transparent',
+            alt: 'rgba(255,255,255,0.04)',
+          },
+        };
+        const th = themeMap[user.themeMode] || themeMap.light;
+        document.documentElement.style.setProperty('--theme', th.theme);
+        document.documentElement.style.setProperty('--textTheme', th.text);
+        document.documentElement.style.setProperty('--placeholderTheme', th.placeholder);
+        document.documentElement.style.setProperty('--borderTheme', th.border);
+        document.documentElement.style.setProperty('--altRow', th.alt);
+
+        // ── Apply saved accent colour ────────────────────────────────────────────
+        const colorMap = {
+          'rgba(0, 147, 203, 1)': { menu: 'rgba(0,147,203,0.65)', btn: '#0074ff', hoverBtn: '#0056b3', hoverText: 'aliceblue', top: '#09191f', text: '#09191f' },
+          'rgba(0, 128, 0, 1)': { menu: 'rgba(0,128,0,0.65)', btn: 'rgba(0,128,0,1)', hoverBtn: 'rgba(0,86,0,1)', hoverText: 'aliceblue', top: 'rgba(0,21,0,1)', text: 'aliceblue' },
+          'rgba(128, 0, 128, 1)': { menu: 'rgba(128,0,128,0.65)', btn: 'rgba(128,0,128,1)', hoverBtn: 'rgba(86,0,86,1)', hoverText: 'aliceblue', top: 'rgba(22,0,22,1)', text: 'aliceblue' },
+          'rgba(255, 0, 0, 1)': { menu: 'rgba(255,0,0,0.65)', btn: 'rgba(255,0,0,1)', hoverBtn: 'rgba(179,0,0,1)', hoverText: 'aliceblue', top: 'rgba(43,0,0,1)', text: 'rgba(43,0,0,1)' },
+          'rgba(255, 255, 0, 1)': { menu: 'rgba(255,255,0,0.65)', btn: 'rgba(255,255,0,1)', hoverBtn: 'rgba(179,179,0,1)', hoverText: '#000', top: 'rgba(43,43,0,1)', text: 'rgba(43,43,0,1)' },
+          'rgba(255, 129, 0, 1)': { menu: 'rgba(255,129,0,0.65)', btn: 'rgba(255,129,0,1)', hoverBtn: 'rgba(179,81,0,1)', hoverText: '#000', top: 'rgba(43,22,0,1)', text: 'rgba(43,22,0,1)' },
+          'rgba(255, 192, 203, 1)': { menu: 'rgba(255,192,203,0.65)', btn: 'rgba(255,192,203,1)', hoverBtn: 'rgba(179,144,152,1)', hoverText: '#000', top: 'rgba(43,32,34,1)', text: 'rgba(43,32,34,1)' },
+          'rgba(0, 255, 255, 1)': { menu: 'rgba(0,255,255,0.65)', btn: 'rgba(0,255,255,1)', hoverBtn: 'rgba(0,179,179,1)', hoverText: '#000', top: 'rgba(0,43,43,1)', text: 'rgba(0,43,43,1)' },
+          'rgba(0, 0, 139, 1)': { menu: 'rgba(0,0,139,0.65)', btn: 'rgba(0,0,139,1)', hoverBtn: 'rgba(0,0,96,1)', hoverText: 'aliceblue', top: 'rgba(0,0,23,1)', text: 'aliceblue' },
+          'rgba(0, 255, 0, 1)': { menu: 'rgba(0,255,0,0.65)', btn: 'rgba(0,255,0,1)', hoverBtn: 'rgba(0,179,0,1)', hoverText: '#000', top: 'rgba(0,43,0,1)', text: 'rgba(0,43,0,1)' },
+          'rgba(255, 0, 255, 1)': { menu: 'rgba(255,0,255,0.65)', btn: 'rgba(255,0,255,1)', hoverBtn: 'rgba(179,0,179,1)', hoverText: '#000', top: 'rgba(43,0,43,1)', text: 'rgba(43,0,43,1)' },
+          'rgba(255, 255, 254, 1)': { menu: 'rgba(255,255,255,0.65)', btn: '#A4A5A6', hoverBtn: '#737373', hoverText: '#000', top: 'rgba(43,43,43,1)', text: 'rgba(43,43,43,1)' },
+          'rgba(64, 64, 64, 1)': { menu: 'rgba(64,64,64,0.65)', btn: '#A4A5A6', hoverBtn: '#737373', hoverText: 'aliceblue', top: 'rgba(11,11,11,1)', text: 'aliceblue' },
+        };
+        const savedColor = user.sideMenuColor || 'rgba(0, 147, 203, 1)';
+        const c = colorMap[savedColor] || colorMap['rgba(0, 147, 203, 1)'];
+        document.documentElement.style.setProperty('--menuColor', c.menu);
+        document.documentElement.style.setProperty('--buttonColor', c.btn);
+        document.documentElement.style.setProperty('--hoverButtonColor', c.hoverBtn);
+        document.documentElement.style.setProperty('--hoverTextColor', c.hoverText);
+        document.documentElement.style.setProperty('--topMenu', c.top);
+        document.documentElement.style.setProperty('--textMenu', c.text);
+
       } catch (error) {
         console.error('Error fetching user data:', error);
         setError(`Failed to fetch user data. ${error.message}`);
@@ -293,10 +351,10 @@ const App = () => {
             ) : (
               <>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/settings" element={ isMobile ? <SettingsPageMobile /> : <SettingsPage /> } />
-                <Route path="/projects" element={ isMobile ? <AllProjectsMobile /> : <AllProjectsPage /> } />
+                <Route path="/settings" element={isMobile ? <SettingsPageMobile /> : <SettingsPage />} />
+                <Route path="/projects" element={isMobile ? <AllProjectsMobile /> : <AllProjectsPage />} />
                 <Route path="/member/:username" element={<UserProfilePage />} />
-                <Route path="/projects/:slug" element={ isMobile ? <ProjectPageMobile /> : <ProjectPage /> } />
+                <Route path="/projects/:slug" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/notes" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/board" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/board/:filename" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
