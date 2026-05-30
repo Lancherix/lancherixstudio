@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "./ProjectPageMobile.css";
-import EditProjectPage from '../EditProjectPage';
+import EditProjectPageMobile from '../Mobile/ProjectTabs/EditProjectPageMobile';
 import EditTaskPage from '../EditTaskPage';
 import BoardTabMobile from './ProjectTabs/BoardTabMobile';
 
@@ -619,7 +619,7 @@ const ProjectPageMobile = () => {
       </main>
 
       {/* ===== Modals ===== */}
-      <EditProjectPage
+      <EditProjectPageMobile
         isOpen={editProjectOpen}
         onClose={() => setEditProjectOpen(false)}
         project={project}
