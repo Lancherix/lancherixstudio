@@ -242,9 +242,8 @@
         calc(env(safe-area-inset-bottom) + 1rem);
     box-sizing: border-box;
     /*
-     * FIXED: Use pan-x pan-y only — do NOT include pinch-zoom here.
-     * pinch-zoom tells the browser to handle the gesture natively,
-     * which conflicts with our JS pinch handler. Our JS handles it instead.
+     * pan-x pan-y only — do NOT include pinch-zoom.
+     * JS handles pinch; the browser must not intercept it.
      */
     touch-action: pan-x pan-y;
     overflow: hidden;
@@ -257,20 +256,14 @@
 }
 
 /*
- * FIXED: When zoomed, allow panning around the enlarged image.
- * touch-action: pan-x pan-y lets the user drag the zoomed image
- * without triggering swipe navigation.
+ * FIX: When zoomed, keep overflow: hidden — the JS transform handles
+ * all panning. Using overflow: auto creates a second scroll system
+ * that conflicts with the JS pan handler.
  */
 .mobileBoardImage-scroll.zoomed {
-    overflow: auto;
-    align-items: flex-start;
-    justify-content: flex-start;
-    touch-action: pan-x pan-y;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+    touch-action: none;
 }
-
-.mobileBoardImage-scroll.zoomed::-webkit-scrollbar { display: none; }
 
 /* ── Main image ──────────────────────────────────────── */
 
@@ -282,39 +275,38 @@
     user-select: none;
     -webkit-user-drag: none;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-    /*
-     * FIXED: transform is now always applied via inline style (scale state).
-     * The CSS transition here handles tap-to-zoom; pinch overrides it with 'none'.
-     * We no longer need separate CSS classes to manage the scale.
-     */
     will-change: transform;
     cursor: zoom-in;
     /*
-     * FIXED: touch-action: none — let our JS handle ALL touch events on the image.
-     * This must not be overridden by the container's touch-action.
+     * touch-action: none — JS handles ALL touch events on the image.
+     * This takes precedence over the container's touch-action.
      */
     touch-action: none;
 }
 
 .mobileBoardImage-image.zoomed {
     /*
-     * FIXED: Removed fixed `width: 180vw` — that fought with JS-driven scale.
-     * The image now sizes naturally; JS scale handles the zoom level.
-     * We only override max constraints and change the cursor.
+     * FIX: Do NOT set max-width/max-height: none here.
+     * The image's rendered clientWidth/Height (used by clampPan) reflects
+     * the object-fit: contain size, which only works when max constraints
+     * are in effect. We let JS scale() handle the visual zoom instead.
      */
-    max-width: none;
-    max-height: none;
     cursor: zoom-out;
 }
 
-/* Slideshow fade-in */
+/*
+ * FIX: Slideshow fade-in must NOT animate transform.
+ * Animating transform here overrides the JS-applied inline transform,
+ * snapping the image back to scale(1) during the animation.
+ * Animate opacity only.
+ */
 .mobileBoardImage-image.slideshow-active {
     animation: mobileSlideFadeIn 0.4s ease;
 }
 
 @keyframes mobileSlideFadeIn {
-    from { opacity: 0; transform: scale(0.98); }
-    to   { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 /* ── Thumbnail strip ─────────────────────────────────── */

@@ -31,17 +31,16 @@ const BoardImageMobile = ({
     const hintTimerRef = useRef(null);
     const imageRef = useRef(null);
 
-    // ── Zoom / pan state (all in refs to avoid re-render lag during gesture) ──
+    // ── Zoom / pan state ──────────────────────────────────────────────
     const scaleRef = useRef(1);
-    const panRef = useRef({ x: 0, y: 0 });        // current translate offset px
-    const [transform, setTransform] = useState({ scale: 1, x: 0, y: 0 });
+    const panRef = useRef({ x: 0, y: 0 });
     const [zoomed, setZoomed] = useState(false);
 
     // Pinch refs
     const isPinching = useRef(false);
     const pinchStartDist = useRef(null);
     const pinchStartScale = useRef(1);
-    const pinchMidStart = useRef({ x: 0, y: 0 }); // midpoint at pinch start (container px)
+    const pinchMidStart = useRef({ x: 0, y: 0 });
     const panAtPinchStart = useRef({ x: 0, y: 0 });
 
     // Single-finger pan refs
@@ -65,7 +64,6 @@ const BoardImageMobile = ({
     const applyTransform = useCallback((scale, x, y, animated = false) => {
         scaleRef.current = scale;
         panRef.current = { x, y };
-        setTransform({ scale, x, y });
         setZoomed(scale > 1.05);
         if (imageRef.current) {
             imageRef.current.style.transition = animated ? 'transform 0.22s ease' : 'none';
@@ -73,19 +71,21 @@ const BoardImageMobile = ({
         }
     }, []);
 
-    // ── Clamp pan so image never leaves viewport ──────────────────────
+    // ── Clamp pan using actual rendered image dimensions ──────────────
+    // FIX: use image.clientWidth/Height (the rendered contain-fit size at scale=1),
+    // not naturalWidth which is the intrinsic unscaled size.
     const clampPan = useCallback((scale, x, y) => {
         const container = containerRef.current;
         const image = imageRef.current;
         if (!container || !image) return { x, y };
+
         const cw = container.clientWidth;
         const ch = container.clientHeight;
-        const iw = image.naturalWidth || image.clientWidth;
-        const ih = image.naturalHeight || image.clientHeight;
-        // Rendered size of image at scale=1 (object-fit: contain inside container)
-        const ratio = Math.min(cw / iw, ch / ih);
-        const rw = iw * ratio * scale;
-        const rh = ih * ratio * scale;
+
+        // clientWidth/Height gives the rendered size at scale=1 (object-fit: contain applied)
+        const rw = image.clientWidth * scale;
+        const rh = image.clientHeight * scale;
+
         const maxX = Math.max(0, (rw - cw) / 2);
         const maxY = Math.max(0, (rh - ch) / 2);
         return {
@@ -231,23 +231,23 @@ const BoardImageMobile = ({
             e.preventDefault();
             isPinching.current = true;
             isPanning.current = false;
+            // FIX: clear swipe state immediately on pinch start to prevent phantom swipes
             swipeStartX.current = null;
+            swipeLocked.current = null;
 
             pinchStartDist.current = getTouchDist(e.touches[0], e.touches[1]);
             pinchStartScale.current = scaleRef.current;
             pinchMidStart.current = getTouchMid(e.touches[0], e.touches[1]);
             panAtPinchStart.current = { ...panRef.current };
         } else if (e.touches.length === 1) {
-            if (isPinching.current) return; // finger lifted during pinch
+            if (isPinching.current) return;
 
             const t = e.touches[0];
             if (scaleRef.current > 1.05) {
-                // Panning mode
                 isPanning.current = true;
                 panTouchStart.current = { x: t.clientX, y: t.clientY };
                 panAtTouchStart.current = { ...panRef.current };
             } else {
-                // Swipe navigation mode
                 swipeStartX.current = t.clientX;
                 swipeStartY.current = t.clientY;
                 swipeLocked.current = null;
@@ -267,12 +267,10 @@ const BoardImageMobile = ({
                 MIN_SCALE, MAX_SCALE
             );
 
-            // Pan to keep pinch midpoint fixed
             const newMid = getTouchMid(e.touches[0], e.touches[1]);
             const dx = newMid.x - pinchMidStart.current.x;
             const dy = newMid.y - pinchMidStart.current.y;
 
-            // Offset due to scale change around the pinch midpoint
             const container = containerRef.current;
             const cx = container ? container.clientWidth / 2 : 0;
             const cy = container ? container.clientHeight / 2 : 0;
@@ -300,7 +298,6 @@ const BoardImageMobile = ({
                 return;
             }
 
-            // Swipe axis lock
             if (swipeStartX.current !== null && scaleRef.current <= 1.05) {
                 const dx = e.touches[0].clientX - swipeStartX.current;
                 const dy = e.touches[0].clientY - swipeStartY.current;
@@ -314,17 +311,22 @@ const BoardImageMobile = ({
 
     // ── Touch end ─────────────────────────────────────────────────────
     const handleTouchEnd = useCallback((e) => {
-        if (e.touches.length < 2 && isPinching.current) {
-            isPinching.current = false;
-            pinchStartDist.current = null;
+        // FIX: handle pinch release — clear all pinch AND swipe state to prevent
+        // phantom navigation when fingers lift after a pinch gesture.
+        if (isPinching.current) {
+            if (e.touches.length < 2) {
+                isPinching.current = false;
+                pinchStartDist.current = null;
+                // Clear swipe refs so lifting pinch fingers never triggers swipe nav
+                swipeStartX.current = null;
+                swipeLocked.current = null;
 
-            // Snap back to 1 if barely zoomed
-            if (scaleRef.current < 1.15) {
-                applyTransform(1, 0, 0, true);
-            } else {
-                // Re-clamp pan with final scale
-                const { x, y } = clampPan(scaleRef.current, panRef.current.x, panRef.current.y);
-                applyTransform(scaleRef.current, x, y, true);
+                if (scaleRef.current < 1.15) {
+                    applyTransform(1, 0, 0, true);
+                } else {
+                    const { x, y } = clampPan(scaleRef.current, panRef.current.x, panRef.current.y);
+                    applyTransform(scaleRef.current, x, y, true);
+                }
             }
             return;
         }
@@ -334,7 +336,7 @@ const BoardImageMobile = ({
             return;
         }
 
-        // Swipe navigation
+        // Swipe navigation (only when not zoomed)
         if (swipeStartX.current !== null && swipeLocked.current === 'h' && scaleRef.current <= 1.05) {
             const dx = e.changedTouches[0].clientX - swipeStartX.current;
             if (Math.abs(dx) > 50) {
