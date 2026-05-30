@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import NewProjectPageMobile from "./pages/NewProjectPageMobile";
+import NewProjectPageMobile from "./pages/Mobile/ProjectTabs/NewProjectPageMobile";
 import "./MenuMobile.css";
 
 function MenuMobile() {
