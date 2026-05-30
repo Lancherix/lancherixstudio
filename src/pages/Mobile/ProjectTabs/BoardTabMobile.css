@@ -1,201 +1,439 @@
-/* ===== Scroll Container ===== */
-.mobile-board-total {
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  position: relative;
+/* ════════════════════════════════════════
+   BoardImageMobile — Mobile image viewer
+   ════════════════════════════════════════ */
+
+.mobileBoardImage-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: mobileBoardFade 0.18s ease;
 }
 
-/* ===== Pinterest-style 2-col masonry grid ===== */
-.mobile-board-grid {
-  display: block;
-  column-count: 2;
-  column-gap: 8px;
-  padding: 10px;
-  /* Bottom padding = FAB height + gap + bottom nav height + safe area.
-     Override --mobile-nav-height in your root/layout if your nav is a
-     different height (default assumes 64px). */
-  padding-bottom: calc(
-    env(safe-area-inset-bottom) +
-    var(--mobile-nav-height, 64px) +
-    72px
-  );
+.mobileBoardImage-window {
+    position: relative;
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ===== Image Card ===== */
-.mobile-board-image-wrapper {
-  position: relative;
-  width: 100%;
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--altRow);
-  break-inside: avoid;
-  margin-bottom: 8px;
-  display: inline-block;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+/* ── Top-right action cluster ────────────────────────── */
+
+.mobileBoardImage-actions {
+    position: absolute;
+    top: max(14px, env(safe-area-inset-top));
+    right: 14px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.mobile-board-image-wrapper:active {
-  transform: scale(0.98);
+/* Base shared button styles */
+.mobileBoardImage-topBtn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: background 0.15s, transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.mobile-board-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  user-select: none;
-  -webkit-user-drag: none;
-  border-radius: 14px;
+.mobileBoardImage-topBtn:active {
+    transform: scale(0.92);
+    background: rgba(255, 255, 255, 0.24);
 }
 
-/* ===== Floating Buttons ===== */
-.mobile-board-download-btn,
-.mobile-board-delete-btn {
-  position: absolute;
-  top: 0.45rem;
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.55);
-  color: white;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 5;
-  -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
+.mobileBoardImage-topBtn.close {
+    background: rgba(255, 69, 58, 0.18);
 }
 
-.mobile-board-download-btn {
-  right: 2.4rem;
+/* ── Speed toggle ────────────────────────────────────── */
+
+.mobileBoardImage-speedToggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 4px 6px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.mobile-board-delete-btn {
-  right: 0.45rem;
+.mobileBoardImage-speedBtn {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 4px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.mobile-board-download-btn svg {
-  width: 15px;
-  height: 15px;
+.mobileBoardImage-speedBtn:active {
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.10);
 }
 
-.mobile-board-download-btn:active,
-.mobile-board-delete-btn:active {
-  transform: scale(0.92);
+.mobileBoardImage-speedBtn.active {
+    background: rgba(255, 255, 255, 0.20);
+    color: #ffffff;
 }
 
-/* ===== Empty State ===== */
-.mobile-board-empty {
-  width: 100%;
-  min-height: 50vh;
-  column-span: all;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1rem;
-  color: var(--placeholderTheme);
+/* ── Play button with progress ring ─────────────────── */
+
+.mobileBoardImage-playBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.mobile-board-empty-icon {
-  font-size: 3.2rem;
-  margin-bottom: 1rem;
+.mobileBoardImage-playBtn:active {
+    transform: scale(0.92);
 }
 
-.mobile-board-empty h3 {
-  margin: 0 0 0.4rem 0;
-  color: var(--textTheme);
-  font-size: 1rem;
-  font-weight: 700;
+.mobileBoardImage-playBtn-inner {
+    position: relative;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    transition: background 0.15s;
 }
 
-.mobile-board-empty p {
-  margin: 0;
-  font-size: 0.82rem;
-  max-width: 240px;
-  line-height: 1.5;
+.mobileBoardImage-progressRing {
+    position: absolute;
+    inset: -4px;
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    pointer-events: none;
+    z-index: 3;
+    transform: rotate(-90deg);
 }
 
-/* ===== Loading ===== */
-.mobile-board-loading {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.mobileBoardImage-progressRing-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 2.5;
 }
 
-/* ===== Hidden file input ===== */
-.mobile-board-file-input {
-  display: none;
+.mobileBoardImage-progressRing-fill {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.05s linear;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55));
 }
 
-/* ===== Upload FAB =====
-   Sits above the bottom nav. Adjust --mobile-nav-height in :root
-   (or wherever you define your CSS vars) to match your nav bar,
-   e.g.:  :root { --mobile-nav-height: 56px; }
-================================================================ */
-.mobile-board-upload-fab {
-  position: fixed;
-  bottom: calc(
-    env(safe-area-inset-bottom) +
-    var(--mobile-nav-height, 64px) +
-    16px
-  );
-  right: 20px;
-  z-index: 100;
+/* ── Counter (top-left) ──────────────────────────────── */
 
-  width: 52px;
-  height: 52px;
-  border: none;
-  border-radius: 999px;
-
-  background: var(--textTheme, #111);
-  color: var(--bgTheme, #fff);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+.mobileBoardImage-counter {
+    position: absolute;
+    top: max(14px, env(safe-area-inset-top));
+    left: 14px;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.40);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 999px;
+    padding: 8px 16px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    white-space: nowrap;
 }
 
-.mobile-board-upload-fab svg {
-  width: 22px;
-  height: 22px;
+.mobileBoardImage-counter-sep {
+    color: rgba(255, 255, 255, 0.40);
+    margin: 0 3px;
 }
 
-.mobile-board-upload-fab:active:not(:disabled) {
-  transform: scale(0.92);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+/* ── Navigation arrows ───────────────────────────────── */
+
+.mobileBoardImage-nav {
+    position: absolute;
+    top: 0;
+    bottom: 88px;
+    margin: auto 0;
+    height: 48px;
+    z-index: 15;
+    width: 42px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.15s, transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.mobile-board-upload-fab:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.mobileBoardImage-nav:active {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(0.92);
 }
 
-/* ===== Upload spinner ===== */
-.mobile-board-upload-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2.5px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: mobileUploadSpin 0.7s linear infinite;
+.mobileBoardImage-prev { left: 10px; }
+.mobileBoardImage-next { right: 10px; }
+
+/* ── Scroll / zoom container ─────────────────────────── */
+
+.mobileBoardImage-scroll {
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:
+        calc(env(safe-area-inset-top) + 70px)
+        1rem
+        calc(env(safe-area-inset-bottom) + 1rem);
+    box-sizing: border-box;
+    /*
+     * FIXED: Use pan-x pan-y only — do NOT include pinch-zoom here.
+     * pinch-zoom tells the browser to handle the gesture natively,
+     * which conflicts with our JS pinch handler. Our JS handles it instead.
+     */
+    touch-action: pan-x pan-y;
+    overflow: hidden;
+    transition: max-height 0.2s ease;
 }
 
-@keyframes mobileUploadSpin {
-  to { transform: rotate(360deg); }
+.mobileBoardImage-scroll.has-thumbs {
+    max-height: calc(100% - 88px);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
+}
+
+/*
+ * FIXED: When zoomed, allow panning around the enlarged image.
+ * touch-action: pan-x pan-y lets the user drag the zoomed image
+ * without triggering swipe navigation.
+ */
+.mobileBoardImage-scroll.zoomed {
+    overflow: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    touch-action: pan-x pan-y;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobileBoardImage-scroll.zoomed::-webkit-scrollbar { display: none; }
+
+/* ── Main image ──────────────────────────────────────── */
+
+.mobileBoardImage-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 18px;
+    user-select: none;
+    -webkit-user-drag: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    /*
+     * FIXED: transform is now always applied via inline style (scale state).
+     * The CSS transition here handles tap-to-zoom; pinch overrides it with 'none'.
+     * We no longer need separate CSS classes to manage the scale.
+     */
+    will-change: transform;
+    cursor: zoom-in;
+    /*
+     * FIXED: touch-action: none — let our JS handle ALL touch events on the image.
+     * This must not be overridden by the container's touch-action.
+     */
+    touch-action: none;
+}
+
+.mobileBoardImage-image.zoomed {
+    /*
+     * FIXED: Removed fixed `width: 180vw` — that fought with JS-driven scale.
+     * The image now sizes naturally; JS scale handles the zoom level.
+     * We only override max constraints and change the cursor.
+     */
+    max-width: none;
+    max-height: none;
+    cursor: zoom-out;
+}
+
+/* Slideshow fade-in */
+.mobileBoardImage-image.slideshow-active {
+    animation: mobileSlideFadeIn 0.4s ease;
+}
+
+@keyframes mobileSlideFadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Thumbnail strip ─────────────────────────────────── */
+
+.mobileBoardImage-thumbStrip {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    height: 72px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    box-sizing: border-box;
+    scrollbar-width: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobileBoardImage-thumbStrip::-webkit-scrollbar { display: none; }
+
+.mobileBoardImage-thumb {
+    position: relative;
+    flex-shrink: 0;
+    width: 68px;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.06);
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    opacity: 0.55;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobileBoardImage-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.mobileBoardImage-thumb:active {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mobileBoardImage-thumb.active {
+    opacity: 1;
+    box-shadow: 0 0 0 2px #ffffff, 0 4px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.08);
+}
+
+.mobileBoardImage-thumb-activeBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 0 0 8px 8px;
+}
+
+/* ── Gesture / keyboard hint ─────────────────────────── */
+
+.mobileBoardImage-hint {
+    position: absolute;
+    bottom: calc(72px + 8px + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: rgba(0, 0, 0, 0.50);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 999px;
+    padding: 7px 18px;
+
+    color: rgba(255, 255, 255, 0.80);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.mobileBoardImage-hint.visible {
+    animation: mobileHintFade 3s ease forwards;
+}
+
+@keyframes mobileHintFade {
+    0%   { opacity: 0; }
+    12%  { opacity: 1; }
+    70%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.mobileBoardImage-hint-dot {
+    color: rgba(255, 255, 255, 0.30);
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* ── Entrance animation ──────────────────────────────── */
+
+@keyframes mobileBoardFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
