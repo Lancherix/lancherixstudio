@@ -14,8 +14,14 @@
   column-count: 2;
   column-gap: 8px;
   padding: 10px;
-  /* leave room at the bottom so FAB never overlaps last card */
-  padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+  /* Bottom padding = FAB height + gap + bottom nav height + safe area.
+     Override --mobile-nav-height in your root/layout if your nav is a
+     different height (default assumes 64px). */
+  padding-bottom: calc(
+    env(safe-area-inset-bottom) +
+    var(--mobile-nav-height, 64px) +
+    72px
+  );
 }
 
 /* ===== Image Card ===== */
@@ -132,10 +138,18 @@
   display: none;
 }
 
-/* ===== Upload FAB ===== */
+/* ===== Upload FAB =====
+   Sits above the bottom nav. Adjust --mobile-nav-height in :root
+   (or wherever you define your CSS vars) to match your nav bar,
+   e.g.:  :root { --mobile-nav-height: 56px; }
+================================================================ */
 .mobile-board-upload-fab {
   position: fixed;
-  bottom: max(24px, env(safe-area-inset-bottom));
+  bottom: calc(
+    env(safe-area-inset-bottom) +
+    var(--mobile-nav-height, 64px) +
+    16px
+  );
   right: 20px;
   z-index: 100;
 
@@ -154,7 +168,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .mobile-board-upload-fab svg {
@@ -170,10 +184,6 @@
 .mobile-board-upload-fab:disabled {
   opacity: 0.7;
   cursor: not-allowed;
-}
-
-.mobile-board-upload-fab.loading {
-  background: var(--textTheme, #111);
 }
 
 /* ===== Upload spinner ===== */

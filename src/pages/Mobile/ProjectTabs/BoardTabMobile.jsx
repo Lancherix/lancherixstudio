@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./BoardTabMobile.css";
 import BoardImageMobile from "./BoardImageMobile";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const getOriginalDownloadUrl = (url) => {
   return url.replace("/upload/", "/upload/fl_attachment,q_100/");
 };
+
+const getFilename = (url) => url.split("/").pop();
 
 export default function BoardTabsMobile({ projectId }) {
   const [images, setImages] = useState([]);
@@ -18,6 +21,10 @@ export default function BoardTabsMobile({ projectId }) {
 
   const token = localStorage.getItem("token");
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { slug, filename } = useParams();
 
   /* ============================
      Fetch board
@@ -43,6 +50,61 @@ export default function BoardTabsMobile({ projectId }) {
 
     fetchBoard();
   }, [projectId]);
+
+  /* ============================
+     Deep-link: auto-open modal
+  ============================ */
+  useEffect(() => {
+    if (!filename || images.length === 0) return;
+    const idx = images.findIndex((img) => getFilename(img.url) === filename);
+    if (idx !== -1) {
+      setSelectedIndex(idx);
+      setShowImageModal(true);
+    }
+  }, [filename, images]);
+
+  /* ============================
+     Close modal when back-navigating
+     to the bare /board route
+  ============================ */
+  useEffect(() => {
+    if (location.pathname.endsWith("/board")) {
+      setShowImageModal(false);
+    }
+  }, [location.pathname]);
+
+  /* ============================
+     URL helpers
+  ============================ */
+  const openImage = (index) => {
+    const img = images[index];
+    if (!img) return;
+    setSelectedIndex(index);
+    setShowImageModal(true);
+    navigate(`/projects/${slug}/board/${getFilename(img.url)}`, { replace: false });
+  };
+
+  const closeModal = () => {
+    setShowImageModal(false);
+    navigate(`/projects/${slug}/board`, { replace: true });
+  };
+
+  const goTo = (index) => {
+    const img = images[index];
+    if (!img) return;
+    setSelectedIndex(index);
+    navigate(`/projects/${slug}/board/${getFilename(img.url)}`, { replace: true });
+  };
+
+  const goNext = () => {
+    const next = selectedIndex === images.length - 1 ? 0 : selectedIndex + 1;
+    goTo(next);
+  };
+
+  const goPrev = () => {
+    const prev = selectedIndex === 0 ? images.length - 1 : selectedIndex - 1;
+    goTo(prev);
+  };
 
   /* ============================
      Upload — shared logic
@@ -91,7 +153,7 @@ export default function BoardTabsMobile({ projectId }) {
     const files = Array.from(e.target.files).filter((f) =>
       f.type.startsWith("image/")
     );
-    e.target.value = ""; // reset so same file can be re-picked
+    e.target.value = "";
     uploadFiles(files);
   };
 
@@ -134,22 +196,6 @@ export default function BoardTabsMobile({ projectId }) {
   };
 
   /* ============================
-     Modal navigation
-  ============================ */
-  const openImage = (index) => {
-    setSelectedIndex(index);
-    setShowImageModal(true);
-  };
-
-  const goTo = (index) => setSelectedIndex(index);
-
-  const goNext = () =>
-    setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-
-  const goPrev = () =>
-    setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-
-  /* ============================
      Render
   ============================ */
   if (loading) return <div className="mobile-board-loading"></div>;
@@ -160,7 +206,6 @@ export default function BoardTabsMobile({ projectId }) {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      {/* Hidden file input for tap-to-upload */}
       {token && (
         <input
           ref={fileInputRef}
@@ -183,7 +228,6 @@ export default function BoardTabsMobile({ projectId }) {
               onClick={() => openImage(i)}
             />
 
-            {/* Download */}
             <button
               className="mobile-board-download-btn"
               onClick={(e) => { e.stopPropagation(); handleDownload(img.url); }}
@@ -198,7 +242,6 @@ export default function BoardTabsMobile({ projectId }) {
               </svg>
             </button>
 
-            {/* Delete */}
             {token && (
               <button
                 className="mobile-board-delete-btn"
@@ -215,12 +258,11 @@ export default function BoardTabsMobile({ projectId }) {
           <div className="mobile-board-empty">
             <span className="mobile-board-empty-icon">🖼️</span>
             <h3>Welcome to the Board</h3>
-            <p>Drag and drop images here to create a shared gallery.</p>
+            <p>Tap the upload button to add images.</p>
           </div>
         )}
       </div>
 
-      {/* Tap-to-upload FAB — only for logged-in users */}
       {token && (
         <button
           className={`mobile-board-upload-fab ${uploading ? "loading" : ""}`}
@@ -245,7 +287,7 @@ export default function BoardTabsMobile({ projectId }) {
       <BoardImageMobile
         isOpen={showImageModal}
         imageUrl={images[selectedIndex]?.url}
-        onClose={() => setShowImageModal(false)}
+        onClose={closeModal}
         onNext={goNext}
         onPrev={goPrev}
         currentIndex={selectedIndex}
