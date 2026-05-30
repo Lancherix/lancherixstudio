@@ -199,7 +199,7 @@
 .mobileBoardImage-nav {
     position: absolute;
     top: 0;
-    bottom: 88px; /* above thumb strip */
+    bottom: 88px;
     margin: auto 0;
     height: 48px;
     z-index: 15;
@@ -233,7 +233,6 @@
 .mobileBoardImage-scroll {
     width: 100%;
     flex: 1 1 auto;
-    overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,9 +241,13 @@
         1rem
         calc(env(safe-area-inset-bottom) + 1rem);
     box-sizing: border-box;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pan-y pinch-zoom;
+    /*
+     * FIXED: Use pan-x pan-y only — do NOT include pinch-zoom here.
+     * pinch-zoom tells the browser to handle the gesture natively,
+     * which conflicts with our JS pinch handler. Our JS handles it instead.
+     */
+    touch-action: pan-x pan-y;
+    overflow: hidden;
     transition: max-height 0.2s ease;
 }
 
@@ -253,13 +256,21 @@
     padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
 }
 
-.mobileBoardImage-scroll::-webkit-scrollbar { display: none; }
-
+/*
+ * FIXED: When zoomed, allow panning around the enlarged image.
+ * touch-action: pan-x pan-y lets the user drag the zoomed image
+ * without triggering swipe navigation.
+ */
 .mobileBoardImage-scroll.zoomed {
+    overflow: auto;
     align-items: flex-start;
     justify-content: flex-start;
-    overflow: auto;
+    touch-action: pan-x pan-y;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 }
+
+.mobileBoardImage-scroll.zoomed::-webkit-scrollbar { display: none; }
 
 /* ── Main image ──────────────────────────────────────── */
 
@@ -271,17 +282,28 @@
     user-select: none;
     -webkit-user-drag: none;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-    transition: transform 0.22s ease, border-radius 0.22s ease, opacity 0.25s ease;
+    /*
+     * FIXED: transform is now always applied via inline style (scale state).
+     * The CSS transition here handles tap-to-zoom; pinch overrides it with 'none'.
+     * We no longer need separate CSS classes to manage the scale.
+     */
     will-change: transform;
     cursor: zoom-in;
-    touch-action: none; /* let our JS handle all touch */
+    /*
+     * FIXED: touch-action: none — let our JS handle ALL touch events on the image.
+     * This must not be overridden by the container's touch-action.
+     */
+    touch-action: none;
 }
 
 .mobileBoardImage-image.zoomed {
+    /*
+     * FIXED: Removed fixed `width: 180vw` — that fought with JS-driven scale.
+     * The image now sizes naturally; JS scale handles the zoom level.
+     * We only override max constraints and change the cursor.
+     */
     max-width: none;
     max-height: none;
-    width: 180vw;
-    border-radius: 20px;
     cursor: zoom-out;
 }
 
