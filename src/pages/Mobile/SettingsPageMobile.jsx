@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import LogoutPage from './LogoutPage';
+import LogoutPage from '../LogoutPage';
 import './Styles/SettingsPageMobile.css';
-import { language } from '../language';
+import { language } from '../../language';
 
 const SettingsPageMobile = () => {
   const [selectedOption, setSelectedOption] = useState(null); // null = show main menu
