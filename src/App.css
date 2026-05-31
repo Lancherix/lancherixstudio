@@ -338,6 +338,7 @@ button:hover {
 @media (max-width: 768px) {
 
   .header-homePage {
+    display: none;
     position: fixed;
     top: 2vh;
     left: 0;

@@ -23,7 +23,7 @@
     border-radius: 1000px;
     background-color: var(--theme);
     border: 1px solid var(--placeholderTheme);
-    color: 1px solid var(--textTheme);
+    color: var(--textTheme);
     height: calc(5dvh - 2px);
     flex-grow: 1;
     padding: 0 4vw;
