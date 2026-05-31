@@ -21,6 +21,7 @@ import HomePageMobile from './pages/Mobile/HomePageMobile';
 import SettingsPage from './pages/SettingsPage';
 import SettingsPageMobile from './pages/Mobile/SettingsPageMobile';
 import UserProfilePage from './pages/userPages/UserProfilePage';
+import UserProfilePageMobile from './pages/Mobile/UserProfilePageMobile';
 import ProjectPage from './pages/ProjectPage';
 import ProjectPageMobile from './pages/Mobile/ProjectPageMobile';
 import AllProjectsPage from './pages/AllProjectsPage';
@@ -354,7 +355,7 @@ const App = () => {
                 <Route path="/" element={isMobile ? <HomePageMobile /> : <HomePage />} />
                 <Route path="/settings" element={isMobile ? <SettingsPageMobile /> : <SettingsPage />} />
                 <Route path="/projects" element={isMobile ? <AllProjectsMobile /> : <AllProjectsPage />} />
-                <Route path="/member/:username" element={<UserProfilePage />} />
+                <Route path="/member/:username" element={isMobile ? <UserProfilePageMobile /> : <UserProfilePage />} />
                 <Route path="/projects/:slug" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/notes" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />
                 <Route path="/projects/:slug/board" element={isMobile ? <ProjectPageMobile /> : <ProjectPage />} />

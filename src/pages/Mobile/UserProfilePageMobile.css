@@ -1,0 +1,175 @@
+/* ════════════════════════════════════════════
+   UserProfilePageMobile.css
+   Mobile-first layout — stacked header + scrollable grid
+   ════════════════════════════════════════════ */
+
+/* ── Page wrapper ── */
+.all-memberPage-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 91vh;
+  padding: 4vw;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* ── Card / window ── */
+.window-memberPage-mobile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 18px;
+  background-color: var(--theme);
+  backdrop-filter: blur(10px);
+  border: var(--borderTheme);
+  box-shadow: 8px 10px 20px -2px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* ── Profile header strip ── */
+.header-memberPage-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4vw;
+  padding: 5vw 5vw 4vw;
+  border-bottom: 1px solid var(--buttonColor);
+}
+
+/* ── Avatar ── */
+.profilePicture-memberPage-mobile {
+  flex-shrink: 0;
+  width: 18vw;
+  height: 18vw;
+  max-width: 72px;
+  max-height: 72px;
+  border-radius: 50%;
+  background-image: url("https://studio.lancherix.com/Images/defaultProfilePicture.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Name / username block ── */
+.headerInfo-memberPage-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0; /* allow text truncation */
+}
+
+.headerInfo-memberPage-mobile h1 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--textTheme);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.headerInfo-memberPage-mobile p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: var(--placeholderTheme);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Projects area ── */
+.content-memberPage-mobile {
+  display: flex;
+  flex-direction: column;
+  padding: 4vw;
+  overflow-y: auto;
+  /* let the native scroll on the page handle scrolling */
+}
+
+/* ── Projects grid: 2 columns on most phones ── */
+.projects-grid-mobile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3vw;
+}
+
+/* ── Project card ── */
+.project-card-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+  padding: 4vw 3.5vw;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.035);
+  text-decoration: none;
+  color: var(--textTheme);
+  border: 1px solid var(--buttonColor);
+  transition: background 0.2s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.project-card-mobile:active {
+  background: rgba(0, 0, 0, 0.07);
+  transform: scale(0.97);
+}
+
+/* ── Project icon ── */
+.project-icon-mobile {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ── Project name ── */
+.project-meta-mobile h3 {
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--textTheme);
+  word-break: break-word;
+}
+
+/* ── Empty / loading state ── */
+.empty-state-mobile {
+  font-size: 0.85rem;
+  color: var(--placeholderTheme);
+  margin-top: 4vw;
+  text-align: center;
+}
+
+/* ── Error fallback ── */
+.error-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 91vh;
+  font-size: 0.9rem;
+  color: var(--placeholderTheme);
+  padding: 6vw;
+  text-align: center;
+}
+
+/* ── Narrow phones (≤ 360 px) → single column ── */
+@media (max-width: 360px) {
+  .projects-grid-mobile {
+    grid-template-columns: 1fr;
+  }
+
+  .profilePicture-memberPage-mobile {
+    width: 14vw;
+    height: 14vw;
+  }
+
+  .headerInfo-memberPage-mobile h1 {
+    font-size: 1rem;
+  }
+}
+
+/* ── Slightly larger phones / small tablets (≥ 480 px) → 3 columns ── */
+@media (min-width: 480px) {
+  .projects-grid-mobile {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
