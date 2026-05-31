@@ -155,7 +155,7 @@
 
   width: 52px;
   height: 52px;
-  border: none;
+  border: 1px solid var(--textTheme);
   border-radius: 999px;
 
   background: var(--theme);
