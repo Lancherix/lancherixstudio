@@ -10,20 +10,13 @@ const UserProfilePageMobile = () => {
   const [error, setError] = useState(null);
   const [loadingProjects, setLoadingProjects] = useState(true);
 
-  // ─────────────────────────────
-  // Fetch user (public)
-  // ─────────────────────────────
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await fetch(
           `https://lancherixstudio-backend.onrender.com/api/users?username=${username}`
         );
-
-        if (!response.ok) {
-          throw new Error('User not found');
-        }
-
+        if (!response.ok) throw new Error('User not found');
         const foundUser = await response.json();
         setUser(foundUser);
         document.title = `${foundUser.firstName} ${foundUser.lastName}`;
@@ -31,26 +24,17 @@ const UserProfilePageMobile = () => {
         setError(error.message);
       }
     };
-
     fetchUser();
   }, [username]);
 
-  // ─────────────────────────────
-  // Fetch public projects (owner OR collaborator)
-  // ─────────────────────────────
   useEffect(() => {
     const fetchPublicProjects = async () => {
       try {
         setLoadingProjects(true);
-
         const response = await fetch(
           `https://lancherixstudio-backend.onrender.com/api/users/${username}/public-projects`
         );
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects');
-        }
-
+        if (!response.ok) throw new Error('Failed to fetch projects');
         const data = await response.json();
         setProjects(data);
       } catch (error) {
@@ -59,75 +43,55 @@ const UserProfilePageMobile = () => {
         setLoadingProjects(false);
       }
     };
-
     fetchPublicProjects();
   }, [username]);
 
-  // ─────────────────────────────
-  // States
-  // ─────────────────────────────
-  if (error) {
-    return <div className="error-mobile">Error: {error}</div>;
-  }
+  if (error) return <div className="upm__error">Error: {error}</div>;
+  if (!user) return <div />;
 
-  if (!user) {
-    return <div></div>;
-  }
-
-  // ─────────────────────────────
-  // Render
-  // ─────────────────────────────
   return (
-    <div className="all-memberPage-mobile">
-      <div className="window-memberPage-mobile">
+    <div className="upm__page">
 
-        {/* ── Header / profile strip ── */}
-        <div className="header-memberPage-mobile">
-          <div
-            className="profilePicture-memberPage-mobile"
-            style={{
-              backgroundImage: `url(${
-                user.profilePicture?.url ||
-                'https://studio.lancherix.com/Images/defaultProfilePicture.png'
-              })`,
-            }}
-          />
-          <div className="headerInfo-memberPage-mobile">
-            <h1>{user.firstName} {user.lastName}</h1>
-            <p>@{user.username}</p>
-          </div>
+      {/* ── Profile strip ── */}
+      <div className="upm__header">
+        <div
+          className="upm__avatar"
+          style={{
+            backgroundImage: `url(${
+              user.profilePicture?.url ||
+              'https://studio.lancherix.com/Images/defaultProfilePicture.png'
+            })`,
+          }}
+        />
+        <div className="upm__headerInfo">
+          <h1>{user.firstName} {user.lastName}</h1>
+          <p>@{user.username}</p>
         </div>
-
-        {/* ── Projects section ── */}
-        <div className="content-memberPage-mobile">
-          {loadingProjects ? (
-            <p className="empty-state-mobile">Loading projects…</p>
-          ) : projects.length === 0 ? (
-            <p className="empty-state-mobile">
-              This studio has no public projects yet.
-            </p>
-          ) : (
-            <div className="projects-grid-mobile">
-              {projects.map(project => (
-                <Link
-                  key={project._id}
-                  to={`/projects/${project.slug}`}
-                  target="_blank"
-                  className="project-card-mobile"
-                >
-                  <span className="project-icon-mobile">
-                    {project.icon || '📁'}
-                  </span>
-                  <div className="project-meta-mobile">
-                    <h3>{project.name}</h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-
       </div>
+
+      {/* ── Scrollable projects ── */}
+      <div className="upm__content">
+        {loadingProjects ? (
+          <p className="upm__empty">Loading projects…</p>
+        ) : projects.length === 0 ? (
+          <p className="upm__empty">This studio has no public projects yet.</p>
+        ) : (
+          <div className="upm__grid">
+            {projects.map(project => (
+              <Link
+                key={project._id}
+                to={`/projects/${project.slug}`}
+                target="_blank"
+                className="upm__card"
+              >
+                <span className="upm__cardIcon">{project.icon || '📁'}</span>
+                <h3 className="upm__cardName">{project.name}</h3>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+
     </div>
   );
 };

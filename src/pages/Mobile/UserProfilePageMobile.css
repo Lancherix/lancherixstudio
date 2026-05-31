@@ -1,0 +1,143 @@
+/* ════════════════════════════════════════════
+   UserProfilePageMobile.css
+   All classes prefixed upm__ to avoid collisions
+   ════════════════════════════════════════════ */
+
+.upm__page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100dvh - 70px);
+  overflow: hidden;
+}
+
+/* ── Profile header strip ── */
+.upm__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4vw;
+  padding: 4vw;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--borderTheme);
+}
+
+.upm__avatar {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-image: url("https://studio.lancherix.com/Images/defaultProfilePicture.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.upm__headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.upm__headerInfo h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--textTheme);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.upm__headerInfo p {
+  font-size: 0.82rem;
+  margin: 0;
+  color: var(--placeholderTheme);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Scrollable projects area ── */
+.upm__content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 4vw;
+}
+
+/* ── Projects grid ── */
+.upm__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3vw;
+}
+
+/* ── Project card ── */
+.upm__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4vw 3.5vw;
+  border-radius: 12px;
+  background: var(--theme);
+  text-decoration: none;
+  color: var(--textTheme);
+  border: 1px solid var(--borderTheme);
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s ease;
+}
+
+.upm__card:active {
+  opacity: 0.6;
+}
+
+.upm__cardIcon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.upm__cardName {
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--textTheme);
+  word-break: break-word;
+}
+
+/* ── Empty / loading ── */
+.upm__empty {
+  font-size: 0.85rem;
+  color: var(--placeholderTheme);
+  margin-top: 6vw;
+  text-align: center;
+}
+
+/* ── Error ── */
+.upm__error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100dvh - 70px);
+  font-size: 0.9rem;
+  color: var(--placeholderTheme);
+  padding: 6vw;
+  text-align: center;
+}
+
+/* ── Narrow phones → single column ── */
+@media (max-width: 360px) {
+  .upm__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Wider phones / small tablets → 3 columns ── */
+@media (min-width: 480px) {
+  .upm__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

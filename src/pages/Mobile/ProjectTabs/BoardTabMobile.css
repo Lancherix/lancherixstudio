@@ -158,8 +158,8 @@
   border: none;
   border-radius: 999px;
 
-  background: var(--textTheme, #111);
-  color: var(--bgTheme, #fff);
+  background: var(--theme);
+  color: var(--textTheme);
 
   display: flex;
   align-items: center;
