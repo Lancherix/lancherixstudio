@@ -159,6 +159,8 @@
   border-radius: 999px;
 
   background: var(--theme);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: var(--textTheme);
 
   display: flex;

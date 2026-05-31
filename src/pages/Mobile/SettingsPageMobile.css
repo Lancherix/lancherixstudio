@@ -142,6 +142,7 @@
   font-weight: 700;
   transition: background-color 0.2s, color 0.2s;
   border-radius: 50%;
+  text-align: center;
 }
 
 .mob-avatar:hover .mob-avatar-overlay,
