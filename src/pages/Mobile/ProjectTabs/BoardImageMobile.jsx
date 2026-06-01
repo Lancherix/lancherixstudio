@@ -13,6 +13,34 @@ const getOriginalDownloadUrl = (url) =>
 
 const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 
+// ── SVG Icons ─────────────────────────────────────────────────────────────────
+
+const IconPlay = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+        <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+    </svg>
+);
+
+const IconStop = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+        <path fillRule="evenodd" d="M4.5 7.5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-9a3 3 0 0 1-3-3v-9Z" clipRule="evenodd" />
+    </svg>
+);
+
+const IconDownload = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+        <path fillRule="evenodd" d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v4.19l-1.72-1.72a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l3-3a.75.75 0 1 0-1.06-1.06l-1.72 1.72V10.5Z" clipRule="evenodd" />
+    </svg>
+);
+
+const IconClose = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+        <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+    </svg>
+);
+
+// ── Component ─────────────────────────────────────────────────────────────────
+
 const BoardImageMobile = ({
     isOpen,
     imageUrl,
@@ -60,7 +88,7 @@ const BoardImageMobile = ({
     const [showHint, setShowHint] = useState(true);
     const interval = SPEED_PRESETS[speed];
 
-    // ── Apply transform to image ──────────────────────────────────────
+    // ── Apply transform ───────────────────────────────────────────────
     const applyTransform = useCallback((scale, x, y, animated = false) => {
         scaleRef.current = scale;
         panRef.current = { x, y };
@@ -71,21 +99,15 @@ const BoardImageMobile = ({
         }
     }, []);
 
-    // ── Clamp pan using actual rendered image dimensions ──────────────
-    // FIX: use image.clientWidth/Height (the rendered contain-fit size at scale=1),
-    // not naturalWidth which is the intrinsic unscaled size.
+    // ── Clamp pan ─────────────────────────────────────────────────────
     const clampPan = useCallback((scale, x, y) => {
         const container = containerRef.current;
         const image = imageRef.current;
         if (!container || !image) return { x, y };
-
         const cw = container.clientWidth;
         const ch = container.clientHeight;
-
-        // clientWidth/Height gives the rendered size at scale=1 (object-fit: contain applied)
         const rw = image.clientWidth * scale;
         const rh = image.clientHeight * scale;
-
         const maxX = Math.max(0, (rw - cw) / 2);
         const maxY = Math.max(0, (rh - ch) / 2);
         return {
@@ -94,7 +116,7 @@ const BoardImageMobile = ({
         };
     }, []);
 
-    // ── Reset zoom & pan ──────────────────────────────────────────────
+    // ── Reset zoom ────────────────────────────────────────────────────
     const resetZoom = useCallback(() => {
         applyTransform(1, 0, 0, true);
         isPinching.current = false;
@@ -195,7 +217,7 @@ const BoardImageMobile = ({
     // ── Thumb strip scroll ────────────────────────────────────────────
     useEffect(() => {
         if (!thumbStripRef.current) return;
-        const a = thumbStripRef.current.querySelector('.mobileBoardImage-thumb.active');
+        const a = thumbStripRef.current.querySelector('.mbi-thumb.active');
         if (a) a.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
     }, [currentIndex]);
 
@@ -219,7 +241,6 @@ const BoardImageMobile = ({
         const dx = t1.clientX - t2.clientX, dy = t1.clientY - t2.clientY;
         return Math.sqrt(dx * dx + dy * dy);
     };
-
     const getTouchMid = (t1, t2) => ({
         x: (t1.clientX + t2.clientX) / 2,
         y: (t1.clientY + t2.clientY) / 2,
@@ -231,17 +252,14 @@ const BoardImageMobile = ({
             e.preventDefault();
             isPinching.current = true;
             isPanning.current = false;
-            // FIX: clear swipe state immediately on pinch start to prevent phantom swipes
             swipeStartX.current = null;
             swipeLocked.current = null;
-
             pinchStartDist.current = getTouchDist(e.touches[0], e.touches[1]);
             pinchStartScale.current = scaleRef.current;
             pinchMidStart.current = getTouchMid(e.touches[0], e.touches[1]);
             panAtPinchStart.current = { ...panRef.current };
         } else if (e.touches.length === 1) {
             if (isPinching.current) return;
-
             const t = e.touches[0];
             if (scaleRef.current > 1.05) {
                 isPanning.current = true;
@@ -253,24 +271,21 @@ const BoardImageMobile = ({
                 swipeLocked.current = null;
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // ── Touch move ────────────────────────────────────────────────────
     const handleTouchMove = useCallback((e) => {
         if (e.touches.length === 2 && pinchStartDist.current !== null) {
             e.preventDefault();
-
             const newDist = getTouchDist(e.touches[0], e.touches[1]);
             const newScale = clamp(
                 pinchStartScale.current * (newDist / pinchStartDist.current),
                 MIN_SCALE, MAX_SCALE
             );
-
             const newMid = getTouchMid(e.touches[0], e.touches[1]);
             const dx = newMid.x - pinchMidStart.current.x;
             const dy = newMid.y - pinchMidStart.current.y;
-
             const container = containerRef.current;
             const cx = container ? container.clientWidth / 2 : 0;
             const cy = container ? container.clientHeight / 2 : 0;
@@ -279,25 +294,20 @@ const BoardImageMobile = ({
             const scaleDelta = newScale / pinchStartScale.current;
             const rawX = panAtPinchStart.current.x + dx + originX * (1 - scaleDelta);
             const rawY = panAtPinchStart.current.y + dy + originY * (1 - scaleDelta);
-
             const { x, y } = clampPan(newScale, rawX, rawY);
             applyTransform(newScale, x, y, false);
             return;
         }
-
         if (e.touches.length === 1) {
             if (isPanning.current) {
                 e.preventDefault();
                 const t = e.touches[0];
                 const dx = t.clientX - panTouchStart.current.x;
                 const dy = t.clientY - panTouchStart.current.y;
-                const rawX = panAtTouchStart.current.x + dx;
-                const rawY = panAtTouchStart.current.y + dy;
-                const { x, y } = clampPan(scaleRef.current, rawX, rawY);
+                const { x, y } = clampPan(scaleRef.current, panAtTouchStart.current.x + dx, panAtTouchStart.current.y + dy);
                 applyTransform(scaleRef.current, x, y, false);
                 return;
             }
-
             if (swipeStartX.current !== null && scaleRef.current <= 1.05) {
                 const dx = e.touches[0].clientX - swipeStartX.current;
                 const dy = e.touches[0].clientY - swipeStartY.current;
@@ -311,16 +321,12 @@ const BoardImageMobile = ({
 
     // ── Touch end ─────────────────────────────────────────────────────
     const handleTouchEnd = useCallback((e) => {
-        // FIX: handle pinch release — clear all pinch AND swipe state to prevent
-        // phantom navigation when fingers lift after a pinch gesture.
         if (isPinching.current) {
             if (e.touches.length < 2) {
                 isPinching.current = false;
                 pinchStartDist.current = null;
-                // Clear swipe refs so lifting pinch fingers never triggers swipe nav
                 swipeStartX.current = null;
                 swipeLocked.current = null;
-
                 if (scaleRef.current < 1.15) {
                     applyTransform(1, 0, 0, true);
                 } else {
@@ -330,19 +336,10 @@ const BoardImageMobile = ({
             }
             return;
         }
-
-        if (isPanning.current) {
-            isPanning.current = false;
-            return;
-        }
-
-        // Swipe navigation (only when not zoomed)
+        if (isPanning.current) { isPanning.current = false; return; }
         if (swipeStartX.current !== null && swipeLocked.current === 'h' && scaleRef.current <= 1.05) {
             const dx = e.changedTouches[0].clientX - swipeStartX.current;
-            if (Math.abs(dx) > 50) {
-                stopSlideshow();
-                if (dx < 0) onNext?.(); else onPrev?.();
-            }
+            if (Math.abs(dx) > 50) { stopSlideshow(); if (dx < 0) onNext?.(); else onPrev?.(); }
         }
         swipeStartX.current = null;
         swipeLocked.current = null;
@@ -365,11 +362,8 @@ const BoardImageMobile = ({
     // ── Tap to toggle zoom ────────────────────────────────────────────
     const handleImageClick = useCallback(() => {
         if (isPinching.current || isPlaying) return;
-        if (scaleRef.current > 1.05) {
-            applyTransform(1, 0, 0, true);
-        } else {
-            applyTransform(2.5, 0, 0, true);
-        }
+        if (scaleRef.current > 1.05) applyTransform(1, 0, 0, true);
+        else applyTransform(2.5, 0, 0, true);
     }, [applyTransform, isPlaying]);
 
     const strokeDashoffset = CIRCUMFERENCE * (1 - progress);
@@ -379,80 +373,120 @@ const BoardImageMobile = ({
     const hasCounter = totalCount > 0;
 
     return createPortal(
-        <div className="mobileBoardImage-overlay" onClick={onClose}>
-            <div className="mobileBoardImage-window" onClick={(e) => e.stopPropagation()}>
+        <div className="mbi-overlay" onClick={onClose}>
+            <div className="mbi-window" onClick={(e) => e.stopPropagation()}>
 
-                {/* ── Top-right action bar ── */}
-                <div className="mobileBoardImage-actions">
-                    <div className="mobileBoardImage-speedToggle" title="Slideshow speed">
-                        {(['slow', 'medium', 'fast']).map((s) => (
-                            <button
-                                key={s}
-                                className={`mobileBoardImage-speedBtn ${speed === s ? 'active' : ''}`}
-                                onClick={() => setSpeed(s)}
-                            >
-                                {s === 'slow' ? '1×' : s === 'medium' ? '2×' : '3×'}
-                            </button>
-                        ))}
+                {/* ══════════════════════════════════════════
+                    TOP BAR — three-zone grid
+                    [counter]  [speed · | · play]  [↓ · ✕]
+                    ══════════════════════════════════════════ */}
+                <div className="mbi-topbar">
+
+                    {/* LEFT — counter */}
+                    <div className="mbi-topbar-left">
+                        {hasCounter && (
+                            <div className="mbi-counter">
+                                <span className="mbi-counter-current">{currentIndex + 1}</span>
+                                <span className="mbi-counter-sep">/</span>
+                                <span className="mbi-counter-total">{totalCount}</span>
+                            </div>
+                        )}
                     </div>
 
-                    <button className="mobileBoardImage-playBtn" onClick={toggleSlideshow}
-                        title={isPlaying ? 'Stop slideshow' : 'Play slideshow'}>
-                        <div className="mobileBoardImage-playBtn-inner">
-                            {isPlaying ? (
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
-                                    <rect x="2" y="1" width="4" height="12" rx="1" />
-                                    <rect x="8" y="1" width="4" height="12" rx="1" />
-                                </svg>
-                            ) : (
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
-                                    <polygon points="2,1 13,7 2,13" />
-                                </svg>
-                            )}
-                        </div>
-                        {isPlaying && (
-                            <svg className="mobileBoardImage-progressRing" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                                <circle className="mobileBoardImage-progressRing-track" cx="25" cy="25" r={RADIUS} />
-                                <circle className="mobileBoardImage-progressRing-fill" cx="25" cy="25" r={RADIUS}
-                                    strokeDasharray={CIRCUMFERENCE} strokeDashoffset={strokeDashoffset} />
-                            </svg>
-                        )}
-                    </button>
+                    {/* CENTER — speed + play pill */}
+                    <div className="mbi-topbar-center">
+                        <div className="mbi-controls-pill">
 
-                    <button className="mobileBoardImage-topBtn" onClick={handleDownload} aria-label="Download">↓</button>
-                    <button className="mobileBoardImage-topBtn close" onClick={onClose} aria-label="Close">✕</button>
+                            {/* Speed */}
+                            <div className="mbi-speed-group">
+                                {(['slow', 'medium', 'fast']).map((s) => (
+                                    <button
+                                        key={s}
+                                        className={`mbi-speed-btn ${speed === s ? 'active' : ''}`}
+                                        onClick={() => setSpeed(s)}
+                                    >
+                                        {s === 'slow' ? '1×' : s === 'medium' ? '2×' : '3×'}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Divider */}
+                            <div className="mbi-pill-divider" />
+
+                            {/* Play / Stop with progress ring */}
+                            <button
+                                className="mbi-play-btn"
+                                onClick={toggleSlideshow}
+                                aria-label={isPlaying ? 'Stop slideshow' : 'Play slideshow'}
+                            >
+                                <span className="mbi-play-icon">
+                                    {isPlaying ? <IconStop /> : <IconPlay />}
+                                </span>
+                                {isPlaying && (
+                                    <svg className="mbi-progress-ring" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                        <circle className="mbi-ring-track" cx="25" cy="25" r={RADIUS} />
+                                        <circle
+                                            className="mbi-ring-fill"
+                                            cx="25" cy="25" r={RADIUS}
+                                            strokeDasharray={CIRCUMFERENCE}
+                                            strokeDashoffset={strokeDashoffset}
+                                        />
+                                    </svg>
+                                )}
+                            </button>
+
+                        </div>
+                    </div>
+
+                    {/* RIGHT — download + close */}
+                    <div className="mbi-topbar-right">
+                        <button className="mbi-icon-btn" onClick={handleDownload} aria-label="Download">
+                            <IconDownload />
+                        </button>
+                        <button className="mbi-icon-btn mbi-icon-btn--close" onClick={onClose} aria-label="Close">
+                            <IconClose />
+                        </button>
+                    </div>
+
                 </div>
 
-                {/* ── Counter ── */}
-                {hasCounter && (
-                    <div className="mobileBoardImage-counter">
-                        {currentIndex + 1} <span className="mobileBoardImage-counter-sep">/</span> {totalCount}
-                    </div>
-                )}
-
                 {/* ── Hint ── */}
-                <div className={`mobileBoardImage-hint ${showHint ? 'visible' : ''}`}>
+                <div className={`mbi-hint ${showHint ? 'visible' : ''}`}>
                     <span>← → swipe</span>
-                    <span className="mobileBoardImage-hint-dot">·</span>
+                    <span className="mbi-hint-dot">·</span>
                     <span>pinch zoom</span>
-                    <span className="mobileBoardImage-hint-dot">·</span>
+                    <span className="mbi-hint-dot">·</span>
                     <span>drag to pan</span>
                 </div>
 
                 {/* ── Prev / Next (hidden when zoomed) ── */}
                 {!zoomed && (
                     <>
-                        <button className="mobileBoardImage-nav mobileBoardImage-prev"
-                            onClick={() => { stopSlideshow(); onPrev?.(); }} aria-label="Previous">‹</button>
-                        <button className="mobileBoardImage-nav mobileBoardImage-next"
-                            onClick={() => { stopSlideshow(); onNext?.(); }} aria-label="Next">›</button>
+                        <button
+                            className="mbi-nav mbi-nav--prev"
+                            onClick={() => { stopSlideshow(); onPrev?.(); }}
+                            aria-label="Previous"
+                        >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <button
+                            className="mbi-nav mbi-nav--next"
+                            onClick={() => { stopSlideshow(); onNext?.(); }}
+                            aria-label="Next"
+                        >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
                     </>
                 )}
 
                 {/* ── Image container ── */}
                 <div
                     ref={containerRef}
-                    className={`mobileBoardImage-scroll ${zoomed ? 'zoomed' : ''} ${hasImages ? 'has-thumbs' : ''}`}
+                    className={`mbi-image-container ${zoomed ? 'zoomed' : ''} ${hasImages ? 'has-thumbs' : ''}`}
                 >
                     <img
                         ref={imageRef}
@@ -460,24 +494,27 @@ const BoardImageMobile = ({
                         alt="Board"
                         draggable={false}
                         onClick={handleImageClick}
-                        className={`mobileBoardImage-image ${zoomed ? 'zoomed' : ''} ${isPlaying ? 'slideshow-active' : ''}`}
+                        className={`mbi-image ${zoomed ? 'zoomed' : ''} ${isPlaying ? 'playing' : ''}`}
                     />
                 </div>
 
                 {/* ── Thumbnail strip ── */}
                 {hasImages && (
-                    <div className="mobileBoardImage-thumbStrip" ref={thumbStripRef}>
+                    <div className="mbi-thumb-strip" ref={thumbStripRef}>
                         {images.map((url, i) => (
-                            <button key={i}
-                                className={`mobileBoardImage-thumb ${i === currentIndex ? 'active' : ''}`}
+                            <button
+                                key={i}
+                                className={`mbi-thumb ${i === currentIndex ? 'active' : ''}`}
                                 onClick={() => { stopSlideshow(); onGoTo?.(i); }}
-                                title={`Image ${i + 1}`}>
+                                aria-label={`Image ${i + 1}`}
+                            >
                                 <img src={url} alt={`Thumbnail ${i + 1}`} draggable={false} />
-                                {i === currentIndex && <div className="mobileBoardImage-thumb-activeBar" />}
+                                {i === currentIndex && <div className="mbi-thumb-bar" />}
                             </button>
                         ))}
                     </div>
                 )}
+
             </div>
         </div>,
         document.getElementById('modal-root')
