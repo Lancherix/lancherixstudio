@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import './BoardImage.css';
+import './Styles/BoardImage.css';
 
 // Speed presets
 const SPEED_PRESETS = {
