@@ -21,9 +21,209 @@
     height: min(92vh, 950px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     animation: scaleBoardImage 0.18s ease;
+}
+
+/* ── Top bar: 3-zone grid ───────────────────────────── */
+
+.boardImage-topBar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    flex-shrink: 0;
+}
+
+/* ── Counter (left zone) ────────────────────────────── */
+
+.boardImage-counter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.boardImage-counter-pill {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 7px 14px;
+}
+
+.boardImage-counter-current {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.boardImage-counter-sep {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 13px;
+    margin: 0 2px;
+}
+
+.boardImage-counter-total {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 13px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+/* ── Center pill: speed + play ──────────────────────── */
+
+.boardImage-centerPill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boardImage-centerPill-inner {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 5px 6px;
+    height: 40px;
+    box-sizing: border-box;
+    gap: 0;
+}
+
+/* Speed buttons */
+.boardImage-speedGroup {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    padding: 0 4px 0 2px;
+}
+
+.boardImage-speedBtn {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 5px 9px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    line-height: 1;
+    font-family: inherit;
+}
+
+.boardImage-speedBtn:hover {
+    color: rgba(255, 255, 255, 0.80);
+    background: rgba(255, 255, 255, 0.10);
+}
+
+.boardImage-speedBtn.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* Divider */
+.boardImage-pillDivider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 4px;
+    flex-shrink: 0;
+}
+
+/* Play button with progress ring */
+.boardImage-playBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 2px;
+    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+.boardImage-playBtn:hover .boardImage-playBtn-inner {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.boardImage-playBtn-inner {
+    position: relative;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: background 0.15s;
+}
+
+.boardImage-progressRing {
+    position: absolute;
+    inset: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    pointer-events: none;
+    z-index: 3;
+    transform: rotate(-90deg);
+}
+
+.boardImage-progressRing-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 2;
+}
+
+.boardImage-progressRing-fill {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.05s linear;
+}
+
+/* ── Right zone: download + close ───────────────────── */
+
+.boardImage-rightActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.boardImage-actionBtn,
+.boardImage-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.10);
+    color: rgba(255, 255, 255, 0.80);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+}
+
+.boardImage-actionBtn:hover,
+.boardImage-close:hover {
+    background: rgba(255, 255, 255, 0.20);
+    transform: scale(1.05);
 }
 
 /* ── Scroll / zoom container ─────────────────────────── */
@@ -37,13 +237,8 @@
     align-items: center;
     border-radius: 18px;
     scrollbar-width: none;
-    /* leave room for thumb strip when present */
     transition: max-height 0.2s ease;
-}
-
-.boardImage-scrollContainer.has-thumbs {
-    /* subtract strip height + gap */
-    max-height: calc(100% - 88px);
+    min-height: 0;
 }
 
 .boardImage-scrollContainer::-webkit-scrollbar { display: none; }
@@ -90,8 +285,9 @@
 
 .boardImage-nav {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    bottom: 0;
+    margin: auto;
     width: 58px;
     height: 58px;
     border: none;
@@ -103,12 +299,8 @@
     z-index: 20;
     backdrop-filter: blur(10px);
     transition: 0.15s;
-    /* keep arrows above thumb strip */
-    bottom: 88px;
-    top: unset;
-    margin: auto;
-    top: 0;
-    bottom: 88px;
+    /* offset from the top bar height (~54px) */
+    top: 54px;
 }
 
 .boardImage-nav:hover {
@@ -119,180 +311,50 @@
 .boardImage-prev { left: -12px; }
 .boardImage-next { right: -12px; }
 
-/* ── Top-right action cluster ────────────────────────── */
+/* ── Keyboard shortcut hint ──────────────────────────── */
 
-.boardImage-actions {
+.boardImage-hint {
     position: absolute;
-    top: -12px;
-    right: -12px;
+    bottom: calc(72px + 8px + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
     display: flex;
     align-items: center;
     gap: 8px;
-    z-index: 20;
-}
-
-.boardImage-actionBtn,
-.boardImage-close {
-    width: 42px;
-    height: 42px;
-    border: none;
+    background: rgba(0, 0, 0, 0.50);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.boardImage-actionBtn:hover,
-.boardImage-close:hover {
-    background: rgba(255, 255, 255, 0.22);
-    transform: scale(1.05);
-}
-
-/* ── Play button with progress ring ─────────────────── */
-
-.boardImage-playBtn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: none !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    padding: 0;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.boardImage-playBtn:hover { transform: scale(1.08); background: transparent !important; }
-
-.boardImage-playBtn-inner {
-    position: relative;
-    z-index: 2;
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 14px;
-    transition: background 0.15s;
-}
-
-.boardImage-playBtn:hover .boardImage-playBtn-inner {
-    background: rgba(255, 255, 255, 0.22);
-}
-
-.boardImage-progressRing {
-    position: absolute;
-    inset: -4px;
-    width: calc(100% + 8px);
-    height: calc(100% + 8px);
-    pointer-events: none;
-    z-index: 3;
-    transform: rotate(-90deg);
-}
-
-.boardImage-progressRing-track {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.18);
-    stroke-width: 2.5;
-}
-
-.boardImage-progressRing-fill {
-    fill: none;
-    stroke: #ffffff;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 0.05s linear;
-    filter: drop-shadow(0 0 3px rgba(255,255,255,0.55));
-}
-
-/* ════════════════════════════════════════
-   NEW FEATURE 1 — Speed toggle
-   ════════════════════════════════════════ */
-
-.boardImage-speedToggle {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
-    padding: 4px 6px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.boardImage-speedBtn {
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 4px 8px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    line-height: 1;
-}
-
-.boardImage-speedBtn:hover {
-    color: rgba(255, 255, 255, 0.85);
-    background: rgba(255, 255, 255, 0.10);
-}
-
-.boardImage-speedBtn.active {
-    background: rgba(255, 255, 255, 0.20);
-    color: #ffffff;
-}
-
-/* ════════════════════════════════════════
-   NEW FEATURE 2 — Image counter
-   ════════════════════════════════════════ */
-
-.boardImage-counter {
-    position: absolute;
-    top: -12px;
-    left: -12px;
-    z-index: 20;
-
-    background: rgba(0, 0, 0, 0.40);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 999px;
-    padding: 8px 16px;
-
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.04em;
-    line-height: 1;
+    padding: 7px 18px;
+    color: rgba(255, 255, 255, 0.80);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
     white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-.boardImage-counter-sep {
-    color: rgba(255, 255, 255, 0.40);
-    margin: 0 3px;
+.boardImage-hint.visible {
+    animation: hintFade 3s ease forwards;
 }
 
-/* ════════════════════════════════════════
-   NEW FEATURE 3 — Thumbnail strip
-   ════════════════════════════════════════ */
+@keyframes hintFade {
+    0%   { opacity: 0; }
+    12%  { opacity: 1; }
+    70%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.boardImage-hint-dot {
+    color: rgba(255, 255, 255, 0.30);
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* ── Thumbnail strip ─────────────────────────────────── */
 
 .boardImage-thumbStrip {
     flex-shrink: 0;
@@ -303,12 +365,11 @@
     height: 72px;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 8px 12px;
+    padding: 8px 4px 4px;
     box-sizing: border-box;
     scrollbar-width: none;
-    /* subtle top separator */
-    border-top: 1px solid rgba(255,255,255,0.08);
-    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    margin-top: 12px;
 }
 
 .boardImage-thumbStrip::-webkit-scrollbar { display: none; }
@@ -349,7 +410,6 @@
     transform: scale(1.08);
 }
 
-/* Colored bar at bottom of active thumb */
 .boardImage-thumb-activeBar {
     position: absolute;
     bottom: 0;
@@ -358,64 +418,6 @@
     height: 3px;
     background: #ffffff;
     border-radius: 0 0 8px 8px;
-}
-
-/* ════════════════════════════════════════
-   NEW FEATURE 4 — Keyboard shortcut hint
-   ════════════════════════════════════════ */
-
-.boardImage-hint {
-    position: absolute;
-    bottom: calc(72px + 8px + 16px); /* above the thumb strip */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    background: rgba(0, 0, 0, 0.50);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 999px;
-    padding: 7px 18px;
-
-    color: rgba(255, 255, 255, 0.80);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-
-    pointer-events: none;
-
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-/* When no thumb strip is present, anchor hint higher */
-.boardImage-hint:not(.boardImage-thumbStrip ~ .boardImage-hint) {
-    bottom: 24px;
-}
-
-.boardImage-hint.visible {
-    opacity: 1;
-    /* auto-fade handled by JS removing 'visible' after 3s */
-    /* add a delay-based fade-out */
-    animation: hintFade 3s ease forwards;
-}
-
-@keyframes hintFade {
-    0%   { opacity: 0; }
-    12%  { opacity: 1; }   /* ~0.36s fade in */
-    70%  { opacity: 1; }   /* hold */
-    100% { opacity: 0; }   /* fade out */
-}
-
-.boardImage-hint-dot {
-    color: rgba(255, 255, 255, 0.30);
-    font-size: 16px;
-    line-height: 1;
 }
 
 /* ════════════════════════════════════════

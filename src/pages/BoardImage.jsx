@@ -23,10 +23,10 @@ const BoardImage = ({
     onClose,
     onNext,
     onPrev,
-    currentIndex = 0,   // NEW: zero-based index of the current image
-    totalCount = 0,     // NEW: total number of images
-    images = [],        // NEW: array of image URLs for the thumbnail strip
-    onGoTo,             // NEW: (index) => void — jump to a specific image
+    currentIndex = 0,
+    totalCount = 0,
+    images = [],
+    onGoTo,
 }) => {
     const containerRef = useRef(null);
     const progressRef = useRef(null);
@@ -37,8 +37,8 @@ const BoardImage = ({
     const [zoomed, setZoomed] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0); // 0–1
-    const [speed, setSpeed] = useState('medium'); // 'slow' | 'medium' | 'fast'
-    const [showHint, setShowHint] = useState(true);  // keyboard hint
+    const [speed, setSpeed] = useState('medium');
+    const [showHint, setShowHint] = useState(true);
 
     const interval = SPEED_PRESETS[speed];
 
@@ -66,15 +66,9 @@ const BoardImage = ({
         setIsPlaying(true);
         setZoomed(false);
         setProgress(0);
-
         startTimeRef.current = performance.now();
-
-        if (progressRef.current) {
-            cancelAnimationFrame(progressRef.current);
-        }
-
+        if (progressRef.current) cancelAnimationFrame(progressRef.current);
         progressRef.current = requestAnimationFrame(animateProgress);
-
     }, [animateProgress]);
 
     const stopSlideshow = useCallback(() => {
@@ -100,11 +94,10 @@ const BoardImage = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageUrl]);
 
-    // Restart slideshow when speed changes (so new interval takes effect)
+    // Restart slideshow when speed changes
     useEffect(() => {
         if (isPlaying) {
             stopSlideshow();
-            // tiny delay to let state flush, then restart
             setTimeout(() => startSlideshow(), 0);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,21 +105,14 @@ const BoardImage = ({
 
     useEffect(() => {
         if (!isPlaying) return;
-
-        const timeout = setTimeout(() => {
-            onNext?.();
-        }, interval);
-
+        const timeout = setTimeout(() => { onNext?.(); }, interval);
         return () => clearTimeout(timeout);
-
     }, [isPlaying, currentIndex, interval, onNext]);
 
     useEffect(() => { if (!isOpen) stopSlideshow(); }, [isOpen, stopSlideshow]);
 
     useEffect(() => {
-        return () => {
-            if (progressRef.current) cancelAnimationFrame(progressRef.current);
-        };
+        return () => { if (progressRef.current) cancelAnimationFrame(progressRef.current); };
     }, []);
 
     // Keyboard shortcuts
@@ -187,7 +173,6 @@ const BoardImage = ({
         }
     };
 
-    // Ring stroke offset
     const strokeDashoffset = CIRCUMFERENCE * (1 - progress);
 
     if (!isOpen) return null;
@@ -199,70 +184,110 @@ const BoardImage = ({
         <div className="boardImage-overlay" onClick={onClose}>
             <div className="boardImage-window" onClick={(e) => e.stopPropagation()}>
 
-                {/* ── Top-right action bar ── */}
-                <div className="boardImage-actions">
+                {/* ── Top bar ── */}
+                <div className="boardImage-topBar">
 
-                    {/* Speed toggle */}
-                    <div className="boardImage-speedToggle" title="Slideshow speed">
-                        {(['slow', 'medium', 'fast']).map((s) => (
-                            <button
-                                key={s}
-                                className={`boardImage-speedBtn ${speed === s ? 'active' : ''}`}
-                                onClick={() => setSpeed(s)}
-                            >
-                                {s === 'slow' ? '1×' : s === 'medium' ? '2×' : '3×'}
-                            </button>
-                        ))}
+                    {/* LEFT: counter */}
+                    <div className="boardImage-counter">
+                        {hasCounter && (
+                            <div className="boardImage-counter-pill">
+                                <span className="boardImage-counter-current">{currentIndex + 1}</span>
+                                <span className="boardImage-counter-sep">/</span>
+                                <span className="boardImage-counter-total">{totalCount}</span>
+                            </div>
+                        )}
                     </div>
 
-                    {/* Play / Stop with progress ring */}
-                    <button
-                        className="boardImage-playBtn"
-                        onClick={toggleSlideshow}
-                        title={isPlaying ? 'Stop slideshow (Space)' : 'Play slideshow (Space)'}
-                    >
-                        <div className="boardImage-playBtn-inner">
-                            {isPlaying ? (
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
-                                    <rect x="2" y="1" width="4" height="12" rx="1" />
-                                    <rect x="8" y="1" width="4" height="12" rx="1" />
-                                </svg>
-                            ) : (
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
-                                    <polygon points="2,1 13,7 2,13" />
-                                </svg>
-                            )}
-                        </div>
+                    {/* CENTER: speed + play pill */}
+                    <div className="boardImage-centerPill">
+                        <div className="boardImage-centerPill-inner">
 
-                        {isPlaying && (
-                            <svg
-                                className="boardImage-progressRing"
-                                viewBox="0 0 50 50"
-                                xmlns="http://www.w3.org/2000/svg"
+                            {/* Speed buttons */}
+                            <div className="boardImage-speedGroup">
+                                {(['slow', 'medium', 'fast']).map((s) => (
+                                    <button
+                                        key={s}
+                                        className={`boardImage-speedBtn ${speed === s ? 'active' : ''}`}
+                                        onClick={() => setSpeed(s)}
+                                        title={`Speed: ${s}`}
+                                    >
+                                        {s === 'slow' ? '1×' : s === 'medium' ? '2×' : '3×'}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Divider */}
+                            <div className="boardImage-pillDivider" />
+
+                            {/* Play button with progress ring */}
+                            <button
+                                className="boardImage-playBtn"
+                                onClick={toggleSlideshow}
+                                title={isPlaying ? 'Stop slideshow (Space)' : 'Play slideshow (Space)'}
                             >
-                                <circle className="boardImage-progressRing-track" cx="25" cy="25" r={RADIUS} />
-                                <circle
-                                    className="boardImage-progressRing-fill"
-                                    cx="25" cy="25" r={RADIUS}
-                                    strokeDasharray={CIRCUMFERENCE}
-                                    strokeDashoffset={strokeDashoffset}
-                                />
-                            </svg>
-                        )}
-                    </button>
+                                <div className="boardImage-playBtn-inner">
+                                    {isPlaying ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                                            <path fillRule="evenodd" d="M4.5 7.5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-9a3 3 0 0 1-3-3v-9Z" clipRule="evenodd" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                                            <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+                                        </svg>
+                                    )}
+                                </div>
 
-                    <button className="boardImage-actionBtn" onClick={handleDownload} title="Download">↓</button>
-                    <button className="boardImage-close" onClick={onClose} title="Close">✕</button>
+                                {isPlaying && (
+                                    <svg
+                                        className="boardImage-progressRing"
+                                        viewBox="0 0 50 50"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle className="boardImage-progressRing-track" cx="25" cy="25" r={RADIUS} />
+                                        <circle
+                                            className="boardImage-progressRing-fill"
+                                            cx="25" cy="25" r={RADIUS}
+                                            strokeDasharray={CIRCUMFERENCE}
+                                            strokeDashoffset={strokeDashoffset}
+                                        />
+                                    </svg>
+                                )}
+                            </button>
+
+                        </div>
+                    </div>
+
+                    {/* RIGHT: download + close */}
+                    <div className="boardImage-rightActions">
+                        <button className="boardImage-actionBtn" onClick={handleDownload} title="Download">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
+                                <path fillRule="evenodd" d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v4.19l-1.72-1.72a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l3-3a.75.75 0 1 0-1.06-1.06l-1.72 1.72V10.5Z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                        <button className="boardImage-close" onClick={onClose} title="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
+                                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+
                 </div>
 
-                {/* ── Image counter (top-left) ── */}
-                {hasCounter && (
-                    <div className="boardImage-counter">
-                        {currentIndex + 1} <span className="boardImage-counter-sep">/</span> {totalCount}
-                    </div>
-                )}
+                {/* ── Navigation arrows ── */}
+                <button
+                    className="boardImage-nav boardImage-prev"
+                    onClick={() => { stopSlideshow(); onPrev?.(); }}
+                >
+                    ‹
+                </button>
+                <button
+                    className="boardImage-nav boardImage-next"
+                    onClick={() => { stopSlideshow(); onNext?.(); }}
+                >
+                    ›
+                </button>
 
-                {/* ── Keyboard hint (fades after 3 s) ── */}
+                {/* ── Keyboard hint ── */}
                 <div className={`boardImage-hint ${showHint ? 'visible' : ''}`}>
                     <span>⬅ ➡ navigate</span>
                     <span className="boardImage-hint-dot">·</span>
@@ -271,26 +296,10 @@ const BoardImage = ({
                     <span>Esc close</span>
                 </div>
 
-                {/* Previous */}
-                <button
-                    className="boardImage-nav boardImage-prev"
-                    onClick={() => { stopSlideshow(); onPrev?.(); }}
-                >
-                    ‹
-                </button>
-
-                {/* Next */}
-                <button
-                    className="boardImage-nav boardImage-next"
-                    onClick={() => { stopSlideshow(); onNext?.(); }}
-                >
-                    ›
-                </button>
-
                 {/* ── Scroll / zoom container ── */}
                 <div
                     ref={containerRef}
-                    className={`boardImage-scrollContainer ${zoomed ? 'zoomed' : ''} ${hasImages ? 'has-thumbs' : ''}`}
+                    className={`boardImage-scrollContainer ${zoomed ? 'zoomed' : ''}`}
                 >
                     <img
                         src={imageUrl}
@@ -317,6 +326,7 @@ const BoardImage = ({
                         ))}
                     </div>
                 )}
+
             </div>
         </div>,
         document.getElementById('modal-root')
