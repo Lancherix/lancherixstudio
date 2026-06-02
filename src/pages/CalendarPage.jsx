@@ -18,6 +18,16 @@ function CalendarPage() {
             </div>
 
           </div>
+          {/* ===== Hiddeble right section ===== */}
+          <aside className="content-projectPage-sources">
+            <div className="sources-section">
+              
+            </div>
+            <div className="sources-divider" />
+            <div className="sources-section">
+              
+            </div>
+          </aside>
         </section>
       </div>
     </div>
