@@ -1,0 +1,572 @@
+/* ==========================================================================
+   CALENDAR PAGE
+   ========================================================================== */
+
+.all-calendarPage {
+    display: flex;
+    justify-content: center;
+    height: 91vh;
+    overflow: hidden;
+}
+
+.window-calendarPage {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+
+    background: var(--theme);
+    backdrop-filter: blur(10px);
+    border: var(--borderTheme);
+    border-radius: 15px;
+    box-shadow: 8px 10px 20px -2px rgba(0,0,0,.6);
+
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   TOP BAR
+   ========================================================================== */
+
+.topbar-calendarPage {
+    height: 62px;
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 1.5rem;
+
+    border-bottom: 1px solid var(--altRow);
+
+    color: var(--textTheme);
+}
+
+.topbar-left-calendarPage,
+.topbar-center-calendarPage,
+.topbar-right-calendarPage {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.topbar-center-calendarPage {
+    flex: 1;
+    justify-content: center;
+}
+
+.cal-header-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--textTheme);
+    margin-left: .5rem;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+.cal-icon-btn,
+.cal-nav-btn,
+.cal-nav-btn-sm,
+.cal-btn-today,
+.cal-add-btn,
+.cal-view-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    color: var(--textTheme);
+    background: transparent;
+
+    transition: .2s ease;
+}
+
+.cal-icon-btn,
+.cal-nav-btn,
+.cal-add-btn {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+}
+
+.cal-icon-btn:hover,
+.cal-nav-btn:hover,
+.cal-add-btn:hover {
+    background: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+.cal-btn-today {
+    padding: .45rem .9rem;
+    border-radius: 8px;
+
+    border: var(--borderTheme);
+}
+
+.cal-btn-today:hover {
+    background: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+.cal-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================================
+   VIEW SWITCHER
+   ========================================================================== */
+
+.cal-view-switcher {
+    display: flex;
+
+    background: rgba(255,255,255,.04);
+    border: var(--borderTheme);
+
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cal-view-btn {
+    padding: .55rem 1rem;
+    font-size: .85rem;
+}
+
+.cal-view-btn.active {
+    background: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+
+.cal-search-wrap {
+    position: relative;
+}
+
+.cal-search {
+    width: 240px;
+
+    padding: .55rem .75rem .55rem 2.2rem;
+
+    border-radius: 8px;
+    border: var(--borderTheme);
+
+    background: transparent;
+
+    color: var(--textTheme);
+}
+
+.cal-search::placeholder {
+    color: var(--placeholderTheme);
+}
+
+.cal-search:focus {
+    outline: none;
+}
+
+.cal-search-icon {
+    position: absolute;
+    left: .65rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 15px;
+    height: 15px;
+
+    color: var(--placeholderTheme);
+}
+
+.cal-search-results {
+    position: absolute;
+    top: 110%;
+    right: 0;
+
+    width: 320px;
+
+    background: var(--theme);
+    backdrop-filter: blur(20px);
+
+    border: var(--borderTheme);
+    border-radius: 10px;
+
+    overflow: hidden;
+    z-index: 50;
+}
+
+.cal-search-result {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    padding: .75rem 1rem;
+
+    cursor: pointer;
+}
+
+.cal-search-result:hover {
+    background: var(--altRow);
+}
+
+.cal-search-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.cal-search-date {
+    margin-left: auto;
+    color: var(--placeholderTheme);
+    font-size: .8rem;
+}
+
+/* ==========================================================================
+   BODY
+   ========================================================================== */
+
+.body-calendarPage {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
+.sidebar-calendarPage {
+    width: 280px;
+    min-width: 280px;
+
+    border-right: var(--borderTheme);
+
+    overflow-y: auto;
+
+    padding: 1rem;
+}
+
+.cal-section-title {
+    color: var(--textTheme);
+    font-weight: 600;
+    margin-bottom: .8rem;
+}
+
+/* ==========================================================================
+   MINI CALENDAR
+   ========================================================================== */
+
+.cal-mini-month {
+    margin-bottom: 1.5rem;
+}
+
+.cal-mini-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: .75rem;
+
+    color: var(--textTheme);
+}
+
+.cal-mini-grid-full {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 4px;
+}
+
+.cal-mini-day-full,
+.cal-mini-dow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cal-mini-day-full {
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--textTheme);
+}
+
+.cal-mini-day-full:hover {
+    background: var(--altRow);
+}
+
+.selected-day {
+    background: var(--buttonColor);
+    color: var(--hoverTextColor);
+}
+
+.today-circle {
+    background: #3b82f6;
+    color: white !important;
+}
+
+.has-event::after {
+    content: "";
+    position: absolute;
+}
+
+/* ==========================================================================
+   CALENDARS LIST
+   ========================================================================== */
+
+.cal-calendar-row {
+    margin-bottom: .55rem;
+}
+
+.cal-calendar-check {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+
+    color: var(--textTheme);
+}
+
+.cal-check-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.cal-new-cal-input {
+    width: 100%;
+    margin-top: .75rem;
+
+    padding: .6rem;
+
+    border-radius: 8px;
+    border: var(--borderTheme);
+
+    background: transparent;
+    color: var(--textTheme);
+}
+
+/* ==========================================================================
+   UPCOMING
+   ========================================================================== */
+
+.cal-upcoming-item {
+    display: flex;
+    gap: .75rem;
+
+    padding: .6rem;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.cal-upcoming-item:hover {
+    background: var(--altRow);
+}
+
+.cal-upcoming-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    margin-top: 4px;
+}
+
+.cal-upcoming-title {
+    color: var(--textTheme);
+    font-size: .9rem;
+}
+
+.cal-upcoming-date {
+    color: var(--placeholderTheme);
+    font-size: .8rem;
+}
+
+/* ==========================================================================
+   MAIN VIEW
+   ========================================================================== */
+
+.main-calendarPage {
+    flex: 1;
+    overflow: hidden;
+    color: var(--textTheme);
+}
+
+/* ==========================================================================
+   MONTH VIEW
+   ========================================================================== */
+
+.cal-month-dow-row {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+
+    border-bottom: var(--borderTheme);
+}
+
+.cal-month-dow {
+    padding: .8rem;
+    text-align: center;
+    color: var(--placeholderTheme);
+}
+
+.cal-month-grid {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+
+    height: calc(100% - 48px);
+}
+
+.cal-month-cell {
+    border-right: 1px solid var(--altRow);
+    border-bottom: 1px solid var(--altRow);
+
+    padding: .5rem;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+.cal-month-cell:hover {
+    background: rgba(255,255,255,.03);
+}
+
+.cal-month-num {
+    font-size: .9rem;
+    color: var(--textTheme);
+}
+
+.cal-month-events {
+    margin-top: .4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* ==========================================================================
+   EVENT PILLS
+   ========================================================================== */
+
+.cal-event-pill {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+
+    min-height: 24px;
+
+    padding: .2rem .45rem;
+
+    border-radius: 6px;
+
+    font-size: .75rem;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cal-event-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cal-event-time {
+    opacity: .8;
+}
+
+/* ==========================================================================
+   DAY + WEEK
+   ========================================================================== */
+
+.cal-time-grid,
+.cal-week-grid {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.cal-hour-row,
+.cal-week-hour-row {
+    min-height: 60px;
+    border-bottom: 1px solid var(--altRow);
+}
+
+.cal-hour-label,
+.cal-hour-label-sm {
+    color: var(--placeholderTheme);
+    font-size: .75rem;
+}
+
+.cal-now-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    height: 2px;
+    background: #ef4444;
+
+    z-index: 20;
+}
+
+/* ==========================================================================
+   MODALS
+   ========================================================================== */
+
+.cal-modal-backdrop {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(4px);
+
+    z-index: 1000;
+}
+
+.cal-modal,
+.cal-quick-add {
+    background: var(--theme);
+    backdrop-filter: blur(20px);
+
+    border: var(--borderTheme);
+    border-radius: 15px;
+
+    color: var(--textTheme);
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+
+.cal-modal {
+    width: 560px;
+}
+
+.cal-quick-add {
+    width: 420px;
+    padding: 1.25rem;
+}
+
+.cal-modal-input,
+.cal-modal-textarea,
+.cal-modal-title-input {
+    background: transparent;
+    border: var(--borderTheme);
+    border-radius: 8px;
+
+    color: var(--textTheme);
+
+    padding: .65rem;
+}
+
+.cal-modal-input::placeholder,
+.cal-modal-textarea::placeholder,
+.cal-modal-title-input::placeholder {
+    color: var(--placeholderTheme);
+}
