@@ -13,8 +13,21 @@ function CalendarPage() {
 
         {/* ===== Main Content ===== */}
         <section className="content-projectPage">
+          {/* 🔑 Main column (folders on top, content below) */}
+          <div className="mainColumn-projectPage">
 
-          
+            {/* ===== Folder Tabs ===== */}
+            <div className="foldersBar-projectPage">
+              
+            </div>
+
+            {/* ===== Work Area ===== */}
+            <div className="workarea-projectPage">
+              
+            </div>
+
+          </div>
+
         </section>
       </div>
     </div>
