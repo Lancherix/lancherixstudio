@@ -54,3 +54,15 @@
   overflow-y: hidden;
   z-index: 3;
 }
+
+.rightPanel-calendarPage {
+  width: 23%;
+  min-width: 23%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--theme);
+  box-shadow: -6px 1px 16px -5px rgba(0, 0, 0, 0.3);
+  border-left: var(--borderTheme);
+  z-index: 4;
+}
