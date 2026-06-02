@@ -308,7 +308,7 @@ function CalendarPage() {
 
   /* ── State ── */
   const [currentDate,  setCurrentDate]  = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-  const [view,         setView]         = useState("month"); // month | week | day | year
+  const [view,         setView]         = useState("month");
   const [selectedDay,  setSelectedDay]  = useState(today);
   const [modalOpen,    setModalOpen]    = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
@@ -323,20 +323,8 @@ function CalendarPage() {
     {id:"holidays", name:"Holidays", color:"#ff9f0a", visible:true},
   ]);
 
-  const [events, setEvents] = useState([
-    { id:"d1", title:"Team standup",
-      date:new Date(today.getFullYear(),today.getMonth(),today.getDate()),
-      allDay:false, startTime:"09:00", endTime:"09:30",
-      calendarId:"work", color:"#0074ff", notes:"", repeat:"daily", alert:"5min", location:"" },
-    { id:"d2", title:"Lunch with Alex",
-      date:new Date(today.getFullYear(),today.getMonth(),today.getDate()+1),
-      allDay:false, startTime:"13:00", endTime:"14:00",
-      calendarId:"personal", color:"#32d74b", notes:"La Pepita", repeat:"none", alert:"30min", location:"La Pepita, Bogotá" },
-    { id:"d3", title:"Project deadline",
-      date:new Date(today.getFullYear(),today.getMonth(),today.getDate()+3),
-      allDay:true, startTime:null, endTime:null,
-      calendarId:"work", color:"#0074ff", notes:"", repeat:"none", alert:"1day", location:"" },
-  ]);
+  // No placeholder events — start blank
+  const [events, setEvents] = useState([]);
 
   /* ── Derived ── */
   const visibleCalIds = new Set(calendars.filter(c=>c.visible).map(c=>c.id));
@@ -397,15 +385,21 @@ function CalendarPage() {
      VIEW RENDERERS
   ══════════════════════════════════════════ */
 
-  /* ── MONTH ── */
+  /* ── MONTH ──
+     Always renders exactly 6 rows (42 cells) so the grid never
+     changes height or needs to scroll.
+  ── */
   const renderMonth = () => {
     const y=currentDate.getFullYear(), m=currentDate.getMonth();
     const dim=daysIn(y,m), fd=firstDay(y,m), dimPrev=daysIn(y,m-1);
     const cells=[];
+    // Leading days from previous month
     for(let i=fd-1;i>=0;i--)  cells.push({day:dimPrev-i, cur:false, date:new Date(y,m-1,dimPrev-i)});
-    for(let d=1;d<=dim;d++)    cells.push({day:d,         cur:true,  date:new Date(y,m,d)});
+    // Current month days
+    for(let d=1;d<=dim;d++)    cells.push({day:d, cur:true, date:new Date(y,m,d)});
+    // Trailing days — pad to exactly 42 (6 weeks)
     let nx=1;
-    while(cells.length%7!==0)  cells.push({day:nx++,      cur:false, date:new Date(y,m+1,nx-2)});
+    while(cells.length<42)     cells.push({day:nx++, cur:false, date:new Date(y,m+1,nx-2)});
 
     return (
       <div className="month-grid-calendarPage">
@@ -444,7 +438,11 @@ function CalendarPage() {
     );
   };
 
-  /* ── WEEK ── */
+  /* ── WEEK ──
+     Layout: left gutter (time labels) + 7 equal columns.
+     Each column header shows: DOW name + day number + all-day events.
+     The scrollable time grid below uses the same 7-column layout.
+  ── */
   const renderWeek = () => {
     const start=weekStart(currentDate);
     const days=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setDate(d.getDate()+i);return d;});
@@ -452,31 +450,35 @@ function CalendarPage() {
 
     return (
       <div className="week-view-calendarPage">
-        {/* all-day strip */}
-        <div className="week-allday-row-calendarPage">
-          <div className="week-gutter-calendarPage" style={{fontSize:"0.65rem",color:"var(--placeholderTheme)"}}>all-day</div>
-          {days.map((d,i)=>(
-            <div key={i} className={`week-allday-cell-calendarPage${sameDay(d,today)?" today-col":""}`}>
-              {eventsOnDay(d).filter(e=>e.allDay).map(ev=>(
-                <div key={ev.id} className="week-event-calendarPage allday-ev"
-                  style={{background:ev.color+"22",borderLeft:`3px solid ${ev.color}`,color:ev.color}}
-                  onClick={e=>openEdit(ev,e)}>{ev.title}</div>
-              ))}
-            </div>
-          ))}
-        </div>
-        {/* column headers */}
+        {/* Column headers — DOW + date number + all-day events inline */}
         <div className="week-header-calendarPage">
           <div className="week-gutter-calendarPage"/>
-          {days.map((d,i)=>(
-            <div key={i} className={`week-header-day-calendarPage${sameDay(d,today)?" today-col":""}`}
-              onClick={()=>{setSelectedDay(d);setView("day");setCurrentDate(new Date(d.getFullYear(),d.getMonth(),d.getDate()));}}>
-              <span className="week-dow-label-calendarPage">{DAYS_SHORT[d.getDay()]}</span>
-              <span className={`week-day-num-calendarPage${sameDay(d,today)?" today-num":""}`}>{d.getDate()}</span>
-            </div>
-          ))}
+          {days.map((d,i)=>{
+            const allDayEvs=eventsOnDay(d).filter(e=>e.allDay);
+            return (
+              <div key={i}
+                className={`week-header-day-calendarPage${sameDay(d,today)?" today-col":""}`}
+                onClick={()=>{setSelectedDay(d);setView("day");setCurrentDate(new Date(d.getFullYear(),d.getMonth(),d.getDate()));}}>
+                <span className="week-dow-label-calendarPage">{DAYS_SHORT[d.getDay()]}</span>
+                <span className={`week-day-num-calendarPage${sameDay(d,today)?" today-num":""}`}>{d.getDate()}</span>
+                {/* All-day events sit directly under the date number */}
+                {allDayEvs.length>0&&(
+                  <div className="week-allday-events-calendarPage">
+                    {allDayEvs.map(ev=>(
+                      <div key={ev.id} className="week-event-calendarPage allday-ev"
+                        style={{background:ev.color+"22",borderLeft:`3px solid ${ev.color}`,color:ev.color}}
+                        onClick={e=>{e.stopPropagation();openEdit(ev,e);}}>
+                        {ev.title}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-        {/* time grid */}
+
+        {/* Scrollable time grid */}
         <div className="week-grid-calendarPage">
           {hours.map(h=>(
             <React.Fragment key={h}>
@@ -697,7 +699,6 @@ function CalendarPage() {
             ))}
           </div>
 
-          {/* Spacer */}
           <div style={{flex:1}}/>
         </aside>
 
@@ -705,17 +706,15 @@ function CalendarPage() {
         <section className="calendar-calendarPage">
           <div className="mainColumn-calendarPage">
 
-            {/* ── Toolbar / options bar ── */}
+            {/* ── Toolbar ── */}
             <div className="options-calendarPage">
               <div className="toolbar-inner-calendarPage">
-                {/* Left: nav */}
                 <div className="toolbar-left-calendarPage">
                   <button className="toolbar-today-calendarPage" onClick={goToday}>Today</button>
                   <button className="toolbar-nav-calendarPage" onClick={()=>navigate(-1)}>‹</button>
                   <button className="toolbar-nav-calendarPage" onClick={()=>navigate(1)}>›</button>
                   <span className="toolbar-title-calendarPage">{headerLabel()}</span>
                 </div>
-                {/* Right: view switcher + add */}
                 <div className="toolbar-right-calendarPage">
                   {["month","week","day","year"].map(v=>(
                     <button key={v}
@@ -752,7 +751,6 @@ function CalendarPage() {
           {showRight && (
             <aside className="rightPanel-calendarPage">
 
-              {/* Selected day header */}
               <div className="right-day-header-calendarPage">
                 <div className={`right-day-num-calendarPage${sameDay(selectedDay,today)?" today-num":""}`}>
                   {selectedDay.getDate()}
@@ -768,7 +766,6 @@ function CalendarPage() {
                 </button>
               </div>
 
-              {/* Events for selected day */}
               <div className="right-events-section-calendarPage">
                 <h4 className="right-section-title-calendarPage">
                   {eventsOnDay(selectedDay).length
@@ -804,7 +801,6 @@ function CalendarPage() {
 
               <div className="right-divider-calendarPage"/>
 
-              {/* Upcoming events */}
               <div className="right-upcoming-section-calendarPage">
                 <h4 className="right-section-title-calendarPage">Upcoming</h4>
                 <div className="right-upcoming-list-calendarPage">
