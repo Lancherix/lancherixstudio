@@ -443,12 +443,15 @@
   flex-shrink: 0;
 }
 
-/* Header row: gutter + 7 equal columns */
+/* Header row: gutter + 7 equal columns.
+   padding-right matches the scrollbar width (5px) so the 7 header
+   columns are exactly as wide as the 7 grid columns below. */
 .week-header-calendarPage {
   display: grid;
   grid-template-columns: var(--week-gutter) repeat(7, 1fr);
   border-bottom: var(--borderTheme);
   flex-shrink: 0;
+  padding-right: 5px;
 }
 
 /* Each day column in the header */
