@@ -127,7 +127,7 @@
   text-align: center;
   font-size: 0.7rem;
   padding: 3px 0;
-  border-radius: 50%;
+  border-radius: 1000px;
   cursor: pointer;
   color: var(--textTheme);
   transition: background 0.15s;
@@ -144,7 +144,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 3px; height: 3px;
-  border-radius: 50%;
+  border-radius: 1000px;
   background: var(--buttonColor);
 }
 .mini-cal-day-calendarPage.today.has-events::after { background: var(--hoverTextColor); }
@@ -245,7 +245,7 @@
 .cal-dot-calendarPage {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 1000px;
   flex-shrink: 0;
   display: inline-block;
 }
@@ -364,7 +364,7 @@
 .month-cell-calendarPage.today .month-day-num-calendarPage {
   background: var(--buttonColor);
   color: var(--hoverTextColor);
-  border-radius: 50%;
+  border-radius: 1000px;
 }
 .month-cell-calendarPage.selected {
   background: var(--altRow);
@@ -488,7 +488,7 @@
 .week-day-num-calendarPage.today-num {
   background: var(--buttonColor);
   color: var(--hoverTextColor);
-  border-radius: 50%;
+  border-radius: 1000px;
   width: 26px;
   height: 26px;
   display: flex;
@@ -632,7 +632,7 @@
   width: 8px;
   height: 8px;
   background: var(--buttonColor);
-  border-radius: 50%;
+  border-radius: 1000px;
 }
 .day-event-block-calendarPage {
   display: flex;
@@ -684,7 +684,7 @@
   font-size: 0.6rem;
   text-align: center;
   padding: 1px 0;
-  border-radius: 50%;
+  border-radius: 1000px;
   cursor: pointer;
   color: var(--textTheme);
   transition: background 0.1s;
@@ -699,7 +699,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 3px; height: 3px;
-  border-radius: 50%;
+  border-radius: 1000px;
   background: var(--buttonColor);
 }
 .year-mini-day-calendarPage.today.has-events::after { background: #fff; }
@@ -979,7 +979,7 @@
   left: 3px; top: 3px;
   width: 14px; height: 14px;
   background: #fff;
-  border-radius: 50%;
+  border-radius: 1000px;
   transition: transform 0.2s;
 }
 .toggle-calendarPage input:checked + .toggle-slider-calendarPage { background: var(--buttonColor); }
@@ -1018,7 +1018,7 @@
 .cal-color-row-calendarPage { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .cal-color-dot-calendarPage {
   width: 20px; height: 20px;
-  border-radius: 50%;
+  border-radius: 1000px;
   cursor: pointer;
   transition: transform 0.15s;
   border: 2px solid transparent;
