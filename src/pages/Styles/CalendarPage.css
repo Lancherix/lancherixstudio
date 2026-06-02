@@ -479,11 +479,18 @@
   line-height: 1;
 }
 .week-day-num-calendarPage {
+  background: transparent;
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--textTheme);
   line-height: 1;
   margin-bottom: 2px;
+  border-radius: 1000px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .week-day-num-calendarPage.today-num {
   background: var(--buttonColor);
