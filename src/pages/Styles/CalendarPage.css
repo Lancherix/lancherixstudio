@@ -35,13 +35,20 @@
   overflow: hidden;
 }
 
-.foldersBar-projectPage {
+.mainColumn-calendarPage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.options-calendarPage {
   padding: 0.8rem 1.2rem 0;
   border-bottom: var(--borderTheme);
   z-index: 1;
 }
 
-.workarea-projectPage {
+.grid-calendarPage {
   flex: 1;
   background-color: var(--theme);
   overflow-y: hidden;

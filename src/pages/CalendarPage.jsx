@@ -9,13 +9,15 @@ function CalendarPage() {
 
         </aside>
         <section className="calendar-calendarPage">
-          <div className="foldersBar-projectPage">
+          <div className="mainColumn-calendarPage">
+            <div className="options-calendarPage">
+              
+            </div>
+            <div className="grid-calendarPage">
+              
+            </div>
 
           </div>
-          <div className="workarea-projectPage">
-
-          </div>
-
         </section>
       </div>
     </div>
