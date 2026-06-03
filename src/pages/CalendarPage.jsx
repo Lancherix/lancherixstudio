@@ -512,7 +512,7 @@ function CalendarPage() {
                 style={{background:ev.color+"22",borderLeft:`4px solid ${ev.color}`,color:ev.color}}
                 onClick={e=>openEdit(ev,e)}>
                 <span className="event-badge-calendarPage" style={{background:ev.color}}>All day</span>
-                <span>{ev.title}</span>
+                <span className="day-event-title-calendarPage">{ev.title}</span>
                 {ev.location&&<span className="event-location-calendarPage">📍 {ev.location}</span>}
               </div>
             ))}

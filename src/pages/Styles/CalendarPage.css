@@ -623,9 +623,16 @@
   cursor: pointer;
   transition: filter 0.15s;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.day-event-title-calendarPage {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
 }
 .day-event-calendarPage:hover { filter: brightness(0.9); }
 .day-grid-calendarPage { flex: 1; overflow-y: auto; }
