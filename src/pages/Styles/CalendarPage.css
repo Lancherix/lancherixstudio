@@ -409,7 +409,7 @@
 }
 .month-event-calendarPage:hover { filter: brightness(0.9); }
 .event-time-chip-calendarPage { font-size: 0.62rem; opacity: 0.8; flex-shrink: 0; }
-/* Title truncates — flex child needs min-width:0 to shrink below content size */
+/* Month view keeps ellipsis — cells are small and fixed-height */
 .event-title-clip-calendarPage {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -519,7 +519,8 @@
 .week-grid-calendarPage {
   display: grid;
   grid-template-columns: var(--week-gutter) repeat(7, 1fr);
-  grid-auto-rows: 44px;
+  grid-auto-rows: auto;  /* allow rows to grow with content */
+  min-height: 0;
   overflow-y: auto;
   flex: 1;
 }
@@ -533,6 +534,8 @@
   border-top: var(--borderTheme);
   /* Prevent the label from creating a new column */
   grid-column: 1;
+  /* Min height so empty rows still have some presence */
+  min-height: 44px;
 }
 .week-cell-calendarPage {
   border-left: var(--borderTheme);
@@ -540,31 +543,39 @@
   padding: 2px 3px;
   position: relative;
   transition: background 0.15s;
-  min-width: 0; /* prevent overflow from stretching columns */
+  min-width: 0;
+  min-height: 44px;
 }
 .week-cell-calendarPage:hover { background: var(--altRow); }
 .week-cell-calendarPage.today-col { background: rgba(0,116,255,0.03); }
+
+/* ── WEEK EVENTS: no ellipsis, text wraps ── */
 .week-event-calendarPage {
   font-size: 0.67rem;
-  padding: 1px 5px;
+  padding: 2px 5px;
   border-radius: 4px;
   font-weight: 500;
   cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-bottom: 1px;
+  /* allow text to wrap — no white-space:nowrap, no text-overflow */
+  white-space: normal;
+  overflow: visible;
+  word-break: break-word;
+  margin-bottom: 2px;
   transition: filter 0.15s;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
   display: block;
+  line-height: 1.4;
 }
 .week-event-calendarPage:hover { filter: brightness(0.88); }
-/* All-day events inside header columns share the same pill style */
+/* All-day events inside header columns */
 .week-event-calendarPage.allday-ev {
   font-size: 0.65rem;
   text-align: left;
+  white-space: normal;
+  overflow: visible;
+  word-break: break-word;
 }
 
 /* ═══════════════════════════════════════════════
@@ -600,9 +611,11 @@
   gap: 3px;
   flex-shrink: 0;
 }
+
+/* ── DAY all-day event row: no ellipsis ── */
 .day-event-calendarPage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   padding: 0.35rem 0.7rem;
   border-radius: 6px;
@@ -610,9 +623,9 @@
   font-weight: 500;
   cursor: pointer;
   transition: filter 0.15s;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  /* removed: overflow hidden, white-space nowrap, text-overflow ellipsis */
+  white-space: normal;
+  word-break: break-word;
   min-width: 0;
 }
 .day-event-calendarPage:hover { filter: brightness(0.9); }
@@ -650,6 +663,8 @@
   background: var(--buttonColor);
   border-radius: 50%;
 }
+
+/* ── DAY timed event block: no ellipsis ── */
 .day-event-block-calendarPage {
   display: flex;
   flex-direction: column;
@@ -660,19 +675,24 @@
   cursor: pointer;
   margin-bottom: 3px;
   transition: filter 0.15s;
-  overflow: hidden;
+  /* allow full text — no overflow hidden */
+  overflow: visible;
   min-width: 0;
+  word-break: break-word;
 }
 .day-event-block-calendarPage:hover { filter: brightness(0.9); }
-/* Every text line inside a day event block truncates with ellipsis */
+
+/* All text inside day event blocks wraps freely */
 .day-event-block-calendarPage > strong,
 .day-event-block-calendarPage > span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
   display: block;
   min-width: 0;
 }
+
 .event-badge-calendarPage {
   display: inline-block;
   font-size: 0.62rem;
@@ -681,14 +701,30 @@
   border-radius: 10px;
   font-weight: 600;
   align-self: flex-start;
-  /* badge text itself also truncates if somehow very long */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* badge is short by nature — keep on one line but allow wrap if needed */
+  white-space: normal;
+  word-break: break-word;
   max-width: 100%;
 }
-.event-location-calendarPage { font-size: 0.7rem; opacity: 0.8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.event-notes-calendarPage { font-size: 0.7rem; opacity: 0.7; font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Location and notes: no ellipsis in day/week ── */
+.event-location-calendarPage {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
+}
+.event-notes-calendarPage {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-style: italic;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
+}
 
 /* ═══════════════════════════════════════════════
    YEAR VIEW
@@ -798,7 +834,17 @@
   gap: 2px;
 }
 .right-event-item-calendarPage:hover { filter: brightness(0.93); }
-.right-event-title-calendarPage { font-size: 0.82rem; font-weight: 600; color: var(--textTheme); }
+
+/* ── Right panel event title: no ellipsis ── */
+.right-event-title-calendarPage {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--textTheme);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
+}
 .right-event-meta-calendarPage { font-size: 0.7rem; color: var(--placeholderTheme); }
 .right-event-notes-calendarPage { font-size: 0.68rem; color: var(--placeholderTheme); font-style: italic; }
 .right-event-badge-calendarPage {
@@ -817,7 +863,7 @@
 .right-upcoming-list-calendarPage { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
 .right-upcoming-item-calendarPage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   padding: 0.25rem 0.2rem;
   border-radius: 5px;
@@ -829,17 +875,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Fixed width so "Today" and short day names like "Mon" occupy the same space */
   width: 38px;
   min-width: 38px;
   flex-shrink: 0;
+  padding-top: 1px;
 }
 .right-upcoming-dayname-calendarPage {
   font-size: 0.58rem;
   text-transform: uppercase;
   color: var(--placeholderTheme);
   font-weight: 700;
-  /* Prevent "Today" from widening the column */
+  /* Keep day names (Mon/Tue/Today) on one line but allow wrapping for "Today" */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -855,13 +901,17 @@
   padding-left: 0.4rem;
   gap: 1px;
 }
+
+/* ── Upcoming event title: no ellipsis ── */
 .right-upcoming-title-calendarPage {
   font-size: 0.77rem;
   font-weight: 600;
   color: var(--textTheme);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* wrap instead of truncate */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
 }
 .right-upcoming-time-calendarPage { font-size: 0.65rem; color: var(--placeholderTheme); }
 

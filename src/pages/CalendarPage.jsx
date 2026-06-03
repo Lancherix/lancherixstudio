@@ -385,19 +385,13 @@ function CalendarPage() {
      VIEW RENDERERS
   ══════════════════════════════════════════ */
 
-  /* ── MONTH ──
-     Always renders exactly 6 rows (42 cells) so the grid never
-     changes height or needs to scroll.
-  ── */
+  /* ── MONTH ── */
   const renderMonth = () => {
     const y=currentDate.getFullYear(), m=currentDate.getMonth();
     const dim=daysIn(y,m), fd=firstDay(y,m), dimPrev=daysIn(y,m-1);
     const cells=[];
-    // Leading days from previous month
     for(let i=fd-1;i>=0;i--)  cells.push({day:dimPrev-i, cur:false, date:new Date(y,m-1,dimPrev-i)});
-    // Current month days
     for(let d=1;d<=dim;d++)    cells.push({day:d, cur:true, date:new Date(y,m,d)});
-    // Trailing days — pad to exactly 42 (6 weeks)
     let nx=1;
     while(cells.length<42)     cells.push({day:nx++, cur:false, date:new Date(y,m+1,nx-2)});
 
@@ -438,11 +432,7 @@ function CalendarPage() {
     );
   };
 
-  /* ── WEEK ──
-     Layout: left gutter (time labels) + 7 equal columns.
-     Each column header shows: DOW name + day number + all-day events.
-     The scrollable time grid below uses the same 7-column layout.
-  ── */
+  /* ── WEEK ── */
   const renderWeek = () => {
     const start=weekStart(currentDate);
     const days=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setDate(d.getDate()+i);return d;});
@@ -450,7 +440,6 @@ function CalendarPage() {
 
     return (
       <div className="week-view-calendarPage">
-        {/* Column headers — DOW + date number + all-day events inline */}
         <div className="week-header-calendarPage">
           <div className="week-gutter-calendarPage"/>
           {days.map((d,i)=>{
@@ -461,7 +450,6 @@ function CalendarPage() {
                 onClick={()=>{setSelectedDay(d);setView("day");setCurrentDate(new Date(d.getFullYear(),d.getMonth(),d.getDate()));}}>
                 <span className="week-dow-label-calendarPage">{DAYS_SHORT[d.getDay()]}</span>
                 <span className={`week-day-num-calendarPage${sameDay(d,today)?" today-num":""}`}>{d.getDate()}</span>
-                {/* All-day events sit directly under the date number */}
                 {allDayEvs.length>0&&(
                   <div className="week-allday-events-calendarPage">
                     {allDayEvs.map(ev=>(
@@ -478,7 +466,6 @@ function CalendarPage() {
           })}
         </div>
 
-        {/* Scrollable time grid */}
         <div className="week-grid-calendarPage">
           {hours.map(h=>(
             <React.Fragment key={h}>
@@ -492,7 +479,7 @@ function CalendarPage() {
                       <div key={ev.id} className="week-event-calendarPage"
                         style={{background:ev.color+"22",borderLeft:`3px solid ${ev.color}`,color:ev.color}}
                         onClick={e=>openEdit(ev,e)}>
-                        <span style={{fontSize:"0.65rem",marginRight:4}}>{ev.startTime}</span>{ev.title}
+                        <span style={{fontSize:"0.62rem",marginRight:4,opacity:0.8}}>{ev.startTime}</span>{ev.title}
                       </div>
                     ))}
                   </div>
@@ -525,7 +512,7 @@ function CalendarPage() {
                 style={{background:ev.color+"22",borderLeft:`4px solid ${ev.color}`,color:ev.color}}
                 onClick={e=>openEdit(ev,e)}>
                 <span className="event-badge-calendarPage" style={{background:ev.color}}>All day</span>
-                <span className="event-title-clip-calendarPage">{ev.title}</span>
+                <span>{ev.title}</span>
                 {ev.location&&<span className="event-location-calendarPage">📍 {ev.location}</span>}
               </div>
             ))}
@@ -638,7 +625,6 @@ function CalendarPage() {
         {/* ═══════════════ LEFT SIDEBAR ═══════════════ */}
         <aside className="panel-calendarPage">
 
-          {/* New event button */}
           <button className="add-event-btn-calendarPage" onClick={()=>openNew(selectedDay)}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd"/>
@@ -646,10 +632,8 @@ function CalendarPage() {
             New Event
           </button>
 
-          {/* Mini calendar */}
           {renderMiniCal()}
 
-          {/* Search */}
           <div className="panel-search-calendarPage">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd"/>
@@ -658,7 +642,6 @@ function CalendarPage() {
               onChange={e=>setSearchTerm(e.target.value)} className="panel-search-input-calendarPage"/>
           </div>
 
-          {/* Search results */}
           {searchTerm&&(
             <div className="search-results-calendarPage">
               {searchResults.length===0
@@ -678,7 +661,6 @@ function CalendarPage() {
             </div>
           )}
 
-          {/* My Calendars */}
           <div className="panel-section-calendarPage">
             <div className="panel-section-header-calendarPage">
               <span>My Calendars</span>
@@ -706,7 +688,6 @@ function CalendarPage() {
         <section className="calendar-calendarPage">
           <div className="mainColumn-calendarPage">
 
-            {/* ── Toolbar ── */}
             <div className="options-calendarPage">
               <div className="toolbar-inner-calendarPage">
                 <div className="toolbar-left-calendarPage">
@@ -737,7 +718,6 @@ function CalendarPage() {
               </div>
             </div>
 
-            {/* ── Calendar grid ── */}
             <div className="grid-calendarPage">
               {view==="month" && renderMonth()}
               {view==="week"  && renderWeek()}
