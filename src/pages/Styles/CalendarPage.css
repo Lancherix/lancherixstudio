@@ -608,6 +608,8 @@
   flex-direction: column;
   gap: 3px;
   flex-shrink: 0;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .day-event-calendarPage {
