@@ -475,8 +475,10 @@
   flex-direction: column;
   align-items: center;
   gap: 1px;
-  /* Allow height to grow if there are many all-day events */
   min-height: 52px;
+  /* Prevent all-day event pills from bleeding into adjacent columns */
+  min-width: 0;
+  overflow: hidden;
 }
 .week-header-day-calendarPage:hover { background: var(--altRow); }
 .week-header-day-calendarPage.today-col { background: rgba(0,116,255,0.04); }
