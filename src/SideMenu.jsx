@@ -294,7 +294,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
           </Link>
         </li>
 
-        {/* Calendar */}
+        {/* Calendar 
         <li>
           <Link to="/calendar">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -304,7 +304,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
 
             {!collapsed && <span className="menu-text">Calendar</span>}
           </Link>
-        </li>
+        </li>*/}
 
         {/* User Projects */}
         {visibleProjects.length > 0 && (
