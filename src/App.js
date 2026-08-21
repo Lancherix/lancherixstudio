@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { jwtDecode } from 'jwt-decode';
 
 import logo from './icons/loginLogo.png';
+import symbol from '../public/logo192.png';
 
 import SearchBar from './pages/SearchBar';
 import HeaderBar from './pages/Mobile/HeaderBar';
@@ -42,6 +43,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
   const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [loading, setLoading] = useState(true);
   const [collapsed, setCollapsed] = useState(() => {
     const storedValue = localStorage.getItem('menuCollapsed');
     return storedValue !== null ? JSON.parse(storedValue) : true;
@@ -145,6 +147,8 @@ const App = () => {
       } catch (error) {
         console.error('Error fetching user data:', error);
         setError(`Failed to fetch user data. ${error.message}`);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -301,6 +305,14 @@ const App = () => {
       </div>
     );
   }*/
+
+  if (loading) {
+    return (
+      <div className="app-loading-screen">
+        <img src={symbol} alt="Lancherix" className="app-loading-logo" />
+      </div>
+    );
+  }
 
   return (
     <Router>

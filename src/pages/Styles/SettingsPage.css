@@ -305,13 +305,6 @@
     transform: scale(1.05);
 }
 
-.resultIcon-coolPage {
-    width: 1vw;
-    margin: 0 0.8vw 0 0;
-    stroke: aliceblue;
-    user-select: none;
-}
-
 .options-settingsPage svg {
     width: 1vw;
     margin: 0 0.8vw 0 0;
