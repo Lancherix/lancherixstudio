@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import symbol from '../assets/symbolBlue.png';
-
 const AuthRedirector = ({ setToken }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,7 +32,6 @@ const AuthRedirector = ({ setToken }) => {
 
   return (
       <div className="app-loading-screen">
-        <img src={symbol} alt="Lancherix" className="app-loading-logo" />
       </div>
     );
 };
