@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { jwtDecode } from 'jwt-decode';
 
 import logo from './icons/loginLogo.png';
-import symbol from '../public/logo192.png';
+import symbol from './assets/symbolBlue.png';
 
 import SearchBar from './pages/SearchBar';
 import HeaderBar from './pages/Mobile/HeaderBar';
