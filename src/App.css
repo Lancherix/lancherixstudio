@@ -353,6 +353,17 @@ button:hover {
   animation: logoPulse 4s ease-in-out infinite;
 }
 
+@keyframes logoPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
 @media (max-width: 768px) {
 
   .header-homePage {
