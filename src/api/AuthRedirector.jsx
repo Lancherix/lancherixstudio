@@ -30,7 +30,11 @@ const AuthRedirector = ({ setToken }) => {
     }
   }, [location, navigate, setToken]);
 
-  return <div>Redirecting...</div>;
+  return (
+      <div className="app-loading-screen">
+        <img src={symbol} alt="Lancherix" className="app-loading-logo" />
+      </div>
+    );
 };
 
 export default AuthRedirector;
