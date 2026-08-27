@@ -136,7 +136,7 @@ Edge and IE
   background-color: var(--buttonColor);
   color: var(--hoverTextColor);
   cursor: pointer;
-  stroke: #ffffff;
+  stroke: var(--textTheme);
 }
 
 .aResult-homePage svg:hover {
