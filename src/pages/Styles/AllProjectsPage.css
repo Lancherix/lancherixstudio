@@ -189,3 +189,7 @@
     vertical-align: middle;
     color: var(--buttonColor);
 }
+
+.addProjectBtn-projectsPage .allProjectBtn-project svg {
+  color: var(--textTheme);
+}

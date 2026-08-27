@@ -118,7 +118,7 @@ const AllProjectsPage = () => {
                                 >
                                     {/* Left */}
                                     <div className="headerLeft-projectsPage">
-                                        <button className="addProjectBtn-projectsPage">
+                                        <button className="addProjectBtn-projectsPage allProjectBtn-project">
                                             <ProjectIcon name={project.icon} size={18} />
                                         </button>
                                     </div>
