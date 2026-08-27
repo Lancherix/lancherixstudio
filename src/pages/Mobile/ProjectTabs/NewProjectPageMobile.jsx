@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import './NewProjectPageMobile.css';
 
+import IconPicker from '../../IconPicker';
+
 const NewProjectPageMobile = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
   const [inviteQuery, setInviteQuery] = useState('');
@@ -10,7 +12,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
   const [collaborators, setCollaborators] = useState([]);
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
-  const [icon, setIcon] = useState('🚀');
+  const [icon, setIcon] = useState('rocket');
   const [visibility, setVisibility] = useState('private');
   const [subject, setSubject] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -23,7 +25,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
 
   const resetForm = () => {
     setName('');
-    setIcon('🚀');
+    setIcon('rocket');
     setVisibility('private');
     setSubject('');
     setDeadline('');
@@ -169,18 +171,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
           {/* Icon + Name row */}
           <div className="npm-icon-name-row">
             <div className="npm-icon-picker">
-              <input
-                type="text"
-                className="npm-icon-input"
-                value={icon}
-                onChange={e => {
-                  const val = e.target.value;
-                  const emojiRegex = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*/gu;
-                  const match = val.match(emojiRegex);
-                  setIcon(match ? match[0] : '');
-                }}
-                maxLength={2}
-              />
+              <IconPicker value={icon} onChange={setIcon} />
               <span className="npm-icon-hint">Icon</span>
             </div>
             <div className="npm-name-field">

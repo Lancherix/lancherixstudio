@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import NewProjectPage from './pages/NewProjectPage';
 import { language } from './language';
+import ProjectIcon from './icons/ProjectIcon';
 
 import './SideMenu.css';
 
@@ -313,7 +314,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
               <li key={project._id}>
                 <Link to={`/projects/${project.slug}`} className="menu-link">
                   <span className="menu-icon project-emoji">
-                    {project.icon || "📁"}
+                    <ProjectIcon name={project.icon} size={18} />
                   </span>
                   {!collapsed && (
                     <span className="menu-text">

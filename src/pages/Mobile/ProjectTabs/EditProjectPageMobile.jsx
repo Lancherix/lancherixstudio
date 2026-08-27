@@ -2,9 +2,11 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './EditProjectPageMobile.css';
 
+import IconPicker from '../../IconPicker';
+
 const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
   const [name, setName] = useState('');
-  const [icon, setIcon] = useState('📁');
+  const [icon, setIcon] = useState('folder');
   const [visibility, setVisibility] = useState('private');
   const [subject, setSubject] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -23,7 +25,7 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
   useEffect(() => {
     if (!project) return;
     setName(project.name || '');
-    setIcon(project.icon || '📁');
+    setIcon(project.icon || 'folder');
     setVisibility(project.visibility || 'private');
     setSubject(project.subject || '');
     setDeadline(project.deadline ? project.deadline.slice(0, 16) : '');
@@ -196,18 +198,7 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
           {/* Icon + Name */}
           <div className="epm-icon-name-row">
             <div className="epm-icon-picker">
-              <input
-                type="text"
-                className="epm-icon-input"
-                value={icon}
-                onChange={e => {
-                  const val = e.target.value;
-                  const emojiRegex = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*/gu;
-                  const match = val.match(emojiRegex);
-                  setIcon(match ? match[0] : '');
-                }}
-                maxLength={2}
-              />
+              <IconPicker value={icon} onChange={setIcon} />
               <span className="epm-icon-hint">Icon</span>
             </div>
             <div className="epm-name-field">

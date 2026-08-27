@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import './Styles/AllProjectsPage.css';
 
 import NewProjectPage from './NewProjectPage';
+import ProjectIcon from '../icons/ProjectIcon';
 
 const AllProjectsPage = () => {
     const [projects, setProjects] = useState([]);
@@ -118,7 +119,7 @@ const AllProjectsPage = () => {
                                     {/* Left */}
                                     <div className="headerLeft-projectsPage">
                                         <button className="addProjectBtn-projectsPage">
-                                            {project.icon || "📁"}
+                                            <ProjectIcon name={project.icon} size={18} />
                                         </button>
                                     </div>
 

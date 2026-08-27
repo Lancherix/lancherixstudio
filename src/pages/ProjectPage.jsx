@@ -4,6 +4,7 @@ import "./Styles/ProjectPage.css";
 import EditProjectPage from './EditProjectPage';
 import EditTaskPage from './EditTaskPage';
 import BoardTab from './BoardTab';
+import ProjectIcon from '../icons/ProjectIcon';
 
 const ProjectPage = () => {
   const { slug, filename } = useParams();
@@ -394,7 +395,7 @@ const ProjectPage = () => {
           {/* === Project Identity === */}
           <div className="projectHeader-projectPage">
             <div className="projectIcon-projectPage">
-              {project.icon || "📁"}
+              <ProjectIcon name={project.icon} size={26} />
             </div>
             <div className="projectDetails-projectPage">
               <div className="projectTitleRow">

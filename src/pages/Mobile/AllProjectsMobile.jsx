@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './AllProjectsMobile.css';
 
+import ProjectIcon from '../../icons/ProjectIcon';
+
 const AllProjectsMobile = () => {
     const [profilePicture, setProfilePicture] = useState(
         "/Images/defaultProfilePicture.png"
@@ -123,7 +125,7 @@ const AllProjectsMobile = () => {
 
                             <div className="project-left-mobile">
                                 <span className="project-emoji-mobile">
-                                    {project.icon || "📎"}
+                                    <ProjectIcon name={project.icon} size={18} />
                                 </span>
 
                                 <span className="project-name-mobile">

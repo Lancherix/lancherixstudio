@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import "./Styles/NewProjectPage.css";
 
+import IconPicker from './IconPicker';
+
 const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
   const [error, setError] = useState(null);
   const [inviteQuery, setInviteQuery] = useState("");
@@ -10,7 +12,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
   const [username, setUsername] = useState("");
 
   const [name, setName] = useState("");
-  const [icon, setIcon] = useState("📁");
+  const [icon, setIcon] = useState("folder");
   const [visibility, setVisibility] = useState("private");
   const [subject, setSubject] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -23,7 +25,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
     if (!project) return;
 
     setName(project.name || "");
-    setIcon(project.icon || "📁");
+    setIcon(project.icon || "folder");
     setVisibility(project.visibility || "private");
     setSubject(project.subject || "");
     setDeadline(project.deadline ? project.deadline.slice(0, 16) : "");
@@ -198,22 +200,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
 
           <div className="form-row form-row-a form-row-name">
             <label>Icon</label>
-            <input
-              type="text"
-              value={icon}
-              onChange={(e) => {
-                const value = e.target.value;
-                const emojiRegex = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*/gu;
-                const match = value.match(emojiRegex);
-                if (match) {
-                  setIcon(match[0]);
-                } else {
-                  setIcon('');
-                }
-              }}
-              placeholder="Choose an emoji (Windows: Win + (.) or Mac: Ctrl + Cmd + Space)"
-              maxLength={2}
-            />
+            <IconPicker value={icon} onChange={setIcon} />
           </div>
 
           <div className="form-row form-row-a form-row-privacy">

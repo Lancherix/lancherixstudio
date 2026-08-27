@@ -4,6 +4,7 @@ import "./ProjectPageMobile.css";
 import EditProjectPageMobile from '../Mobile/ProjectTabs/EditProjectPageMobile';
 import EditTaskPage from '../EditTaskPage';
 import BoardTabMobile from './ProjectTabs/BoardTabMobile';
+import ProjectIcon from '../../icons/ProjectIcon';
 
 const ProjectPageMobile = () => {
   const { slug } = useParams();
@@ -327,7 +328,7 @@ const ProjectPageMobile = () => {
       {/* ===== Top Header Bar ===== */}
       <header className="mobile-header">
         <div className="mobile-header-identity">
-          <span className="mobile-header-icon">{project.icon || "📁"}</span>
+          <span className="mobile-header-icon"><ProjectIcon name={project.icon} size={18} /></span>
           <div className="mobile-header-text">
             <div className="mobile-header-title-row">
               <span className="mobile-header-name">{project.name}</span>
