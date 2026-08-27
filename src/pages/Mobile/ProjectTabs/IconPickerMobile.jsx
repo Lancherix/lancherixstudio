@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { ICON_KEYS } from '../icons/registry';
+import { ICON_KEYS } from '../../../icons/registry';
 import ProjectIcon from '../../../icons/ProjectIcon';
 import './IconPickerMobile.css';
 
