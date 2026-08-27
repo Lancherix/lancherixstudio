@@ -5,6 +5,7 @@ import EditProjectPage from './EditProjectPage';
 import EditTaskPage from './EditTaskPage';
 import BoardTab from './BoardTab';
 import ProjectIcon from '../icons/ProjectIcon';
+import ConfirmDialog from './ConfirmDialog';
 
 const ProjectPage = () => {
   const { slug, filename } = useParams();
@@ -29,6 +30,8 @@ const ProjectPage = () => {
   const [editProjectOpen, setEditProjectOpen] = useState(false);
   const [editTaskOpen, setEditTaskOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
+  const [taskPendingDelete, setTaskPendingDelete] = useState(null);
 
   const applyFormat = (command, value = null) => {
     document.execCommand(command, false, value);
@@ -185,9 +188,12 @@ const ProjectPage = () => {
 
   const handleDeleteTask = async (taskId) => {
     if (!taskId) return;
+    setTaskPendingDelete(taskId);
+  };
 
-    const confirmDelete = window.confirm("Are you sure you want to delete this task?");
-    if (!confirmDelete) return;
+  const confirmDeleteTask = async () => {
+    const taskId = taskPendingDelete;
+    if (!taskId) return;
 
     try {
       const token = localStorage.getItem("token");
@@ -209,6 +215,8 @@ const ProjectPage = () => {
     } catch (err) {
       console.error(err);
       alert(err.message);
+    } finally {
+      setTaskPendingDelete(null);
     }
   };
 
@@ -313,9 +321,11 @@ const ProjectPage = () => {
   };
 
   /* === leave project === */
-  const handleLeave = async () => {
-    if (!window.confirm("Leave this project?")) return;
+  const handleLeave = () => {
+    setConfirmLeaveOpen(true);
+  };
 
+  const confirmLeaveProject = async () => {
     try {
       const token = localStorage.getItem("token");
       await fetch(
@@ -889,6 +899,21 @@ const ProjectPage = () => {
             prev.map((t) => (t._id === updatedTask._id ? updatedTask : t))
           );
         }}
+      />
+      <ConfirmDialog
+        isOpen={!!taskPendingDelete}
+        onClose={() => setTaskPendingDelete(null)}
+        onConfirm={confirmDeleteTask}
+        title="Are you sure you want to delete this task?"
+        confirmText="Delete"
+      />
+
+      <ConfirmDialog
+        isOpen={confirmLeaveOpen}
+        onClose={() => setConfirmLeaveOpen(false)}
+        onConfirm={confirmLeaveProject}
+        title="Leave this project?"
+        confirmText="Leave"
       />
       {error && <p className="error-message">{error}</p>}
     </div>

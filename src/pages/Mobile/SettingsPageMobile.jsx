@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LogoutPage from '../LogoutPage';
+import LogoutPageMobile from './LogoutPageMobile';
 import './SettingsPageMobile.css';
 import { language } from '../../language';
 
@@ -553,7 +553,7 @@ const SettingsPageMobile = () => {
       <div className="mob-window">
         {renderContent()}
       </div>
-      <LogoutPage
+      <LogoutPageMobile
         isOpen={showLogoutConfirmation}
         onClose={() => setShowLogoutConfirmation(false)}
       />

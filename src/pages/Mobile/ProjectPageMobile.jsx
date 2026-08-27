@@ -5,6 +5,7 @@ import EditProjectPageMobile from '../Mobile/ProjectTabs/EditProjectPageMobile';
 import EditTaskPage from '../EditTaskPage';
 import BoardTabMobile from './ProjectTabs/BoardTabMobile';
 import ProjectIcon from '../../icons/ProjectIcon';
+import ConfirmDialogMobile from './ConfirmDialogMobile';
 
 const ProjectPageMobile = () => {
   const { slug } = useParams();
@@ -29,6 +30,8 @@ const ProjectPageMobile = () => {
   const [editProjectOpen, setEditProjectOpen] = useState(false);
   const [editTaskOpen, setEditTaskOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
+  const [taskPendingDelete, setTaskPendingDelete] = useState(null);
 
   const applyFormat = (command, value = null) => {
     document.execCommand(command, false, value);
@@ -152,9 +155,14 @@ const ProjectPageMobile = () => {
     } catch (err) { console.error(err); alert(err.message); }
   };
 
-  const handleDeleteTask = async (taskId) => {
+  const handleDeleteTask = (taskId) => {
     if (!taskId) return;
-    if (!window.confirm("Delete this task?")) return;
+    setTaskPendingDelete(taskId);
+  };
+
+  const confirmDeleteTask = async () => {
+    const taskId = taskPendingDelete;
+    if (!taskId) return;
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
@@ -164,7 +172,12 @@ const ProjectPageMobile = () => {
       if (!res.ok) throw new Error(`Failed to delete task: ${res.status}`);
       setTasks(prev => prev.filter(t => t._id !== taskId));
       setSelectedTaskId(null);
-    } catch (err) { console.error(err); alert(err.message); }
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    } finally {
+      setTaskPendingDelete(null);
+    }
   };
 
   const toggleTaskComplete = async (task) => {
@@ -252,8 +265,9 @@ const ProjectPageMobile = () => {
     } catch (err) { console.error("Failed to update links", err); }
   };
 
-  const handleLeave = async () => {
-    if (!window.confirm("Leave this project?")) return;
+  const handleLeave = () => setConfirmLeaveOpen(true);
+
+  const confirmLeaveProject = async () => {
     try {
       const token = localStorage.getItem("token");
       await fetch(
@@ -633,6 +647,21 @@ const ProjectPageMobile = () => {
         onUpdated={(updatedTask) => {
           setTasks(prev => prev.map(t => t._id === updatedTask._id ? updatedTask : t));
         }}
+      />
+      <ConfirmDialogMobile
+        isOpen={!!taskPendingDelete}
+        onClose={() => setTaskPendingDelete(null)}
+        onConfirm={confirmDeleteTask}
+        title="Delete this task?"
+        confirmText="Delete"
+      />
+
+      <ConfirmDialogMobile
+        isOpen={confirmLeaveOpen}
+        onClose={() => setConfirmLeaveOpen(false)}
+        onConfirm={confirmLeaveProject}
+        title="Leave this project?"
+        confirmText="Leave"
       />
     </div>
   );

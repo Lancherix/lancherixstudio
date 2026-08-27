@@ -5,11 +5,6 @@ import './Styles/SettingsPage.css';
 import './Styles/AspectPage.css';
 import { language } from '../language';
 
-import UserIcon from '../icons/profile.svg';
-import AspectIcon from '../icons/aspect.svg';
-import TermsOfUseIcon from '../icons/termsofuse.svg';
-import LogoutIcon from '../icons/logout.svg';
-
 const SettingsPage = () => {
   const [selectedOption, setSelectedOption] = useState('General');
   const [wallpaper, setWallpaper] = useState('');
