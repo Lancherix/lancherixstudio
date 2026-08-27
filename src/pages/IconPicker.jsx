@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { ICON_KEYS } from '../icons/registry';
+import { ICON_TAGS } from '../icons/iconTags';
 import ProjectIcon from '../icons/ProjectIcon';
 import './Styles/IconPicker.css';
 
@@ -58,11 +59,31 @@ const IconPicker = ({ value, onChange }) => {
     }
   }, [open]);
 
+  // Precompute a lowercase "searchable blob" per icon key once:
+  // the key name itself + its tag list, joined into one string.
+  // Avoids rebuilding/lowercasing tag arrays on every keystroke.
+  const searchIndex = useMemo(() => {
+    const index = {};
+    for (const key of ICON_KEYS) {
+      const tags = ICON_TAGS[key] || [];
+      index[key] = `${key} ${tags.join(' ')}`.toLowerCase();
+    }
+    return index;
+  }, []);
+
   const filteredKeys = useMemo(() => {
-    if (!query.trim()) return ICON_KEYS;
-    const q = query.trim().toLowerCase();
-    return ICON_KEYS.filter(key => key.toLowerCase().includes(q));
-  }, [query]);
+    const trimmed = query.trim().toLowerCase();
+    if (!trimmed) return ICON_KEYS;
+
+    // Split into words so "electric car" or "public transit" match
+    // icons whose combined key+tags contain every word, in any order.
+    const tokens = trimmed.split(/\s+/).filter(Boolean);
+
+    return ICON_KEYS.filter((key) => {
+      const haystack = searchIndex[key];
+      return tokens.every((token) => haystack.includes(token));
+    });
+  }, [query, searchIndex]);
 
   return (
     <div className="icon-picker">
@@ -89,7 +110,7 @@ const IconPicker = ({ value, onChange }) => {
             ref={searchRef}
             type="text"
             className="icon-picker-search"
-            placeholder="Search icons..."
+            placeholder="Search icons or categories..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             spellCheck={false}
