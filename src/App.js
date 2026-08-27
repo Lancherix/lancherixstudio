@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import classnames from 'classnames';
 import { jwtDecode } from 'jwt-decode';
+import { useTranslation } from 'react-i18next';
 
 import logo from './icons/loginLogo.png';
 import symbol from './assets/symbolBlue.png';
@@ -37,6 +38,7 @@ import './pages/Styles/RegisterPage.css';
 const isUrl = (query) => /^(ftp|http[s]?):\/\/[^ "]+(\.[^ "]+)+$/.test(query);
 
 const App = () => {
+  const { t } = useTranslation();
   const [results, setResults] = useState({
     users: [],
     projects: []
@@ -208,38 +210,6 @@ const App = () => {
   };
 
   const renderResult = (result, type) => {
-    /*if (type === 'itunes') {
-      if (!result.trackName || !result.collectionName) {
-        return null;
-      }
-
-      let imgSrc;
-      switch (result.kind) {
-        case 'song':
-          imgSrc = MusicIcon;
-          break;
-        case 'tv-episode':
-          imgSrc = TvIcon;
-          break;
-        case 'podcast':
-          imgSrc = HeadphonesIcon;
-          break;
-        default:
-          imgSrc = GlobeIcon;
-          break;
-      }
-
-      return (
-        <div key={result.trackId}>
-          <div className='aResult-homePage'>
-            <img src={imgSrc} className='resultIcon-homePage' alt="Icon" />
-            {result.trackName || result.collectionName}
-          </div>
-        </div>
-      );
-    }*/
-
-
     const profilePicture = result.profilePicture?.url || 'https://studio.lancherix.com/Images/defaultProfilePicture.png';
     return (
       <Link to={`/member/${result.username}`} key={result._id} className='aResultUser-homePage' onClick={() => setResultsScrollClass('resultsScroll-homePage noResult-homePage')}>
@@ -297,16 +267,6 @@ const App = () => {
     window.open(query, '_blank');
   };
 
-  /*if (isMobile) {
-    return (
-      <div className="mobile-block">
-        <div><img src={logo} alt='Lancherix' />
-          This service is currently not available on mobile devices.
-          Access it from a desktop or laptop computer.</div>
-      </div>
-    );
-  }*/
-
   if (loading) {
     return (
       <div className="app-loading-screen">
@@ -336,7 +296,7 @@ const App = () => {
               {isUrl(query) && (
                 <div className='aResult-homePage' onClick={handleButtonClick}>
                   <img src={GlobeIcon} className='resultIcon-homePage' alt="Icon" />
-                  <p className='aResult-url'>Open URL in a new tab.</p>
+                  <p className='aResult-url'>{t('openUrlNewTab')}</p>
                 </div>
               )}
               {error && <p>{error}</p>}
