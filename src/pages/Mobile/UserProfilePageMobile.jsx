@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './UserProfilePageMobile.css';
 
+import ProjectIcon from '../../icons/ProjectIcon';
+
 const UserProfilePageMobile = () => {
   const { username } = useParams();
 
@@ -84,7 +86,7 @@ const UserProfilePageMobile = () => {
                 target="_blank"
                 className="upm__card"
               >
-                <span className="upm__cardIcon">{project.icon || '📁'}</span>
+                <span className="upm__cardIcon"><ProjectIcon name={project.icon} size={26} /></span>
                 <h3 className="upm__cardName">{project.name}</h3>
               </Link>
             ))}

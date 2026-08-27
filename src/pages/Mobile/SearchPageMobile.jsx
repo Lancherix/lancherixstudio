@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import './SearchPageMobile.css';
+import ProjectIcon from '../../icons/ProjectIcon';
 
 const SearchPageMobile = ({ isOpen, onClose }) => {
   const [closing, setClosing] = useState(false);
@@ -190,7 +191,7 @@ const SearchPageMobile = ({ isOpen, onClose }) => {
                     className="sbm-result-row"
                     onClick={handleResultClick}
                   >
-                    <div className="sbm-project-icon">{project.icon || '📁'}</div>
+                    <div className="sbm-project-icon"><ProjectIcon name={project.icon} size={26} /></div>
                     <div className="sbm-result-info">
                       <strong>{project.name}</strong>
                       <span>{project.owner?.firstName} {project.owner?.lastName}</span>

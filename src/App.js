@@ -15,6 +15,7 @@ import ForwardIcon from './icons/forward.svg';
 import BackIcon from './icons/back.svg';
 import './App.css';
 
+import ProjectIcon from './icons/ProjectIcon';
 import SideMenu from './SideMenu';
 import MenuMobile from './MenuMobile';
 import HomePage from './pages/HomePage';
@@ -269,7 +270,7 @@ const App = () => {
         }
       >
         <div className="resultIcon-homePage">
-          {project.icon || '📁'}
+          <ProjectIcon name={project.icon} size={26} />
         </div>
 
         <p>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './UserProfilePage.css';
+import ProjectIcon from '../../icons/ProjectIcon';
 
 const UserProfilePage = () => {
   const { username } = useParams();
@@ -116,7 +117,7 @@ const UserProfilePage = () => {
                   >
                     {/* Project icon */}
                     <span className="project-icon">
-                      {project.icon || '📁'}
+                      <ProjectIcon name={project.icon} size={26} />
                     </span>
 
                     {/* Project info */}
