@@ -912,7 +912,7 @@ const ProjectPage = () => {
         isOpen={confirmLeaveOpen}
         onClose={() => setConfirmLeaveOpen(false)}
         onConfirm={confirmLeaveProject}
-        title="Leave this project?"
+        title="Are you sure you want to leave this project?"
         confirmText="Leave"
       />
       {error && <p className="error-message">{error}</p>}
