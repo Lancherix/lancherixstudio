@@ -313,8 +313,8 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
             {visibleProjects.map((project) => (
               <li key={project._id}>
                 <Link to={`/projects/${project.slug}`} className="menu-link">
-                  <span className="menu-icon project-emoji">
-                    <ProjectIcon name={project.icon} size={18} />
+                  <span className="menu-icon">
+                    <ProjectIcon name={project.icon} />
                   </span>
                   {!collapsed && (
                     <span className="menu-text">
