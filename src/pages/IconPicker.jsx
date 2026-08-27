@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { ICON_KEYS } from '../icons/registry';
 import ProjectIcon from '../icons/ProjectIcon';
 import './Styles/IconPicker.css';
@@ -6,13 +7,19 @@ import './Styles/IconPicker.css';
 const IconPicker = ({ value, onChange }) => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const wrapperRef = useRef(null);
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 260 });
+
+  const triggerRef = useRef(null);
+  const dropdownRef = useRef(null);
   const searchRef = useRef(null);
 
-  // Close when clicking outside
+  // Close when clicking outside either the trigger OR the portaled dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+      if (
+        triggerRef.current && !triggerRef.current.contains(e.target) &&
+        dropdownRef.current && !dropdownRef.current.contains(e.target)
+      ) {
         setOpen(false);
       }
     };
@@ -20,11 +27,33 @@ const IconPicker = ({ value, onChange }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open]);
 
+  // Compute position relative to the trigger, keep it updated on scroll/resize
+  useEffect(() => {
+    if (!open) return;
+
+    const updatePosition = () => {
+      const rect = triggerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setPosition({
+        top: rect.bottom + 6,
+        left: rect.left,
+        width: 260,
+      });
+    };
+
+    updatePosition();
+    window.addEventListener('scroll', updatePosition, true);
+    window.addEventListener('resize', updatePosition);
+    return () => {
+      window.removeEventListener('scroll', updatePosition, true);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [open]);
+
   // Focus the search input as soon as the picker opens
   useEffect(() => {
     if (open) {
       setQuery('');
-      // slight delay so the input exists in the DOM before focusing
       setTimeout(() => searchRef.current?.focus(), 0);
     }
   }, [open]);
@@ -36,17 +65,26 @@ const IconPicker = ({ value, onChange }) => {
   }, [query]);
 
   return (
-    <div className="icon-picker" ref={wrapperRef}>
+    <div className="icon-picker">
       <button
         type="button"
+        ref={triggerRef}
         className="icon-picker-trigger"
         onClick={() => setOpen(o => !o)}
       >
         <ProjectIcon name={value} size={22} />
       </button>
 
-      {open && (
-        <div className="icon-picker-dropdown">
+      {open && createPortal(
+        <div
+          className="icon-picker-dropdown icon-picker-dropdown-portal"
+          ref={dropdownRef}
+          style={{
+            top: position.top,
+            left: position.left,
+            width: position.width,
+          }}
+        >
           <input
             ref={searchRef}
             type="text"
@@ -77,7 +115,8 @@ const IconPicker = ({ value, onChange }) => {
               <div className="icon-picker-empty">No icons found</div>
             )}
           </div>
-        </div>
+        </div>,
+        document.getElementById('modal-root') || document.body
       )}
     </div>
   );

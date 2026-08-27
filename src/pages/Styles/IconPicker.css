@@ -16,17 +16,15 @@
   cursor: pointer;
 }
 
-.icon-picker-dropdown {
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 260px;
+/* was: position: absolute; top: 48px; left: 0; */
+.icon-picker-dropdown-portal {
+  position: fixed;
   background: var(--theme);
   color: var(--textTheme);
   border: var(--borderTheme);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  z-index: 20;
+  z-index: 10000; /* higher than .new-project-overlay */
   padding: 10px;
   display: flex;
   flex-direction: column;
