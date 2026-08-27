@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import './NewProjectPageMobile.css';
 
-import IconPicker from '../../IconPicker';
+import IconPickerMobile from './IconPickerMobile';
 
 const NewProjectPageMobile = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
@@ -171,7 +171,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
           {/* Icon + Name row */}
           <div className="npm-icon-name-row">
             <div className="npm-icon-picker">
-              <IconPicker value={icon} onChange={setIcon} />
+              <IconPickerMobile value={icon} onChange={setIcon} />
               <span className="npm-icon-hint">Icon</span>
             </div>
             <div className="npm-name-field">

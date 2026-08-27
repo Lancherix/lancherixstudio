@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './EditProjectPageMobile.css';
 
-import IconPicker from '../../IconPicker';
+import IconPickerMobile from './IconPickerMobile';
 
 const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
   const [name, setName] = useState('');
@@ -198,7 +198,7 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
           {/* Icon + Name */}
           <div className="epm-icon-name-row">
             <div className="epm-icon-picker">
-              <IconPicker value={icon} onChange={setIcon} />
+              <IconPickerMobile value={icon} onChange={setIcon} />
               <span className="epm-icon-hint">Icon</span>
             </div>
             <div className="epm-name-field">
