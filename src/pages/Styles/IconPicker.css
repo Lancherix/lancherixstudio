@@ -1,0 +1,30 @@
+.icon-picker { position: relative; display: inline-block; }
+
+.icon-picker-trigger {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: var(--borderTheme); border-radius: 8px;
+  background: var(--theme); color: var(--textTheme);
+  cursor: pointer;
+}
+
+.icon-picker-grid {
+  position: absolute; top: 48px; left: 0;
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 6px; padding: 10px;
+  background: var(--theme); color: var(--textTheme);
+  border: var(--borderTheme);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+.icon-picker-option {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; cursor: pointer;
+  background: transparent; color: inherit;
+}
+
+.icon-picker-option:hover { background: var(--altRow); }
+.icon-picker-option.selected { background: var(--buttonColor); color: white; }

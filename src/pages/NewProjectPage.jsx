@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import './Styles/NewProjectPage.css';
+import IconPicker from './IconPicker';
 
 const NewProjectPage = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
   const [collaborators, setCollaborators] = useState([]);
   const [username, setUsername] = useState('');
   const [name, setName] = useState("");
-  const [icon, setIcon] = useState("🚀");
+  const [icon, setIcon] = useState("rocket");
   const [visibility, setVisibility] = useState("private");
   const [subject, setSubject] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -19,7 +20,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const resetForm = () => {
     setName("");
-    setIcon("🚀");
+    setIcon("rocket");
     setVisibility("private");
     setSubject("");
     setDeadline("");
@@ -196,22 +197,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
 
           <div className="form-row form-row-a form-row-name">
             <label>Icon</label>
-            <input
-              type="text"
-              value={icon}
-              onChange={(e) => {
-                const value = e.target.value;
-                const emojiRegex = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*/gu;
-                const match = value.match(emojiRegex);
-                if (match) {
-                  setIcon(match[0]);
-                } else {
-                  setIcon('');
-                }
-              }}
-              placeholder="Choose an emoji (Windows: Win + (.) or Mac: Ctrl + Cmd + Space)"
-              maxLength={2}
-            />
+            <IconPicker value={icon} onChange={setIcon} />
           </div>
 
           <div className="form-row form-row-a form-row-privacy">
