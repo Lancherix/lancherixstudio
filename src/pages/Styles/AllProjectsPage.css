@@ -190,6 +190,6 @@
     color: var(--buttonColor);
 }
 
-.addProjectBtn-projectsPage .allProjectBtn-project svg {
-  color: var(--textTheme);
+.allProjectBtn-project svg {
+  color: var(--textTheme) !important;
 }
