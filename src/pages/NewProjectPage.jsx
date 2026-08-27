@@ -117,6 +117,19 @@ const NewProjectPage = ({ isOpen, onClose }) => {
     setCollaborators(prev => prev.filter(u => u._id !== id));
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key !== "Enter") return;
+
+    if (e.target.placeholder === "Add username") {
+      e.preventDefault();
+      if (inviteResults[0]) inviteUser(inviteResults[0]);
+      return;
+    }
+
+    e.preventDefault();
+    handleCreateProject();
+  };
+
   const handleCreateProject = async () => {
     if (!name.trim()) {
       setError("Project name is required");
@@ -176,6 +189,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
       <div
         className="new-project-window"
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={handleKeyDown}
       >
 
         {/* Header */}

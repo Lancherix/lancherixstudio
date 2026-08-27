@@ -85,6 +85,19 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
     debouncedInviteSearch(e.target.value);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key !== "Enter") return;
+
+    if (e.target.placeholder === "Add username") {
+      e.preventDefault();
+      if (inviteResults[0]) inviteUser(inviteResults[0]);
+      return;
+    }
+
+    e.preventDefault();
+    handleSave();
+  };
+
   const inviteUser = async (user) => {
     try {
       // Actualiza localmente
@@ -180,6 +193,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
       <div
         className="new-project-window"
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={handleKeyDown}
       >
         {/* Header */}
         <div className="new-project-header">
