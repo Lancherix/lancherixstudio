@@ -191,5 +191,5 @@
 }
 
 .allProjectBtn-project svg {
-  color: var(--textTheme) !important;
+  color: var(--textTheme);
 }
