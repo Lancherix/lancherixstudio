@@ -34,10 +34,9 @@
 .icon-picker-search {
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: var(--borderTheme);
-  background: var(--altRow);
+  padding: .7vh .7vw;
+  border-radius: 6px;
+  border: 1px solid #d5d3d6;
   color: var(--textTheme);
   font-size: 13px;
   outline: none;

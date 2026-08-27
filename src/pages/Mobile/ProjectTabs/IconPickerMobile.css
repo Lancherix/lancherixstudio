@@ -10,7 +10,7 @@
   justify-content: center;
   border: var(--borderTheme);
   border-radius: 8px;
-  background: rgba(242, 241, 243, 1);
+  background: var(--theme);
   color: var(--textTheme);
   cursor: pointer;
 }
@@ -35,7 +35,7 @@
 .icon-picker-mobile-sheet {
   width: 100%;
   max-height: 75vh;
-  background: var(--theme);
+  background: rgba(242, 241, 243, 1);
   color: var(--textTheme);
   border-radius: 16px 16px 0 0;
   padding: 8px 16px 0;
