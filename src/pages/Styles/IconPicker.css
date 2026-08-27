@@ -19,7 +19,7 @@
 /* was: position: absolute; top: 48px; left: 0; */
 .icon-picker-dropdown-portal {
   position: fixed;
-  background: var(--theme);
+  background: rgba(242, 241, 243, 1);
   color: var(--textTheme);
   border: var(--borderTheme);
   border-radius: 10px;

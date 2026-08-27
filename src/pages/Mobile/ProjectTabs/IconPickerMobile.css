@@ -10,7 +10,7 @@
   justify-content: center;
   border: var(--borderTheme);
   border-radius: 8px;
-  background: var(--theme);
+  background: rgba(242, 241, 243, 1);
   color: var(--textTheme);
   cursor: pointer;
 }
