@@ -29,6 +29,7 @@
 .projectIcon-projectPage {
   font-size: 2.5rem;
   margin-right: 0.7rem;
+  color: var(--textTheme);
 }
 
 .projectDescription-projectPage {
