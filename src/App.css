@@ -123,24 +123,24 @@ Edge and IE
   border: none;
   background-color: transparent;
   border-radius: 5px;
+  color: var(--textTheme);
 }
 
 .resultIcon-homePage {
   width: 1vw;
   margin: 0 1vw 0 0;
   user-select: none;
-  color: var(--textTheme);
+  color: inherit;
+}
+
+.resultIcon-homePage svg {
+  color: currentColor;
 }
 
 .aResult-homePage:hover {
   background-color: var(--buttonColor);
   color: var(--hoverTextColor);
   cursor: pointer;
-  stroke: var(--textTheme);
-}
-
-.aResult-homePage svg:hover {
-  color: var(--hoverTextColor);
 }
 
 .aResult-url {
