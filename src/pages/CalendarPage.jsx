@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import "./Styles/CalendarPage.css";
 
 /* ─────────────────────────────────────────────
    CONSTANTS
 ───────────────────────────────────────────── */
-const DAYS_SHORT  = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const DAYS_FULL   = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-const MONTHS      = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+// Used only by the natural-language parser below — matching is English-only
+// regardless of UI language, since it looks for literal words like "monday".
+const DAYS_FULL_EN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
 const CAL_COLORS  = [
   { label:"Blue",   value:"#0074ff" },
   { label:"Green",  value:"#32d74b" },
@@ -42,7 +44,7 @@ function parseNL(text) {
   else if (/\btomorrow\b/i.test(text)) { const d=new Date(now); d.setDate(d.getDate()+1); r.date=d; }
   const dm = text.match(/(?:on\s+|next\s+)?(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i);
   if (dm && !r.date) {
-    const td=DAYS_FULL.findIndex(x=>x.toLowerCase()===dm[1].toLowerCase());
+    const td=DAYS_FULL_EN.findIndex(x=>x.toLowerCase()===dm[1].toLowerCase());
     const d=new Date(now);
     d.setDate(d.getDate()+((td-d.getDay()+7)%7||7));
     r.date=d;
@@ -59,6 +61,7 @@ function parseNL(text) {
    EVENT MODAL
 ───────────────────────────────────────────── */
 function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, calendars }) {
+  const { t } = useTranslation();
   const today = initialDate || new Date();
   const [title,      setTitle]      = useState("");
   const [date,       setDate]       = useState(today.toISOString().slice(0,10));
@@ -129,7 +132,7 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
           <input
             ref={inputRef}
             className="modal-title-input-calendarPage"
-            placeholder="Event title or 'Call mom tomorrow at 3pm'…"
+            placeholder={t('eventTitlePlaceholder')}
             value={title}
             onChange={e=>setTitle(e.target.value)}
             onBlur={handleTitleBlur}
@@ -142,7 +145,7 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
           <div className="modal-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clipRule="evenodd"/></svg>
-              Calendar
+              {t('calendarLabel')}
             </span>
             <select className="modal-select-calendarPage" value={calendarId} onChange={e=>setCalendarId(e.target.value)}>
               {calendars.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}
@@ -152,7 +155,7 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
           <div className="modal-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/><path fillRule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clipRule="evenodd"/></svg>
-              Date
+              {t('dateLabel')}
             </span>
             <input type="date" className="modal-input-calendarPage" value={date} onChange={e=>setDate(e.target.value)}/>
           </div>
@@ -160,7 +163,7 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
           <div className="modal-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clipRule="evenodd"/></svg>
-              All day
+              {t('allDayLabel')}
             </span>
             <label className="toggle-calendarPage">
               <input type="checkbox" checked={allDay} onChange={e=>setAllDay(e.target.checked)}/>
@@ -170,7 +173,7 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
           {/* Time */}
           {!allDay && (
             <div className="modal-row-calendarPage">
-              <span className="modal-label-calendarPage">Time</span>
+              <span className="modal-label-calendarPage">{t('timeLabel')}</span>
               <div className="modal-time-row-calendarPage">
                 <input type="time" className="modal-input-calendarPage" value={startTime} onChange={e=>setStartTime(e.target.value)}/>
                 <span className="modal-time-sep-calendarPage">→</span>
@@ -182,56 +185,56 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
           <div className="modal-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-2.013 3.5-4.667 3.5-8.077 0-4.698-3.806-8.25-8-8.25s-8 3.552-8 8.25c0 3.41 1.556 6.064 3.5 8.077a19.58 19.58 0 0 0 2.683 2.282 16.975 16.975 0 0 0 1.144.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clipRule="evenodd"/></svg>
-              Location
+              {t('locationLabel')}
             </span>
-            <input type="text" className="modal-input-calendarPage" placeholder="Add location" value={location} onChange={e=>setLocation(e.target.value)}/>
+            <input type="text" className="modal-input-calendarPage" placeholder={t('locationPlaceholder')} value={location} onChange={e=>setLocation(e.target.value)}/>
           </div>
           {/* Repeat */}
           <div className="modal-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M4.755 10.059a7.5 7.5 0 0 1 12.548-3.364l1.903 1.903h-3.183a.75.75 0 1 0 0 1.5h4.992a.75.75 0 0 0 .75-.75V4.356a.75.75 0 0 0-1.5 0v3.18l-1.9-1.9A9 9 0 0 0 3.306 9.67a.75.75 0 1 0 1.45.388Zm15.408 3.352a.75.75 0 0 0-.919.53 7.5 7.5 0 0 1-12.548 3.364l-1.902-1.903h3.183a.75.75 0 0 0 0-1.5H2.984a.75.75 0 0 0-.75.75v4.992a.75.75 0 0 0 1.5 0v-3.18l1.9 1.9a9 9 0 0 0 15.059-4.035.75.75 0 0 0-.53-.918Z" clipRule="evenodd"/></svg>
-              Repeat
+              {t('repeatLabel')}
             </span>
             <select className="modal-select-calendarPage" value={repeat} onChange={e=>setRepeat(e.target.value)}>
-              <option value="none">Never</option>
-              <option value="daily">Every Day</option>
-              <option value="weekly">Every Week</option>
-              <option value="biweekly">Every 2 Weeks</option>
-              <option value="monthly">Every Month</option>
-              <option value="yearly">Every Year</option>
+              <option value="none">{t('repeatNever')}</option>
+              <option value="daily">{t('repeatDaily')}</option>
+              <option value="weekly">{t('repeatWeekly')}</option>
+              <option value="biweekly">{t('repeatBiweekly')}</option>
+              <option value="monthly">{t('repeatMonthly')}</option>
+              <option value="yearly">{t('repeatYearly')}</option>
             </select>
           </div>
           {/* Alert */}
           <div className="modal-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clipRule="evenodd"/></svg>
-              Alert
+              {t('alertLabel')}
             </span>
             <select className="modal-select-calendarPage" value={alert} onChange={e=>setAlert(e.target.value)}>
-              <option value="none">None</option>
-              <option value="attime">At time of event</option>
-              <option value="5min">5 minutes before</option>
-              <option value="15min">15 minutes before</option>
-              <option value="30min">30 minutes before</option>
-              <option value="1hour">1 hour before</option>
-              <option value="1day">1 day before</option>
+              <option value="none">{t('alertNone')}</option>
+              <option value="attime">{t('alertAtTime')}</option>
+              <option value="5min">{t('alert5min')}</option>
+              <option value="15min">{t('alert15min')}</option>
+              <option value="30min">{t('alert30min')}</option>
+              <option value="1hour">{t('alert1hour')}</option>
+              <option value="1day">{t('alert1day')}</option>
             </select>
           </div>
           {/* Notes */}
           <div className="modal-row-calendarPage modal-notes-row-calendarPage">
             <span className="modal-label-calendarPage">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fillRule="evenodd" d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z" clipRule="evenodd"/></svg>
-              Notes
+              {t('notesLabel')}
             </span>
-            <textarea className="modal-textarea-calendarPage" placeholder="Add notes…" value={notes} onChange={e=>setNotes(e.target.value)}/>
+            <textarea className="modal-textarea-calendarPage" placeholder={t('notesPlaceholder')} value={notes} onChange={e=>setNotes(e.target.value)}/>
           </div>
         </div>
 
         <div className="modal-footer-calendarPage">
-          {event && <button className="modal-btn-delete-calendarPage" onClick={()=>{onDelete(event.id);onClose();}}>Delete</button>}
+          {event && <button className="modal-btn-delete-calendarPage" onClick={()=>{onDelete(event.id);onClose();}}>{t('deleteBtn')}</button>}
           <div style={{flex:1}}/>
-          <button className="modal-btn-cancel-calendarPage" onClick={onClose}>Cancel</button>
-          <button className="modal-btn-save-calendarPage" onClick={handleSave}>{event?"Update":"Add Event"}</button>
+          <button className="modal-btn-cancel-calendarPage" onClick={onClose}>{t('cancel')}</button>
+          <button className="modal-btn-save-calendarPage" onClick={handleSave}>{event?t('updateBtn'):t('addEventBtn')}</button>
         </div>
       </div>
     </div>
@@ -242,6 +245,7 @@ function EventModal({ isOpen, onClose, onSave, onDelete, initialDate, event, cal
    CALENDAR MANAGER MODAL
 ───────────────────────────────────────────── */
 function CalendarManagerModal({ isOpen, onClose, calendars, onAdd, onEdit, onDelete }) {
+  const { t } = useTranslation();
   const [newName,  setNewName]  = useState("");
   const [newColor, setNewColor] = useState(CAL_COLORS[0].value);
   const [editId,   setEditId]   = useState(null);
@@ -258,7 +262,7 @@ function CalendarManagerModal({ isOpen, onClose, calendars, onAdd, onEdit, onDel
     <div className="modal-overlay-calendarPage" onClick={onClose}>
       <div className="modal-calendarPage modal-manager-calendarPage" onClick={e=>e.stopPropagation()}>
         <div className="modal-header-calendarPage" style={{borderLeft:"4px solid var(--buttonColor)"}}>
-          <span style={{fontWeight:600,color:"var(--textTheme)",fontSize:"1rem"}}>Manage Calendars</span>
+          <span style={{fontWeight:600,color:"var(--textTheme)",fontSize:"1rem"}}>{t('manageCalendars')}</span>
         </div>
         <div className="modal-body-calendarPage">
           {calendars.map(cal=>(
@@ -273,14 +277,14 @@ function CalendarManagerModal({ isOpen, onClose, calendars, onAdd, onEdit, onDel
                 <>
                   <span className="cal-dot-calendarPage" style={{background:cal.color}}/>
                   <span style={{flex:1,color:"var(--textTheme)",fontSize:"0.9rem"}}>{cal.name}</span>
-                  <button className="cal-manager-edit-calendarPage" onClick={()=>{setEditId(cal.id);setEditName(cal.name);}}>Edit</button>
+                  <button className="cal-manager-edit-calendarPage" onClick={()=>{setEditId(cal.id);setEditName(cal.name);}}>{t('editBtn')}</button>
                   {calendars.length>1 && <button className="cal-manager-delete-calendarPage" onClick={()=>onDelete(cal.id)}>✕</button>}
                 </>
               )}
             </div>
           ))}
           <div className="cal-manager-add-calendarPage">
-            <input className="modal-input-calendarPage" placeholder="New calendar name" value={newName}
+            <input className="modal-input-calendarPage" placeholder={t('newCalendarNamePlaceholder')} value={newName}
               onChange={e=>setNewName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&handleAdd()}/>
             <div className="cal-color-row-calendarPage">
               {CAL_COLORS.map(c=>(
@@ -288,12 +292,12 @@ function CalendarManagerModal({ isOpen, onClose, calendars, onAdd, onEdit, onDel
                   style={{background:c.value}} onClick={()=>setNewColor(c.value)}/>
               ))}
             </div>
-            <button className="modal-btn-save-calendarPage" onClick={handleAdd}>Add Calendar</button>
+            <button className="modal-btn-save-calendarPage" onClick={handleAdd}>{t('addCalendarBtn')}</button>
           </div>
         </div>
         <div className="modal-footer-calendarPage">
           <div style={{flex:1}}/>
-          <button className="modal-btn-cancel-calendarPage" onClick={onClose}>Done</button>
+          <button className="modal-btn-cancel-calendarPage" onClick={onClose}>{t('doneBtn')}</button>
         </div>
       </div>
     </div>
@@ -304,7 +308,12 @@ function CalendarManagerModal({ isOpen, onClose, calendars, onAdd, onEdit, onDel
    MAIN COMPONENT
 ───────────────────────────────────────────── */
 function CalendarPage() {
+  const { t } = useTranslation();
   const today = new Date();
+
+  const DAYS_SHORT = t('daysShort', { returnObjects: true });
+  const DAYS_FULL  = t('daysFull', { returnObjects: true });
+  const MONTHS     = t('months', { returnObjects: true });
 
   /* ── State ── */
   const [currentDate,  setCurrentDate]  = useState(new Date(today.getFullYear(), today.getMonth(), 1));
@@ -503,7 +512,7 @@ function CalendarPage() {
       <div className="day-view-calendarPage">
         <div className="day-header-calendarPage">
           <span className={`day-header-num-calendarPage${isToday?" today-num":""}`}>{d.getDate()}</span>
-          <span className="day-header-label-calendarPage">{DAYS_FULL[d.getDay()]}{isToday?" · Today":""}</span>
+          <span className="day-header-label-calendarPage">{DAYS_FULL[d.getDay()]}{isToday?` · ${t('today')}`:""}</span>
         </div>
         {allDayEvs.length>0&&(
           <div className="day-allday-section-calendarPage">
@@ -511,7 +520,7 @@ function CalendarPage() {
               <div key={ev.id} className="day-event-calendarPage"
                 style={{background:ev.color+"22",borderLeft:`4px solid ${ev.color}`,color:ev.color}}
                 onClick={e=>openEdit(ev,e)}>
-                <span className="event-badge-calendarPage" style={{background:ev.color}}>All day</span>
+                <span className="event-badge-calendarPage" style={{background:ev.color}}>{t('allDayLabel')}</span>
                 <span>{ev.title}</span>
                 {ev.location&&<span className="event-location-calendarPage">📍 {ev.location}</span>}
               </div>
@@ -629,7 +638,7 @@ function CalendarPage() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd"/>
             </svg>
-            New Event
+            {t('newEventBtn')}
           </button>
 
           {renderMiniCal()}
@@ -638,14 +647,14 @@ function CalendarPage() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd"/>
             </svg>
-            <input type="text" placeholder="Search events…" value={searchTerm}
+            <input type="text" placeholder={t('searchEventsPlaceholder')} value={searchTerm}
               onChange={e=>setSearchTerm(e.target.value)} className="panel-search-input-calendarPage"/>
           </div>
 
           {searchTerm&&(
             <div className="search-results-calendarPage">
               {searchResults.length===0
-                ? <div className="no-results-calendarPage">No events found</div>
+                ? <div className="no-results-calendarPage">{t('noEventsFound')}</div>
                 : searchResults.map(ev=>(
                   <div key={ev.id} className="search-result-item-calendarPage" onClick={e=>openEdit(ev,e)}>
                     <span className="cal-dot-calendarPage" style={{background:ev.color}}/>
@@ -663,8 +672,8 @@ function CalendarPage() {
 
           <div className="panel-section-calendarPage">
             <div className="panel-section-header-calendarPage">
-              <span>My Calendars</span>
-              <button className="panel-section-btn-calendarPage" onClick={()=>setManagerOpen(true)} title="Manage">
+              <span>{t('myCalendars')}</span>
+              <button className="panel-section-btn-calendarPage" onClick={()=>setManagerOpen(true)} title={t('manageCalendars')}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z"/>
                   <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z"/>
@@ -691,7 +700,7 @@ function CalendarPage() {
             <div className="options-calendarPage">
               <div className="toolbar-inner-calendarPage">
                 <div className="toolbar-left-calendarPage">
-                  <button className="toolbar-today-calendarPage" onClick={goToday}>Today</button>
+                  <button className="toolbar-today-calendarPage" onClick={goToday}>{t('today')}</button>
                   <button className="toolbar-nav-calendarPage" onClick={()=>navigate(-1)}>‹</button>
                   <button className="toolbar-nav-calendarPage" onClick={()=>navigate(1)}>›</button>
                   <span className="toolbar-title-calendarPage">{headerLabel()}</span>
@@ -701,10 +710,10 @@ function CalendarPage() {
                     <button key={v}
                       className={`toolbar-view-btn-calendarPage${view===v?" active":""}`}
                       onClick={()=>setView(v)}>
-                      {v.charAt(0).toUpperCase()+v.slice(1)}
+                      {t(`view${v.charAt(0).toUpperCase()+v.slice(1)}`)}
                     </button>
                   ))}
-                  <button className="toolbar-add-calendarPage" onClick={()=>openNew(selectedDay)} title="New event">
+                  <button className="toolbar-add-calendarPage" onClick={()=>openNew(selectedDay)} title={t('newEventBtn')}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                       <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd"/>
                     </svg>
@@ -739,7 +748,7 @@ function CalendarPage() {
                   <div className="right-day-name-calendarPage">{DAYS_FULL[selectedDay.getDay()]}</div>
                   <div className="right-month-name-calendarPage">{MONTHS[selectedDay.getMonth()]} {selectedDay.getFullYear()}</div>
                 </div>
-                <button className="right-add-btn-calendarPage" onClick={()=>openNew(selectedDay)} title="Add event on this day">
+                <button className="right-add-btn-calendarPage" onClick={()=>openNew(selectedDay)} title={t('newEventBtn')}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd"/>
                   </svg>
@@ -749,19 +758,19 @@ function CalendarPage() {
               <div className="right-events-section-calendarPage">
                 <h4 className="right-section-title-calendarPage">
                   {eventsOnDay(selectedDay).length
-                    ? `${eventsOnDay(selectedDay).length} event${eventsOnDay(selectedDay).length>1?"s":""}`
-                    : "No events"}
+                    ? t('eventCount', { count: eventsOnDay(selectedDay).length })
+                    : t('noEvents')}
                 </h4>
                 <div className="right-events-list-calendarPage">
                   {eventsOnDay(selectedDay).length===0
-                    ? <div className="right-empty-calendarPage">Double-click a day to add an event</div>
+                    ? <div className="right-empty-calendarPage">{t('doubleClickAddEvent')}</div>
                     : eventsOnDay(selectedDay).map(ev=>(
                       <div key={ev.id} className="right-event-item-calendarPage"
                         style={{borderLeft:`3px solid ${ev.color}`}}
                         onClick={e=>openEdit(ev,e)}>
                         <div className="right-event-title-calendarPage">{ev.title}</div>
                         <div className="right-event-meta-calendarPage">
-                          {ev.allDay ? "All day" : `${ev.startTime} – ${ev.endTime}`}
+                          {ev.allDay ? t('allDayLabel') : `${ev.startTime} – ${ev.endTime}`}
                           {ev.location&&<span> · 📍 {ev.location}</span>}
                         </div>
                         {ev.notes&&<div className="right-event-notes-calendarPage">{ev.notes}</div>}
@@ -782,22 +791,22 @@ function CalendarPage() {
               <div className="right-divider-calendarPage"/>
 
               <div className="right-upcoming-section-calendarPage">
-                <h4 className="right-section-title-calendarPage">Upcoming</h4>
+                <h4 className="right-section-title-calendarPage">{t('upcoming')}</h4>
                 <div className="right-upcoming-list-calendarPage">
                   {upcomingEvents.length===0
-                    ? <div className="right-empty-calendarPage">No upcoming events</div>
+                    ? <div className="right-empty-calendarPage">{t('noUpcomingEvents')}</div>
                     : upcomingEvents.map(ev=>{
                       const d=new Date(ev.date);
                       const isEvToday=sameDay(d,today);
                       return (
                         <div key={ev.id} className="right-upcoming-item-calendarPage" onClick={e=>openEdit(ev,e)}>
                           <div className="right-upcoming-date-calendarPage">
-                            <span className="right-upcoming-dayname-calendarPage">{isEvToday?"Today":DAYS_SHORT[d.getDay()]}</span>
+                            <span className="right-upcoming-dayname-calendarPage">{isEvToday?t('today'):DAYS_SHORT[d.getDay()]}</span>
                             <span className="right-upcoming-daynum-calendarPage">{d.getDate()}</span>
                           </div>
                           <div className="right-upcoming-event-calendarPage" style={{borderLeft:`2px solid ${ev.color}`}}>
                             <span className="right-upcoming-title-calendarPage">{ev.title}</span>
-                            <span className="right-upcoming-time-calendarPage">{ev.allDay?"All day":ev.startTime}</span>
+                            <span className="right-upcoming-time-calendarPage">{ev.allDay?t('allDayLabel'):ev.startTime}</span>
                           </div>
                         </div>
                       );

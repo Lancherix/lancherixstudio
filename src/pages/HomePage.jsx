@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Styles/HomePage.css';
 
 const HomePage = () => {
+  const { t } = useTranslation();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
 
@@ -26,7 +28,7 @@ const HomePage = () => {
     };
 
     const updateDate = () => {
-      const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const month = t('months', { returnObjects: true });
       let d = new Date();
       let monthNum = d.getMonth();
       let date = d.getDate();

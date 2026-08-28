@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Styles/ProjectPage.css";
 import EditProjectPage from './EditProjectPage';
 import EditTaskPage from './EditTaskPage';
@@ -8,6 +9,7 @@ import ProjectIcon from '../icons/ProjectIcon';
 import ConfirmDialog from './ConfirmDialog';
 
 const ProjectPage = () => {
+  const { t } = useTranslation();
   const { slug, filename } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,6 +35,14 @@ const ProjectPage = () => {
   const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
   const [taskPendingDelete, setTaskPendingDelete] = useState(null);
 
+  // Internal folder identifiers stay in English (used for routing/state logic);
+  // only the label shown to the user is translated.
+  const folderLabels = {
+    Tasks: t('tabTasks'),
+    Notes: t('tabNotes'),
+    Board: t('tabBoard'),
+  };
+
   const applyFormat = (command, value = null) => {
     document.execCommand(command, false, value);
   };
@@ -57,8 +67,8 @@ const ProjectPage = () => {
         if (!res.ok) {
           throw new Error(
             res.status === 404
-              ? "This project does not exist"
-              : data.error || "Failed to load project"
+              ? t('projectNotFound')
+              : data.error || t('failedLoadProject')
           );
         }
 
@@ -270,7 +280,7 @@ const ProjectPage = () => {
         throw new Error("Invalid domain");
       }
     } catch {
-      alert("Please enter a valid URL");
+      alert(t('invalidUrl'));
       setNewLinkUrl("");
       return;
     }
@@ -348,10 +358,10 @@ const ProjectPage = () => {
 
       await navigator.clipboard.writeText(url);
 
-      alert("Project link copied to clipboard!");
+      alert(t('linkCopied'));
     } catch (err) {
       console.error(err);
-      alert("Failed to copy project link");
+      alert(t('linkCopyFailed'));
     }
   };
 
@@ -379,7 +389,7 @@ const ProjectPage = () => {
       window.location.reload();
     } catch (err) {
       console.error(err);
-      alert("Could not update project status");
+      alert(t('statusUpdateFailed'));
     }
   };
 
@@ -460,7 +470,7 @@ const ProjectPage = () => {
                         setEditProjectOpen(true);
                       }}
                     >
-                      Edit Details
+                      {t('editDetails')}
                     </button>
 
                     {/* ===== Pin / Unpin ===== */}
@@ -471,7 +481,7 @@ const ProjectPage = () => {
                         updateProjectStatus(isPinned ? "active" : "pinned");
                       }}
                     >
-                      {isPinned ? "Unpin Project" : "Pin Project"}
+                      {isPinned ? t('unpinProject') : t('pinProject')}
                     </button>
 
                     {/* ===== Hide / Unhide ===== */}
@@ -482,7 +492,7 @@ const ProjectPage = () => {
                         updateProjectStatus(isHidden ? "active" : "hidden");
                       }}
                     >
-                      {isHidden ? "Unhide" : "Hide"}
+                      {isHidden ? t('unhideProject') : t('hideProject')}
                     </button>
 
                     {/* ===== Complete ===== */}
@@ -494,7 +504,7 @@ const ProjectPage = () => {
                           updateProjectStatus("completed");
                         }}
                       >
-                        Mark as Completed
+                        {t('markCompleted')}
                       </button>
                     )}
 
@@ -506,7 +516,7 @@ const ProjectPage = () => {
                           handleShareProject();
                         }}
                       >
-                        Share
+                        {t('share')}
                       </button>
                     )}
 
@@ -518,7 +528,7 @@ const ProjectPage = () => {
                         updateProjectStatus(isArchived ? "active" : "archived");
                       }}
                     >
-                      {isArchived ? "Restore Project" : "Archive Project"}
+                      {isArchived ? t('restoreProject') : t('archiveProject')}
                     </button>
 
                     <div className="optionsDivider-projectPage" />
@@ -530,32 +540,13 @@ const ProjectPage = () => {
                         handleLeave();
                       }}
                     >
-                      Leave Project
+                      {t('leaveProject')}
                     </button>
                   </div>
                 )}
               </div>
             );
           })()}
-
-          {/* === Project Metadata === 
-          <div className="metaSection-projectPage">
-            {project.visibility && (
-              <div className="visibility-projectPage">
-                {project.visibility} project
-              </div>
-            )}
-            {project.updatedAt && (
-              <div className="visibility-projectPage">
-                Updated: {new Date(project.updatedAt).toLocaleDateString()}
-              </div>
-            )}
-            {project.createdAt && (
-              <div className="visibility-projectPage">
-                Created: {new Date(project.createdAt).toLocaleDateString()}
-              </div>
-            )}
-          </div> */}
 
           {/* === Members (expanded) === */}
           {/* === Members Section === */}
@@ -575,7 +566,7 @@ const ProjectPage = () => {
 
               return (
                 <>
-                  <h4>{members.length} Members</h4>
+                  <h4>{t('membersCount', { count: members.length })}</h4>
                   <ul className="collaborators-expanded">
                     {members.map(user => (
                       <li key={user._id} className="collaborator-row">
@@ -622,7 +613,7 @@ const ProjectPage = () => {
                       }
                     }}
                   >
-                    {folder}
+                    {folderLabels[folder]}
                   </button>
                 ))}
               </div>
@@ -635,9 +626,9 @@ const ProjectPage = () => {
                   {/* Column headers */}
                   <div className="tasks-header">
                     <div className="col-check" />
-                    <div className="col-name">Name</div>
-                    <div className="col-priority">Priority</div>
-                    <div className="col-deadline">Due</div>
+                    <div className="col-name">{t('colName')}</div>
+                    <div className="col-priority">{t('colPriority')}</div>
+                    <div className="col-deadline">{t('colDue')}</div>
                   </div>
                   <div className="tasks-content">
                     {activeTasks.map((task, i) => (
@@ -692,7 +683,7 @@ const ProjectPage = () => {
                               setTaskToEdit(task);
                               setEditTaskOpen(true);
                             }}
-                            aria-label="Edit Task"
+                            aria-label={t('editTaskAria')}
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                               <path fill-rule="evenodd" d="M20.599 1.5c-.376 0-.743.111-1.055.32l-5.08 3.385a18.747 18.747 0 0 0-3.471 2.987 10.04 10.04 0 0 1 4.815 4.815 18.748 18.748 0 0 0 2.987-3.472l3.386-5.079A1.902 1.902 0 0 0 20.599 1.5Zm-8.3 14.025a18.76 18.76 0 0 0 1.896-1.207 8.026 8.026 0 0 0-4.513-4.513A18.75 18.75 0 0 0 8.475 11.7l-.278.5a5.26 5.26 0 0 1 3.601 3.602l.502-.278ZM6.75 13.5A3.75 3.75 0 0 0 3 17.25a1.5 1.5 0 0 1-1.601 1.497.75.75 0 0 0-.7 1.123 5.25 5.25 0 0 0 9.8-2.62 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd" />
@@ -704,7 +695,7 @@ const ProjectPage = () => {
                               e.stopPropagation();
                               handleDeleteTask(task._id);
                             }}
-                            aria-label="Delete Task"
+                            aria-label={t('deleteTaskAria')}
                           >
                             ✕
                           </button>
@@ -722,7 +713,7 @@ const ProjectPage = () => {
                       <div className="col-name">
                         <input
                           className="task-input"
-                          placeholder="New Task"
+                          placeholder={t('newTaskPlaceholder')}
                           value={newTaskName}
                           onChange={(e) => setNewTaskName(e.target.value)}
                           onKeyDown={handleNewTaskKeyDown}
@@ -746,11 +737,11 @@ const ProjectPage = () => {
                     <button onClick={() => applyFormat("italic")}><i>I</i></button>
                     <button onClick={() => applyFormat("underline")}><u>U</u></button>
                     <button onClick={() => applyFormat("strikeThrough")}><strike>S</strike></button>
-                    <button onClick={() => applyFormat("formatBlock", "H1")}>Title</button>
-                    <button onClick={() => applyFormat("formatBlock", "H2")}>Heading</button>
-                    <button onClick={() => applyFormat("formatBlock", "H3")}>Subheading</button>
-                    <button onClick={() => applyFormat("insertUnorderedList")}>• List</button>
-                    <button onClick={() => applyFormat("insertOrderedList")}>1. List</button>
+                    <button onClick={() => applyFormat("formatBlock", "H1")}>{t('formatTitle')}</button>
+                    <button onClick={() => applyFormat("formatBlock", "H2")}>{t('formatHeading')}</button>
+                    <button onClick={() => applyFormat("formatBlock", "H3")}>{t('formatSubheading')}</button>
+                    <button onClick={() => applyFormat("insertUnorderedList")}>{t('formatBulletList')}</button>
+                    <button onClick={() => applyFormat("insertOrderedList")}>{t('formatNumberList')}</button>
                   </div>
 
                   {/* ===== Editor ===== */}
@@ -783,7 +774,7 @@ const ProjectPage = () => {
 
 
             <div className="sources-section">
-              <h4>{links.length} Links</h4>
+              <h4>{t('linksCount', { count: links.length })}</h4>
               <div className="links-list">
                 <div className="links-content">
                   {links.map((link, i) => (
@@ -795,7 +786,7 @@ const ProjectPage = () => {
                         <button
                           className="delete-link-btn"
                           onClick={() => handleDeleteLink(i)}
-                          aria-label="Delete Link"
+                          aria-label={t('deleteLinkAria')}
                         >
                           ✕
                         </button>
@@ -809,7 +800,7 @@ const ProjectPage = () => {
                   <div className="col-name">
                     <input
                       className="link-input"
-                      placeholder="New Link (Paste URL)"
+                      placeholder={t('newLinkPlaceholder')}
                       value={newLinkUrl}
                       onChange={(e) => setNewLinkUrl(e.target.value)}
                       onKeyDown={handleNewLinkKeyDown}
@@ -821,7 +812,7 @@ const ProjectPage = () => {
             </div>
             <div className="sources-divider" />
             <div className="sources-section">
-              <h4>{completedTasks.length} Completed Tasks</h4>
+              <h4>{t('completedTasksCount', { count: completedTasks.length })}</h4>
               <div className="tasks-projectPage completed-tasks">
                 {completedTasks.slice().reverse().map((task, i) => (
                   <div
@@ -867,7 +858,7 @@ const ProjectPage = () => {
                           e.stopPropagation();
                           handleDeleteTask(task._id);
                         }}
-                        aria-label="Delete Task"
+                        aria-label={t('deleteTaskAria')}
                       >
                         ✕
                       </button>
@@ -904,16 +895,16 @@ const ProjectPage = () => {
         isOpen={!!taskPendingDelete}
         onClose={() => setTaskPendingDelete(null)}
         onConfirm={confirmDeleteTask}
-        title="Are you sure you want to delete this task?"
-        confirmText="Delete"
+        title={t('confirmDeleteTask')}
+        confirmText={t('deleteBtn')}
       />
 
       <ConfirmDialog
         isOpen={confirmLeaveOpen}
         onClose={() => setConfirmLeaveOpen(false)}
         onConfirm={confirmLeaveProject}
-        title="Are you sure you want to leave this project?"
-        confirmText="Leave"
+        title={t('confirmLeaveProject')}
+        confirmText={t('leaveBtn')}
       />
       {error && <p className="error-message">{error}</p>}
     </div>

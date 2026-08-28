@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./Styles/BoardTab.css";
 import BoardImage from './BoardImage';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
@@ -12,6 +13,7 @@ const getOriginalDownloadUrl = (url) => {
 const getFilename = (url) => url.split("/").pop();
 
 export default function BoardTab({ projectId }) {
+  const { t } = useTranslation();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -183,7 +185,7 @@ export default function BoardTab({ projectId }) {
           <div key={img._id} className="board-image-wrapper">
             <img
               src={img.url}
-              alt="board"
+              alt={t('boardImageAlt')}
               className="board-image"
               draggable={false}
               onClick={() => openImage(i)}
@@ -193,7 +195,7 @@ export default function BoardTab({ projectId }) {
             <button
               className="download-image-btn"
               onClick={(e) => { e.stopPropagation(); handleDownload(img.url); }}
-              aria-label="Download image"
+              aria-label={t('downloadImage')}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                 <path fillRule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
@@ -204,7 +206,7 @@ export default function BoardTab({ projectId }) {
               <button
                 className="delete-image-btn"
                 onClick={(e) => { e.stopPropagation(); handleDelete(img._id); }}
-                aria-label="Delete image"
+                aria-label={t('deleteImage')}
               >
                 ✕
               </button>
@@ -215,8 +217,8 @@ export default function BoardTab({ projectId }) {
         {images.length === 0 && (
           <div className="board-empty">
             <span className="board-empty-icon">🖼️</span>
-            <h3>Welcome to the Board</h3>
-            <p>Public projects can be viewed by anyone.</p>
+            <h3>{t('boardWelcomeTitle')}</h3>
+            <p>{t('boardWelcomeSubtitle')}</p>
           </div>
         )}
       </div>

@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Styles/NewProjectPage.css';
 import IconPicker from './IconPicker';
 
 const NewProjectPage = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [error, setError] = useState(null);
   const [inviteQuery, setInviteQuery] = useState('');
   const [inviteResults, setInviteResults] = useState([]);
@@ -54,7 +56,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
         setError(null);
       } catch (error) {
         console.error('Error fetching user data:', error);
-        setError(`Failed to fetch user data. ${error.message}`);
+        setError(`${t('failedFetchUserData')} ${error.message}`);
       }
     };
 
@@ -120,7 +122,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
   const handleKeyDown = (e) => {
     if (e.key !== "Enter") return;
 
-    if (e.target.placeholder === "Add username") {
+    if (e.target.dataset.inviteInput) {
       e.preventDefault();
       if (inviteResults[0]) inviteUser(inviteResults[0]);
       return;
@@ -132,7 +134,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
 
   const handleCreateProject = async () => {
     if (!name.trim()) {
-      setError("Project name is required");
+      setError(t('projectNameRequired'));
       return;
     }
 
@@ -167,7 +169,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Failed to create project");
+        throw new Error(data.error || t('failedCreateProject'));
       }
 
       resetForm();
@@ -194,13 +196,13 @@ const NewProjectPage = ({ isOpen, onClose }) => {
 
         {/* Header */}
         <div className="new-project-header">
-          <h4>New Project</h4>
+          <h4>{t('newProject')}</h4>
         </div>
 
         {/* Content */}
         <div className="new-project-content">
           <div className="form-row form-row-a form-row-name">
-            <label>Name</label>
+            <label>{t('name')}</label>
             <input
               type="text"
               placeholder="My New Project"
@@ -210,12 +212,12 @@ const NewProjectPage = ({ isOpen, onClose }) => {
           </div>
 
           <div className="form-row form-row-a form-row-name">
-            <label>Icon</label>
+            <label>{t('icon')}</label>
             <IconPicker value={icon} onChange={setIcon} />
           </div>
 
           <div className="form-row form-row-a form-row-privacy">
-            <label>Privacy</label>
+            <label>{t('privacy')}</label>
             <div className="radio-group">
               <div>
                 <input
@@ -223,7 +225,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
                   name="privacy"
                   checked={visibility === "private"}
                   onChange={() => setVisibility("private")}
-                /> Private
+                /> {t('private')}
               </div>
               <div>
                 <input
@@ -231,17 +233,17 @@ const NewProjectPage = ({ isOpen, onClose }) => {
                   name="privacy"
                   checked={visibility === "public"}
                   onChange={() => setVisibility("public")}
-                /> Public
+                /> {t('public')}
               </div>
             </div>
           </div>
 
           <div className="advanced">
             <details>
-              <summary>Advanced Options</summary>
+              <summary>{t('advancedOptions')}</summary>
 
               <div className="form-row form-row-subject">
-                <label>Subject</label>
+                <label>{t('subject')}</label>
                 <input
                   type="text"
                   placeholder="Physics"
@@ -251,7 +253,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
               </div>
 
               <div className="form-row form-row-priority">
-                <label>Deadline</label>
+                <label>{t('colDeadline')}</label>
                 <input
                   type="datetime-local"
                   value={deadline}
@@ -260,28 +262,29 @@ const NewProjectPage = ({ isOpen, onClose }) => {
               </div>
 
               <div className="form-row form-row-priority">
-                <label>Priority</label>
+                <label>{t('priority')}</label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
                 >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
+                  <option value="low">{t('low')}</option>
+                  <option value="medium">{t('medium')}</option>
+                  <option value="high">{t('high')}</option>
                 </select>
               </div>
 
               <div className="advanced-collaborators">
-                <label>Invite Collaborators</label>
+                <label>{t('inviteCollaborators')}</label>
 
                 {/* Input */}
                 <div className="inviteCollaborators-row">
                   <input
                     type="text"
-                    placeholder="Add username"
+                    placeholder={t('addUsernamePlaceholder')}
                     value={inviteQuery}
                     onChange={handleInviteChange}
                     spellCheck={false}
+                    data-invite-input="true"
                   />
                   <button
                     className="primary-btn"
@@ -290,7 +293,7 @@ const NewProjectPage = ({ isOpen, onClose }) => {
                       if (inviteResults[0]) inviteUser(inviteResults[0]);
                     }}
                   >
-                    Invite
+                    {t('invite')}
                   </button>
                 </div>
 
@@ -348,14 +351,14 @@ const NewProjectPage = ({ isOpen, onClose }) => {
               onClose();
             }}
           >
-            Cancel
+            {t('cancel')}
           </button>
           <button
             className="primary-btn"
             onClick={handleCreateProject}
             disabled={loading}
           >
-            {loading ? "Creating..." : "Create"}
+            {loading ? t('creating') : t('create')}
           </button>
         </div>
       </div>

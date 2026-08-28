@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Styles/LogoutPage.css';
 
 const LogoutPage = ({ isOpen, onClose }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
@@ -30,7 +32,7 @@ const LogoutPage = ({ isOpen, onClose }) => {
                 <div className="logout-content">
                     <span style={{ fontSize: '3rem', textAlign: 'center', display: 'block' }}>⚠️</span>
                     <p>
-                        Are you sure you want to log out?
+                        {t('confirmLogout')}
                     </p>
                 </div>
                 <div className="logout-footer">
@@ -39,14 +41,14 @@ const LogoutPage = ({ isOpen, onClose }) => {
                         onClick={handleLogoutCancel}
                         disabled={loading}
                     >
-                        Cancel
+                        {t('cancel')}
                     </button>
                     <button
                         className="primary-btn logout-btn"
                         onClick={handleLogoutAccept}
                         disabled={loading}
                     >
-                        {loading ? 'Logging out...' : 'Log Out'}
+                        {loading ? t('loggingOut') : t('logOut')}
                     </button>
                 </div>
             </div>

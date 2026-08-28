@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import "./Styles/NewProjectPage.css";
 
 import IconPicker from './IconPicker';
 
 const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
+  const { t } = useTranslation();
   const [error, setError] = useState(null);
   const [inviteQuery, setInviteQuery] = useState("");
   const [inviteResults, setInviteResults] = useState([]);
@@ -88,7 +90,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
   const handleKeyDown = (e) => {
     if (e.key !== "Enter") return;
 
-    if (e.target.placeholder === "Add username") {
+    if (e.target.dataset.inviteInput) {
       e.preventDefault();
       if (inviteResults[0]) inviteUser(inviteResults[0]);
       return;
@@ -135,7 +137,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
       );
 
     } catch (err) {
-      setError("Failed to invite user");
+      setError(t('failedInviteUser'));
       console.error(err);
     }
   };
@@ -143,7 +145,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
   /* === save changes === */
   const handleSave = async () => {
     if (!name.trim()) {
-      setError("Project name is required");
+      setError(t('projectNameRequired'));
       return;
     }
 
@@ -173,7 +175,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
         }
       );
 
-      if (!res.ok) throw new Error("Failed to update project");
+      if (!res.ok) throw new Error(t('failedUpdateProject'));
 
       const updated = await res.json();
       onUpdated?.(updated);
@@ -197,13 +199,13 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
       >
         {/* Header */}
         <div className="new-project-header">
-          <h4>Edit Project</h4>
+          <h4>{t('editProject')}</h4>
         </div>
 
         {/* Content */}
         <div className="new-project-content">
           <div className="form-row form-row-a form-row-name">
-            <label>Name</label>
+            <label>{t('name')}</label>
             <input
               type="text"
               placeholder="My New Project"
@@ -213,12 +215,12 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
           </div>
 
           <div className="form-row form-row-a form-row-name">
-            <label>Icon</label>
+            <label>{t('icon')}</label>
             <IconPicker value={icon} onChange={setIcon} />
           </div>
 
           <div className="form-row form-row-a form-row-privacy">
-            <label>Privacy</label>
+            <label>{t('privacy')}</label>
             <div className="radio-group">
               <div>
                 <input
@@ -226,7 +228,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
                   name="privacy"
                   checked={visibility === "private"}
                   onChange={() => setVisibility("private")}
-                /> Private
+                /> {t('private')}
               </div>
               <div>
                 <input
@@ -234,17 +236,17 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
                   name="privacy"
                   checked={visibility === "public"}
                   onChange={() => setVisibility("public")}
-                /> Public
+                /> {t('public')}
               </div>
             </div>
           </div>
 
           <div className="advanced">
             <details>
-              <summary>Advanced Options</summary>
+              <summary>{t('advancedOptions')}</summary>
 
               <div className="form-row form-row-subject">
-                <label>Subject</label>
+                <label>{t('subject')}</label>
                 <input
                   type="text"
                   placeholder="Physics"
@@ -254,7 +256,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
               </div>
 
               <div className="form-row form-row-priority">
-                <label>Deadline</label>
+                <label>{t('colDeadline')}</label>
                 <input
                   type="datetime-local"
                   value={deadline}
@@ -263,28 +265,29 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
               </div>
 
               <div className="form-row form-row-priority">
-                <label>Priority</label>
+                <label>{t('priority')}</label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
                 >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
+                  <option value="low">{t('low')}</option>
+                  <option value="medium">{t('medium')}</option>
+                  <option value="high">{t('high')}</option>
                 </select>
               </div>
 
               <div className="advanced-collaborators">
-                <label>Invite Collaborators</label>
+                <label>{t('inviteCollaborators')}</label>
 
                 {/* Input */}
                 <div className="inviteCollaborators-row">
                   <input
                     type="text"
-                    placeholder="Add username"
+                    placeholder={t('addUsernamePlaceholder')}
                     value={inviteQuery}
                     onChange={handleInviteChange}
                     spellCheck={false}
+                    data-invite-input="true"
                   />
                   <button
                     className="primary-btn"
@@ -293,7 +296,7 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
                       if (inviteResults[0]) inviteUser(inviteResults[0]);
                     }}
                   >
-                    Invite
+                    {t('invite')}
                   </button>
                 </div>
 
@@ -349,14 +352,14 @@ const EditProjectPage = ({ isOpen, onClose, project, onUpdated }) => {
               onClose();
             }}
           >
-            Cancel
+            {t('cancel')}
           </button>
           <button
             className="primary-btn"
             disabled={loading}
             onClick={handleSave}
           >
-            {loading ? "Saving..." : "Save"}
+            {loading ? t('saving') : t('save')}
           </button>
         </div>
       </div>

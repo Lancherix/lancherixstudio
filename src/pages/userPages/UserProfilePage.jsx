@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './UserProfilePage.css';
 import ProjectIcon from '../../icons/ProjectIcon';
 
 const UserProfilePage = () => {
+  const { t } = useTranslation();
   const { username } = useParams();
 
   const [user, setUser] = useState(null);
@@ -22,7 +24,7 @@ const UserProfilePage = () => {
         );
 
         if (!response.ok) {
-          throw new Error('User not found');
+          throw new Error(t('userNotFound'));
         }
 
         const foundUser = await response.json();
@@ -49,7 +51,7 @@ const UserProfilePage = () => {
         );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch projects');
+          throw new Error(t('failedFetchProjects'));
         }
 
         const data = await response.json();
@@ -68,7 +70,7 @@ const UserProfilePage = () => {
   // States
   // ─────────────────────────────
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t('errorPrefix')} {error}</div>;
   }
 
   if (!user) {
@@ -97,10 +99,10 @@ const UserProfilePage = () => {
         <div className="content-memberPage">
 
           {loadingProjects ? (
-            <p className="empty-state">Loading projects…</p>
+            <p className="empty-state">{t('loadingProjects')}</p>
           ) : projects.length === 0 ? (
             <p className="empty-state">
-              This studio has no public projects yet.
+              {t('noPublicProjects')}
             </p>
           ) : (
             <div className="projects-grid">

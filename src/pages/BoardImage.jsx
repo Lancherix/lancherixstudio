@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './Styles/BoardImage.css';
 
 // Speed presets
@@ -55,6 +56,7 @@ const BoardImage = ({
     images = [],
     onGoTo,
 }) => {
+    const { t } = useTranslation();
     const containerRef = useRef(null);
     const progressRef = useRef(null);
     const startTimeRef = useRef(null);
@@ -229,7 +231,7 @@ const BoardImage = ({
                                         key={s}
                                         className={`bi-speed-btn ${speed === s ? 'active' : ''}`}
                                         onClick={() => setSpeed(s)}
-                                        title={`${s === 'slow' ? '5s' : s === 'medium' ? '3s' : '1.5s'} per slide`}
+                                        title={`${s === 'slow' ? '5s' : s === 'medium' ? '3s' : '1.5s'} ${t('perSlide')}`}
                                     >
                                         {s === 'slow' ? '1×' : s === 'medium' ? '2×' : '3×'}
                                     </button>
@@ -243,7 +245,7 @@ const BoardImage = ({
                             <button
                                 className="bi-play-btn"
                                 onClick={toggleSlideshow}
-                                title={isPlaying ? 'Stop slideshow (Space)' : 'Play slideshow (Space)'}
+                                title={isPlaying ? t('stopSlideshow') : t('playSlideshow')}
                             >
                                 <span className="bi-play-icon">
                                     {isPlaying ? <IconStop /> : <IconPlay />}
@@ -272,14 +274,14 @@ const BoardImage = ({
                         <button
                             className="bi-icon-btn"
                             onClick={handleDownload}
-                            title="Download image"
+                            title={t('downloadImage')}
                         >
                             <IconDownload />
                         </button>
                         <button
                             className="bi-icon-btn bi-icon-btn--close"
                             onClick={onClose}
-                            title="Close (Esc)"
+                            title={t('closeEsc')}
                         >
                             <IconClose />
                         </button>
@@ -289,18 +291,18 @@ const BoardImage = ({
 
                 {/* ── Keyboard hint ── */}
                 <div className={`bi-hint ${showHint ? 'visible' : ''}`}>
-                    <span>← → navigate</span>
+                    <span>{t('hintNavigate')}</span>
                     <span className="bi-hint-dot">·</span>
-                    <span>Space play</span>
+                    <span>{t('hintPlay')}</span>
                     <span className="bi-hint-dot">·</span>
-                    <span>Esc close</span>
+                    <span>{t('hintClose')}</span>
                 </div>
 
                 {/* ── Navigation arrows ── */}
                 <button
                     className="bi-nav bi-nav--prev"
                     onClick={() => { stopSlideshow(); onPrev?.(); }}
-                    title="Previous (←)"
+                    title={t('previousArrow')}
                 >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
                         <path d="M15 18l-6-6 6-6" />
@@ -309,7 +311,7 @@ const BoardImage = ({
                 <button
                     className="bi-nav bi-nav--next"
                     onClick={() => { stopSlideshow(); onNext?.(); }}
-                    title="Next (→)"
+                    title={t('nextArrow')}
                 >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
                         <path d="M9 18l6-6-6-6" />
@@ -323,7 +325,7 @@ const BoardImage = ({
                 >
                     <img
                         src={imageUrl}
-                        alt="Board"
+                        alt={t('boardImageAlt')}
                         draggable={false}
                         onClick={handleImageClick}
                         className={`bi-image ${zoomed ? 'zoomed' : ''} ${isPlaying ? 'playing' : ''}`}
@@ -338,9 +340,9 @@ const BoardImage = ({
                                 key={i}
                                 className={`bi-thumb ${i === currentIndex ? 'active' : ''}`}
                                 onClick={() => { stopSlideshow(); onGoTo?.(i); }}
-                                title={`Image ${i + 1}`}
+                                title={t('imageNumber', { number: i + 1 })}
                             >
-                                <img src={url} alt={`Thumbnail ${i + 1}`} draggable={false} />
+                                <img src={url} alt={t('imageNumber', { number: i + 1 })} draggable={false} />
                                 {i === currentIndex && <div className="bi-thumb-bar" />}
                             </button>
                         ))}

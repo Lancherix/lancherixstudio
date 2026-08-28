@@ -38,7 +38,7 @@ import './pages/Styles/RegisterPage.css';
 const isUrl = (query) => /^(ftp|http[s]?):\/\/[^ "]+(\.[^ "]+)+$/.test(query);
 
 const App = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [results, setResults] = useState({
     users: [],
     projects: []
@@ -85,6 +85,9 @@ const App = () => {
         setThemeMode(user.themeMode);
         setUsername(user.username);
         setError(null);
+
+        // ── Apply saved language ─────────────────────────────────────────────────
+        i18n.changeLanguage(user.language || 'en-US');
 
         // ── Apply wallpaper ──────────────────────────────────────────────────────
         if (user.wallpaper?.url) {

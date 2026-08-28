@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import LancherixIcon from '../icons/lancherix.svg';
 import LancherixDarkIcon from '../icons/lancherixDark.svg';
@@ -8,6 +9,7 @@ import SearchDarkIcon from '../icons/searchDark.svg';
 import './Styles/SearchBar.css';
 
 const SearchBar = ({ onSearch }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [themeMode, setThemeMode] = useState('light');
 
@@ -115,7 +117,7 @@ const SearchBar = ({ onSearch }) => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          placeholder="Lancherix Search…"
+          placeholder={t('lancherixSearchPlaceholder')}
           spellCheck={false}
         />
         <img

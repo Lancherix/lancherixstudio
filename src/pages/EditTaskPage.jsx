@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './Styles/NewProjectPage.css'; // puedes usar la misma CSS
 
 const EditTaskPage = ({ isOpen, onClose, task, onUpdated }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [priority, setPriority] = useState("medium");
   const [deadline, setDeadline] = useState("");
@@ -40,7 +42,7 @@ const EditTaskPage = ({ isOpen, onClose, task, onUpdated }) => {
         }
       );
 
-      if (!res.ok) throw new Error("Failed to update task");
+      if (!res.ok) throw new Error(t('failedUpdateTask'));
 
       const updatedTask = await res.json();
       onUpdated(updatedTask);
@@ -63,23 +65,23 @@ const EditTaskPage = ({ isOpen, onClose, task, onUpdated }) => {
       >
         {/* Header */}
         <div className="new-project-header">
-          <h4>Edit Task</h4>
+          <h4>{t('editTask')}</h4>
         </div>
 
         {/* Content */}
         <div className="new-project-content">
           <div className="form-row form-row-a form-row-name">
-            <label>Name</label>
+            <label>{t('name')}</label>
             <input
               type="text"
-              placeholder="Task Name"
+              placeholder={t('taskNamePlaceholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
           <div className="form-row form-row-a form-row-name">
-            <label>Deadline</label>
+            <label>{t('colDeadline')}</label>
             <input
               type="datetime-local"
               value={deadline}
@@ -88,14 +90,14 @@ const EditTaskPage = ({ isOpen, onClose, task, onUpdated }) => {
           </div>
 
           <div className="form-row form-row-a">
-            <label>Priority</label>
+            <label>{t('priority')}</label>
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
             >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
+              <option value="low">{t('low')}</option>
+              <option value="medium">{t('medium')}</option>
+              <option value="high">{t('high')}</option>
             </select>
           </div>
 
@@ -108,14 +110,14 @@ const EditTaskPage = ({ isOpen, onClose, task, onUpdated }) => {
             className="secondary-btn"
             onClick={() => onClose()}
           >
-            Cancel
+            {t('cancel')}
           </button>
           <button
             className="primary-btn"
             onClick={handleSave}
             disabled={loading}
           >
-            {loading ? "Saving..." : "Save"}
+            {loading ? t('saving') : t('save')}
           </button>
         </div>
       </div>

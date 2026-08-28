@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './Styles/LogoutPage.css';
 
 const ConfirmDialog = ({
   isOpen,
   onClose,
   onConfirm,
-  title = 'Are you sure?',
+  title,
   icon = '⚠️',
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  confirmText,
+  cancelText,
   danger = true,
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+
+  const resolvedTitle = title ?? t('areYouSure');
+  const resolvedConfirmText = confirmText ?? t('confirm');
+  const resolvedCancelText = cancelText ?? t('cancel');
 
   const handleConfirm = async () => {
     try {
@@ -33,7 +39,7 @@ const ConfirmDialog = ({
           <span style={{ fontSize: '3rem', textAlign: 'center', display: 'block' }}>
             {icon}
           </span>
-          <p>{title}</p>
+          <p>{resolvedTitle}</p>
         </div>
         <div className="logout-footer">
           <button
@@ -41,14 +47,14 @@ const ConfirmDialog = ({
             onClick={onClose}
             disabled={loading}
           >
-            {cancelText}
+            {resolvedCancelText}
           </button>
           <button
             className={`${danger ? 'primary-btn' : 'secondary-btn'} logout-btn`}
             onClick={handleConfirm}
             disabled={loading}
           >
-            {loading ? '...' : confirmText}
+            {loading ? '...' : resolvedConfirmText}
           </button>
         </div>
       </div>

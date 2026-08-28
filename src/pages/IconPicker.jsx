@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { ICON_KEYS } from '../icons/registry';
 import { ICON_TAGS } from '../icons/iconTags';
 import ProjectIcon from '../icons/ProjectIcon';
 import './Styles/IconPicker.css';
 
 const IconPicker = ({ value, onChange }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [position, setPosition] = useState({ top: 0, left: 0, width: 260 });
@@ -110,7 +112,7 @@ const IconPicker = ({ value, onChange }) => {
             ref={searchRef}
             type="text"
             className="icon-picker-search"
-            placeholder="Search icons or categories..."
+            placeholder={t('searchIconsPlaceholder')}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             spellCheck={false}
@@ -133,7 +135,7 @@ const IconPicker = ({ value, onChange }) => {
                 </button>
               ))
             ) : (
-              <div className="icon-picker-empty">No icons found</div>
+              <div className="icon-picker-empty">{t('noIconsFound')}</div>
             )}
           </div>
         </div>,

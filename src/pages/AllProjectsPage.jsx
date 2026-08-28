@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import './Styles/AllProjectsPage.css';
 
 import NewProjectPage from './NewProjectPage';
 import ProjectIcon from '../icons/ProjectIcon';
 
 const AllProjectsPage = () => {
+    const { t } = useTranslation();
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -74,13 +76,13 @@ const AllProjectsPage = () => {
 
                     {/* Columns */}
                     <div className="headerCols-projectsPage projectsGrid">
-                        <div className="col-name-projectsPage">Name</div>
-                        <div className="col-status-projectsPage">Status</div>
-                        <div className="col-priority-projectsPage">Priority</div>
-                        <div className="col-members-projectsPage">Members</div>
-                        <div className="col-visibility-projectsPage">Visibility</div>
-                        <div className="col-deadline-projectsPage">Deadline</div>
-                        <div className="col-updated-projectsPage">Updated</div>
+                        <div className="col-name-projectsPage">{t('colName')}</div>
+                        <div className="col-status-projectsPage">{t('colStatus')}</div>
+                        <div className="col-priority-projectsPage">{t('colPriority')}</div>
+                        <div className="col-members-projectsPage">{t('colMembers')}</div>
+                        <div className="col-visibility-projectsPage">{t('colVisibility')}</div>
+                        <div className="col-deadline-projectsPage">{t('colDeadline')}</div>
+                        <div className="col-updated-projectsPage">{t('colUpdated')}</div>
                         <div className="col-actions-projectsPage" />
                     </div>
 
@@ -89,14 +91,13 @@ const AllProjectsPage = () => {
                         <input
                             type="text"
                             className="search-projectsPage"
-                            placeholder="Search in your projects"
+                            placeholder={t('searchProjectsPlaceholder')}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                 </div>
 
-                {/* ===== Content ===== */}
                 {/* ===== Content ===== */}
                 <div className="content-projectsPage">
                     {projectsToDisplay
