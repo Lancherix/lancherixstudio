@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './BoardImageMobile.css';
 
 const SPEED_PRESETS = { slow: 5000, medium: 3000, fast: 1500 };
@@ -52,6 +53,7 @@ const BoardImageMobile = ({
     images = [],
     onGoTo,
 }) => {
+    const { t } = useTranslation();
     const containerRef = useRef(null);
     const progressRef = useRef(null);
     const startTimeRef = useRef(null);
@@ -193,8 +195,8 @@ const BoardImageMobile = ({
 
     useEffect(() => {
         if (!isPlaying) return;
-        const t = setTimeout(() => { onNext?.(); }, interval);
-        return () => clearTimeout(t);
+        const timer = setTimeout(() => { onNext?.(); }, interval);
+        return () => clearTimeout(timer);
     }, [isPlaying, currentIndex, interval, onNext]);
 
     useEffect(() => { if (!isOpen) stopSlideshow(); }, [isOpen, stopSlideshow]);
@@ -260,14 +262,14 @@ const BoardImageMobile = ({
             panAtPinchStart.current = { ...panRef.current };
         } else if (e.touches.length === 1) {
             if (isPinching.current) return;
-            const t = e.touches[0];
+            const touch = e.touches[0];
             if (scaleRef.current > 1.05) {
                 isPanning.current = true;
-                panTouchStart.current = { x: t.clientX, y: t.clientY };
+                panTouchStart.current = { x: touch.clientX, y: touch.clientY };
                 panAtTouchStart.current = { ...panRef.current };
             } else {
-                swipeStartX.current = t.clientX;
-                swipeStartY.current = t.clientY;
+                swipeStartX.current = touch.clientX;
+                swipeStartY.current = touch.clientY;
                 swipeLocked.current = null;
             }
         }
@@ -301,9 +303,9 @@ const BoardImageMobile = ({
         if (e.touches.length === 1) {
             if (isPanning.current) {
                 e.preventDefault();
-                const t = e.touches[0];
-                const dx = t.clientX - panTouchStart.current.x;
-                const dy = t.clientY - panTouchStart.current.y;
+                const touch = e.touches[0];
+                const dx = touch.clientX - panTouchStart.current.x;
+                const dy = touch.clientY - panTouchStart.current.y;
                 const { x, y } = clampPan(scaleRef.current, panAtTouchStart.current.x + dx, panAtTouchStart.current.y + dy);
                 applyTransform(scaleRef.current, x, y, false);
                 return;
@@ -417,7 +419,7 @@ const BoardImageMobile = ({
                             <button
                                 className="mbi-play-btn"
                                 onClick={toggleSlideshow}
-                                aria-label={isPlaying ? 'Stop slideshow' : 'Play slideshow'}
+                                aria-label={isPlaying ? t('stopSlideshowAria') : t('playSlideshowAria')}
                             >
                                 <span className="mbi-play-icon">
                                     {isPlaying ? <IconStop /> : <IconPlay />}
@@ -440,10 +442,10 @@ const BoardImageMobile = ({
 
                     {/* RIGHT — download + close */}
                     <div className="mbi-topbar-right">
-                        <button className="mbi-icon-btn" onClick={handleDownload} aria-label="Download">
+                        <button className="mbi-icon-btn" onClick={handleDownload} aria-label={t('downloadImage')}>
                             <IconDownload />
                         </button>
-                        <button className="mbi-icon-btn mbi-icon-btn--close" onClick={onClose} aria-label="Close">
+                        <button className="mbi-icon-btn mbi-icon-btn--close" onClick={onClose} aria-label={t('close')}>
                             <IconClose />
                         </button>
                     </div>
@@ -452,11 +454,11 @@ const BoardImageMobile = ({
 
                 {/* ── Hint ── */}
                 <div className={`mbi-hint ${showHint ? 'visible' : ''}`}>
-                    <span>← → swipe</span>
+                    <span>{t('hintSwipe')}</span>
                     <span className="mbi-hint-dot">·</span>
-                    <span>pinch zoom</span>
+                    <span>{t('hintPinchZoom')}</span>
                     <span className="mbi-hint-dot">·</span>
-                    <span>drag to pan</span>
+                    <span>{t('hintDragPan')}</span>
                 </div>
 
                 {/* ── Prev / Next (hidden when zoomed) ── */}
@@ -465,7 +467,7 @@ const BoardImageMobile = ({
                         <button
                             className="mbi-nav mbi-nav--prev"
                             onClick={() => { stopSlideshow(); onPrev?.(); }}
-                            aria-label="Previous"
+                            aria-label={t('previousAria')}
                         >
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
                                 <path d="M15 18l-6-6 6-6" />
@@ -474,7 +476,7 @@ const BoardImageMobile = ({
                         <button
                             className="mbi-nav mbi-nav--next"
                             onClick={() => { stopSlideshow(); onNext?.(); }}
-                            aria-label="Next"
+                            aria-label={t('nextAria')}
                         >
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
                                 <path d="M9 18l6-6-6-6" />
@@ -491,7 +493,7 @@ const BoardImageMobile = ({
                     <img
                         ref={imageRef}
                         src={imageUrl}
-                        alt="Board"
+                        alt={t('boardImageAlt')}
                         draggable={false}
                         onClick={handleImageClick}
                         className={`mbi-image ${zoomed ? 'zoomed' : ''} ${isPlaying ? 'playing' : ''}`}
@@ -506,9 +508,9 @@ const BoardImageMobile = ({
                                 key={i}
                                 className={`mbi-thumb ${i === currentIndex ? 'active' : ''}`}
                                 onClick={() => { stopSlideshow(); onGoTo?.(i); }}
-                                aria-label={`Image ${i + 1}`}
+                                aria-label={t('imageNumber', { number: i + 1 })}
                             >
-                                <img src={url} alt={`Thumbnail ${i + 1}`} draggable={false} />
+                                <img src={url} alt={t('thumbnailNumber', { number: i + 1 })} draggable={false} />
                                 {i === currentIndex && <div className="mbi-thumb-bar" />}
                             </button>
                         ))}

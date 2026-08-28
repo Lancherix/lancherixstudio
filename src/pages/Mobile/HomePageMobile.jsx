@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './HomePageMobile.css';
 
-const MONTHS = ['January','February','March','April','May','June',
-                'July','August','September','October','November','December'];
-
 const HomePageMobile = () => {
+  const { t } = useTranslation();
   const [time, setTime] = useState('');
   const [ampm, setAmpm] = useState('');
   const [date, setDate] = useState('');
@@ -12,6 +11,8 @@ const HomePageMobile = () => {
   document.title = 'Lancherix Studio';
 
   useEffect(() => {
+    const months = t('months', { returnObjects: true });
+
     const tick = () => {
       const d   = new Date();
       const h24 = d.getHours();
@@ -19,12 +20,12 @@ const HomePageMobile = () => {
       const min = String(d.getMinutes()).padStart(2, '0');
       setTime(`${h12}:${min}`);
       setAmpm(h24 >= 12 ? 'PM' : 'AM');
-      setDate(`${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`);
+      setDate(`${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`);
     };
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [t]);
 
   return (
     <div className="hpm-root">

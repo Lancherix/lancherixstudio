@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./BoardTabMobile.css";
 import BoardImageMobile from "./BoardImageMobile";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
@@ -10,6 +11,7 @@ const getOriginalDownloadUrl = (url) => {
 const getFilename = (url) => url.split("/").pop();
 
 export default function BoardTabsMobile({ projectId }) {
+  const { t } = useTranslation();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -222,7 +224,7 @@ export default function BoardTabsMobile({ projectId }) {
           <div key={img._id} className="mobile-board-image-wrapper">
             <img
               src={img.url}
-              alt="board"
+              alt={t('boardImageAlt')}
               className="mobile-board-image"
               draggable={false}
               onClick={() => openImage(i)}
@@ -231,7 +233,7 @@ export default function BoardTabsMobile({ projectId }) {
             <button
               className="mobile-board-download-btn"
               onClick={(e) => { e.stopPropagation(); handleDownload(img.url); }}
-              aria-label="Download image"
+              aria-label={t('downloadImage')}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                 <path
@@ -246,7 +248,7 @@ export default function BoardTabsMobile({ projectId }) {
               <button
                 className="mobile-board-delete-btn"
                 onClick={(e) => { e.stopPropagation(); handleDelete(img._id); }}
-                aria-label="Delete image"
+                aria-label={t('deleteImage')}
               >
                 ✕
               </button>
@@ -257,8 +259,8 @@ export default function BoardTabsMobile({ projectId }) {
         {images.length === 0 && !uploading && (
           <div className="mobile-board-empty">
             <span className="mobile-board-empty-icon">🖼️</span>
-            <h3>Welcome to the Board</h3>
-            <p>Tap the upload button to add images.</p>
+            <h3>{t('boardWelcomeTitle')}</h3>
+            <p>{t('boardEmptySubtitle')}</p>
           </div>
         )}
       </div>
@@ -267,7 +269,7 @@ export default function BoardTabsMobile({ projectId }) {
         <button
           className={`mobile-board-upload-fab ${uploading ? "loading" : ""}`}
           onClick={() => fileInputRef.current?.click()}
-          aria-label="Upload images"
+          aria-label={t('uploadImages')}
           disabled={uploading}
         >
           {uploading ? (

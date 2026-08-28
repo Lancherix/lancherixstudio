@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { ICON_KEYS } from '../../../icons/registry';
 import { ICON_TAGS } from '../../../icons/iconTags';
 import ProjectIcon from '../../../icons/ProjectIcon';
 import './IconPickerMobile.css';
 
 const IconPickerMobile = ({ value, onChange }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [query, setQuery] = useState('');
@@ -87,12 +89,12 @@ const IconPickerMobile = ({ value, onChange }) => {
             <div className="icon-picker-mobile-handle" />
 
             <div className="icon-picker-mobile-header">
-              <span className="icon-picker-mobile-title">Choose Icon</span>
+              <span className="icon-picker-mobile-title">{t('chooseIcon')}</span>
               <button
                 type="button"
                 className="icon-picker-mobile-close"
                 onClick={closeSheet}
-                aria-label="Close"
+                aria-label={t('close')}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L10.94 12l-5.72 5.72a.75.75 0 1 0 1.06 1.06L12 13.06l5.72 5.72a.75.75 0 1 0 1.06-1.06L13.06 12l5.72-5.72a.75.75 0 0 0-1.06-1.06L12 10.94 6.28 5.22Z" />
@@ -104,7 +106,7 @@ const IconPickerMobile = ({ value, onChange }) => {
               ref={searchRef}
               type="text"
               className="icon-picker-mobile-search"
-              placeholder="Search icons or categories..."
+              placeholder={t('searchIconsPlaceholder')}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               spellCheck={false}
@@ -124,7 +126,7 @@ const IconPickerMobile = ({ value, onChange }) => {
                   </button>
                 ))
               ) : (
-                <div className="icon-picker-mobile-empty">No icons found</div>
+                <div className="icon-picker-mobile-empty">{t('noIconsFound')}</div>
               )}
             </div>
 

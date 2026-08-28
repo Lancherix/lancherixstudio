@@ -1,11 +1,13 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './NewProjectPageMobile.css';
 
 import IconPickerMobile from './IconPickerMobile';
 
 const NewProjectPageMobile = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [error, setError] = useState(null);
   const [inviteQuery, setInviteQuery] = useState('');
   const [inviteResults, setInviteResults] = useState([]);
@@ -111,7 +113,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
   };
 
   const handleCreateProject = async () => {
-    if (!name.trim()) { setError('Project name is required'); return; }
+    if (!name.trim()) { setError(t('projectNameRequired')); return; }
     try {
       setLoading(true);
       setError(null);
@@ -128,7 +130,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to create project');
+      if (!res.ok) throw new Error(data.error || t('failedCreateProject'));
       resetForm();
       onClose();
       navigate(`/projects/${data.slug}`);
@@ -154,14 +156,14 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
 
         {/* Header */}
         <div className="npm-header">
-          <button className="npm-cancel-btn" onClick={handleClose}>Cancel</button>
-          <h2 className="npm-title">New Project</h2>
+          <button className="npm-cancel-btn" onClick={handleClose}>{t('cancel')}</button>
+          <h2 className="npm-title">{t('newProject')}</h2>
           <button
             className="npm-create-btn"
             onClick={handleCreateProject}
             disabled={loading}
           >
-            {loading ? '...' : 'Create'}
+            {loading ? '...' : t('create')}
           </button>
         </div>
 
@@ -172,14 +174,14 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
           <div className="npm-icon-name-row">
             <div className="npm-icon-picker">
               <IconPickerMobile value={icon} onChange={setIcon} />
-              <span className="npm-icon-hint">Icon</span>
+              <span className="npm-icon-hint">{t('icon')}</span>
             </div>
             <div className="npm-name-field">
-              <label className="npm-label">Project Name</label>
+              <label className="npm-label">{t('projectNameLabel')}</label>
               <input
                 type="text"
                 className="npm-input"
-                placeholder="My New Project"
+                placeholder={t('projectNamePlaceholder')}
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
@@ -188,19 +190,19 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
 
           {/* Privacy toggle */}
           <div className="npm-section">
-            <label className="npm-label">Privacy</label>
+            <label className="npm-label">{t('privacy')}</label>
             <div className="npm-segment">
               <button
                 className={`npm-segment-btn ${visibility === 'private' ? 'npm-segment-btn--active' : ''}`}
                 onClick={() => setVisibility('private')}
               >
-                🔒 Private
+                🔒 {t('private')}
               </button>
               <button
                 className={`npm-segment-btn ${visibility === 'public' ? 'npm-segment-btn--active' : ''}`}
                 onClick={() => setVisibility('public')}
               >
-                🌐 Public
+                🌐 {t('public')}
               </button>
             </div>
           </div>
@@ -210,7 +212,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
             className="npm-advanced-toggle"
             onClick={() => setAdvancedOpen(v => !v)}
           >
-            <span>Advanced Options</span>
+            <span>{t('advancedOptions')}</span>
             <svg
               className={`npm-chevron ${advancedOpen ? 'npm-chevron--open' : ''}`}
               xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -222,18 +224,18 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
           {/* Advanced panel */}
           <div className={`npm-advanced-panel ${advancedOpen ? 'npm-advanced-panel--open' : ''}`}>
             <div className="npm-section">
-              <label className="npm-label">Subject</label>
+              <label className="npm-label">{t('subject')}</label>
               <input
                 type="text"
                 className="npm-input"
-                placeholder="e.g. Physics"
+                placeholder={t('subjectPlaceholderExample')}
                 value={subject}
                 onChange={e => setSubject(e.target.value)}
               />
             </div>
 
             <div className="npm-section">
-              <label className="npm-label">Deadline</label>
+              <label className="npm-label">{t('colDeadline')}</label>
               <input
                 type="datetime-local"
                 className="npm-input"
@@ -243,7 +245,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
             </div>
 
             <div className="npm-section">
-              <label className="npm-label">Priority</label>
+              <label className="npm-label">{t('priority')}</label>
               <div className="npm-segment">
                 {['low', 'medium', 'high'].map(p => (
                   <button
@@ -251,19 +253,19 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
                     className={`npm-segment-btn npm-segment-btn--priority ${priority === p ? `npm-segment-btn--active npm-priority--${p}` : ''}`}
                     onClick={() => setPriority(p)}
                   >
-                    {p.charAt(0).toUpperCase() + p.slice(1)}
+                    {t(p)}
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="npm-section">
-              <label className="npm-label">Invite Collaborators</label>
+              <label className="npm-label">{t('inviteCollaborators')}</label>
               <div className="npm-invite-row">
                 <input
                   type="text"
                   className="npm-input npm-invite-input"
-                  placeholder="Search username…"
+                  placeholder={t('searchUsernamePlaceholder')}
                   value={inviteQuery}
                   onChange={handleInviteChange}
                   spellCheck={false}
@@ -273,7 +275,7 @@ const NewProjectPageMobile = ({ isOpen, onClose }) => {
                   disabled={!inviteQuery || !inviteResults[0]}
                   onClick={() => { if (inviteResults[0]) inviteUser(inviteResults[0]); }}
                 >
-                  Add
+                  {t('add')}
                 </button>
               </div>
 

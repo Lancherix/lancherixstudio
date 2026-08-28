@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './LogoutPageMobile.css';
 
 const LogoutPageMobile = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +31,7 @@ const LogoutPageMobile = ({ isOpen, onClose }) => {
 
         <div className="mob-sheet-content">
           <span className="mob-sheet-icon">⚠️</span>
-          <p className="mob-sheet-title">Are you sure you want to log out?</p>
+          <p className="mob-sheet-title">{t('confirmLogout')}</p>
         </div>
 
         <div className="mob-sheet-footer">
@@ -38,14 +40,14 @@ const LogoutPageMobile = ({ isOpen, onClose }) => {
             onClick={handleLogoutCancel}
             disabled={loading}
           >
-            Cancel
+            {t('cancel')}
           </button>
           <button
             className="mob-sheet-btn mob-sheet-btn-primary"
             onClick={handleLogoutAccept}
             disabled={loading}
           >
-            {loading ? 'Logging out...' : 'Log Out'}
+            {loading ? t('loggingOut') : t('logOut')}
           </button>
         </div>
       </div>

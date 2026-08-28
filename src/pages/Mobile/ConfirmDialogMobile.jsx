@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './LogoutPageMobile.css';
 import './ConfirmDialogMobile.css';
 
@@ -7,13 +8,18 @@ const ConfirmDialogMobile = ({
   isOpen,
   onClose,
   onConfirm,
-  title = 'Are you sure?',
+  title,
   icon = '⚠️',
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  confirmText,
+  cancelText,
   danger = true,
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+
+  const resolvedTitle = title ?? t('areYouSure');
+  const resolvedConfirmText = confirmText ?? t('confirm');
+  const resolvedCancelText = cancelText ?? t('cancel');
 
   const handleConfirm = async () => {
     try {
@@ -34,7 +40,7 @@ const ConfirmDialogMobile = ({
 
         <div className="mob-sheet-content">
           <span className="mob-sheet-icon">{icon}</span>
-          <p className="mob-sheet-title">{title}</p>
+          <p className="mob-sheet-title">{resolvedTitle}</p>
         </div>
 
         <div className="mob-sheet-footer">
@@ -43,14 +49,14 @@ const ConfirmDialogMobile = ({
             onClick={onClose}
             disabled={loading}
           >
-            {cancelText}
+            {resolvedCancelText}
           </button>
           <button
             className={`mob-sheet-btn ${danger ? 'mob-sheet-btn-primary' : 'mob-sheet-btn-neutral'}`}
             onClick={handleConfirm}
             disabled={loading}
           >
-            {loading ? '...' : confirmText}
+            {loading ? '...' : resolvedConfirmText}
           </button>
         </div>
       </div>

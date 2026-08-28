@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './SearchPageMobile.css';
 import ProjectIcon from '../../icons/ProjectIcon';
 
 const SearchPageMobile = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [closing, setClosing] = useState(false);
   const [query, setQuery] = useState('');
   const [themeMode, setThemeMode] = useState('light');
@@ -112,7 +114,7 @@ const SearchPageMobile = ({ isOpen, onClose }) => {
                 ref={inputRef}
                 type="search"
                 className="sbm-input"
-                placeholder="Search people, projects…"
+                placeholder={t('searchPeopleProjectsPlaceholder')}
                 value={query}
                 onChange={handleInputChange}
                 spellCheck={false}
@@ -126,7 +128,7 @@ const SearchPageMobile = ({ isOpen, onClose }) => {
                 </button>
               )}
             </div>
-            <button className="sbm-cancel" onClick={handleClose}>Cancel</button>
+            <button className="sbm-cancel" onClick={handleClose}>{t('cancel')}</button>
           </div>
 
           {/* Results */}
@@ -142,7 +144,7 @@ const SearchPageMobile = ({ isOpen, onClose }) => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                   <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
                 </svg>
-                <p>No results for <strong>"{query}"</strong></p>
+                <p>{t('noResultsFor')} <strong>"{query}"</strong></p>
               </div>
             )}
 
@@ -151,13 +153,13 @@ const SearchPageMobile = ({ isOpen, onClose }) => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                   <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
                 </svg>
-                <p>Search for people or projects</p>
+                <p>{t('searchHint')}</p>
               </div>
             )}
 
             {!loading && results.users.length > 0 && (
               <div className="sbm-section">
-                <p className="sbm-section-label">People</p>
+                <p className="sbm-section-label">{t('peopleLabel')}</p>
                 {results.users.map(user => {
                   const pic = user.profilePicture?.url || 'https://studio.lancherix.com/Images/defaultProfilePicture.png';
                   return (
@@ -183,7 +185,7 @@ const SearchPageMobile = ({ isOpen, onClose }) => {
 
             {!loading && results.projects.length > 0 && (
               <div className="sbm-section">
-                <p className="sbm-section-label">Projects</p>
+                <p className="sbm-section-label">{t('projects')}</p>
                 {results.projects.map(project => (
                   <Link
                     key={project._id}

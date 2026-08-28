@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./ProjectPageMobile.css";
 import EditProjectPageMobile from '../Mobile/ProjectTabs/EditProjectPageMobile';
 import EditTaskPage from '../EditTaskPage';
@@ -8,6 +9,7 @@ import ProjectIcon from '../../icons/ProjectIcon';
 import ConfirmDialogMobile from './ConfirmDialogMobile';
 
 const ProjectPageMobile = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,8 +55,8 @@ const ProjectPageMobile = () => {
         if (!res.ok) {
           throw new Error(
             res.status === 404
-              ? "This project does not exist"
-              : data.error || "Failed to load project"
+              ? t('projectNotFound')
+              : data.error || t('failedLoadProject')
           );
         }
 
@@ -229,7 +231,7 @@ const ProjectPageMobile = () => {
       if (!parsed.hostname.includes('.') || parsed.hostname.split('.').pop().length < 2)
         throw new Error("Invalid domain");
     } catch {
-      alert("Please enter a valid URL");
+      alert(t('invalidUrl'));
       setNewLinkUrl("");
       return;
     }
@@ -281,8 +283,8 @@ const ProjectPageMobile = () => {
   const handleShareProject = async () => {
     try {
       await navigator.clipboard.writeText(`https://studio.lancherix.com/projects/${project.slug}`);
-      alert("Project link copied to clipboard!");
-    } catch (err) { alert("Failed to copy project link"); }
+      alert(t('linkCopied'));
+    } catch (err) { alert(t('linkCopyFailed')); }
   };
 
   const updateProjectStatus = async (newStatus) => {
@@ -301,7 +303,7 @@ const ProjectPageMobile = () => {
       const updatedProject = await res.json();
       setProject(updatedProject);
       window.location.reload();
-    } catch (err) { alert("Could not update project status"); }
+    } catch (err) { alert(t('statusUpdateFailed')); }
   };
 
   const status = project ? project.status ?? "active" : "active";
@@ -359,7 +361,7 @@ const ProjectPageMobile = () => {
           <button
             className="mobile-icon-btn"
             onClick={(e) => { e.stopPropagation(); setShowSidebar(prev => !prev); }}
-            aria-label="Members"
+            aria-label={t('membersAria')}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -372,7 +374,7 @@ const ProjectPageMobile = () => {
               <button
                 className="mobile-icon-btn"
                 onClick={(e) => { e.stopPropagation(); setShowOptions(prev => !prev); }}
-                aria-label="Options"
+                aria-label={t('optionsAria')}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
@@ -381,14 +383,14 @@ const ProjectPageMobile = () => {
 
               {showOptions && (
                 <div className="mobile-options-menu">
-                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); setEditProjectOpen(true); }}>Edit Details</button>
-                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus(isPinned ? "active" : "pinned"); }}>{isPinned ? "Unpin Project" : "Pin Project"}</button>
-                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus(isHidden ? "active" : "hidden"); }}>{isHidden ? "Unhide" : "Hide"}</button>
-                  {!isCompleted && <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus("completed"); }}>Mark as Completed</button>}
-                  {project.visibility === "public" && <button className="mobile-options-item" onClick={() => { setShowOptions(false); handleShareProject(); }}>Share</button>}
-                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus(isArchived ? "active" : "archived"); }}>{isArchived ? "Restore Project" : "Archive Project"}</button>
+                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); setEditProjectOpen(true); }}>{t('editDetails')}</button>
+                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus(isPinned ? "active" : "pinned"); }}>{isPinned ? t('unpinProject') : t('pinProject')}</button>
+                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus(isHidden ? "active" : "hidden"); }}>{isHidden ? t('unhideProject') : t('hideProject')}</button>
+                  {!isCompleted && <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus("completed"); }}>{t('markCompleted')}</button>}
+                  {project.visibility === "public" && <button className="mobile-options-item" onClick={() => { setShowOptions(false); handleShareProject(); }}>{t('share')}</button>}
+                  <button className="mobile-options-item" onClick={() => { setShowOptions(false); updateProjectStatus(isArchived ? "active" : "archived"); }}>{isArchived ? t('restoreProject') : t('archiveProject')}</button>
                   <div className="mobile-options-divider" />
-                  <button className="mobile-options-item danger" onClick={() => { setShowOptions(false); handleLeave(); }}>Leave Project</button>
+                  <button className="mobile-options-item danger" onClick={() => { setShowOptions(false); handleLeave(); }}>{t('leaveProject')}</button>
                 </div>
               )}
             </div>
@@ -401,7 +403,7 @@ const ProjectPageMobile = () => {
         <div className="mobile-drawer-overlay" onClick={() => setShowSidebar(false)}>
           <aside className="mobile-drawer" onClick={e => e.stopPropagation()}>
             <div className="mobile-drawer-header">
-              <h3>{members.length} Members</h3>
+              <h3>{t('membersCount', { count: members.length })}</h3>
               <button className="mobile-drawer-close" onClick={() => setShowSidebar(false)}>✕</button>
             </div>
             <ul className="mobile-members-list">
@@ -415,7 +417,7 @@ const ProjectPageMobile = () => {
                     <span className="mobile-member-name">{user.firstName} {user.lastName}</span>
                     <span className="mobile-member-username">@{user.username}</span>
                   </div>
-                  {user.isOwner && <span className="mobile-owner-badge">Owner</span>}
+                  {user.isOwner && <span className="mobile-owner-badge">{t('owner')}</span>}
                 </li>
               ))}
             </ul>
@@ -425,7 +427,13 @@ const ProjectPageMobile = () => {
 
       {/* ===== Tab Bar ===== */}
       <nav className="mobile-tab-bar">
-        {["Tasks", "Notes", "Board", "Links", "Done"].map(tab => (
+        {[
+          { key: "Tasks", label: t('tabTasks') },
+          { key: "Notes", label: t('tabNotes') },
+          { key: "Board", label: t('tabBoard') },
+          { key: "Links", label: t('tabLinks') },
+          { key: "Done", label: t('tabDone') },
+        ].map(({ key: tab, label }) => (
           <button
             key={tab}
             className={`mobile-tab ${activeTab === tab ? "mobile-tab-active" : ""}`}
@@ -441,7 +449,7 @@ const ProjectPageMobile = () => {
               }
             }}
           >
-            {tab}
+            {label}
             {tab === "Tasks" && activeTasks.length > 0 && (
               <span className="mobile-tab-badge">{activeTasks.length}</span>
             )}
@@ -460,7 +468,7 @@ const ProjectPageMobile = () => {
           <div className="mobile-tasks">
             <div className="mobile-tasks-list">
               {activeTasks.length === 0 && (
-                <p className="mobile-empty-state">No tasks yet. Add one below ↓</p>
+                <p className="mobile-empty-state">{t('noTasksYet')}</p>
               )}
               {activeTasks.map((task) => (
                 <div
@@ -480,7 +488,7 @@ const ProjectPageMobile = () => {
                       <span className="mobile-task-name">{task.name}</span>
                       {task.due && (
                         <span className="mobile-task-due">
-                          Due {new Date(task.due).toLocaleDateString()}
+                          {t('dueLabel', { date: new Date(task.due).toLocaleDateString() })}
                         </span>
                       )}
                     </div>
@@ -490,7 +498,7 @@ const ProjectPageMobile = () => {
                     <button
                       className="mobile-edit-btn"
                       onClick={(e) => { e.stopPropagation(); setTaskToEdit(task); setEditTaskOpen(true); }}
-                      aria-label="Edit"
+                      aria-label={t('editTaskAria')}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path fillRule="evenodd" d="M20.599 1.5c-.376 0-.743.111-1.055.32l-5.08 3.385a18.747 18.747 0 0 0-3.471 2.987 10.04 10.04 0 0 1 4.815 4.815 18.748 18.748 0 0 0 2.987-3.472l3.386-5.079A1.902 1.902 0 0 0 20.599 1.5Zm-8.3 14.025a18.76 18.76 0 0 0 1.896-1.207 8.026 8.026 0 0 0-4.513-4.513A18.75 18.75 0 0 0 8.475 11.7l-.278.5a5.26 5.26 0 0 1 3.601 3.602l.502-.278ZM6.75 13.5A3.75 3.75 0 0 0 3 17.25a1.5 1.5 0 0 1-1.601 1.497.75.75 0 0 0-.7 1.123 5.25 5.25 0 0 0 9.8-2.62 3.75 3.75 0 0 0-3.75-3.75Z" clipRule="evenodd" />
@@ -499,7 +507,7 @@ const ProjectPageMobile = () => {
                     <button
                       className="mobile-delete-btn"
                       onClick={(e) => { e.stopPropagation(); handleDeleteTask(task._id); }}
-                      aria-label="Delete"
+                      aria-label={t('deleteTaskAria')}
                     >✕</button>
                   </div>
                 </div>
@@ -511,7 +519,7 @@ const ProjectPageMobile = () => {
               <span className="mobile-new-task-icon">+</span>
               <input
                 className="mobile-new-task-input"
-                placeholder="New Task — press Enter to add"
+                placeholder={t('newTaskHint')}
                 value={newTaskName}
                 onChange={(e) => setNewTaskName(e.target.value)}
                 onKeyDown={handleNewTaskKeyDown}
@@ -524,16 +532,16 @@ const ProjectPageMobile = () => {
         {activeTab === "Notes" && (
           <div className="mobile-notes">
             <div className="mobile-notes-toolbar">
-              <button onClick={() => applyFormat("undo")}>↺</button>
-              <button onClick={() => applyFormat("redo")}>↻</button>
-              <button onClick={() => applyFormat("bold")}><b>B</b></button>
-              <button onClick={() => applyFormat("italic")}><i>I</i></button>
-              <button onClick={() => applyFormat("underline")}><u>U</u></button>
-              <button onClick={() => applyFormat("strikeThrough")}><s>S</s></button>
-              <button onClick={() => applyFormat("formatBlock", "H1")}>H1</button>
-              <button onClick={() => applyFormat("formatBlock", "H2")}>H2</button>
-              <button onClick={() => applyFormat("insertUnorderedList")}>• List</button>
-              <button onClick={() => applyFormat("insertOrderedList")}>1. List</button>
+              <button onClick={() => applyFormat("undo")} aria-label={t('undoAria')}>↺</button>
+              <button onClick={() => applyFormat("redo")} aria-label={t('redoAria')}>↻</button>
+              <button onClick={() => applyFormat("bold")} aria-label={t('boldAria')}><b>B</b></button>
+              <button onClick={() => applyFormat("italic")} aria-label={t('italicAria')}><i>I</i></button>
+              <button onClick={() => applyFormat("underline")} aria-label={t('underlineAria')}><u>U</u></button>
+              <button onClick={() => applyFormat("strikeThrough")} aria-label={t('strikethroughAria')}><s>S</s></button>
+              <button onClick={() => applyFormat("formatBlock", "H1")} aria-label={t('headingOneAria')}>H1</button>
+              <button onClick={() => applyFormat("formatBlock", "H2")} aria-label={t('headingTwoAria')}>H2</button>
+              <button onClick={() => applyFormat("insertUnorderedList")} aria-label={t('bulletListAria')}>{t('formatBulletList')}</button>
+              <button onClick={() => applyFormat("insertOrderedList")} aria-label={t('numberedListAria')}>{t('formatNumberList')}</button>
             </div>
             <div
               className="mobile-notes-editor"
@@ -562,7 +570,7 @@ const ProjectPageMobile = () => {
           <div className="mobile-links">
             <div className="mobile-links-list">
               {links.length === 0 && (
-                <p className="mobile-empty-state">No links yet. Paste one below ↓</p>
+                <p className="mobile-empty-state">{t('noLinksYet')}</p>
               )}
               {links.map((link, i) => (
                 <div key={i} className="mobile-link-card">
@@ -582,7 +590,7 @@ const ProjectPageMobile = () => {
                   <button
                     className="mobile-delete-btn"
                     onClick={() => handleDeleteLink(i)}
-                    aria-label="Delete Link"
+                    aria-label={t('deleteLinkAria')}
                   >✕</button>
                 </div>
               ))}
@@ -591,7 +599,7 @@ const ProjectPageMobile = () => {
               <span className="mobile-new-task-icon">🔗</span>
               <input
                 className="mobile-new-task-input"
-                placeholder="Paste URL — press Enter to add"
+                placeholder={t('pasteUrlHint')}
                 value={newLinkUrl}
                 onChange={(e) => setNewLinkUrl(e.target.value)}
                 onKeyDown={handleNewLinkKeyDown}
@@ -605,7 +613,7 @@ const ProjectPageMobile = () => {
           <div className="mobile-tasks">
             <div className="mobile-tasks-list">
               {completedTasks.length === 0 && (
-                <p className="mobile-empty-state">No completed tasks yet.</p>
+                <p className="mobile-empty-state">{t('noCompletedTasks')}</p>
               )}
               {completedTasks.slice().reverse().map((task) => (
                 <div key={task._id} className="mobile-task-card mobile-task-done">
@@ -622,7 +630,7 @@ const ProjectPageMobile = () => {
                     <button
                       className="mobile-delete-btn"
                       onClick={(e) => { e.stopPropagation(); handleDeleteTask(task._id); }}
-                      aria-label="Delete"
+                      aria-label={t('deleteTaskAria')}
                     >✕</button>
                   </div>
                 </div>
@@ -652,16 +660,16 @@ const ProjectPageMobile = () => {
         isOpen={!!taskPendingDelete}
         onClose={() => setTaskPendingDelete(null)}
         onConfirm={confirmDeleteTask}
-        title="Delete this task?"
-        confirmText="Delete"
+        title={t('confirmDeleteTask')}
+        confirmText={t('deleteBtn')}
       />
 
       <ConfirmDialogMobile
         isOpen={confirmLeaveOpen}
         onClose={() => setConfirmLeaveOpen(false)}
         onConfirm={confirmLeaveProject}
-        title="Leave this project?"
-        confirmText="Leave"
+        title={t('confirmLeaveProject')}
+        confirmText={t('leaveBtn')}
       />
     </div>
   );

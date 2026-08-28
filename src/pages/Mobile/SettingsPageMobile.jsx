@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import LogoutPageMobile from './LogoutPageMobile';
 import './SettingsPageMobile.css';
-import { language } from '../../language';
 
 const SettingsPageMobile = () => {
+  const { t, i18n } = useTranslation();
+
   const [selectedOption, setSelectedOption] = useState(null); // null = show main menu
   const [wallpaper, setWallpaper] = useState('');
   const [username, setUsername] = useState('');
@@ -23,9 +25,7 @@ const SettingsPageMobile = () => {
   const [currentLang, setCurrentLang] = useState('en-US');
   const [region, setRegion] = useState('');
 
-  const t = (key) => language[currentLang]?.[key] || language['en-US']?.[key] || key;
-
-  document.title = 'Lancherix Settings';
+  document.title = t('settings');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -50,6 +50,7 @@ const SettingsPageMobile = () => {
         setBirthYear(user.year);
         setGender(user.gender);
         setCurrentLang(user.language || 'en-US');
+        if (user.language) i18n.changeLanguage(user.language);
         setRegion(user.country);
         setProfilePicturePreview(
           user.profilePicture?.url || 'https://studio.lancherix.com/Images/defaultProfilePicture.png'
@@ -65,7 +66,7 @@ const SettingsPageMobile = () => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [i18n]);
 
   const handleWallpaperChange = async (input) => {
     try {
@@ -80,13 +81,13 @@ const SettingsPageMobile = () => {
           headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({ wallpaper: { url: input, public_id: '' } }),
         });
-        if (!response.ok) throw new Error('Failed to update wallpaper');
+        if (!response.ok) throw new Error(t('wallpaperUpdateFailed'));
         return;
       }
 
       const file = input.target.files[0];
       if (!file) return;
-      if (file.size > 5 * 1024 * 1024) { alert('Wallpaper must be smaller than 5MB'); return; }
+      if (file.size > 5 * 1024 * 1024) { alert(t('wallpaperTooLarge')); return; }
 
       const formData = new FormData();
       formData.append('wallpaper', file);
@@ -96,7 +97,7 @@ const SettingsPageMobile = () => {
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
-      if (!uploadRes.ok) throw new Error('Wallpaper upload failed');
+      if (!uploadRes.ok) throw new Error(t('wallpaperUploadFailed'));
 
       const uploadData = await uploadRes.json();
       setWallpaper(`url(${uploadData.url})`);
@@ -109,7 +110,7 @@ const SettingsPageMobile = () => {
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) { alert('Image must be smaller than 2MB'); return; }
+    if (file.size > 2 * 1024 * 1024) { alert(t('imageTooLarge')); return; }
     setProfilePictureFile(file);
     setProfilePicturePreview(URL.createObjectURL(file));
     setProfilePictureChanged(true);
@@ -123,7 +124,7 @@ const SettingsPageMobile = () => {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!response.ok) throw new Error('Failed to remove profile picture');
+      if (!response.ok) throw new Error(t('failedRemoveProfilePicture'));
       setProfilePictureFile(null);
       setProfilePicturePreview('https://studio.lancherix.com/Images/defaultProfilePicture.png');
       setProfilePictureChanged(false);
@@ -138,9 +139,9 @@ const SettingsPageMobile = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      if (!token) throw new Error('No token found');
+      if (!token) throw new Error(t('noTokenFound'));
       if (!email || !firstName || !birthMonth || !birthDate || !birthYear || !gender)
-        throw new Error('All fields are required');
+        throw new Error(t('allFieldsRequired'));
 
       const body = {
         firstName,
@@ -160,7 +161,7 @@ const SettingsPageMobile = () => {
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
         });
-        if (!uploadRes.ok) throw new Error('Profile picture upload failed');
+        if (!uploadRes.ok) throw new Error(t('profilePictureUploadFailed'));
         const uploadData = await uploadRes.json();
         body.profilePicture = { url: uploadData.url, public_id: uploadData.public_id };
         setProfilePictureChanged(false);
@@ -171,7 +172,7 @@ const SettingsPageMobile = () => {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      if (!response.ok) throw new Error('Failed to update user data');
+      if (!response.ok) throw new Error(t('failedUpdateUserData'));
       window.location.reload();
     } catch (err) {
       console.error('Error updating user data:', err);
@@ -205,11 +206,12 @@ const SettingsPageMobile = () => {
     document.documentElement.style.setProperty('--textMenu', c.text);
     try {
       const token = localStorage.getItem('token');
-      await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ sideMenuColor: color }),
       });
+      if (!response.ok) throw new Error(t('failedUpdateSideMenuColor'));
     } catch (err) {
       console.error('Error updating side menu color:', err);
     }
@@ -230,11 +232,12 @@ const SettingsPageMobile = () => {
     document.documentElement.style.setProperty('--altRow', th.alt);
     try {
       const token = localStorage.getItem('token');
-      await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ themeMode: theme }),
       });
+      if (!response.ok) throw new Error(t('failedUpdateThemeMode'));
     } catch (err) {
       console.error('Error updating theme:', err);
     }
@@ -246,7 +249,7 @@ const SettingsPageMobile = () => {
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
         <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06L6.31 9.75h13.44a.75.75 0 0 1 0 1.5H6.31l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
       </svg>
-      Back
+      {t('back')}
     </button>
   );
 
@@ -312,7 +315,7 @@ const SettingsPageMobile = () => {
           style={{ backgroundImage: `url(${profilePicturePreview || 'https://studio.lancherix.com/Images/defaultProfilePicture.png'})` }}
           onClick={() => document.getElementById('mob-fileInput').click()}
         >
-          <span className="mob-avatar-overlay">Edit</span>
+          <span className="mob-avatar-overlay">{t('edit')}</span>
         </div>
         <input id="mob-fileInput" type="file" accept="image/*" onChange={handleProfilePictureChange} style={{ display: 'none' }} />
         <div className="mob-profile-info">
@@ -335,7 +338,7 @@ const SettingsPageMobile = () => {
       </div>
 
       <div className="mob-section-group mob-section-danger">
-        <MenuRow icon={<IconLogout />} label={t('logout')} onClick={() => setShowLogoutConfirmation(true)} danger />
+        <MenuRow icon={<IconLogout />} label={t('logOut')} onClick={() => setShowLogoutConfirmation(true)} danger />
       </div>
     </div>
   );
@@ -377,7 +380,7 @@ const SettingsPageMobile = () => {
               <option value="">{t('month')}</option>
               {Array.from({ length: 12 }, (_, i) => (
                 <option key={i + 1} value={i + 1}>
-                  {new Date(0, i + 1, 0).toLocaleString('en-US', { month: 'short' })}
+                  {t(`months.${i}`, { defaultValue: new Date(0, i + 1, 0).toLocaleString('en-US', { month: 'short' }) })}
                 </option>
               ))}
             </select>
@@ -423,12 +426,12 @@ const SettingsPageMobile = () => {
         />
       </div>
       <div className="mob-info-list">
-        <InfoRow label="Username"     value={username} />
-        <InfoRow label="First Name"   value={firstName} />
-        <InfoRow label="Last Name"    value={lastName} />
-        <InfoRow label="Date of Birth" value={`${birthDate}/${birthMonth}/${birthYear}`} />
-        <InfoRow label="Gender"       value={gender} />
-        <InfoRow label="Email"        value={email} last />
+        <InfoRow label={t('username')} value={username} />
+        <InfoRow label={t('firstName')} value={firstName} />
+        <InfoRow label={t('lastName')} value={lastName} />
+        <InfoRow label={t('dateOfBirth')} value={`${birthDate}/${birthMonth}/${birthYear}`} />
+        <InfoRow label={t('gender')} value={gender} />
+        <InfoRow label={t('email')} value={email} last />
       </div>
     </div>
   );
@@ -438,8 +441,8 @@ const SettingsPageMobile = () => {
       <BackButton onClick={() => setSelectedOption(null)} />
       <h2 className="mob-screen-title">{t('languageAndRegion')}</h2>
       <div className="mob-info-list">
-        <InfoRow label="Language" value={currentLang} />
-        <InfoRow label="Region"   value={region} last />
+        <InfoRow label={t('language')} value={currentLang} />
+        <InfoRow label={t('region')} value={region} last />
       </div>
     </div>
   );
@@ -453,11 +456,11 @@ const SettingsPageMobile = () => {
       <div className="mob-wallpaper-preview" style={{ backgroundImage: wallpaper }} />
 
       {/* Theme selector */}
-      <p className="mob-section-label">Theme</p>
+      <p className="mob-section-label">{t('theme')}</p>
       {renderThemeOptions()}
 
       {/* Color selector */}
-      <p className="mob-section-label">Accent Color</p>
+      <p className="mob-section-label">{t('accentColor')}</p>
       {renderColorOptions()}
 
       {/* Upload */}
@@ -466,12 +469,12 @@ const SettingsPageMobile = () => {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path fillRule="evenodd" d="M11.47 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06l-3.22-3.22V16.5a.75.75 0 0 1-1.5 0V4.81L8.03 8.03a.75.75 0 0 1-1.06-1.06l4.5-4.5ZM3 15.75a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
         </svg>
-        Upload image
+        {t('uploadImageBtn')}
         <input type="file" accept="image/*" onChange={handleWallpaperChange} style={{ display: 'none' }} />
       </label>
 
       {/* Preset wallpapers */}
-      <p className="mob-section-label">Presets</p>
+      <p className="mob-section-label">{t('presets')}</p>
       <div className="mob-wallpaper-grid">
         {[
           '/Images/backgroundImage.jpeg',
@@ -497,29 +500,29 @@ const SettingsPageMobile = () => {
     <div className="mob-screen">
       <BackButton onClick={() => setSelectedOption(null)} />
       <div className="mob-terms">
-        <h1>Terms of Use</h1>
-        <p><strong>Effective Date:</strong> December 24th 2025</p>
-        <p>These Terms of Use ("Terms") govern your access to and use of Lancherix Studio provided by Lancherix. By using the Service, you agree to be bound by these Terms.</p>
-        <h3>1. Eligibility</h3>
-        <p>You must be at least 10 years old to use the Service.</p>
-        <h3>2. User Accounts</h3>
-        <p>You may be required to create an account. You are responsible for maintaining the confidentiality of your account credentials.</p>
-        <h3>3. Personal Information</h3>
-        <p>We may collect personal information, including your name and username. This information may be shared with other users only as necessary to provide the Service.</p>
-        <h3>4. Use of the Service</h3>
-        <p>You agree to use the Service responsibly and in compliance with applicable laws. You may not engage in unauthorized or harmful activities.</p>
-        <h3>5. Content and License</h3>
-        <p>You retain ownership of any content you submit. By submitting, you grant Lancherix a non-exclusive, worldwide, royalty-free license to use it to operate the Service.</p>
-        <h3>6. Modifications</h3>
-        <p>Lancherix may modify these Terms at any time. Continued use constitutes acceptance of updated Terms.</p>
-        <h3>7. Termination</h3>
-        <p>Lancherix may suspend or terminate your access at its discretion, including for violations of these Terms.</p>
-        <h3>8. Disclaimers &amp; Limitation of Liability</h3>
-        <p>The Service is provided "as is" without warranties of any kind. Lancherix is not liable for indirect, incidental, or consequential damages.</p>
-        <h3>9. Governing Law</h3>
-        <p>These Terms are governed by the laws of the Republic of Colombia.</p>
-        <h3>10. Contact</h3>
-        <p>Questions: <a href="mailto:lancherix.service@gmail.com">lancherix.service@gmail.com</a></p>
+        <h1>{t('termsOfUse')}</h1>
+        <p><strong>{t('effectiveDate')}</strong> {t('termsEffectiveDate')}</p>
+        <p>{t('termsIntro')}</p>
+        <h3>{t('terms1Title')}</h3>
+        <p>{t('terms1Body')}</p>
+        <h3>{t('terms2Title')}</h3>
+        <p>{t('terms2Body')}</p>
+        <h3>{t('terms3Title')}</h3>
+        <p>{t('terms3Body')}</p>
+        <h3>{t('terms4Title')}</h3>
+        <p>{t('terms4Body')}</p>
+        <h3>{t('terms5Title')}</h3>
+        <p>{t('terms5Body')}</p>
+        <h3>{t('terms6Title')}</h3>
+        <p>{t('terms6Body')}</p>
+        <h3>{t('terms7Title')}</h3>
+        <p>{t('terms7Body')}</p>
+        <h3>{t('terms8Title')}</h3>
+        <p>{t('terms8Body')}</p>
+        <h3>{t('terms9Title')}</h3>
+        <p>{t('terms9Body')}</p>
+        <h3>{t('terms10Title')}</h3>
+        <p>{t('terms10Body')} <a href="mailto:lancherix.service@gmail.com">lancherix.service@gmail.com</a></p>
       </div>
     </div>
   );
@@ -529,9 +532,9 @@ const SettingsPageMobile = () => {
       <BackButton onClick={() => setSelectedOption(null)} />
       <h2 className="mob-screen-title">{t('extensions')}</h2>
       <div className="mob-info-list">
-        <InfoRow label="Music"       value="—" />
-        <InfoRow label="Matrix"      value="—" />
-        <InfoRow label="Celebration" value="—" last />
+        <InfoRow label={t('extMusic')} value="—" />
+        <InfoRow label={t('extMatrix')} value="—" />
+        <InfoRow label={t('extCelebration')} value="—" last />
       </div>
     </div>
   );

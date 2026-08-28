@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import './EditProjectPageMobile.css';
 
 import IconPickerMobile from './IconPickerMobile';
 
 const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('folder');
   const [visibility, setVisibility] = useState('private');
@@ -131,13 +133,13 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
         }
       );
     } catch (err) {
-      setError('Failed to invite user');
+      setError(t('failedInviteUser'));
       console.error(err);
     }
   };
 
   const handleSave = async () => {
-    if (!name.trim()) { setError('Project name is required'); return; }
+    if (!name.trim()) { setError(t('projectNameRequired')); return; }
     try {
       setLoading(true);
       setError(null);
@@ -156,7 +158,7 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
           }),
         }
       );
-      if (!res.ok) throw new Error('Failed to update project');
+      if (!res.ok) throw new Error(t('failedUpdateProject'));
       const updated = await res.json();
       onUpdated?.(updated);
       handleClose();
@@ -185,10 +187,10 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
 
         {/* Header */}
         <div className="epm-header">
-          <button className="epm-cancel-btn" onClick={handleClose}>Cancel</button>
-          <h2 className="epm-title">Edit Project</h2>
+          <button className="epm-cancel-btn" onClick={handleClose}>{t('cancel')}</button>
+          <h2 className="epm-title">{t('editProject')}</h2>
           <button className="epm-save-btn" onClick={handleSave} disabled={loading}>
-            {loading ? '...' : 'Save'}
+            {loading ? '...' : t('save')}
           </button>
         </div>
 
@@ -199,14 +201,14 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
           <div className="epm-icon-name-row">
             <div className="epm-icon-picker">
               <IconPickerMobile value={icon} onChange={setIcon} />
-              <span className="epm-icon-hint">Icon</span>
+              <span className="epm-icon-hint">{t('icon')}</span>
             </div>
             <div className="epm-name-field">
-              <label className="epm-label">Project Name</label>
+              <label className="epm-label">{t('projectNameLabel')}</label>
               <input
                 type="text"
                 className="epm-input"
-                placeholder="My Project"
+                placeholder={t('myProjectPlaceholder')}
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
@@ -215,26 +217,26 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
 
           {/* Privacy */}
           <div className="epm-section">
-            <label className="epm-label">Privacy</label>
+            <label className="epm-label">{t('privacy')}</label>
             <div className="epm-segment">
               <button
                 className={`epm-segment-btn ${visibility === 'private' ? 'epm-segment-btn--active' : ''}`}
                 onClick={() => setVisibility('private')}
               >
-                🔒 Private
+                🔒 {t('private')}
               </button>
               <button
                 className={`epm-segment-btn ${visibility === 'public' ? 'epm-segment-btn--active' : ''}`}
                 onClick={() => setVisibility('public')}
               >
-                🌐 Public
+                🌐 {t('public')}
               </button>
             </div>
           </div>
 
           {/* Advanced toggle */}
           <button className="epm-advanced-toggle" onClick={() => setAdvancedOpen(v => !v)}>
-            <span>Advanced Options</span>
+            <span>{t('advancedOptions')}</span>
             <svg
               className={`epm-chevron ${advancedOpen ? 'epm-chevron--open' : ''}`}
               xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -247,18 +249,18 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
           <div className={`epm-advanced-panel ${advancedOpen ? 'epm-advanced-panel--open' : ''}`}>
 
             <div className="epm-section">
-              <label className="epm-label">Subject</label>
+              <label className="epm-label">{t('subject')}</label>
               <input
                 type="text"
                 className="epm-input"
-                placeholder="e.g. Physics"
+                placeholder={t('subjectPlaceholderExample')}
                 value={subject}
                 onChange={e => setSubject(e.target.value)}
               />
             </div>
 
             <div className="epm-section">
-              <label className="epm-label">Deadline</label>
+              <label className="epm-label">{t('colDeadline')}</label>
               <input
                 type="datetime-local"
                 className="epm-input"
@@ -268,7 +270,7 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
             </div>
 
             <div className="epm-section">
-              <label className="epm-label">Priority</label>
+              <label className="epm-label">{t('priority')}</label>
               <div className="epm-segment">
                 {['low', 'medium', 'high'].map(p => (
                   <button
@@ -276,19 +278,19 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
                     className={`epm-segment-btn epm-segment-btn--priority ${priority === p ? `epm-segment-btn--active epm-priority--${p}` : ''}`}
                     onClick={() => setPriority(p)}
                   >
-                    {p.charAt(0).toUpperCase() + p.slice(1)}
+                    {t(p)}
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="epm-section">
-              <label className="epm-label">Invite Collaborators</label>
+              <label className="epm-label">{t('inviteCollaborators')}</label>
               <div className="epm-invite-row">
                 <input
                   type="text"
                   className="epm-input epm-invite-input"
-                  placeholder="Search username…"
+                  placeholder={t('searchUsernamePlaceholder')}
                   value={inviteQuery}
                   onChange={handleInviteChange}
                   spellCheck={false}
@@ -298,7 +300,7 @@ const EditProjectPageMobile = ({ isOpen, onClose, project, onUpdated }) => {
                   disabled={!inviteQuery || !inviteResults[0]}
                   onClick={() => { if (inviteResults[0]) inviteUser(inviteResults[0]); }}
                 >
-                  Add
+                  {t('add')}
                 </button>
               </div>
 

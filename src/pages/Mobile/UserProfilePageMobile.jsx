@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './UserProfilePageMobile.css';
 
 import ProjectIcon from '../../icons/ProjectIcon';
 
 const UserProfilePageMobile = () => {
+  const { t } = useTranslation();
   const { username } = useParams();
 
   const [user, setUser] = useState(null);
@@ -18,7 +20,7 @@ const UserProfilePageMobile = () => {
         const response = await fetch(
           `https://lancherixstudio-backend.onrender.com/api/users?username=${username}`
         );
-        if (!response.ok) throw new Error('User not found');
+        if (!response.ok) throw new Error(t('userNotFound'));
         const foundUser = await response.json();
         setUser(foundUser);
         document.title = `${foundUser.firstName} ${foundUser.lastName}`;
@@ -36,7 +38,7 @@ const UserProfilePageMobile = () => {
         const response = await fetch(
           `https://lancherixstudio-backend.onrender.com/api/users/${username}/public-projects`
         );
-        if (!response.ok) throw new Error('Failed to fetch projects');
+        if (!response.ok) throw new Error(t('failedFetchProjects'));
         const data = await response.json();
         setProjects(data);
       } catch (error) {
@@ -48,7 +50,7 @@ const UserProfilePageMobile = () => {
     fetchPublicProjects();
   }, [username]);
 
-  if (error) return <div className="upm__error">Error: {error}</div>;
+  if (error) return <div className="upm__error">{t('errorPrefix')} {error}</div>;
   if (!user) return <div />;
 
   return (
@@ -74,9 +76,9 @@ const UserProfilePageMobile = () => {
       {/* ── Scrollable projects ── */}
       <div className="upm__content">
         {loadingProjects ? (
-          <p className="upm__empty">Loading projects…</p>
+          <p className="upm__empty">{t('loadingProjects')}</p>
         ) : projects.length === 0 ? (
-          <p className="upm__empty">This studio has no public projects yet.</p>
+          <p className="upm__empty">{t('noPublicProjects')}</p>
         ) : (
           <div className="upm__grid">
             {projects.map(project => (

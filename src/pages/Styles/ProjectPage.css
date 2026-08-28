@@ -278,7 +278,7 @@
 .projectHeader-projectPage {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.3rem;
   padding-bottom: 0.8rem;
   border-bottom: 1px solid var(--placeholderTheme);
 }

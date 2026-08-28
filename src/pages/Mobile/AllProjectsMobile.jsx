@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import './AllProjectsMobile.css';
 
 import ProjectIcon from '../../icons/ProjectIcon';
 
 const AllProjectsMobile = () => {
+    const { t } = useTranslation();
     const [profilePicture, setProfilePicture] = useState(
         "/Images/defaultProfilePicture.png"
     );
@@ -106,7 +108,7 @@ const AllProjectsMobile = () => {
                     }}
                 />
 
-                <input type="text" placeholder="Search in your projects" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                <input type="text" placeholder={t('searchProjectsPlaceholder')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
             <div className="content-projectsMobile">
 
