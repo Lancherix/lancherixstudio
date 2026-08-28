@@ -434,6 +434,63 @@ const SettingsPage = () => {
     }
   };
 
+  const handleLanguageChange = async (lang) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error(t('noTokenFound'));
+
+      setCurrentLang(lang);
+      i18n.changeLanguage(lang);
+
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          language: lang,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update language: ${response.status} ${response.statusText}`);
+      }
+
+    } catch (error) {
+      console.error('Error updating language:', error);
+      setError(`${t('failedUpdateLanguage')} ${error.message}`);
+    }
+  };
+
+  const handleRegionChange = async (countryCode) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error(t('noTokenFound'));
+
+      setRegion(countryCode);
+
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          country: countryCode,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update region: ${response.status} ${response.statusText}`);
+      }
+
+    } catch (error) {
+      console.error('Error updating region:', error);
+      setError(`${t('failedUpdateRegion')} ${error.message}`);
+    }
+  };
+
   const handleThemeChange = async (theme) => {
     try {
       const token = localStorage.getItem('token');
@@ -845,18 +902,36 @@ const SettingsPage = () => {
         <div className='allGeneral-settingsPageOptions'>
           <div className='allGeneral-settingsPageOptionsSections'>
 
-            <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage'>
+            <div className='allGeneral-settingsPageOptionsSectionsDivisor row-settingsPage editRow-settingsPage'>
               <div className='leftRow-settingsPage'>
                 <span>{t('language')}</span>
               </div>
-              <div className='rightRow-settingsPage'>{currentLang}</div>
+              <select
+                value={currentLang}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className='editSelect-settingsPage'
+              >
+                <option value='en-US'>English</option>
+                <option value='es-CO'>Español</option>
+                <option value='fr-FR'>Français</option>
+                <option value='ru-RU'>Русский</option>
+              </select>
             </div>
 
-            <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage'>
+            <div className='allGeneral-settingsPageOptionsSectionsNoDivisor row-settingsPage editRow-settingsPage'>
               <div className='leftRow-settingsPage'>
                 <span>{t('region')}</span>
               </div>
-              <div className='rightRow-settingsPage'>{region}</div>
+              <select
+                value={region}
+                onChange={(e) => handleRegionChange(e.target.value)}
+                className='editSelect-settingsPage'
+              >
+                <option value='CO'>Colombia</option>
+                <option value='US'>United States</option>
+                <option value='CA'>Canada</option>
+                <option value='UK'>United Kingdom</option>
+              </select>
             </div>
 
           </div>

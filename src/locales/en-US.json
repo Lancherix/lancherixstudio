@@ -8,11 +8,9 @@
   "projects": "Projects",
   "new": "New",
   "openUrlNewTab": "Open URL in a new tab.",
-
   "areYouSure": "Are you sure?",
   "confirm": "Confirm",
   "cancel": "Cancel",
-
   "colName": "Name",
   "colStatus": "Status",
   "colPriority": "Priority",
@@ -21,7 +19,6 @@
   "colDeadline": "Deadline",
   "colUpdated": "Updated",
   "searchProjectsPlaceholder": "Search in your projects",
-
   "perSlide": "per slide",
   "stopSlideshow": "Stop slideshow (Space)",
   "playSlideshow": "Play slideshow (Space)",
@@ -34,15 +31,41 @@
   "nextArrow": "Next (→)",
   "imageNumber": "Image {{number}}",
   "boardImageAlt": "Board",
-
   "deleteImage": "Delete image",
   "boardWelcomeTitle": "Welcome to the Board",
   "boardWelcomeSubtitle": "Public projects can be viewed by anyone.",
-
-  "daysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  "daysFull": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-  "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-
+  "daysShort": [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ],
+  "daysFull": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ],
+  "months": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
   "eventTitlePlaceholder": "Event title or 'Call mom tomorrow at 3pm'…",
   "calendarLabel": "Calendar",
   "dateLabel": "Date",
@@ -70,13 +93,11 @@
   "deleteBtn": "Delete",
   "updateBtn": "Update",
   "addEventBtn": "Add Event",
-
   "manageCalendars": "Manage Calendars",
   "editBtn": "Edit",
   "newCalendarNamePlaceholder": "New calendar name",
   "addCalendarBtn": "Add Calendar",
   "doneBtn": "Done",
-
   "newEventBtn": "New Event",
   "searchEventsPlaceholder": "Search events…",
   "noEventsFound": "No events found",
@@ -92,7 +113,6 @@
   "doubleClickAddEvent": "Double-click a day to add an event",
   "upcoming": "Upcoming",
   "noUpcomingEvents": "No upcoming events",
-
   "editProject": "Edit Project",
   "name": "Name",
   "icon": "Icon",
@@ -117,11 +137,9 @@
   "failedUpdateProject": "Failed to update project",
   "failedCreateProject": "Failed to create project",
   "failedFetchUserData": "Failed to fetch user data.",
-
   "editTask": "Edit Task",
   "taskNamePlaceholder": "Task Name",
   "failedUpdateTask": "Failed to update task",
-
   "editDetails": "Edit Details",
   "pinProject": "Pin Project",
   "unpinProject": "Unpin Project",
@@ -175,26 +193,20 @@
   "headingTwoAria": "Heading 2",
   "bulletListAria": "Bullet list",
   "numberedListAria": "Numbered list",
-
   "formatTitle": "Title",
   "formatHeading": "Heading",
   "formatSubheading": "Subheading",
   "formatBulletList": "• List",
   "formatNumberList": "1. List",
-
   "searchIconsPlaceholder": "Search icons or categories...",
   "noIconsFound": "No icons found",
-
   "confirmLogout": "Are you sure you want to log out?",
   "loggingOut": "Logging out...",
   "logOut": "Log Out",
-
   "notFoundTitle": "404 - Page Not Found",
   "notFoundMessage": "Sorry, the page you are looking for does not exist.",
   "backToHome": "Go back to Home",
-
   "lancherixSearchPlaceholder": "Lancherix Search…",
-
   "username": "Username",
   "dateOfBirth": "Date of Birth",
   "language": "Language",
@@ -203,16 +215,13 @@
   "extMusic": "Music",
   "extMatrix": "Matrix",
   "extCelebration": "Celebration",
-
   "projectNotFound": "This project does not exist",
   "failedLoadProject": "Failed to load project",
-
   "userNotFound": "User not found",
   "failedFetchProjects": "Failed to fetch projects",
   "errorPrefix": "Error:",
   "loadingProjects": "Loading projects…",
   "noPublicProjects": "This studio has no public projects yet.",
-
   "removeProfilePicture": "Remove profile picture",
   "email": "Email",
   "firstName": "First Name",
@@ -243,14 +252,12 @@
   "glass": "Glass",
   "light": "Light",
   "dark": "Dark",
-
   "back": "Back",
   "edit": "Edit",
   "theme": "Theme",
   "accentColor": "Accent Color",
   "uploadImageBtn": "Upload image",
   "presets": "Presets",
-
   "close": "Close",
   "chooseIcon": "Choose Icon",
   "projectNameLabel": "Project Name",
@@ -269,12 +276,10 @@
   "previousAria": "Previous",
   "nextAria": "Next",
   "thumbnailNumber": "Thumbnail {{number}}",
-
   "searchPeopleProjectsPlaceholder": "Search people and projects…",
   "noResultsFor": "No results for",
   "searchHint": "Search for people or projects",
   "peopleLabel": "People",
-
   "effectiveDate": "Effective Date:",
   "termsEffectiveDate": "December 24th 2025",
   "termsIntro": "These Terms of Use (\"Terms\") govern your access to and use of Lancherix Studio provided by Lancherix. By using the Service, you agree to be bound by these Terms.",
@@ -298,7 +303,6 @@
   "terms9Body": "These Terms are governed by the laws of the Republic of Colombia.",
   "terms10Title": "10. Contact",
   "terms10Body": "Questions:",
-
   "noTokenFound": "No token found",
   "allFieldsRequired": "All fields are required",
   "profilePictureUploadFailed": "Profile picture upload failed",
@@ -310,5 +314,8 @@
   "failedUpdateSideMenuColor": "Failed to update side menu color.",
   "failedUpdateThemeMode": "Failed to update theme mode.",
   "wallpaperUpdateFailed": "Failed to update wallpaper",
-  "wallpaperUploadFailed": "Wallpaper upload failed"
+  "wallpaperUploadFailed": "Wallpaper upload failed",
+  
+  "failedUpdateLanguage": "Failed to update language.",
+  "failedUpdateRegion": "Failed to update region."
 }

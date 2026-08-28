@@ -8,11 +8,9 @@
   "projects": "Projets",
   "new": "Nouveau",
   "openUrlNewTab": "Ouvrir l'URL dans un nouvel onglet.",
-
   "areYouSure": "Êtes-vous sûr ?",
   "confirm": "Confirmer",
   "cancel": "Annuler",
-
   "colName": "Nom",
   "colStatus": "Statut",
   "colPriority": "Priorité",
@@ -21,7 +19,6 @@
   "colDeadline": "Échéance",
   "colUpdated": "Mis à jour",
   "searchProjectsPlaceholder": "Rechercher dans vos projets",
-
   "perSlide": "par diapositive",
   "stopSlideshow": "Arrêter le diaporama (Espace)",
   "playSlideshow": "Lancer le diaporama (Espace)",
@@ -34,15 +31,41 @@
   "nextArrow": "Suivant (→)",
   "imageNumber": "Image {{number}}",
   "boardImageAlt": "Tableau",
-
   "deleteImage": "Supprimer l'image",
   "boardWelcomeTitle": "Bienvenue sur le Tableau",
   "boardWelcomeSubtitle": "Les projets publics peuvent être consultés par tout le monde.",
-
-  "daysShort": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-  "daysFull": ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-  "months": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-
+  "daysShort": [
+    "Dim",
+    "Lun",
+    "Mar",
+    "Mer",
+    "Jeu",
+    "Ven",
+    "Sam"
+  ],
+  "daysFull": [
+    "Dimanche",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi"
+  ],
+  "months": [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre"
+  ],
   "eventTitlePlaceholder": "Titre de l'événement ou « Appeler maman demain à 15h »…",
   "calendarLabel": "Calendrier",
   "dateLabel": "Date",
@@ -70,13 +93,11 @@
   "deleteBtn": "Supprimer",
   "updateBtn": "Mettre à jour",
   "addEventBtn": "Ajouter un événement",
-
   "manageCalendars": "Gérer les Calendriers",
   "editBtn": "Modifier",
   "newCalendarNamePlaceholder": "Nom du nouveau calendrier",
   "addCalendarBtn": "Ajouter un Calendrier",
   "doneBtn": "Terminé",
-
   "newEventBtn": "Nouvel Événement",
   "searchEventsPlaceholder": "Rechercher des événements…",
   "noEventsFound": "Aucun événement trouvé",
@@ -92,7 +113,6 @@
   "doubleClickAddEvent": "Double-cliquez sur un jour pour ajouter un événement",
   "upcoming": "À venir",
   "noUpcomingEvents": "Aucun événement à venir",
-
   "editProject": "Modifier le Projet",
   "name": "Nom",
   "icon": "Icône",
@@ -117,11 +137,9 @@
   "failedUpdateProject": "Échec de la mise à jour du projet",
   "failedCreateProject": "Échec de la création du projet",
   "failedFetchUserData": "Échec de la récupération des données utilisateur.",
-
   "editTask": "Modifier la Tâche",
   "taskNamePlaceholder": "Nom de la Tâche",
   "failedUpdateTask": "Échec de la mise à jour de la tâche",
-
   "editDetails": "Modifier les Détails",
   "pinProject": "Épingler le Projet",
   "unpinProject": "Désépingler le Projet",
@@ -175,26 +193,20 @@
   "headingTwoAria": "Titre 2",
   "bulletListAria": "Liste à puces",
   "numberedListAria": "Liste numérotée",
-
   "formatTitle": "Titre",
   "formatHeading": "En-tête",
   "formatSubheading": "Sous-titre",
   "formatBulletList": "• Liste",
   "formatNumberList": "1. Liste",
-
   "searchIconsPlaceholder": "Rechercher des icônes ou des catégories...",
   "noIconsFound": "Aucune icône trouvée",
-
   "confirmLogout": "Êtes-vous sûr de vouloir vous déconnecter ?",
   "loggingOut": "Déconnexion...",
   "logOut": "Se Déconnecter",
-
   "notFoundTitle": "404 - Page Non Trouvée",
   "notFoundMessage": "Désolé, la page que vous recherchez n'existe pas.",
   "backToHome": "Retour à l'Accueil",
-
   "lancherixSearchPlaceholder": "Recherche Lancherix…",
-
   "username": "Nom d'utilisateur",
   "dateOfBirth": "Date de Naissance",
   "language": "Langue",
@@ -203,16 +215,13 @@
   "extMusic": "Musique",
   "extMatrix": "Matrice",
   "extCelebration": "Célébration",
-
   "projectNotFound": "Ce projet n'existe pas",
   "failedLoadProject": "Échec du chargement du projet",
-
   "userNotFound": "Utilisateur non trouvé",
   "failedFetchProjects": "Échec de la récupération des projets",
   "errorPrefix": "Erreur :",
   "loadingProjects": "Chargement des projets…",
   "noPublicProjects": "Ce studio n'a pas encore de projets publics.",
-
   "removeProfilePicture": "Supprimer la photo de profil",
   "email": "E-mail",
   "firstName": "Prénom",
@@ -243,14 +252,12 @@
   "glass": "Verre",
   "light": "Clair",
   "dark": "Sombre",
-
   "back": "Retour",
   "edit": "Modifier",
   "theme": "Thème",
   "accentColor": "Couleur d'Accent",
   "uploadImageBtn": "Télécharger une image",
   "presets": "Préréglages",
-
   "close": "Fermer",
   "chooseIcon": "Choisir une Icône",
   "projectNameLabel": "Nom du Projet",
@@ -269,12 +276,10 @@
   "previousAria": "Précédent",
   "nextAria": "Suivant",
   "thumbnailNumber": "Miniature {{number}}",
-
   "searchPeopleProjectsPlaceholder": "Rechercher des personnes et des projets…",
   "noResultsFor": "Aucun résultat pour",
   "searchHint": "Rechercher des personnes ou des projets",
   "peopleLabel": "Personnes",
-
   "effectiveDate": "Date d'Entrée en Vigueur :",
   "termsEffectiveDate": "24 décembre 2025",
   "termsIntro": "Ces Conditions d'Utilisation (« Conditions ») régissent votre accès et votre utilisation de Lancherix Studio fourni par Lancherix. En utilisant le Service, vous acceptez d'être lié par ces Conditions.",
@@ -298,7 +303,6 @@
   "terms9Body": "Ces Conditions sont régies par les lois de la République de Colombie.",
   "terms10Title": "10. Contact",
   "terms10Body": "Questions :",
-
   "noTokenFound": "Aucun jeton trouvé",
   "allFieldsRequired": "Tous les champs sont obligatoires",
   "profilePictureUploadFailed": "Échec du téléchargement de la photo de profil",
@@ -310,5 +314,8 @@
   "failedUpdateSideMenuColor": "Échec de la mise à jour de la couleur du menu latéral.",
   "failedUpdateThemeMode": "Échec de la mise à jour du mode de thème.",
   "wallpaperUpdateFailed": "Échec de la mise à jour du fond d'écran",
-  "wallpaperUploadFailed": "Échec du téléchargement du fond d'écran"
+  "wallpaperUploadFailed": "Échec du téléchargement du fond d'écran",
+  
+  "failedUpdateLanguage": "Échec de la mise à jour de la langue.",
+  "failedUpdateRegion": "Échec de la mise à jour de la région."
 }

@@ -8,11 +8,9 @@
   "projects": "Proyectos",
   "new": "Nuevo",
   "openUrlNewTab": "Abrir URL en una pestaña nueva.",
-
   "areYouSure": "¿Estás seguro?",
   "confirm": "Confirmar",
   "cancel": "Cancelar",
-
   "colName": "Nombre",
   "colStatus": "Estado",
   "colPriority": "Prioridad",
@@ -21,7 +19,6 @@
   "colDeadline": "Fecha límite",
   "colUpdated": "Actualizado",
   "searchProjectsPlaceholder": "Buscar en tus proyectos",
-
   "perSlide": "por diapositiva",
   "stopSlideshow": "Detener presentación (Espacio)",
   "playSlideshow": "Reproducir presentación (Espacio)",
@@ -34,15 +31,41 @@
   "nextArrow": "Siguiente (→)",
   "imageNumber": "Imagen {{number}}",
   "boardImageAlt": "Tablero",
-
   "deleteImage": "Eliminar imagen",
   "boardWelcomeTitle": "Bienvenido al Tablero",
   "boardWelcomeSubtitle": "Los proyectos públicos pueden ser vistos por cualquiera.",
-
-  "daysShort": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-  "daysFull": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-  "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-
+  "daysShort": [
+    "Dom",
+    "Lun",
+    "Mar",
+    "Mié",
+    "Jue",
+    "Vie",
+    "Sáb"
+  ],
+  "daysFull": [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+  ],
+  "months": [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+  ],
   "eventTitlePlaceholder": "Título del evento o 'Llamar a mamá mañana a las 3pm'…",
   "calendarLabel": "Calendario",
   "dateLabel": "Fecha",
@@ -70,13 +93,11 @@
   "deleteBtn": "Eliminar",
   "updateBtn": "Actualizar",
   "addEventBtn": "Agregar Evento",
-
   "manageCalendars": "Administrar Calendarios",
   "editBtn": "Editar",
   "newCalendarNamePlaceholder": "Nombre del nuevo calendario",
   "addCalendarBtn": "Agregar Calendario",
   "doneBtn": "Listo",
-
   "newEventBtn": "Nuevo Evento",
   "searchEventsPlaceholder": "Buscar eventos…",
   "noEventsFound": "No se encontraron eventos",
@@ -92,7 +113,6 @@
   "doubleClickAddEvent": "Haz doble clic en un día para agregar un evento",
   "upcoming": "Próximos",
   "noUpcomingEvents": "No hay próximos eventos",
-
   "editProject": "Editar Proyecto",
   "name": "Nombre",
   "icon": "Ícono",
@@ -117,11 +137,9 @@
   "failedUpdateProject": "No se pudo actualizar el proyecto",
   "failedCreateProject": "No se pudo crear el proyecto",
   "failedFetchUserData": "No se pudieron obtener los datos del usuario.",
-
   "editTask": "Editar Tarea",
   "taskNamePlaceholder": "Nombre de la Tarea",
   "failedUpdateTask": "No se pudo actualizar la tarea",
-
   "editDetails": "Editar Detalles",
   "pinProject": "Fijar Proyecto",
   "unpinProject": "Desfijar Proyecto",
@@ -175,26 +193,20 @@
   "headingTwoAria": "Encabezado 2",
   "bulletListAria": "Lista con viñetas",
   "numberedListAria": "Lista numerada",
-
   "formatTitle": "Título",
   "formatHeading": "Encabezado",
   "formatSubheading": "Subtítulo",
   "formatBulletList": "• Lista",
   "formatNumberList": "1. Lista",
-
   "searchIconsPlaceholder": "Buscar íconos o categorías...",
   "noIconsFound": "No se encontraron íconos",
-
   "confirmLogout": "¿Estás seguro de que quieres cerrar sesión?",
   "loggingOut": "Cerrando sesión...",
   "logOut": "Cerrar Sesión",
-
   "notFoundTitle": "404 - Página No Encontrada",
   "notFoundMessage": "Lo sentimos, la página que buscas no existe.",
   "backToHome": "Volver al Inicio",
-
   "lancherixSearchPlaceholder": "Buscar en Lancherix…",
-
   "username": "Nombre de usuario",
   "dateOfBirth": "Fecha de Nacimiento",
   "language": "Idioma",
@@ -203,16 +215,13 @@
   "extMusic": "Música",
   "extMatrix": "Matriz",
   "extCelebration": "Celebración",
-
   "projectNotFound": "Este proyecto no existe",
   "failedLoadProject": "No se pudo cargar el proyecto",
-
   "userNotFound": "Usuario no encontrado",
   "failedFetchProjects": "No se pudieron obtener los proyectos",
   "errorPrefix": "Error:",
   "loadingProjects": "Cargando proyectos…",
   "noPublicProjects": "Este estudio aún no tiene proyectos públicos.",
-
   "removeProfilePicture": "Eliminar foto de perfil",
   "email": "Correo Electrónico",
   "firstName": "Nombre",
@@ -243,14 +252,12 @@
   "glass": "Cristal",
   "light": "Claro",
   "dark": "Oscuro",
-
   "back": "Atrás",
   "edit": "Editar",
   "theme": "Tema",
   "accentColor": "Color de Acento",
   "uploadImageBtn": "Subir imagen",
   "presets": "Preajustes",
-
   "close": "Cerrar",
   "chooseIcon": "Elegir Ícono",
   "projectNameLabel": "Nombre del Proyecto",
@@ -269,12 +276,10 @@
   "previousAria": "Anterior",
   "nextAria": "Siguiente",
   "thumbnailNumber": "Miniatura {{number}}",
-
   "searchPeopleProjectsPlaceholder": "Buscar personas y proyectos…",
   "noResultsFor": "Sin resultados para",
   "searchHint": "Busca personas o proyectos",
   "peopleLabel": "Personas",
-
   "effectiveDate": "Fecha de Vigencia:",
   "termsEffectiveDate": "24 de diciembre de 2025",
   "termsIntro": "Estos Términos de Uso (\"Términos\") rigen tu acceso y uso de Lancherix Studio proporcionado por Lancherix. Al usar el Servicio, aceptas quedar sujeto a estos Términos.",
@@ -298,7 +303,6 @@
   "terms9Body": "Estos Términos se rigen por las leyes de la República de Colombia.",
   "terms10Title": "10. Contacto",
   "terms10Body": "Preguntas:",
-
   "noTokenFound": "No se encontró token",
   "allFieldsRequired": "Todos los campos son obligatorios",
   "profilePictureUploadFailed": "No se pudo subir la foto de perfil",
@@ -310,5 +314,8 @@
   "failedUpdateSideMenuColor": "No se pudo actualizar el color del menú lateral.",
   "failedUpdateThemeMode": "No se pudo actualizar el modo de tema.",
   "wallpaperUpdateFailed": "No se pudo actualizar el fondo de pantalla",
-  "wallpaperUploadFailed": "No se pudo subir el fondo de pantalla"
+  "wallpaperUploadFailed": "No se pudo subir el fondo de pantalla",
+  
+  "failedUpdateLanguage": "Error al actualizar el idioma.",
+  "failedUpdateRegion": "Error al actualizar la región."
 }

@@ -8,11 +8,9 @@
   "projects": "Проекты",
   "new": "Новый",
   "openUrlNewTab": "Открыть URL в новой вкладке.",
-
   "areYouSure": "Вы уверены?",
   "confirm": "Подтвердить",
   "cancel": "Отмена",
-
   "colName": "Название",
   "colStatus": "Статус",
   "colPriority": "Приоритет",
@@ -21,7 +19,6 @@
   "colDeadline": "Срок",
   "colUpdated": "Обновлено",
   "searchProjectsPlaceholder": "Поиск по вашим проектам",
-
   "perSlide": "на слайд",
   "stopSlideshow": "Остановить слайд-шоу (Пробел)",
   "playSlideshow": "Запустить слайд-шоу (Пробел)",
@@ -34,15 +31,41 @@
   "nextArrow": "Вперёд (→)",
   "imageNumber": "Изображение {{number}}",
   "boardImageAlt": "Доска",
-
   "deleteImage": "Удалить изображение",
   "boardWelcomeTitle": "Добро пожаловать на Доску",
   "boardWelcomeSubtitle": "Публичные проекты может просматривать любой пользователь.",
-
-  "daysShort": ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
-  "daysFull": ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
-  "months": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-
+  "daysShort": [
+    "Вс",
+    "Пн",
+    "Вт",
+    "Ср",
+    "Чт",
+    "Пт",
+    "Сб"
+  ],
+  "daysFull": [
+    "Воскресенье",
+    "Понедельник",
+    "Вторник",
+    "Среда",
+    "Четверг",
+    "Пятница",
+    "Суббота"
+  ],
+  "months": [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь"
+  ],
   "eventTitlePlaceholder": "Название события или «Позвонить маме завтра в 15:00»…",
   "calendarLabel": "Календарь",
   "dateLabel": "Дата",
@@ -70,13 +93,11 @@
   "deleteBtn": "Удалить",
   "updateBtn": "Обновить",
   "addEventBtn": "Добавить событие",
-
   "manageCalendars": "Управление календарями",
   "editBtn": "Редактировать",
   "newCalendarNamePlaceholder": "Название нового календаря",
   "addCalendarBtn": "Добавить календарь",
   "doneBtn": "Готово",
-
   "newEventBtn": "Новое событие",
   "searchEventsPlaceholder": "Поиск событий…",
   "noEventsFound": "События не найдены",
@@ -94,7 +115,6 @@
   "doubleClickAddEvent": "Дважды нажмите на день, чтобы добавить событие",
   "upcoming": "Предстоящие",
   "noUpcomingEvents": "Нет предстоящих событий",
-
   "editProject": "Редактировать Проект",
   "name": "Название",
   "icon": "Иконка",
@@ -119,11 +139,9 @@
   "failedUpdateProject": "Не удалось обновить проект",
   "failedCreateProject": "Не удалось создать проект",
   "failedFetchUserData": "Не удалось получить данные пользователя.",
-
   "editTask": "Редактировать Задачу",
   "taskNamePlaceholder": "Название Задачи",
   "failedUpdateTask": "Не удалось обновить задачу",
-
   "editDetails": "Редактировать Детали",
   "pinProject": "Закрепить Проект",
   "unpinProject": "Открепить Проект",
@@ -183,26 +201,20 @@
   "headingTwoAria": "Заголовок 2",
   "bulletListAria": "Маркированный список",
   "numberedListAria": "Нумерованный список",
-
   "formatTitle": "Заголовок",
   "formatHeading": "Заголовок раздела",
   "formatSubheading": "Подзаголовок",
   "formatBulletList": "• Список",
   "formatNumberList": "1. Список",
-
   "searchIconsPlaceholder": "Поиск иконок или категорий...",
   "noIconsFound": "Иконки не найдены",
-
   "confirmLogout": "Вы уверены, что хотите выйти?",
   "loggingOut": "Выход...",
   "logOut": "Выйти",
-
   "notFoundTitle": "404 - Страница Не Найдена",
   "notFoundMessage": "Извините, страница, которую вы ищете, не существует.",
   "backToHome": "Вернуться на Главную",
-
   "lancherixSearchPlaceholder": "Поиск Lancherix…",
-
   "username": "Имя пользователя",
   "dateOfBirth": "Дата рождения",
   "language": "Язык",
@@ -211,16 +223,13 @@
   "extMusic": "Музыка",
   "extMatrix": "Матрица",
   "extCelebration": "Празднование",
-
   "projectNotFound": "Этот проект не существует",
   "failedLoadProject": "Не удалось загрузить проект",
-
   "userNotFound": "Пользователь не найден",
   "failedFetchProjects": "Не удалось получить проекты",
   "errorPrefix": "Ошибка:",
   "loadingProjects": "Загрузка проектов…",
   "noPublicProjects": "У этой студии пока нет публичных проектов.",
-
   "removeProfilePicture": "Удалить фото профиля",
   "email": "Эл. почта",
   "firstName": "Имя",
@@ -251,14 +260,12 @@
   "glass": "Стекло",
   "light": "Светлая",
   "dark": "Тёмная",
-
   "back": "Назад",
   "edit": "Редактировать",
   "theme": "Тема",
   "accentColor": "Акцентный Цвет",
   "uploadImageBtn": "Загрузить изображение",
   "presets": "Пресеты",
-
   "close": "Закрыть",
   "chooseIcon": "Выбрать Иконку",
   "projectNameLabel": "Название Проекта",
@@ -277,12 +284,10 @@
   "previousAria": "Назад",
   "nextAria": "Вперёд",
   "thumbnailNumber": "Миниатюра {{number}}",
-
   "searchPeopleProjectsPlaceholder": "Поиск людей и проектов…",
   "noResultsFor": "Нет результатов для",
   "searchHint": "Найдите людей или проекты",
   "peopleLabel": "Люди",
-
   "effectiveDate": "Дата вступления в силу:",
   "termsEffectiveDate": "24 декабря 2025 г.",
   "termsIntro": "Настоящие Условия Использования («Условия») регулируют ваш доступ и использование Lancherix Studio, предоставляемого компанией Lancherix. Используя Сервис, вы соглашаетесь соблюдать настоящие Условия.",
@@ -306,7 +311,6 @@
   "terms9Body": "Настоящие Условия регулируются законодательством Республики Колумбия.",
   "terms10Title": "10. Контакты",
   "terms10Body": "Вопросы:",
-
   "noTokenFound": "Токен не найден",
   "allFieldsRequired": "Все поля обязательны",
   "profilePictureUploadFailed": "Не удалось загрузить фото профиля",
@@ -318,5 +322,8 @@
   "failedUpdateSideMenuColor": "Не удалось обновить цвет бокового меню.",
   "failedUpdateThemeMode": "Не удалось обновить режим темы.",
   "wallpaperUpdateFailed": "Не удалось обновить обои",
-  "wallpaperUploadFailed": "Не удалось загрузить обои"
+  "wallpaperUploadFailed": "Не удалось загрузить обои",
+  
+  "failedUpdateLanguage": "Не удалось обновить язык.",
+  "failedUpdateRegion": "Не удалось обновить регион."
 }
