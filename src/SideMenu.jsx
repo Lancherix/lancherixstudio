@@ -303,7 +303,7 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
                   {!collapsed && (
                     <span className="menu-text">
                       {project.name || t('untitledProject')}
-                      {project.status === "pinned" && " 📌"}
+                      {project.status === "pinned"}
                     </span>
                   )}
                 </Link>
