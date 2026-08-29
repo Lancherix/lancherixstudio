@@ -243,6 +243,46 @@ const SettingsPageMobile = () => {
     }
   };
 
+  // ─── Language + region handlers (ported from desktop) ─────────────────────
+  const handleLanguageChange = async (lang) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error(t('noTokenFound'));
+
+      setCurrentLang(lang);
+      i18n.changeLanguage(lang);
+
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ language: lang }),
+      });
+      if (!response.ok) throw new Error(t('failedUpdateLanguage'));
+    } catch (err) {
+      console.error('Error updating language:', err);
+      setError(`${t('failedUpdateLanguage')} ${err.message}`);
+    }
+  };
+
+  const handleRegionChange = async (countryCode) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error(t('noTokenFound'));
+
+      setRegion(countryCode);
+
+      const response = await fetch('https://lancherixstudio-backend.onrender.com/api/users', {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ country: countryCode }),
+      });
+      if (!response.ok) throw new Error(t('failedUpdateRegion'));
+    } catch (err) {
+      console.error('Error updating region:', err);
+      setError(`${t('failedUpdateRegion')} ${err.message}`);
+    }
+  };
+
   // ─── Back button helper ───────────────────────────────────────────────────
   const BackButton = ({ onClick }) => (
     <button className="mob-back-btn" onClick={onClick}>
@@ -440,9 +480,34 @@ const SettingsPageMobile = () => {
     <div className="mob-screen">
       <BackButton onClick={() => setSelectedOption(null)} />
       <h2 className="mob-screen-title">{t('languageAndRegion')}</h2>
-      <div className="mob-info-list">
-        <InfoRow label={t('language')} value={currentLang} />
-        <InfoRow label={t('region')} value={region} last />
+      <div className="mob-form">
+        <div className="mob-form-section">
+          <label className="mob-label">{t('language')}</label>
+          <select
+            className="mob-select mob-select-full"
+            value={currentLang}
+            onChange={(e) => handleLanguageChange(e.target.value)}
+          >
+            <option value="en-US">English</option>
+            <option value="es-CO">Español</option>
+            <option value="fr-FR">Français</option>
+            <option value="ru-RU">Русский</option>
+          </select>
+        </div>
+        <div className="mob-form-section">
+          <label className="mob-label">{t('region')}</label>
+          <select
+            className="mob-select mob-select-full"
+            value={region}
+            onChange={(e) => handleRegionChange(e.target.value)}
+          >
+            <option value="CO">Colombia</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="UK">United Kingdom</option>
+          </select>
+        </div>
+        {error && <p className="mob-error">{error}</p>}
       </div>
     </div>
   );
