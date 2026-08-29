@@ -31,8 +31,6 @@ import ProjectPageMobile from './pages/Mobile/ProjectPageMobile';
 import AllProjectsPage from './pages/AllProjectsPage';
 import AllProjectsMobile from './pages/Mobile/AllProjectsMobile';
 import AuthRedirector from './api/AuthRedirector';
-import { CommandPaletteProvider } from './CommandPaletteContext';
-import CommandPalette from './CommandPalette';
 
 import './pages/Styles/LoginPage.css';
 import './pages/Styles/RegisterPage.css';
@@ -281,10 +279,8 @@ const App = () => {
   }
 
   return (
-    <CommandPaletteProvider>
-      <Router>
-        <div className="app-container">
-        <CommandPalette />
+    <Router>
+      <div className="app-container">
         {token && (
           isMobile
             ? <MenuMobile />
@@ -347,9 +343,8 @@ const App = () => {
             )}
           </Routes>
         </div>
-        </div>
-      </Router>
-    </CommandPaletteProvider>
+      </div>
+    </Router>
   );
 };
 

@@ -7,8 +7,6 @@ import EditTaskPage from './EditTaskPage';
 import BoardTab from './BoardTab';
 import ProjectIcon from '../icons/ProjectIcon';
 import ConfirmDialog from './ConfirmDialog';
-import { useCommands } from '../CommandPaletteContext';
-import useKeyboardShortcuts, { modKeyLabel } from '../useKeyboardShortcuts';
 
 const ProjectPage = () => {
   const { t } = useTranslation();
@@ -25,7 +23,6 @@ const ProjectPage = () => {
   const [newTaskName, setNewTaskName] = useState("");
   const noteContentRef = useRef("");
   const editorRef = useRef(null);
-  const newTaskInputRef = useRef(null);
   const [links, setLinks] = useState([]);
   const [newLinkUrl, setNewLinkUrl] = useState("");
   const activeTasks = tasks.filter(t => !t.completed);
@@ -404,80 +401,6 @@ const ProjectPage = () => {
   const isCompleted = status === "completed";
 
   /* ===== States ===== */
-  const focusNewTaskInput = () => {
-    if (!location.pathname.endsWith(`/projects/${slug}`)) {
-      navigate(`/projects/${slug}`);
-    }
-    // Wait for the Tasks tab to mount (in case we just navigated to it).
-    requestAnimationFrame(() => newTaskInputRef.current?.focus());
-  };
-
-  // Commands scoped to this project — only show up in the palette while
-  // the project is open, and disappear again on navigating away.
-  useCommands(
-    'project-page',
-    project
-      ? [
-          {
-            id: 'project-go-tasks',
-            label: t('tabTasks'),
-            subtitle: project.name,
-            group: t('commandPaletteProject', 'This project'),
-            shortcut: '1',
-            perform: () => navigate(`/projects/${slug}`),
-          },
-          {
-            id: 'project-go-notes',
-            label: t('tabNotes'),
-            subtitle: project.name,
-            group: t('commandPaletteProject', 'This project'),
-            shortcut: '2',
-            perform: () => navigate(`/projects/${slug}/notes`),
-          },
-          {
-            id: 'project-go-board',
-            label: t('tabBoard'),
-            subtitle: project.name,
-            group: t('commandPaletteProject', 'This project'),
-            shortcut: '3',
-            perform: () => navigate(`/projects/${slug}/board`),
-          },
-          {
-            id: 'project-new-task',
-            label: t('newTaskPlaceholder'),
-            subtitle: project.name,
-            group: t('commandPaletteProject', 'This project'),
-            shortcut: 'N',
-            perform: focusNewTaskInput,
-          },
-          {
-            id: 'project-edit',
-            label: t('editProject', 'Edit project'),
-            subtitle: project.name,
-            group: t('commandPaletteProject', 'This project'),
-            perform: () => setEditProjectOpen(true),
-          },
-          {
-            id: 'project-leave',
-            label: t('leaveBtn'),
-            subtitle: project.name,
-            group: t('commandPaletteProject', 'This project'),
-            perform: handleLeave,
-          },
-        ]
-      : [],
-    [project?._id, project?.name, slug, t]
-  );
-
-  // Single-key shortcuts, active only while this page is mounted and the
-  // user isn't typing in the task input, the link input, or the notes editor.
-  useKeyboardShortcuts({
-    1: () => navigate(`/projects/${slug}`),
-    2: () => navigate(`/projects/${slug}/notes`),
-    3: () => navigate(`/projects/${slug}/board`),
-    n: focusNewTaskInput,
-  });
-
   if (loading) return <div className="loading-projectPage"> </div>;
   if (error) return <div className="error-projectPage">{error}</div>;
   if (!project) return null;
@@ -789,7 +712,6 @@ const ProjectPage = () => {
 
                       <div className="col-name">
                         <input
-                          ref={newTaskInputRef}
                           className="task-input"
                           placeholder={t('newTaskPlaceholder')}
                           value={newTaskName}
@@ -835,31 +757,6 @@ const ProjectPage = () => {
                       e.preventDefault();
                       const text = e.clipboardData.getData("text/plain");
                       document.execCommand("insertText", false, text);
-                    }}
-                    onKeyDown={(e) => {
-                      // Bold/italic/underline are already handled natively by
-                      // the browser inside contentEditable. These extend the
-                      // same Cmd/Ctrl-driven muscle memory to the rest of the
-                      // toolbar (list + heading formats).
-                      const mod = e.metaKey || e.ctrlKey;
-                      if (!mod) return;
-
-                      if (e.shiftKey && e.key === "7") {
-                        e.preventDefault();
-                        applyFormat("insertOrderedList");
-                      } else if (e.shiftKey && e.key === "8") {
-                        e.preventDefault();
-                        applyFormat("insertUnorderedList");
-                      } else if (e.altKey && e.key === "1") {
-                        e.preventDefault();
-                        applyFormat("formatBlock", "H1");
-                      } else if (e.altKey && e.key === "2") {
-                        e.preventDefault();
-                        applyFormat("formatBlock", "H2");
-                      } else if (e.altKey && e.key === "3") {
-                        e.preventDefault();
-                        applyFormat("formatBlock", "H3");
-                      }
                     }}
                   />
                 </div>

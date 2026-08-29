@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useTranslation } from 'react-i18next';
 
 import NewProjectPage from './pages/NewProjectPage';
 import ProjectIcon from './icons/ProjectIcon';
-import { useCommands } from './CommandPaletteContext';
-import useKeyboardShortcuts, { modKeyLabel } from './useKeyboardShortcuts';
 
 import './SideMenu.css';
 
@@ -232,8 +230,6 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
     toggleMenu(newCollapsed);
   };
 
-  const navigate = useNavigate();
-
   const visibleProjects = projects
     // 1. Hide unwanted statuses
     .filter(project =>
@@ -245,68 +241,6 @@ const SideMenu = ({ isCollapsed, toggleMenu }) => {
       if (a?.status !== "pinned" && b?.status === "pinned") return 1;
       return 0;
     });
-
-  // App-wide commands, available from the command palette (Cmd/Ctrl+K)
-  // no matter which page is currently open.
-  useCommands(
-    'app-global',
-    [
-      {
-        id: 'nav-home',
-        label: t('home'),
-        group: t('commandPaletteNavigate', 'Navigate'),
-        shortcut: `${modKeyLabel}+1`,
-        perform: () => navigate('/'),
-      },
-      {
-        id: 'nav-all-projects',
-        label: t('allProjects'),
-        group: t('commandPaletteNavigate', 'Navigate'),
-        shortcut: `${modKeyLabel}+2`,
-        perform: () => navigate('/projects'),
-      },
-      {
-        id: 'nav-settings',
-        label: t('settings'),
-        group: t('commandPaletteNavigate', 'Navigate'),
-        shortcut: `${modKeyLabel}+,`,
-        perform: () => navigate('/settings'),
-      },
-      ...visibleProjects.map((project) => ({
-        id: `nav-project-${project._id}`,
-        label: project.name || t('untitledProject'),
-        subtitle: t('commandPaletteOpenProject', 'Open project'),
-        group: t('commandPaletteProjects', 'Projects'),
-        keywords: ['project', project.slug],
-        perform: () => navigate(`/projects/${project.slug}`),
-      })),
-      {
-        id: 'new-project',
-        label: t('newProject'),
-        group: t('commandPaletteActions', 'Actions'),
-        shortcut: `${modKeyLabel}+Shift+N`,
-        perform: () => setShowNewProject(true),
-      },
-      {
-        id: 'toggle-sidebar',
-        label: t('commandPaletteToggleSidebar', 'Toggle sidebar'),
-        group: t('commandPaletteView', 'View'),
-        shortcut: `${modKeyLabel}+B`,
-        perform: handleToggleMenu,
-      },
-    ],
-    [t, navigate, visibleProjects, collapsed]
-  );
-
-  // Direct keyboard shortcuts for the actions above, so users don't have to
-  // open the palette every time — the palette is discovery, this is speed.
-  useKeyboardShortcuts({
-    'mod+1': () => navigate('/'),
-    'mod+2': () => navigate('/projects'),
-    'mod+,': () => navigate('/settings'),
-    'mod+shift+n': () => setShowNewProject(true),
-    'mod+b': handleToggleMenu,
-  });
 
   return (
     <div className={`side-menu ${collapsed ? 'collapsed' : ''}`}>
