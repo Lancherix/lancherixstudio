@@ -646,6 +646,7 @@
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
+  text-align-last: right;
 }
 
 .editSelect-settingsPage option {
